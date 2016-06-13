@@ -72,7 +72,11 @@ var Ollert = (function() {
         organizationBoards.append(item);
       }
       var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
-      $("#config-drawer-board-list").append(section);
+      var botonAgregar = $("<button>Nuevo Proyecto</button>");
+      var section2 = section.append(botonAgregar);
+      $("#config-drawer-board-list").append(section2);
+      
+
     }
   };
 
