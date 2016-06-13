@@ -5,26 +5,26 @@
         %button{type: "button", class: "close", "data-dismiss" => "modal"}
           %span.glyphicon.glyphicon-remove{"aria-hidden" => "true"}
           %span{class: "sr-only"}
-            Close
+            Cerrar
         %h4{class: "modal-title"}
-          Configure Boards
+          Configurar Proyectos
 
       .modal-body
         %form.form-horizontal{role: "form"}
           .form-group
             %label.col-xs-4.control-label{for: "starting-list"}
-              Work Begins
+              Comienzo de Tarea
             .col-xs-8
               %select.form-control#starting-list
           .form-group
             %label.col-xs-4.control-label{for: "ending-list"}
-              Work Ends
+              Fin de Tarea
             .col-xs-8
               %select.form-control#ending-list
 
       .modal-footer
         %a.btn.btn-primary{id: "submit-board-lists"}
-          Apply
+          Guardar
 
 #board-details
   .container
@@ -38,21 +38,21 @@
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 Average members per card
+            %h4 Promedio de miembros por tarea
           #avg-members-per-card.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
 
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 Average cards per member
+            %h4 Promedio de tareas por miembro
           #avg-cards-per-member.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
 
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 List with the most cards
+            %h4 Lista con mayor cantidad de tareas
           #list-with-most-cards-count.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
           #list-with-most-cards-name.stat-subtitle
@@ -60,7 +60,7 @@
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 List with the least cards
+            %h4 Lista con menor cantidad de tareas
           #list-with-least-cards-count.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
           #list-with-least-cards-name.stat-subtitle
@@ -100,21 +100,21 @@
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 Board members
+            %h4 Miembros del proyecto
           #board-members-count.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
 
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 Total cards
+            %h4 Cantidad de tareas totales
           #card-count.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
 
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 Oldest Card (age in days)
+            %h4 Tarea más antigua (en días)
           #oldest-card-age.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
           #oldest-card-name.stat-subtitle
@@ -122,7 +122,7 @@
       .col-md-3.col-sm-6.col-xs-12.no-padding
         .analysis-block-sm
           .stat-title
-            %h4 Newest Card (age in days)
+            %h4 Tarea más nueva (en días)
           #newest-card-age.stat-value
             %img.stats-spinner{src: '/img/spinner.gif'}
           #newest-card-name.stat-subtitle

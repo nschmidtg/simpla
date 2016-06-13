@@ -29,7 +29,7 @@
             %span.glyphicon.glyphicon-menu-hamburger{"aria-hidden": "true"}
         .drawer-contents
           .drawer-heading
-            %h2.drawer-title Boards
+            %h2.drawer-title Proyectos
           %ul.drawer-nav#config-drawer-board-list
 
     %div
@@ -53,11 +53,11 @@
                   %li
                     %a{href: "/settings", alt: "Settings"}
                       %span.glyphicon.glyphicon-cog
-                      Settings
+                      Configuración
                   %li
                     %a{href: "/logout", alt: "Log out"}
                       %span.glyphicon.glyphicon-off
-                      Log out
+                      Cerrar Sesión
 
       #mainContent
         - if flash.has? :error
@@ -85,16 +85,16 @@
             %ul.footer-item.footer-links
               %li
                 %a{href: "https://github.com/sep/ollert", title: "Source Code", alt: "Link to our Github page"}
-                  Source Code
+                  Código Fuente
               %li
                 %a{href: "/privacy", title: "Privacy Policy", alt: "Link to privacy policy"}
-                  Privacy Policy
+                  Política de Privacidad
               %li
                 %a{href: "/terms", title: "Terms and Conditions", alt: "Link to Terms of Service"}
-                  Terms and Conditions
+                  Términos y Condiciones
               %li
                 %a{href: "mailto:connect@ollertapp.com", title: "Contact Us", alt: "Email us at connect@ollertapp.com"}
-                  Contact Us
+                  Contáctenos
           .col-md-3.col-md-offset-3.col-sm-4.col-sm-offset-2.hidden-xs.no-padding
             %a{href: "http://www.sep.com/labs/", alt: "SEP Labs", target: "blank", title: "Danger! Experimental"}
               %img.footer-item.footer-lab{"src": "/img/labs-logo.png"}
