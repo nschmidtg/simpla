@@ -4,7 +4,7 @@
     .text-center.col-xs-12
       NUEVO PROYECTO de #{@orgName}
 .row
-  %form#components.form-horizontal{role: "form"}
+  %form#components.form-horizontal{role: "form", :action=>"/create_project", :method=>"post"}
     %fieldset
       .tab-content
         / Tabs of snippets go here
@@ -12,146 +12,17 @@
           .component
             / Text input
             .form-group
-              %label.col-md-4.control-label{for: "textinput"} Text Input
+              %label.col-md-4.control-label{for: "textinput"} Nombre
               .col-md-4
-                %input#textinput.form-control.input-md{name: "textinput", placeholder: "placeholder", style: "cursor: auto; background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABHklEQVQ4EaVTO26DQBD1ohQWaS2lg9JybZ+AK7hNwx2oIoVf4UPQ0Lj1FdKktevIpel8AKNUkDcWMxpgSaIEaTVv3sx7uztiTdu2s/98DywOw3Dued4Who/M2aIx5lZV1aEsy0+qiwHELyi+Ytl0PQ69SxAxkWIA4RMRTdNsKE59juMcuZd6xIAFeZ6fGCdJ8kY4y7KAuTRNGd7jyEBXsdOPE3a0QGPsniOnnYMO67LgSQN9T41F2QGrQRRFCwyzoIF2qyBuKKbcOgPXdVeY9rMWgNsjf9ccYesJhk3f5dYT1HX9gR0LLQR30TnjkUEcx2uIuS4RnI+aj6sJR0AM8AaumPaM/rRehyWhXqbFAA9kh3/8/NvHxAYGAsZ/il8IalkCLBfNVAAAAABJRU5ErkJggg==); background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat;", type: "text"}/
-                %span.help-block help
-          .component
-            / Password input
+                %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text"}/
             .form-group
-              %label.col-md-4.control-label{for: "passwordinput"} Password Input
+              %label.col-md-4.control-label{for: "textinput"} Equipo
               .col-md-4
-                %input#passwordinput.form-control.input-md{name: "passwordinput", placeholder: "placeholder", style: "background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAACIUlEQVQ4EX2TOYhTURSG87IMihDsjGghBhFBmHFDHLWwSqcikk4RRKJgk0KL7C8bMpWpZtIqNkEUl1ZCgs0wOo0SxiLMDApWlgOPrH7/5b2QkYwX7jvn/uc//zl3edZ4PPbNGvF4fC4ajR5VrNvt/mo0Gr1ZPOtfgWw2e9Lv9+chX7cs64CS4Oxg3o9GI7tUKv0Q5o1dAiTfCgQCLwnOkfQOu+oSLyJ2A783HA7vIPLGxX0TgVwud4HKn0nc7Pf7N6vV6oZHkkX8FPG3uMfgXC0Wi2vCg/poUKGGcagQI3k7k8mcp5slcGswGDwpl8tfwGJg3xB6Dvey8vz6oH4C3iXcFYjbwiDeo1KafafkC3NjK7iL5ESFGQEUF7Sg+ifZdDp9GnMF/KGmfBdT2HCwZ7TwtrBPC7rQaav6Iv48rqZwg+F+p8hOMBj0IbxfMdMBrW5pAVGV/ztINByENkU0t5BIJEKRSOQ3Aj+Z57iFs1R5NK3EQS6HQqF1zmQdzpFWq3W42WwOTAf1er1PF2USFlC+qxMvFAr3HcexWX+QX6lUvsKpkTyPSEXJkw6MQ4S38Ljdbi8rmM/nY+CvgNcQqdH6U/xrYK9t244jZv6ByUOSiDdIfgBZ12U6dHEHu9TpdIr8F0OP692CtzaW/a6y3y0Wx5kbFHvGuXzkgf0xhKnPzA4UTyaTB8Ph8AvcHi3fnsrZ7Wore02YViqVOrRXXPhfqP8j6MYlawoAAAAASUVORK5CYII=); background-attachment: scroll; background-position: 100% 50%; background-repeat: no-repeat;", type: "password"}/
-                %span.help-block help
-          .component
-            / Search input
+                %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text", disabled: "true"}/
             .form-group
-              %label.col-md-4.control-label{for: "searchinput"} Search Input
+              %label.col-md-4.control-label{for: "textinput"} 
               .col-md-4
-                %input#searchinput.form-control.input-md{name: "searchinput", placeholder: "placeholder", type: "search"}/
-                %p.help-block help
-          .component
-            / Prepended text
-            .form-group
-              %label.col-md-4.control-label{for: "prependedtext"} Prepended Text
-              .col-md-4
-                .input-group
-                  %span.input-group-addon prepend
-                  %input#prependedtext.form-control{name: "prependedtext", placeholder: "placeholder", type: "text"}/
-                %p.help-block help
-          .component
-            / Appended Input
-            .form-group
-              %label.col-md-4.control-label{for: "appendedtext"} Appended Text
-              .col-md-4
-                .input-group
-                  %input#appendedtext.form-control{name: "appendedtext", placeholder: "placeholder", type: "text"}/
-                  %span.input-group-addon append
-                %p.help-block help
-          .component
-            / Prepended checkbox
-            .form-group
-              %label.col-md-4.control-label{for: "prependedcheckbox"} Prepended Checkbox
-              .col-md-4
-                .input-group
-                  %span.input-group-addon
-                    %input{type: "checkbox"}/
-                  %input#prependedcheckbox.form-control{name: "prependedcheckbox", placeholder: "placeholder", type: "text"}/
-                %p.help-block help
-          .component
-            / Appended checkbox
-            .form-group
-              %label.col-md-4.control-label{for: "appendedcheckbox"} Appended Checkbox
-              .col-md-4
-                .input-group
-                  %input#appendedcheckbox.form-control{name: "appendedcheckbox", placeholder: "placeholder", type: "text"}/
-                  %span.input-group-addon
-                    %input{type: "checkbox"}/
-                %p.help-block help
-          .component
-            / Button Drop Down
-            .form-group
-              %label.col-md-4.control-label{for: "buttondropdown"} Button Drop Down
-              .col-md-4
-                .input-group
-                  %input#buttondropdown.form-control{name: "buttondropdown", placeholder: "placeholder", type: "text"}/
-                  .input-group-btn
-                    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", type: "button"}
-                      Action
-                      %span.caret
-                    %ul.dropdown-menu.pull-right
-                      %li
-                        %a{href: "#"} Option one
-                      %li
-                        %a{href: "#"} Option two
-                      %li
-                        %a{href: "#"} Option three
-          .component
-            / Textarea
-            .form-group
-              %label.col-md-4.control-label{for: "textarea"} Text Area
-              .col-md-4
-                %textarea#textarea.form-control{name: "textarea"} default text
-        #radioscheckboxes.tab-pane
-          .component
-            / Multiple Radios
-            .form-group
-              %label.col-md-4.control-label{for: "radios"} Multiple Radios
-              .col-md-4
-                .radio
-                  %label{for: "radios-0"}
-                    %input#radios-0{checked: "checked", name: "radios", type: "radio", value: "1"}/
-                    Option one
-                .radio
-                  %label{for: "radios-1"}
-                    %input#radios-1{name: "radios", type: "radio", value: "2"}/
-                    Option two
-          .component
-            / Multiple Radios (inline)
-            .form-group
-              %label.col-md-4.control-label{for: "radios"} Inline Radios
-              .col-md-4
-                %label.radio-inline{for: "radios-0"}
-                  %input#radios-0{checked: "checked", name: "radios", type: "radio", value: "1"}/
-                  1
-                %label.radio-inline{for: "radios-1"}
-                  %input#radios-1{name: "radios", type: "radio", value: "2"}/
-                  2
-                %label.radio-inline{for: "radios-2"}
-                  %input#radios-2{name: "radios", type: "radio", value: "3"}/
-                  3
-                %label.radio-inline{for: "radios-3"}
-                  %input#radios-3{name: "radios", type: "radio", value: "4"}/
-                  4
-          .component
-            / Multiple Checkboxes
-            .form-group
-              %label.col-md-4.control-label{for: "checkboxes"} Multiple Checkboxes
-              .col-md-4
-                .checkbox
-                  %label{for: "checkboxes-0"}
-                    %input#checkboxes-0{name: "checkboxes", type: "checkbox", value: "1"}/
-                    Option one
-                .checkbox
-                  %label{for: "checkboxes-1"}
-                    %input#checkboxes-1{name: "checkboxes", type: "checkbox", value: "2"}/
-                    Option two
-          .component
-            / Multiple Checkboxes (inline)
-            .form-group
-              %label.col-md-4.control-label{for: "checkboxes"} Inline Checkboxes
-              .col-md-4
-                %label.checkbox-inline{for: "checkboxes-0"}
-                  %input#checkboxes-0{name: "checkboxes", type: "checkbox", value: "1"}/
-                  1
-                %label.checkbox-inline{for: "checkboxes-1"}
-                  %input#checkboxes-1{name: "checkboxes", type: "checkbox", value: "2"}/
-                  2
-                %label.checkbox-inline{for: "checkboxes-2"}
-                  %input#checkboxes-2{name: "checkboxes", type: "checkbox", value: "3"}/
-                  3
-                %label.checkbox-inline{for: "checkboxes-3"}
-                  %input#checkboxes-3{name: "checkboxes", type: "checkbox", value: "4"}/
-                  4
+                %input{:type => "submit", :value => "Crear", :class => "button"}    
 
- 
+          
+            
