@@ -39,6 +39,39 @@ class Ollert
     end
   end
 
+  get '/new_board', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+
+    begin
+      @orgName=params[:orgName]
+      puts @orgName
+      #@boards = BoardAnalyzer.analyze(BoardFetcher.fetch(client, @user.trello_name))
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :new_board }
+      
+    end
+  end
+
   get '/boards/:board_id', :auth => :connected do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],

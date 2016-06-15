@@ -57,6 +57,10 @@ var Ollert = (function() {
     }
   };
 
+  var newProject = function(org){
+    window.location = "/new_board?orgName="+org;
+  };
+
   var loadBoardsCallback = function(data) {
     resetBoards();
     var boardData = data['data'], boardItem, board, organization, boards;
@@ -72,7 +76,7 @@ var Ollert = (function() {
         organizationBoards.append(item);
       }
       var section = $("<li role=\"presentation1\"><b>" + orgName + "</b></li>").append(organizationBoards)
-      var botonAgregar = $("<button>Nuevo Proyecto</button>");
+      var botonAgregar = $("<button onclick=\"Ollert.newProject('"+orgName+"')\">Nuevo Proyecto</button>");
       var section2 = section.append(botonAgregar);
       $("#config-drawer-board-list").append(section2);
       
@@ -87,6 +91,7 @@ var Ollert = (function() {
   return {
     initDrawer: initDrawer,
     refreshDrawer: refreshDrawer,
-    loadAvatar: loadAvatar
+    loadAvatar: loadAvatar,
+    newProject: newProject
   };
 })();
