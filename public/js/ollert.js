@@ -66,12 +66,12 @@ var Ollert = (function() {
       for (var j = 0; j < organization.length; ++j) {
         board = organization[j];
         item = $("<li/>", {
-          role: "presentation"
+          role: "presentation1"
         });
         item.append($("<a href=\"/boards/" + board.id + "\">" + board.name + "</a>"));
         organizationBoards.append(item);
       }
-      var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
+      var section = $("<li role=\"presentation1\"><b>" + orgName + "</b></li>").append(organizationBoards)
       var botonAgregar = $("<button>Nuevo Proyecto</button>");
       var section2 = section.append(botonAgregar);
       $("#config-drawer-board-list").append(section2);
