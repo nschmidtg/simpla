@@ -57,8 +57,8 @@ var Ollert = (function() {
     }
   };
 
-  var newProject = function(org){
-    window.location = "/new_board?orgName="+org;
+  var newProject = function(last_board_id,orgName){
+    window.location = "/new_board?last_board_id="+last_board_id+"&orgName="+orgName;
   };
 
   var loadBoardsCallback = function(data) {
@@ -70,13 +70,13 @@ var Ollert = (function() {
       for (var j = 0; j < organization.length; ++j) {
         board = organization[j];
         item = $("<li/>", {
-          role: "presentation1"
+          role: "presentation"
         });
         item.append($("<a href=\"/boards/" + board.id + "\">" + board.name + "</a>"));
         organizationBoards.append(item);
       }
-      var section = $("<li role=\"presentation1\"><b>" + orgName + "</b></li>").append(organizationBoards)
-      var botonAgregar = $("<button onclick=\"Ollert.newProject('"+orgName+"')\">Nuevo Proyecto</button>");
+      var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
+      var botonAgregar = $("<button onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
       var section2 = section.append(botonAgregar);
       $("#config-drawer-board-list").append(section2);
       

@@ -18,7 +18,11 @@
             .form-group
               %label.col-md-4.control-label{for: "textinput"} Equipo
               .col-md-4
-                %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text", disabled: "true"}/
+                %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}/
+            .form-group
+              
+              .col-md-4
+                %input#textinput.form-control.input-md{name: "last_board_id", value: "#{@last_board_id}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "hidden"}/
             .form-group
               %label.col-md-4.control-label{for: "textinput"} 
               .col-md-4

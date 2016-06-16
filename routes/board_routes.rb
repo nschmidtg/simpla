@@ -44,30 +44,42 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token = @user.member_token
+    end
 
-    # begin
-      
-      @board=Trello::Board.create(name: params[:name],description: "Descripción",organization_id: "aim69")
-      #@boards = BoardAnalyzer.analyze(BoardFetcher.fetch(client, @user.trello_name))
-    # rescue Trello::Error => e
-    #   unless @user.nil?
-    #     @user.member_token = nil
-    #     @user.trello_name = nil
-    #     @user.save
-    #   end
 
-    #   respond_to do |format|
-    #     format.html do
-    #       flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-    #       redirect '/'
-    #     end
+    begin
+      last_board_id=params[:last_board_id]
+      last_board=Trello::Board.find(last_board_id)
+      if last_board.organization_id!=nil
+        data={:name=> params[:name],:description=> "Descripción",:organization_id=> last_board.organization_id}
+      else
+        data={:name=> params[:name],:description=> "Descripción"}
+      end
 
-    #     format.json { status 400 }
-    #   end
-    # end
+      @board=Trello::Board.create(data)
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
 
     respond_to do |format|
-      format.html { haml :boards }
+      flash[:success] = "Proyecto creado exitosamente."
+      redirect '/'
       
     end
   end
@@ -80,6 +92,7 @@ class Ollert
 
     begin
       @orgName=params[:orgName]
+      @last_board_id=params[:last_board_id]
       puts @orgName
       #@boards = BoardAnalyzer.analyze(BoardFetcher.fetch(client, @user.trello_name))
     rescue Trello::Error => e
@@ -92,7 +105,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }
