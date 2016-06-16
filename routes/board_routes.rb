@@ -53,8 +53,10 @@ class Ollert
     begin
       last_board_id=params[:last_board_id]
       last_board=Trello::Board.find(last_board_id)
+      memb="false"
       if last_board.organization_id!=nil
         data={:name=> params[:name],:description=> "Descripción",:organization_id=> last_board.organization_id}
+        memb="true"
       else
         data={:name=> params[:name],:description=> "Descripción"}
       end
@@ -72,7 +74,18 @@ class Ollert
       @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
       @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
       @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-
+      #@board.add_member(@user,type=:admin)
+      # members=Trello::Organization.find(@board.organization_id).members
+      # @board.add_member(members.first,type=:admin)
+      # if memb=="true"
+      #   members=Trello::Organization.find(@board.organization_id).members
+      #   members.each do |m|
+      #     begin
+      #       @board.add_member(m,type=:admin)
+      #     rescue
+      #     end
+      #   end
+      # end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
