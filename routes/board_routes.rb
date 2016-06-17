@@ -159,9 +159,8 @@ class Ollert
 
     begin
       @orgName=params[:orgName]
-      if params[:org_id].present?
-        @org_id=params[:org_id]
-      else
+      org_id=params[:org_id]
+      if org_id == nil
         @org_id=Trello::Board.find(params[:last_board_id]).organization_id
         if @org_id == nil
           @org_id=""

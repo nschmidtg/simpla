@@ -71,7 +71,7 @@ var Ollert = (function() {
     var orgName;
     for (i = 0; i < orgData.length; i++) {
       orgName = orgData[i]['displayName'];
-      appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProject('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+      appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
     }
     $("#config-drawer-board-list").append(appender);
   };
@@ -119,6 +119,7 @@ var Ollert = (function() {
     initDrawer: initDrawer,
     refreshDrawer: refreshDrawer,
     loadAvatar: loadAvatar,
-    newProject: newProject
+    newProject: newProject,
+    newProjectOrg: newProjectOrg
   };
 })();
