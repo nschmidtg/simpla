@@ -80,6 +80,7 @@ class Ollert
       members.each do |m|
         @board.add_member(m,type=:admin)
       end
+      @board.add_member(members.last, type = :normal)
       #@board.add_member(@user,type=:admin)
       # members=Trello::Organization.find(@board.organization_id).members
       # @board.add_member(members.first,type=:admin)
