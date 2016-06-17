@@ -74,10 +74,11 @@ class Ollert
       @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
       @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
       @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      
+      member_current=Trello::Member.find(Trello::Token.find(@user.member_token).member_id)
+      @board.add_member(member_current,type=:admin)
       members=Trello::Organization.find(@board.organization_id).members
       members.each do |m|
-        @board.add_member(m,type=:admin)
+        @board.add_member(m,type=:normal)
       end
       #@board.add_member(@user,type=:admin)
       # members=Trello::Organization.find(@board.organization_id).members
