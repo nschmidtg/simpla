@@ -47,6 +47,7 @@ var Ollert = (function() {
         resetBoards(request.status === 400 ? 'No boards' : 'Error. Try reloading!');
       }
     });
+    
   };
 
   var resetBoards = function(text) {
@@ -59,6 +60,20 @@ var Ollert = (function() {
 
   var newProject = function(last_board_id,orgName){
     window.location = "/new_board?last_board_id="+last_board_id+"&orgName="+orgName;
+  };
+  var newProjectOrg = function(org_id,orgName){
+    window.location = "/new_board?org_id="+org_id+"&orgName="+orgName;
+  };
+
+  var loadOrganizationsCallback = function(data){
+    var appender="";
+    var orgData = data['data'];
+    var orgName;
+    for (i = 0; i < orgData.length; i++) {
+      orgName = orgData[i]['displayName'];
+      appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProject('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+    }
+    $("#config-drawer-board-list").append(appender);
   };
 
   var loadBoardsCallback = function(data) {
@@ -82,6 +97,18 @@ var Ollert = (function() {
       
 
     }
+    $.ajax({
+      url: "/organizations",
+      method: "get",
+      headers: {
+        Accept: 'application/json'
+      },
+      dataType: "json",
+      success: loadOrganizationsCallback,
+      error: function(request, status, error) {
+        resetBoards(request.status === 400 ? 'No organizations' : 'Error. Try reloading!');
+      }
+    });
   };
 
   var loadAvatar = function(gravatar_hash) {

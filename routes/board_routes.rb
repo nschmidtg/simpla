@@ -8,6 +8,36 @@ require_relative '../utils/analyzers/board_details_analyzer'
 require_relative '../utils/fetchers/board_details_fetcher'
 
 class Ollert
+  get '/organizations', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+
+    begin
+      @organizations = OrganizationFetcher.fetch(client, @user.trello_name)
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.json { {'data' => @organizations }.to_json }
+    end
+  end
+
   get '/boards', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -129,9 +159,15 @@ class Ollert
 
     begin
       @orgName=params[:orgName]
-      @last_board_id=params[:last_board_id]
-      puts @orgName
-      #@boards = BoardAnalyzer.analyze(BoardFetcher.fetch(client, @user.trello_name))
+      if params[:org_id].present?
+        @org_id=params[:org_id]
+      else
+        @org_id=Trello::Board.find(params[:last_board_id]).organization_id
+        if @org_id == nil
+          @org_id=""
+        end
+      end
+      
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
