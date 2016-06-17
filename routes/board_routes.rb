@@ -81,7 +81,7 @@ class Ollert
         @board.add_member(m,type=:admin)
       end
       members.each do |m|
-        if m.member_id!=member_current.id
+        if m.id!=member_current.id
           @board.add_member(m,type=:normal)
         end
       end
