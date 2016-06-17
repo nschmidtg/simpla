@@ -61,43 +61,42 @@ class Ollert
         data={:name=> params[:name],:description=> "Descripción"}
       end
 
-      @board=Trello::Board.create(data)
-      @board.lists.each do |l|
-        l.close!
+      Thread.new do
+        #Cerrar las listas en inglés
+        @board=Trello::Board.create(data)
+        @board.lists.each do |l|
+          l.close!
+        end
       end
-      list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
-      list2=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"2"})
-      list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
-      @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      member_current=Trello::Member.find(Trello::Token.find(@user.member_token).member_id)
-      @board.add_member(member_current,type=:admin)
-      members=Trello::Organization.find(@board.organization_id).members
-      members.each do |m|
-        @board.add_member(m,type=:admin)
+      Thread.new do
+        #Crear las listas en español
+        list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
+        list2=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"2"})
+        list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
+
+        #Crear las tareas por defecto
+        @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+        @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+        @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+        @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+        @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+        @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
       end
-      members.each do |m|
-        if m.id!=member_current.id
-          @board.add_member(m,type=:normal)
+      Thread.new do
+        #Encontrar al usuario como miembro
+        member_current=Trello::Member.find(Trello::Token.find(@user.member_token).member_id)
+        @board.add_member(member_current,type=:admin)
+        members=Trello::Organization.find(@board.organization_id).members
+        members.each do |m|
+          @board.add_member(m,type=:admin)
+        end
+        members.each do |m|
+          if m.id!=member_current.id
+            @board.add_member(m,type=:normal)
+          end
         end
       end
       
-      #@board.add_member(@user,type=:admin)
-      # members=Trello::Organization.find(@board.organization_id).members
-      # @board.add_member(members.first,type=:admin)
-      # if memb=="true"
-      #   members=Trello::Organization.find(@board.organization_id).members
-      #   members.each do |m|
-      #     begin
-      #       @board.add_member(m,type=:admin)
-      #     rescue
-      #     end
-      #   end
-      # end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
