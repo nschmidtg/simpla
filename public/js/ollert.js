@@ -59,10 +59,10 @@ var Ollert = (function() {
   };
 
   var newProject = function(last_board_id,orgName){
-    window.location = "/new_board?last_board_id="+last_board_id+"&orgName="+orgName;
+    window.location = "/new_board?org_id=nil&last_board_id="+last_board_id+"&orgName="+orgName;
   };
   var newProjectOrg = function(org_id,orgName){
-    window.location = "/new_board?org_id="+org_id+"&orgName="+orgName;
+    window.location = "/new_board?last_board_id=nil&org_id="+org_id+"&orgName="+orgName;
   };
 
   var loadOrganizationsCallback = function(data){

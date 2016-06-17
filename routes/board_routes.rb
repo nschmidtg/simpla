@@ -81,11 +81,10 @@ class Ollert
 
 
     begin
-      last_board_id=params[:last_board_id]
-      last_board=Trello::Board.find(last_board_id)
+      org_id=params[:org_id]
       memb="false"
-      if last_board.organization_id!=nil
-        data={:name=> params[:name],:description=> "Descripción",:organization_id=> last_board.organization_id}
+      if org_id!=""
+        data={:name=> params[:name],:description=> "Descripción",:organization_id=> org_id}
         memb="true"
       else
         data={:name=> params[:name],:description=> "Descripción"}
@@ -159,12 +158,17 @@ class Ollert
 
     begin
       @orgName=params[:orgName]
-      org_id=params[:org_id]
-      if org_id == nil
+      Trello.configure do |config|
+        config.developer_public_key = ENV['PUBLIC_KEY']
+        config.member_token = @user.member_token
+      end
+      if params[:org_id]=='nil'
         @org_id=Trello::Board.find(params[:last_board_id]).organization_id
         if @org_id == nil
           @org_id=""
         end
+      else
+        @org_id=params[:org_id]
       end
       
     rescue Trello::Error => e
