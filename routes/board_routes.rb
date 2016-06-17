@@ -61,13 +61,13 @@ class Ollert
         data={:name=> params[:name],:description=> "Descripción"}
       end
 
-      Thread.new do
+      
         #Cerrar las listas en inglés
         @board=Trello::Board.create(data)
         @board.lists.each do |l|
           l.close!
         end
-      end
+      
       Thread.new do
         #Crear las listas en español
         list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
