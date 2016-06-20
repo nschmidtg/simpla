@@ -8,12 +8,7 @@ require_relative '../utils/analyzers/board_details_analyzer'
 require_relative '../utils/fetchers/board_details_fetcher'
 
 class Ollert
-  get '/public/licitacion', :auth => :none do
-    
-
-    render file: Rails.public_path.join("licitacion","index.html"), layout: true # /public/templates/home.html
-
-  end
+ 
 
   get '/organizations', :auth => :connected do
     client = Trello::Client.new(
