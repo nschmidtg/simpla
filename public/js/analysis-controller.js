@@ -25,6 +25,7 @@ var AnalysisController = (function () {
     LabelCountChartBuilder.build(boardId, token);
     ProgressChartBuilder.build(boardId, token, startOfWork, endOfWork);
     ListChangesChartBuilder.build(boardId, token, startOfWork, endOfWork);
+    CalendarChartBuilder.build(boardId, token);
   };
 
   var updateListRange = function (boardId, token) {

@@ -1,0 +1,49 @@
+.modal.fade{id: "configure-board-modal", tabindex: "-1", role: "dialog", "aria-hidden" => "true"}
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button{type: "button", class: "close", "data-dismiss" => "modal"}
+          %span.glyphicon.glyphicon-remove{"aria-hidden" => "true"}
+          %span{class: "sr-only"}
+            Cerrar
+        %h4{class: "modal-title"}
+          Configurar Proyectos
+
+      .modal-body
+        %form.form-horizontal{role: "form"}
+          .form-group
+            %label.col-xs-4.control-label{for: "starting-list"}
+              Comienzo de Tarea
+            .col-xs-8
+              %select.form-control#starting-list
+          .form-group
+            %label.col-xs-4.control-label{for: "ending-list"}
+              Fin de Tarea
+            .col-xs-8
+              %select.form-control#ending-list
+
+      .modal-footer
+        %a.btn.btn-primary{id: "submit-board-lists"}
+          Guardar
+
+#board-details
+  .container
+    .row
+      #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
+        #{@board_name}
+      .col-xs-2.text-center.h2.ollert-header
+        %button.btn.btn-default.pull-right{"data-toggle" => "modal", "data-target" =>"#configure-board-modal"}
+          %span.glyphicon.glyphicon-wrench
+    
+    .row
+      .col-md-12.col-xs-12.no-padding
+        .analysis-block-md
+          %img#calendar-spinner{src: '/img/spinner.gif'}
+          #calendar-container.med-chart.graph-container
+
+    
+
+:javascript
+  window.onload = function() {
+    AnalysisController.init("#{@board_id}", #{@board_lists}, "#{@starting_list}", "#{@ending_list}", "#{@token}");
+  };

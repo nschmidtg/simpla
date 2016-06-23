@@ -1,4 +1,6 @@
 var Ollert = (function() {
+
+  var teams = [];
   var initDrawer = function() {
     refreshDrawer();
     $("body").toggleClass("has-drawer");
@@ -71,7 +73,16 @@ var Ollert = (function() {
     var orgName;
     for (i = 0; i < orgData.length; i++) {
       orgName = orgData[i]['displayName'];
-      appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+      var esta=false;
+      for(t = 0; t< teams.length; t++){
+        if(teams[t]==orgName){
+          esta=true;
+          break;
+        }
+      }
+      if(esta==false){
+        appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+      }  
     }
     $("#config-drawer-board-list").append(appender);
   };
@@ -82,6 +93,7 @@ var Ollert = (function() {
     for (var orgName in boardData) {
       organization = boardData[orgName];
       organizationBoards = $("<ul/>");
+      teams.push(orgName);
       for (var j = 0; j < organization.length; ++j) {
         board = organization[j];
         item = $("<li/>", {
@@ -120,6 +132,7 @@ var Ollert = (function() {
     refreshDrawer: refreshDrawer,
     loadAvatar: loadAvatar,
     newProject: newProject,
-    newProjectOrg: newProjectOrg
+    newProjectOrg: newProjectOrg,
+    teams: teams
   };
 })();

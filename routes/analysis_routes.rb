@@ -64,4 +64,14 @@ class Ollert
     body LabelCountAnalyzer.analyze(LabelCountFetcher.fetch(client, board_id)).to_json
     status 200
   end
+
+  get '/api/v1/calendar/:board_id' do |board_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => params['token']
+    )
+
+    body CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id)).to_json
+    status 200
+  end
 end

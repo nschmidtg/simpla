@@ -196,6 +196,54 @@ class Ollert
     end
   end
 
+  get '/boards/:board_id/calendar', :auth => :connected do |board_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+
+    begin
+      details = CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id))
+      @board_name = details[:name]
+      @board_lists = details[:lists]
+      @board_cards = details[:cards]
+
+      board_settings = @user.boards.find_or_create_by(board_id: board_id)
+
+      list_ids = @board_lists.map {|bl| bl[:id]}
+      board_settings.starting_list = saved_list_or_default(board_settings.starting_list, list_ids, list_ids.first)
+      board_settings.ending_list = saved_list_or_default(board_settings.ending_list, list_ids, list_ids.last)
+
+      board_settings.save
+
+      @board_lists = @board_lists.to_json
+      @board_cards = @board_cards.to_json
+      @starting_list = board_settings.starting_list
+      @ending_list = board_settings.ending_list
+      @token = @user.member_token
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    @board_id = board_id
+
+    @title = @board_name
+    haml :calendar
+  end
+
   get '/boards/:board_id', :auth => :connected do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
