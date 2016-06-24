@@ -81,6 +81,8 @@ var CalendarChartBuilder = (function() {
     $('#calendar-container').fullCalendar({
     events: jQuery.parseJSON(eventos)
 });
+    $('#calendar-container').height('100%');
+    $('.analysis-block-md').height('100%');
   }
 
   var load = function(boardId, token) {
