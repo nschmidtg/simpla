@@ -1374,7 +1374,7 @@ ul.boards-list {
   float:left;
   list-style: none outside none;
   margin-left: 0px;
-  min-height: 100%;
+  min-height: 80%;
   min-width: 100%;
   padding-left: 0 !important;
   width: 100%;
@@ -1412,6 +1412,7 @@ ul.boards-list {
   background-color: #FFFFFF;
   padding: 5px;
   margin: 5px;
+  overflow: overlay;
   border-style: solid;
   border-width: 1px;
   border-color: #DDD;

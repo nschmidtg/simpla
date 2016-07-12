@@ -7,18 +7,29 @@
   .row
     %hr
   
-
-  - @boards.each do |org_name, boards|
-
-  
-    .col-md-3.col-sm-3.col-xs-12.no-padding
+  - @asignados = Array.new()
+  - @states.each do |state|
+    .col-md-2.col-sm-2.col-xs-4.no-padding
       .analysis-block-md
-        #{org_name}
+        #{state}
         %ul{class: 'boards-list'}
+          - @boards.each do |org_name, boards|
+            - boards.each do |board|
+              - if state == board["name"].split('|')[1]
+                - @asignados<<board["name"]
+                %li.boards-list-item
+                  %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                    #{board["name"].split('|')[2]}
+  .col-md-2.col-sm-2.col-xs-4.no-padding
+    .analysis-block-md
+      NO ASIGNADO
+      %ul{class: 'boards-list'}
+        - @boards.each do |org_name, boards|
           - boards.each do |board|
-            %li.boards-list-item
-              %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                #{org_name} - #{board["name"]}
+            - unless  @asignados.include?(board["name"])
+              %li.boards-list-item
+                %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                  #{board["name"]}
           
 :javascript
   window.onload = function() {
@@ -56,6 +67,7 @@
           left: position.left - adjustment.left,
           top: position.top - adjustment.top
         });
+
       }
     });
   };
