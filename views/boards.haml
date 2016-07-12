@@ -9,15 +9,17 @@
   
 
   - @boards.each do |org_name, boards|
-    .organization.clearfix
-      .h4
+
+  
+    .col-md-3.col-sm-3.col-xs-12.no-padding
+      .analysis-block-md
         #{org_name}
-      %ul{class: 'boards-list'}
-        - boards.each do |board|
-          %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-              #{board["name"]}
-              
+        %ul{class: 'boards-list'}
+          - boards.each do |board|
+            %li.boards-list-item
+              %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                #{board["name"]}
+          
 :javascript
   window.onload = function() {
     var adjustment;

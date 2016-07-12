@@ -1374,13 +1374,18 @@ ul.boards-list {
   float:left;
   list-style: none outside none;
   margin-left: 0px;
+  min-height: 100%;
+  min-width: 100%;
+  padding-left: 0 !important;
+  width: 100%;
 }
 
 .boards-list-item {
   float:left;
   background-color: #F9F9F9;
   border-bottom: 1px solid #BBB;
-  margin: 20px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 
 .boards-list-item-link {
@@ -1388,7 +1393,7 @@ ul.boards-list {
   display: block;
   font-weight: bold;
   padding: 15px;
-  width: 200px;
+  width: 100%;
   color: #555;
 }
 
