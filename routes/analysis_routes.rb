@@ -88,8 +88,13 @@ class Ollert
     state=params['state']
 
     board=Trello::Board.find(board_id)
-    board.name="|"+state+"|"+board.name.split('|')[2]
-    board.save
+    if board.name.include? "|"
+      board.name="|"+state+"|"+board.name.split('|')[2]
+      board.save
+    else
+      board.name="|"+state+"| "+board.name
+      board.save
+    end
     body CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id)).to_json
     status 200
   end
