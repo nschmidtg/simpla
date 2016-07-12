@@ -74,4 +74,23 @@ class Ollert
     body CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id)).to_json
     status 200
   end
+
+  get '/api/v1/change_board_state/:board_id' do |board_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => params['token']
+    )
+     Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  params['token']
+    end
+
+    state=params['state']
+
+    board=Trello::Board.find(board_id)
+    board.name="|"+state+"|"+board.name.split('|')[2]
+    board.save
+    body CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id)).to_json
+    status 200
+  end
 end
