@@ -49,12 +49,18 @@
           _super($item, container);
         });
         var boardState=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
+        if(boardState=="Noiniciado"){
+          boardState="No iniciado";
+        }
         var boardId=$item.find('a').attr('href').split('/')[2];
         $.ajax({
           url: "/api/v1/change_board_state/" + boardId,
           data: {
             token: "#{@token}",
             state: boardState
+          },
+          error: function(xhr) {
+            alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.");
           }
         });
       },
