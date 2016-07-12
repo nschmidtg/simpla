@@ -4,6 +4,7 @@ class User
   include Mongoid::Document
 
   embeds_many :boards
+  embeds_many :states
 
   field :email, type: String
   field :trello_id, type: String
