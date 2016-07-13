@@ -49,6 +49,7 @@ class Ollert
     begin
       @boards = BoardAnalyzer.analyze(BoardFetcher.fetch(client, @user.trello_name))
       @states=["No iniciado","Formulación","Observado","Licitación","Ejecución"]
+      @prioridades=["Alta Prioridad","Baja Prioridad","No Priorizados"]
       @token=@user.member_token
     rescue Trello::Error => e
       unless @user.nil?

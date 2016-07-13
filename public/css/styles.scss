@@ -1380,6 +1380,16 @@ ul.boards-list {
   width: 100%;
 }
 
+ul.board-list-prior{
+  float:left;
+  list-style: none outside none;
+  margin-left: 0px;
+  min-height: 80%;
+  min-width: 100%;
+  padding-left: 0 !important;
+  width: 100%;
+}
+
 .boards-list-item {
   float:left;
   background-color: #F9F9F9;

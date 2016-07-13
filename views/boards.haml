@@ -2,10 +2,10 @@
   .row
     %h2.ollert-header
       .text-center.col-xs-12
-        Proyectos
+        Estado de Proyectos
 
   .row
-    %hr
+    
   
   - @asignados = Array.new()
   - @states.each do |state|
@@ -14,26 +14,127 @@
         #{state}
         %ul{class: 'boards-list'}
           - @boards.each do |org_name, boards|
-            - boards.each do |board|
-              - if state == board["name"].split('|')[1]
-                - @asignados<<board["name"]
-                %li.boards-list-item
-                  %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                    #{board["name"].split('|')[2]}
+            - prioridad_tablero=org_name.split('- ')
+            - if(prioridad_tablero.count==2)
+              - prioridad_tablero=prioridad_tablero[1]
+              - if(@prioridades.include?(prioridad_tablero))
+                - boards.each do |board|
+                  - if state == board["name"].split('|')[1]
+                    - @asignados<<board["name"]
+                    %li.boards-list-item
+                      %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                        #{board["name"].split('|')[2]}
   .col-md-2.col-sm-2.col-xs-4.no-padding
     .analysis-block-md
       NO ASIGNADO
       %ul{class: 'boards-list'}
         - @boards.each do |org_name, boards|
-          - boards.each do |board|
-            - unless  @asignados.include?(board["name"])
-              %li.boards-list-item
-                %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                  #{board["name"]}
+          - prioridad_tablero=org_name.split('- ')
+          - if(prioridad_tablero.count==2)
+            - prioridad_tablero=prioridad_tablero[1]
+            - if(@prioridades.include?(prioridad_tablero))
+              - boards.each do |board|
+                - unless  @asignados.include?(board["name"])
+                  %li.boards-list-item
+                    %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                      #{board["name"]}
 
-          
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12
+        %br
+        Prioridad de Proyectos
+
+  .row
+    
+  
+  - @prioridades.each do |prioridad|
+    
+    .col-md-4.col-sm-4.col-xs-4.no-padding
+      .analysis-block-md
+        #{prioridad}
+        %ul{class: 'board-list-prior'}
+          - @boards.each do |org_name, boards|
+            - prioridad_tablero=org_name.split('- ')
+            - if(prioridad_tablero.count==2)
+              - prioridad_tablero=prioridad_tablero[1]
+              - if(prioridad==(prioridad_tablero))
+                - boards.each do |board|
+                  %li.boards-list-item
+                    %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                      #{board["name"]}
+
 :javascript
   window.onload = function() {
+    var adjustment2;
+    //Ajuste de prioridad
+    $(".board-list-prior").sortable({
+      group: 'simple',
+      pullPlaceholder: false,
+      // animation on drop
+      onDrop: function  ($item, container, _super) {
+        var $clonedItem = $('<li/>').css({height: 0});
+        $item.before($clonedItem);
+        $clonedItem.animate({'height': $item.height()});
+
+        $item.animate($clonedItem.position(), function  () {
+          $clonedItem.detach();
+          _super($item, container);
+        });
+
+
+
+        var boardPriority=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
+        if(boardPriority=="BajaPrioridad"){
+          boardPriority="Baja Prioridad";
+        }
+        else if(boardPriority=="AltaPrioridad"){
+          boardPriority="Alta Prioridad";
+        }
+        else{
+          boardPriority="No Priorizados";
+        }
+        var boardId=$item.find('a').attr('href').split('/')[2];
+        
+
+
+        $.ajax({
+          url: "/api/v1/change_board_priority/" + boardId,
+          data: {
+            token: "#{@token}",
+            user_id: "#{@user.trello_id}",
+            priority: boardPriority
+          },
+          error: function(xhr) {
+            alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.");
+          }
+        });
+      },
+
+      // set $item relative to cursor position
+      onDragStart: function ($item, container, _super) {
+        var offset = $item.offset(),
+            pointer = container.rootGroup.pointer;
+
+        adjustment2 = {
+          left: pointer.left - offset.left,
+          top: pointer.top - offset.top
+        };
+
+        _super($item, container);
+      },
+      onDrag: function ($item, position) {
+        $item.css({
+          left: position.left - adjustment2.left,
+          top: position.top - adjustment2.top
+        });
+
+      }
+    });
+
+
+    //Acá empieza el ajuste de estado
+
     var adjustment;
 
     $(".boards-list").sortable({
@@ -86,6 +187,5 @@
 
       }
     });
-
   };
 

@@ -95,7 +95,32 @@ class Ollert
       board.name="|"+state+"| "+board.name
       board.save
     end
-    body CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id)).to_json
+    body board.to_json
+    status 200
+  end
+
+  get '/api/v1/change_board_priority/:board_id' do |board_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => params['token']
+    )
+     Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  params['token']
+    end
+    priority=params['priority']
+    board=Trello::Board.find(board_id)
+    data=JSON.parse(client.get("/members/#{params['user_id']}/organizations", {fields: :displayName}))
+    trello_orgs = {}
+    data.each do |organization|
+      if(organization["displayName"].include?(priority))
+        board.organization_id=organization["id"]
+        board.update!
+      end
+    end
+    
+    
+    body Trello::Organization.to_json
     status 200
   end
 end
