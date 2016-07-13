@@ -1,4 +1,3 @@
-
 .container
   .row
     %h2.ollert-header
@@ -31,7 +30,8 @@
               %li.boards-list-item
                 %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
                   #{board["name"]}
-      
+
+          
 :javascript
   window.onload = function() {
     var adjustment;

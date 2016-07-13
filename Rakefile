@@ -13,7 +13,6 @@ task :default => [:start]
 
 desc "Start application based on environment"
 task :start do
-  fork { exec "grunt js" }
   fork { exec "grunt sass" }
   fork { exec "grunt uglify" }
   fork { exec "foreman start -p 4000" }
