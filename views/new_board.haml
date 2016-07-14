@@ -1,4 +1,4 @@
-
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCfYWTKUU4QL_d1WLpJVLfjcTAJTwYVl3w&callback=initMap"}
 .row
   %h2.ollert-header
     .text-center.col-xs-12
@@ -20,6 +20,13 @@
               .col-md-4
                 %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}/
             .form-group
+              %label.col-md-4.control-label{for: "textinput"} Monto
+              .col-md-4
+                %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
+            .form-group
+              #map
+             
+            .form-group
               
               .col-md-4
                 %input#textinput.form-control.input-md{name: "org_id", value: "#{@org_id}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "hidden"}/
@@ -30,3 +37,12 @@
 
           
             
+:javascript
+  
+    function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: 10.209, lng: 108},
+      zoom: 5,
+    });
+    };
+  

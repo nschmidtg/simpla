@@ -555,6 +555,8 @@ ol.example {
     position: relative;
     z-index: 2;
   }
+  
+  #map { height: 100%; }
   .fc-resizer {
     position: absolute;
     z-index: 4;
