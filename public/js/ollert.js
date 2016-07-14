@@ -1,6 +1,7 @@
 var Ollert = (function() {
 
   var teams = [];
+  var info = [];
   var initDrawer = function() {
     refreshDrawer();
     $("body").toggleClass("has-drawer");
@@ -81,7 +82,9 @@ var Ollert = (function() {
         }
       }
       if(esta==false){
-        appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+        if(orgName.includes("- Alta Prioridad") || orgName.includes("- Baja Prioridad") || orgName.includes("- No Priorizados")){
+          appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+        }
       }  
     }
     $("#config-drawer-board-list").append(appender);
@@ -90,25 +93,40 @@ var Ollert = (function() {
   var loadBoardsCallback = function(data) {
     resetBoards();
     var boardData = data['data'], boardItem, board, organization, boards;
-    for (var orgName in boardData) {
-      organization = boardData[orgName];
-      organizationBoards = $("<ul/>");
-      teams.push(orgName);
-      for (var j = 0; j < organization.length; ++j) {
-        board = organization[j];
-        item = $("<li/>", {
-          role: "presentation"
-        });
-        item.append($("<a href=\"/boards/" + board.id + "\">" + board.name + "</a>"));
-        organizationBoards.append(item);
-      }
-      var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
-      var botonAgregar = $("<button onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
-      var section2 = section.append(botonAgregar);
-      $("#config-drawer-board-list").append(section2);
-      
+    
+    
 
+    var count = 0;
+    for (var orgName in boardData) {
+      for (var orgName in boardData) {
+        if((orgName.includes("- Alta Prioridad") && count==0) || (orgName.includes("- Baja Prioridad") && count==1) || (orgName.includes("- No Priorizados") && count==2)){
+          count=count+1;
+          organization = boardData[orgName];
+          organizationBoards = $("<ul/>");
+          
+          teams.push(orgName);
+        
+          for (var j = 0; j < organization.length; ++j) {
+            board = organization[j];
+            item = $("<li/>", {
+              role: "presentation"
+            });
+            item.append($("<a href=\"/boards/" + board.id + "\">" + board.name + "</a>"));
+            organizationBoards.append(item);
+          }
+          var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
+          var botonAgregar = $("<button onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
+          var section2 = section.append(botonAgregar);
+          $("#config-drawer-board-list").append(section2);
+        }
+
+      }
     }
+    teams.sort(function(a, b){
+      if(a.toString() < b.toString()) return -1;
+      if(a.toString() > b.toString()) return 1;
+      return 0;
+    });
     $.ajax({
       url: "/organizations",
       method: "get",
@@ -133,6 +151,7 @@ var Ollert = (function() {
     loadAvatar: loadAvatar,
     newProject: newProject,
     newProjectOrg: newProjectOrg,
-    teams: teams
+    teams: teams,
+    info: info
   };
 })();
