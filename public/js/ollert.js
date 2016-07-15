@@ -85,7 +85,7 @@ var Ollert = (function() {
       }
       if(esta==false){
         if(orgName.includes("- Alta Prioridad") || orgName.includes("- Baja Prioridad") || orgName.includes("- No Priorizados")){
-          appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+          appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
         }
       }  
     }
@@ -113,7 +113,7 @@ var Ollert = (function() {
             item = $("<li/>", {
               role: "presentation"
             });
-            item.append($("<a style='display: inline-block;' href=\"/boards/" + board.id + "\">" + board.name + "</a><a onclick=\"Ollert.editProject('"+board.id+"','"+orgName+"','"+board.name+"')\" style='display: inline-block;float: right;'><span class='glyphicon glyphicon-pencil' aria-hidden='true' style=''></span></a>"));
+            item.append($("<a style='display: inline-block;margin-left: -30px !important;overflow-wrap: break-word;    max-width: 250px;' href=\"/boards/" + board.id + "\">" + board.name + "</a><a onclick=\"Ollert.editProject('"+board.id+"','"+orgName+"','"+board.name+"')\" style='display: inline-block;float: right;padding: 5px !important;'><span class='glyphicon glyphicon-pencil' aria-hidden='true' style=''></span></a>"));
             organizationBoards.append(item);
           }
           var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
