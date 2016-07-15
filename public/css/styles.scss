@@ -556,7 +556,11 @@ ol.example {
     z-index: 2;
   }
   
-  #map { height: 100%; }
+  #map {
+    height: 100px;
+  }
+
+
   .fc-resizer {
     position: absolute;
     z-index: 4;

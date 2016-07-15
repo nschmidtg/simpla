@@ -89,10 +89,12 @@ class Ollert
       org_id=params[:org_id]
       memb="false"
       if org_id!=""
-        data={:name=> params[:name],:description=> "Descripción",:organization_id=> org_id}
+        desc="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
+        data={:name=> params[:name],:description=> desc,:organization_id=> org_id}
         memb="true"
       else
-        data={:name=> params[:name],:description=> "Descripción"}
+        desc="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
+        data={:name=> params[:name],:description=> desc}
       end
 
       

@@ -24,8 +24,32 @@
               .col-md-4
                 %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
             .form-group
-              #map
-             
+              %label.col-md-4.control-label{for: "textinput"} Tipo
+              .col-md-4
+                %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
+                  %option{:disabled => "", :selected => ""} Seleccione
+                  %option{:value => "salud"} Salud
+                  %option{:value => "educacion"} Educación
+                  %option{:value => "espacios-publicos"} Espacios Públicos
+                  %option{:value => "tecnologia"} Tecnología
+            .form-group
+              %label.col-md-4.control-label{for: "textinput"} Fondo
+              .col-md-4
+                %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
+                  %option{:disabled => "", :selected => ""} Seleccione
+                  %option{:value => "fndr"} FNDR
+                  %option{:value => "pmu"} PMU
+                  %option{:value => "pmb"} PMB
+                  %option{:value => "fril"} FRIL
+                  %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                  %option{:value => "circular-33"} Circular 33
+            .form-group
+              %label.col-md-4.control-label{for: "textinput"} Zona
+              .col-md-4
+                #map
+                %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
+            
+
             .form-group
               
               .col-md-4
@@ -41,8 +65,33 @@
   
     function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: 10.209, lng: 108},
-      zoom: 5,
+      center: {lat: -33.0833, lng: -70.9333},
+      zoom: 14,
     });
-    };
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: {lat: -33.0833, lng: -70.9333}
+    });
+    google.maps.event.addListener(marker, 'dragend', function(evt){
+      $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
+    });
+
+    
+  }
+
+  function toggleBounce() {
+      if (marker.getAnimation() !== null) {
+        marker.setAnimation(null);
+      } else {
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+      }
+    }
+    
+:javascript
+  window.onload = function() {
+    $("#map").height("200px");
+    initMap();
+  };
   
