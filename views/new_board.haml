@@ -16,7 +16,10 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
-                    %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text"}/
+                    - if(params[:edit]=="true")
+                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name]}", style: "cursor: auto;", type: "text"}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo
                   .col-md-6.col-sm-6.col-xs-12
@@ -24,7 +27,10 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
                   .col-md-6.col-sm-6.col-xs-12
-                    %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
+                    - if(params[:edit]=="true")
+                      %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number",value: "#{Trello::Board.find(params[:last_board_id]).description.split('|')[1]}"}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo
                   .col-md-6.col-sm-6.col-xs-12
