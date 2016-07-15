@@ -60,7 +60,9 @@ var Ollert = (function() {
       $("#config-drawer-board-list").empty();
     }
   };
-
+  var editProject = function(last_board_id,orgName,board_name){
+    window.location = "/new_board?org_id=nil&last_board_id="+last_board_id+"&orgName="+orgName+"&board_name="+board_name+"&edit=true";
+  };
   var newProject = function(last_board_id,orgName){
     window.location = "/new_board?org_id=nil&last_board_id="+last_board_id+"&orgName="+orgName;
   };
@@ -111,7 +113,7 @@ var Ollert = (function() {
             item = $("<li/>", {
               role: "presentation"
             });
-            item.append($("<a href=\"/boards/" + board.id + "\">" + board.name + "</a>"));
+            item.append($("<a style='display: inline-block;' href=\"/boards/" + board.id + "\">" + board.name + "</a><a onclick=\"Ollert.editProject('"+board.id+"','"+orgName+"','"+board.name+"')\" style='display: inline-block;float: right;'><span class='glyphicon glyphicon-pencil' aria-hidden='true' style=''></span></a>"));
             organizationBoards.append(item);
           }
           var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
@@ -151,6 +153,7 @@ var Ollert = (function() {
     loadAvatar: loadAvatar,
     newProject: newProject,
     newProjectOrg: newProjectOrg,
+    editProject: editProject,
     teams: teams,
     info: info
   };

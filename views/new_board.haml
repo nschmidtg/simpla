@@ -1,66 +1,68 @@
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCfYWTKUU4QL_d1WLpJVLfjcTAJTwYVl3w&callback=initMap"}
-.row
-  %h2.ollert-header
-    .text-center.col-xs-12
-      NUEVO PROYECTO de #{@orgName}
-.row
-  %form#components.form-horizontal{role: "form", :action=>"/create_project", :method=>"post"}
-    %fieldset
-      .tab-content
-        / Tabs of snippets go here
-        #input.tab-pane.active
-          .component
-            / Text input
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} Nombre
-              .col-md-4
-                %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text"}/
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} Equipo
-              .col-md-4
-                %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}/
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} Monto
-              .col-md-4
-                %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} Tipo
-              .col-md-4
-                %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
-                  %option{:disabled => "", :selected => ""} Seleccione
-                  %option{:value => "salud"} Salud
-                  %option{:value => "educacion"} Educación
-                  %option{:value => "espacios-publicos"} Espacios Públicos
-                  %option{:value => "tecnologia"} Tecnología
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} Fondo
-              .col-md-4
-                %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
-                  %option{:disabled => "", :selected => ""} Seleccione
-                  %option{:value => "fndr"} FNDR
-                  %option{:value => "pmu"} PMU
-                  %option{:value => "pmb"} PMB
-                  %option{:value => "fril"} FRIL
-                  %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                  %option{:value => "circular-33"} Circular 33
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} Zona
-              .col-md-4
-                #map
-                %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
-            
+.container
+  .container
+    .row
+      %h2.ollert-header
+        .text-center.col-xs-12
+          NUEVO PROYECTO de #{@orgName}
+    .row
+      %form#components.form-horizontal{role: "form", :action=>"/create_project", :method=>"post"}
+        %fieldset
+          .tab-content
+            / Tabs of snippets go here
+            #input.tab-pane.active
+              .component
+                / Text input
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
+                  .col-md-6.col-sm-6.col-xs-12
+                    %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text"}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo
+                  .col-md-6.col-sm-6.col-xs-12
+                    %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
+                  .col-md-6.col-sm-6.col-xs-12
+                    %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo
+                  .col-md-6.col-sm-6.col-xs-12
+                    %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
+                      %option{:disabled => "", :selected => ""} Seleccione
+                      %option{:value => "salud"} Salud
+                      %option{:value => "educacion"} Educación
+                      %option{:value => "espacios-publicos"} Espacios Públicos
+                      %option{:value => "tecnologia"} Tecnología
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fondo
+                  .col-md-6.col-sm-6.col-xs-12
+                    %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
+                      %option{:disabled => "", :selected => ""} Seleccione
+                      %option{:value => "fndr"} FNDR
+                      %option{:value => "pmu"} PMU
+                      %option{:value => "pmb"} PMB
+                      %option{:value => "fril"} FRIL
+                      %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                      %option{:value => "circular-33"} Circular 33
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
+                  .col-md-6.col-sm-6.col-xs-12
+                    #map
+                    %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
+                
 
-            .form-group
+                .form-group
+                  
+                  .col-md-3.col-sm-3.col-xs-12
+                    %input#textinput.form-control.input-md{name: "org_id", value: "#{@org_id}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "hidden"}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
+                  .col-md-6.col-sm-6.col-xs-12
+                    %input{:type => "submit", :value => "Crear", :class => "button"}    
+
+                
               
-              .col-md-4
-                %input#textinput.form-control.input-md{name: "org_id", value: "#{@org_id}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "hidden"}/
-            .form-group
-              %label.col-md-4.control-label{for: "textinput"} 
-              .col-md-4
-                %input{:type => "submit", :value => "Crear", :class => "button"}    
-
-          
-            
 :javascript
   
     function initMap() {
