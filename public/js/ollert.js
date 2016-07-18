@@ -64,7 +64,7 @@ var Ollert = (function() {
     window.location = "/new_board?org_id=nil&last_board_id="+last_board_id+"&orgName="+orgName+"&board_name="+board_name+"&edit=true";
   };
   var newProject = function(last_board_id,orgName){
-    window.location = "/new_board?org_id=nil&last_board_id="+last_board_id+"&orgName="+orgName;
+    window.location = "/new_board?org_id=nil&last_board_id="+last_board_id+"&orgName="+orgName+"&edit=false";
   };
   var newProjectOrg = function(org_id,orgName){
     window.location = "/new_board?last_board_id=nil&org_id="+org_id+"&orgName="+orgName;

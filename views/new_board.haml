@@ -17,9 +17,9 @@
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
                     - if(params[:edit]=="true")
-                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name]}", style: "cursor: auto;", type: "text"}/
+                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name]}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
-                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text"}/
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text",required: ""}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo
                   .col-md-6.col-sm-6.col-xs-12
@@ -27,36 +27,130 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
                   .col-md-6.col-sm-6.col-xs-12
+                    - @board=nil
                     - if(params[:edit]=="true")
-                      %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number",value: "#{Trello::Board.find(params[:last_board_id]).description.split('|')[1]}"}/
+                      - @board=Trello::Board.find(params[:last_board_id])
+                      %input#textinput.form-control.input-md{name: "monto",min: "0", step: "50000", style: "cursor: auto;", type: "number",value: "#{@board.description.split('|')[1]}"}/
                     - else
-                      %input#textinput.form-control.input-md{name: "monto",step: "100000", style: "cursor: auto;", type: "number"}/
+                      %input#textinput.form-control.input-md{name: "monto",min: "0",step: "50000", style: "cursor: auto;", type: "number"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo
                   .col-md-6.col-sm-6.col-xs-12
                     %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
-                      %option{:disabled => "", :selected => ""} Seleccione
-                      %option{:value => "salud"} Salud
-                      %option{:value => "educacion"} Educación
-                      %option{:value => "espacios-publicos"} Espacios Públicos
-                      %option{:value => "tecnologia"} Tecnología
+                      - if(params[:edit]=="true")
+                        - @tipo=@board.description.split('|')[2]
+                        - if(@tipo=="salud")
+                          %option{:value => "salud", :selected => ""} Salud
+                          %option{:value => "educacion"} Educación
+                          %option{:value => "espacios-publicos"} Espacios Públicos
+                          %option{:value => "tecnologia"} Tecnología
+                        - elsif (@tipo == "educacion")
+                          %option{:value => "salud"} Salud
+                          %option{:value => "educacion", :selected => ""} Educación
+                          %option{:value => "espacios-publicos"} Espacios Públicos
+                          %option{:value => "tecnologia"} Tecnología
+                        - elsif (@tipo == "espacios-publicos")
+                          %option{:value => "salud"} Salud
+                          %option{:value => "educacion"} Educación
+                          %option{:value => "espacios-publicos", :selected => ""} Espacios Públicos
+                          %option{:value => "tecnologia"} Tecnología
+                        - elsif (@tipo == "tecnologia")
+                          %option{:value => "salud"} Salud
+                          %option{:value => "educacion"} Educación
+                          %option{:value => "espacios-publicos", :selected => ""} Espacios Públicos
+                          %option{:value => "tecnologia", :selected => ""} Tecnología
+                        - else
+                          %option{:disabled => "", :selected => ""} Seleccione
+                          %option{:value => "salud"} Salud
+                          %option{:value => "educacion"} Educación
+                          %option{:value => "espacios-publicos"} Espacios Públicos
+                          %option{:value => "tecnologia"} Tecnología
+                      - else
+                        %option{:disabled => "", :selected => ""} Seleccione
+                        %option{:value => "salud"} Salud
+                        %option{:value => "educacion"} Educación
+                        %option{:value => "espacios-publicos"} Espacios Públicos
+                        %option{:value => "tecnologia"} Tecnología
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fondo
                   .col-md-6.col-sm-6.col-xs-12
+
                     %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
-                      %option{:disabled => "", :selected => ""} Seleccione
-                      %option{:value => "fndr"} FNDR
-                      %option{:value => "pmu"} PMU
-                      %option{:value => "pmb"} PMB
-                      %option{:value => "fril"} FRIL
-                      %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                      %option{:value => "circular-33"} Circular 33
+                      - if(params[:edit]=="true")
+                        - @fondo=@board.description.split('|')[3]
+                        - if(@fondo=="fndr")
+                          %option{:value => "fndr", :selected => ""} FNDR
+                          %option{:value => "pmu"} PMU
+                          %option{:value => "pmb"} PMB
+                          %option{:value => "fril"} FRIL
+                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                          %option{:value => "circular-33"} Circular 33
+                        - elsif(@fondo=="pmu")
+                          %option{:value => "fndr"} FNDR
+                          %option{:value => "pmu", :selected => ""} PMU
+                          %option{:value => "pmb"} PMB
+                          %option{:value => "fril"} FRIL
+                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                          %option{:value => "circular-33"} Circular 33
+                        - elsif(@fondo=="pmb")
+                          %option{:value => "fndr"} FNDR
+                          %option{:value => "pmu"} PMU
+                          %option{:value => "pmb", :selected => ""} PMB
+                          %option{:value => "fril"} FRIL
+                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                          %option{:value => "circular-33"} Circular 33
+                        - elsif(@fondo=="fril")
+                          %option{:value => "fndr"} FNDR
+                          %option{:value => "pmu"} PMU
+                          %option{:value => "pmb"} PMB
+                          %option{:value => "fril", :selected => ""} FRIL
+                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                          %option{:value => "circular-33"} Circular 33
+                        - elsif(@fondo=="pavimentos-participativos")
+                          %option{:value => "fndr"} FNDR
+                          %option{:value => "pmu"} PMU
+                          %option{:value => "pmb"} PMB
+                          %option{:value => "fril"} FRIL
+                          %option{:value => "pavimentos-participativos", :selected => ""} Pavimentos Participativos
+                          %option{:value => "circular-33"} Circular 33
+                        - elsif(@fondo=="circular-33")
+                          %option{:value => "fndr"} FNDR
+                          %option{:value => "pmu"} PMU
+                          %option{:value => "pmb"} PMB
+                          %option{:value => "fril"} FRIL
+                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                          %option{:value => "circular-33", :selected => ""} Circular 33
+                        - else
+                          %option{:disabled => "", :selected => ""} Seleccione
+                          %option{:value => "fndr"} FNDR
+                          %option{:value => "pmu"} PMU
+                          %option{:value => "pmb"} PMB
+                          %option{:value => "fril"} FRIL
+                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                          %option{:value => "circular-33"} Circular 33
+                      - else
+                        %option{:disabled => "", :selected => ""} Seleccione
+                        %option{:value => "fndr"} FNDR
+                        %option{:value => "pmu"} PMU
+                        %option{:value => "pmb"} PMB
+                        %option{:value => "fril"} FRIL
+                        %option{:value => "pavimentos-participativos"} Pavimentos Participativos
+                        %option{:value => "circular-33"} Circular 33
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
                   .col-md-6.col-sm-6.col-xs-12
                     #map
-                    %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
-                
+                    - if(params[:edit]=="true")
+                      %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.description.split('|')[4]}", style: "cursor: auto;", type: "hidden"}/
+                    - else
+                      %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
+                .form-group
+                  - if(params[:edit]=="true")
+                    %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", type: "hidden"}/
+                  - else
+                    %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "hidden"}/
+                .form-group
+                  %input#textinput.form-control.input-md{name: "last_board_id", value: "#{params[:last_board_id]}", style: "cursor: auto;", type: "hidden"}/
 
                 .form-group
                   
@@ -65,37 +159,39 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
-                    %input{:type => "submit", :value => "Crear", :class => "button"}    
-
-                
-              
+                    - if(params[:edit]=="true")
+                      %input{:type => "submit", :value => "Actualizar", :class => "button"} 
+                    - else
+                      %input{:type => "submit", :value => "Crear", :class => "button"} 
+    
 :javascript
   
-    function initMap() {
+  function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: -33.0833, lng: -70.9333},
+      center: {lat: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}},
       zoom: 14,
     });
     marker = new google.maps.Marker({
       map: map,
       draggable: true,
       animation: google.maps.Animation.DROP,
-      position: {lat: -33.0833, lng: -70.9333}
+      position: {lat: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}}
     });
     google.maps.event.addListener(marker, 'dragend', function(evt){
       $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
     });
 
-    
+  
   }
 
   function toggleBounce() {
-      if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-      } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
-      }
+    if (marker.getAnimation() !== null) {
+      marker.setAnimation(null);
+    } else {
+      marker.setAnimation(google.maps.Animation.BOUNCE);
     }
+  }
+
     
 :javascript
   window.onload = function() {

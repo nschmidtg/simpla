@@ -98,39 +98,52 @@ class Ollert
       end
 
       
-        #Cerrar las listas en inglés
+        
+      if(params[:edit]=="false")
+        #El tablero no existe
         @board=Trello::Board.create(data)
+        #Cerrar las listas en inglés
         @board.lists.each do |l|
           l.close!
         end
-      
-      Thread.new do
-        #Crear las listas en español
-        list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
-        list2=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"2"})
-        list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
+        
+        Thread.new do
+          #Crear las listas en español
+          list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
+          list2=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"2"})
+          list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
 
-        #Crear las tareas por defecto
-        @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-        @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-        @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-        @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-        @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-        @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-      end
-      Thread.new do
-        #Encontrar al usuario como miembro
-        member_current=Trello::Member.find(Trello::Token.find(@user.member_token).member_id)
-        @board.add_member(member_current,type=:admin)
-        members=Trello::Organization.find(@board.organization_id).members
-        members.each do |m|
-          @board.add_member(m,type=:admin)
+          #Crear las tareas por defecto
+          @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+          @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+          @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+          @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+          @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+          @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
         end
-        members.each do |m|
-          if m.id!=member_current.id
-            @board.add_member(m,type=:normal)
+        Thread.new do
+          #Encontrar al usuario como miembro
+          member_current=Trello::Member.find(Trello::Token.find(@user.member_token).member_id)
+          @board.add_member(member_current,type=:admin)
+          members=Trello::Organization.find(@board.organization_id).members
+          members.each do |m|
+            @board.add_member(m,type=:admin)
+          end
+          members.each do |m|
+            if m.id!=member_current.id
+              @board.add_member(m,type=:normal)
+            end
           end
         end
+      else
+        #El tablero existe y va a ser editado
+        @board=Trello::Board.find(params[:last_board_id])
+        #@board.description="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
+        
+        @board.name=params[:name]
+        JSON.parse(client.put("/boards/#{params[:last_board_id]}/desc", {value: desc}))
+        @board.update!
+        
       end
       
     rescue Trello::Error => e
