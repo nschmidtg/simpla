@@ -4,7 +4,17 @@
     .row
       %h2.ollert-header
         .text-center.col-xs-12
-          NUEVO PROYECTO de #{@orgName}
+          - if(params[:edit]=="true")
+            #{params[:board_name]}
+          -else
+            Nuevo proyecto
+    - if(params[:edit]=="true")
+      .row
+        .col-md-10.col-sm-10.col-xs-10
+          %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
+            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :style => ""}
+        
+
     .row
       %form#components.form-horizontal{role: "form", :action=>"/create_project", :method=>"post"}
         %fieldset
@@ -162,20 +172,28 @@
                     - if(params[:edit]=="true")
                       %input{:type => "submit", :value => "Actualizar", :class => "button"} 
                     - else
-                      %input{:type => "submit", :value => "Crear", :class => "button"} 
-    
+                    %input{:type => "submit", :value => "Crear", :class => "button"} 
+- if(params[:edit]=="true")
+  #confirm.modal.hide.fade
+    .modal-body{style: "background: #ce4e41; color: #ffffff"}
+      ¿Estás seguro que deseas eliminar #{params[:board_name]}?
+    }
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
+      %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
+  
 :javascript
   
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}},
+      center: {lat: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}},
       zoom: 14,
     });
     marker = new google.maps.Marker({
       map: map,
       draggable: true,
       animation: google.maps.Animation.DROP,
-      position: {lat: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description!="") \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}}
+      position: {lat: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}}
     });
     google.maps.event.addListener(marker, 'dragend', function(evt){
       $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
@@ -197,5 +215,15 @@
   window.onload = function() {
     $("#map").height("200px");
     initMap();
+    $("")
+    $('#delete').on('click', function(e){
+    e.preventDefault();
+    $('#confirm').modal({ backdrop: 'static', keyboard: false })
+      .one('click', '#delete', function() {
+          window.location.href = "/boards/delete/#{params[:last_board_id]}";
+      });
+    $("#confirm").removeClass( "hide");
+  });
   };
+
   

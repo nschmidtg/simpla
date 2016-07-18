@@ -74,6 +74,39 @@ class Ollert
     end
   end
 
+   get '/boards/delete/:board_id', :auth => :connected do |board_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+
+    begin
+      Trello.configure do |config|
+        config.developer_public_key = ENV['PUBLIC_KEY']
+        config.member_token = @user.member_token
+      end
+      JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
+
+
+    rescue Trello::Error => e
+      
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      flash[:success] = "Proyecto eliminado."
+      redirect '/boards'
+    end
+  end
+
   post '/create_project', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -175,7 +208,7 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-
+    
     begin
       @orgName=params[:orgName]
       Trello.configure do |config|

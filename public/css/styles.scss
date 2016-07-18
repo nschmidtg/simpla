@@ -1401,6 +1401,7 @@ ul.board-list-prior{
 }
 
 .boards-list-item {
+  overflow-wrap: break-word;
   float:left;
   background-color: #F9F9F9;
   border-bottom: 1px solid #BBB;
