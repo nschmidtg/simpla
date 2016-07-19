@@ -70,28 +70,6 @@ var Ollert = (function() {
     window.location = "/new_board?last_board_id=nil&org_id="+org_id+"&orgName="+orgName;
   };
 
-  var loadOrganizationsCallback = function(data){
-    var appender="";
-    var orgData = data['data'];
-    var orgName;
-    for (i = 0; i < orgData.length; i++) {
-      orgName = orgData[i]['displayName'];
-      var esta=false;
-      for(t = 0; t< teams.length; t++){
-        if(teams[t]==orgName){
-          esta=true;
-          break;
-        }
-      }
-      if(esta==false){
-        if(orgName.includes("- Alta Prioridad") || orgName.includes("- Baja Prioridad") || orgName.includes("- No Priorizados")){
-          appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
-        }
-      }  
-    }
-    $("#config-drawer-board-list").append(appender);
-  };
-
   var loadBoardsCallback = function(data) {
     resetBoards();
     var boardData = data['data'], boardItem, board, organization, boards;
@@ -100,9 +78,10 @@ var Ollert = (function() {
 
     var count = 0;
     for (var orgName in boardData) {
+
       for (var orgName in boardData) {
         if((orgName.includes("- Alta Prioridad") && count==0) || (orgName.includes("- Baja Prioridad") && count==1) || (orgName.includes("- No Priorizados") && count==2)){
-          count=count+1;
+          
           organization = boardData[orgName];
           organizationBoards = $("<ul/>");
           
@@ -111,18 +90,19 @@ var Ollert = (function() {
           for (var j = 0; j < organization.length; ++j) {
             board = organization[j];
             item = $("<li/>", {
-              role: "presentation"
+              role: "presentation1"
             });
             item.append($("<a style='display: inline-block;margin-left: -30px !important;overflow-wrap: break-word;    max-width: 250px;' href=\"/boards/" + board.id + "\">" + board.name + "</a><a onclick=\"Ollert.editProject('"+board.id+"','"+orgName+"','"+board.name+"')\" style='display: inline-block;float: right;padding: 5px !important;'><span class='glyphicon glyphicon-pencil' aria-hidden='true' style=''></span></a>"));
             organizationBoards.append(item);
           }
-          var section = $("<li role=\"presentation\"><b>" + orgName + "</b></li>").append(organizationBoards)
+          var section = $("<li role=\"presentation2\"><b>" + orgName + "</b></li>").append(organizationBoards)
           var botonAgregar = $("<button onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
           var section2 = section.append(botonAgregar);
           $("#config-drawer-board-list").append(section2);
         }
 
       }
+      count=count+1;
     }
     teams.sort(function(a, b){
       if(a.toString() < b.toString()) return -1;
@@ -142,6 +122,31 @@ var Ollert = (function() {
       }
     });
   };
+
+  var loadOrganizationsCallback = function(data){
+    var appender="";
+    var orgData = data['data'];
+    var orgName;
+    for (i = 0; i < orgData.length; i++) {
+      orgName = orgData[i]['displayName'];
+      var esta=false;
+      for(t = 0; t< teams.length; t++){
+        if(teams[t]==orgName){
+          esta=true;
+          break;
+        }
+      }
+      if(esta==false){
+        if(orgName.includes("- Alta Prioridad") || orgName.includes("- Baja Prioridad") || orgName.includes("- No Priorizados")){
+          appender=appender+"<li role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+        
+        }
+      }  
+    }
+    $("#config-drawer-board-list").append(appender);
+  };
+
+  
 
   var loadAvatar = function(gravatar_hash) {
     $(".settings-link > img").attr("src", "http://www.gravatar.com/avatar/" + gravatar_hash + "?s=40");
