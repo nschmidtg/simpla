@@ -134,6 +134,16 @@ class Ollert
         
     mun3.save
     
+    count=0
+    State.all.each do |s|
+        task1=Task.find_or_initialize_by id: "#{count}"
+        task1.name="tarea #{count%6} por defecto de estado #{count}"
+        task1.desc="descripcion de tarea por defecto de estado #{count}"
+        task1.state=s
+        count=count+1
+        task1.save
+        s.save
+    end
 
     redirect '/'
   end

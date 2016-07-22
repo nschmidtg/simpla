@@ -13,6 +13,8 @@
             #{mun.name}
             - mun.states.each do |state|
               #{state.name}
+              - state.tasks.each do |t|
+                #{t.name}
     .row
       .text-center
         %a{class: "btn btn-primary btn-xl connect-btn", href: "javascript:void(0)", onClick: "TrelloController.authorize()"}
