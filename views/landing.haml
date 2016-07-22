@@ -7,6 +7,13 @@
       .col-xs-12.text-center.h1
         Learn what your Trello boards aren't telling you.
     .row
+      .col-xs-12.text-center.h1
+        - @municipios.each do |mun|
+          .col-xs-12.col-md-3.text-center.h3
+            #{mun.name}
+            - mun.states.each do |state|
+              #{state.name}
+    .row
       .text-center
         %a{class: "btn btn-primary btn-xl connect-btn", href: "javascript:void(0)", onClick: "TrelloController.authorize()"}
           Connect to Get Started
