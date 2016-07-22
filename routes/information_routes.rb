@@ -13,6 +13,9 @@ class Ollert
   end
 
   get '/seed', :auth => :none do
+
+    states=Array.new()
+
     mun1=Municipio.find_or_initialize_by id: "1"
     mun1.name="Municipalidad de Til Til"
     estado1=State.find_or_initialize_by id: "1"
@@ -20,36 +23,42 @@ class Ollert
     estado1.order="1"
     estado1.municipio=mun1
     estado1.save
+    states<<estado1
 
     estado2=State.find_or_initialize_by id: "2"
     estado2.name="Formulación"
     estado2.order="2"
     estado2.municipio=mun1
     estado2.save
-    
+    states<<estado2
+
     estado3=State.find_or_initialize_by id: "3"
     estado3.name="Observado"
     estado3.order="3"
     estado3.municipio=mun1
     estado3.save
+    states<<estado3
     
     estado4=State.find_or_initialize_by id: "4"
     estado4.name="Licitación"
     estado4.order="4"
     estado4.municipio=mun1
     estado4.save
+    states<<estado4
     
     estado5=State.find_or_initialize_by id: "5"
     estado5.name="Ejecución"
     estado5.order="5"
     estado5.municipio=mun1
     estado5.save
+    states<<estado5
     
     estado6=State.find_or_initialize_by id: "6"
     estado6.name="NO ASIGNADO"
     estado6.order="6"
     estado6.municipio=mun1
     estado6.save
+    states<<estado6
         
     mun1.save
 
@@ -60,37 +69,42 @@ class Ollert
     estado1.order="1"
     estado1.municipio=mun2
     estado1.save
+    states<<estado1
 
     estado2=State.find_or_initialize_by id: "8"
     estado2.name="Formulación"
     estado2.order="2"
     estado2.municipio=mun2
     estado2.save
-    
+    states<<estado2
+
     estado3=State.find_or_initialize_by id: "9"
     estado3.name="Observado"
     estado3.order="3"
     estado3.municipio=mun2
     estado3.save
-    
+    states<<estado3
+
     estado4=State.find_or_initialize_by id: "10"
     estado4.name="Licitación"
     estado4.order="4"
     estado4.municipio=mun2
     estado4.save
-    
+    states<<estado4
+
     estado5=State.find_or_initialize_by id: "11"
     estado5.name="Ejecución"
     estado5.order="5"
     estado5.municipio=mun2
     estado5.save
-    
+    states<<estado5
+
     estado6=State.find_or_initialize_by id: "12"
     estado6.name="NO ASIGNADO"
     estado6.order="6"
     estado6.municipio=mun2
     estado6.save
-        
+    states<<estado6   
     mun2.save
     
 
@@ -101,48 +115,58 @@ class Ollert
     estado1.order="1"
     estado1.municipio=mun3
     estado1.save
+    states<<estado1
 
     estado2=State.find_or_initialize_by id: "14"
     estado2.name="Formulación"
     estado2.order="2"
     estado2.municipio=mun3
     estado2.save
-    
+    states<<estado2
+
     estado3=State.find_or_initialize_by id: "15"
     estado3.name="Observado"
     estado3.order="3"
     estado3.municipio=mun3
     estado3.save
-    
+    states<<estado3
+
     estado4=State.find_or_initialize_by id: "16"
     estado4.name="Licitación"
     estado4.order="4"
     estado4.municipio=mun3
     estado4.save
-    
+    states<<estado4
+
     estado5=State.find_or_initialize_by id: "17"
     estado5.name="Ejecución"
     estado5.order="5"
     estado5.municipio=mun3
     estado5.save
-    
+    states<<estado5
+
     estado6=State.find_or_initialize_by id: "18"
     estado6.name="NO ASIGNADO"
     estado6.order="6"
     estado6.municipio=mun3
     estado6.save
-        
+    states<<estado6  
     mun3.save
     
-    count=0
-    State.all.each do |s|
-        task1=Task.find_or_initialize_by id: "#{count}"
+    count=1
+    states.each do |s|
+        mun=Municipio.find_or_create_by(id: s.municipio.id)
+        state=mun.states.find_or_create_by(id: s.id)
+        task1=state.tasks.find_or_initialize_by(id: count)
         task1.name="tarea #{count%6} por defecto de estado #{count}"
         task1.desc="descripcion de tarea por defecto de estado #{count}"
-        task1.state=s
+        
+        
+
         count=count+1
         task1.save
-        s.save
+        puts task1.state.tasks
+        
     end
 
     redirect '/'
