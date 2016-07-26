@@ -3,7 +3,7 @@ require 'mongoid'
 class User
   include Mongoid::Document
 
-  embeds_many :boards
+  has_many :boards
 
   field :email, type: String
   field :trello_id, type: String
@@ -15,6 +15,8 @@ class User
   field :login_name, type: String
   field :login_last_name, type: String
   field :role, type: String
+
+  belongs_to :municipio
 
   validates_uniqueness_of :trello_id
   validates_uniqueness_of :login_mail

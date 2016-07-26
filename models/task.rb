@@ -8,5 +8,5 @@ class Task
   field :desc, type: String
   
   validates_uniqueness_of :id
-  embedded_in :state
+  belongs_to :state
 end

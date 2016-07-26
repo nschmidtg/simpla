@@ -7,14 +7,33 @@
       .col-xs-12.text-center.h1
         Learn what your Trello boards aren't telling you.
     
-    .row
-      .text-center
-        %a{class: "btn btn-primary btn-xl connect-btn", href: "javascript:void(0)", onClick: "TrelloController.authorize()"}
-          Connect to Get Started
+    
     .row
       .text-center.small
         By connecting, you agree to our <a href="/terms">terms of service</a>.
-
+    .container
+      .row
+        %form#components.form-horizontal{role: "form", :action=>"/authorize", :method=>"post"}
+          %fieldset
+            .tab-content
+              / Tabs of snippets go here
+              #input.tab-pane.active
+                .component
+                  / Text input
+                  .form-group
+                    %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
+                    .col-md-6.col-sm-6.col-xs-12
+                      %input#textinput.form-control.input-md{name: "mail", placeholder: "Correo Electrónico", style: "cursor: auto;", type: "email" ,required: ""}/
+                  .form-group
+                    %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"}
+                    .col-md-6.col-sm-6.col-xs-12
+                      %input#textinput.form-control.input-md{name: "password", placeholder: "Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
+                  
+                  
+                  .form-group
+                    %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
+                    .col-md-6.col-sm-6.col-xs-12.text-center
+                      %input.button{:type => "submit", :value => "Iniciar Sesión",:style => "background-color:#596a8d"}     
 .landing-info.landing-section
   .container.hidden-xs
     .row.text-center.h1

@@ -83,14 +83,14 @@ var Ollert = (function() {
     var entro=false;
     
       for (var orgName in boardData) {
-        if((orgName.includes("- Alta Prioridad") ) || (orgName.includes("- Baja Prioridad") ) || (orgName.includes("- No Priorizados") )){
-          if(orgName.includes("- Alta Prioridad")){
+        if((orgName.includes("Alta Prioridad") ) || (orgName.includes("Baja Prioridad") ) || (orgName.includes("No Priorizados") )){
+          if(orgName.includes("Alta Prioridad")){
             entroAlta=true;
           }
-          else if(orgName.includes("- Baja Prioridad")){
+          else if(orgName.includes("Baja Prioridad")){
             entroBaja=true;
           }
-          else if(orgName.includes("- No Priorizados")){
+          else if(orgName.includes("No Priorizados")){
             entroNo=true;
           }
           entro=true;
@@ -153,7 +153,7 @@ var Ollert = (function() {
         }
       }
       if(esta==false){
-        if(orgName.includes("- Alta Prioridad") || orgName.includes("- Baja Prioridad") || orgName.includes("- No Priorizados")){
+        if(orgName.includes("Alta Prioridad") || orgName.includes("Baja Prioridad") || orgName.includes("No Priorizados")){
           appender=appender+"<li class='org' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
         
         }
@@ -163,10 +163,10 @@ var Ollert = (function() {
     var nodos=$(".org");
     for(var t=0;t<nodos.length;t++){
       for(var i=0;i<nodos.length;i++){
-        if(i!=1 && nodos[i].id.includes("- Baja Prioridad")){
+        if(i!=1 && nodos[i].id.includes("Baja Prioridad")){
           $("#config-drawer-board-list").append(nodos[i]);
         }
-        if(i!=2 && nodos[i].id.includes("- No Priorizados")){
+        if(i!=2 && nodos[i].id.includes("No Priorizados")){
           $("#config-drawer-board-list").append(nodos[i]);
         }
       }

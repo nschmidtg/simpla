@@ -42,10 +42,7 @@
             %a.navbar-brand{href: '/'}
               Ollert
           - if @user.nil?
-            %ul.signup-login-group.nav.navbar-nav.navbar-right
-              %li
-                %form{onsubmit: "TrelloController.authorize(); return false;"}
-                  %input.btn.btn-default{type: "submit", value: "Log in"}
+            
           - else @user.nil?
             %ul.nav.navbar-nav.navbar-right
               %li

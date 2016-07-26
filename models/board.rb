@@ -11,5 +11,5 @@ class Board
   field :fondo, type: String
   field :coords, type: String
 
-  embedded_in :user
+  belongs_to :user
 end

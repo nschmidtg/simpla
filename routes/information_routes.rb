@@ -12,6 +12,40 @@ class Ollert
     redirect '/'
   end
 
+  post '/authorize', :auth => :none do
+    require 'digest'
+    mail=params[:mail]
+    password=params[:password]
+    Municipio.includes(:users).each do |muni|
+      muni.users.all.each do |user|
+        if(user!=nil)
+          if(user.login_mail==mail)
+            hash=Digest::SHA256.base64digest password
+        
+            if(hash==user.login_pass)
+             
+              respond_to do |format|
+                format.html { haml :authorize }
+              end
+            else
+              flash[:error] = "Contraseña no válida"
+              redirect '/'
+            end
+        
+          end
+        end
+      end
+
+    end
+    flash[:error] = "Correo no registrado"
+    redirect '/'
+    
+    
+    
+  end
+
+
+
   get '/seed', :auth => :none do
 
     states=Array.new()
@@ -53,104 +87,93 @@ class Ollert
     estado5.save
     states<<estado5
     
-    estado6=State.find_or_initialize_by id: "6"
-    estado6.name="NO ASIGNADO"
-    estado6.order="6"
-    estado6.municipio=mun1
-    estado6.save
-    states<<estado6
+    
         
     mun1.save
 
+    
+
+
     mun2=Municipio.find_or_initialize_by id: "2"
     mun2.name="Municipalidad de Llay Llay"
-    estado1=State.find_or_initialize_by id: "7"
-    estado1.name="No iniciado"
+    estado1=State.find_or_initialize_by id: "6"
+    estado1.name="No iniciado2"
     estado1.order="1"
     estado1.municipio=mun2
     estado1.save
     states<<estado1
 
-    estado2=State.find_or_initialize_by id: "8"
-    estado2.name="Formulación"
+    estado2=State.find_or_initialize_by id: "7"
+    estado2.name="Formulación2"
     estado2.order="2"
     estado2.municipio=mun2
     estado2.save
     states<<estado2
 
-    estado3=State.find_or_initialize_by id: "9"
-    estado3.name="Observado"
+    estado3=State.find_or_initialize_by id: "8"
+    estado3.name="Observado2"
     estado3.order="3"
     estado3.municipio=mun2
     estado3.save
     states<<estado3
 
-    estado4=State.find_or_initialize_by id: "10"
-    estado4.name="Licitación"
+    estado4=State.find_or_initialize_by id: "9"
+    estado4.name="Licitación2"
     estado4.order="4"
     estado4.municipio=mun2
     estado4.save
     states<<estado4
 
-    estado5=State.find_or_initialize_by id: "11"
-    estado5.name="Ejecución"
+    estado5=State.find_or_initialize_by id: "10"
+    estado5.name="Ejecución2"
     estado5.order="5"
     estado5.municipio=mun2
     estado5.save
     states<<estado5
 
-    estado6=State.find_or_initialize_by id: "12"
-    estado6.name="NO ASIGNADO"
-    estado6.order="6"
-    estado6.municipio=mun2
-    estado6.save
-    states<<estado6   
+      
     mun2.save
+
     
 
     mun3=Municipio.find_or_initialize_by id: "3"
     mun3.name="Municipalidad de Nogales"
-    estado1=State.find_or_initialize_by id: "13"
+    estado1=State.find_or_initialize_by id: "11"
     estado1.name="No iniciado"
     estado1.order="1"
     estado1.municipio=mun3
     estado1.save
     states<<estado1
 
-    estado2=State.find_or_initialize_by id: "14"
+    estado2=State.find_or_initialize_by id: "12"
     estado2.name="Formulación"
     estado2.order="2"
     estado2.municipio=mun3
     estado2.save
     states<<estado2
 
-    estado3=State.find_or_initialize_by id: "15"
+    estado3=State.find_or_initialize_by id: "13"
     estado3.name="Observado"
     estado3.order="3"
     estado3.municipio=mun3
     estado3.save
     states<<estado3
 
-    estado4=State.find_or_initialize_by id: "16"
+    estado4=State.find_or_initialize_by id: "14"
     estado4.name="Licitación"
     estado4.order="4"
     estado4.municipio=mun3
     estado4.save
     states<<estado4
 
-    estado5=State.find_or_initialize_by id: "17"
+    estado5=State.find_or_initialize_by id: "15"
     estado5.name="Ejecución"
     estado5.order="5"
     estado5.municipio=mun3
     estado5.save
     states<<estado5
 
-    estado6=State.find_or_initialize_by id: "18"
-    estado6.name="NO ASIGNADO"
-    estado6.order="6"
-    estado6.municipio=mun3
-    estado6.save
-    states<<estado6  
+      
     mun3.save
     
     count=1
@@ -195,6 +218,14 @@ class Ollert
         
         
     end
+    mun=Municipio.find_by id: "1"
+    user1=mun.users.find_or_initialize_by login_mail: "nschmidtg@gmail.com"
+    user1.login_name="Nicolas"
+    user1.login_last_name="Schmidt"
+    user1.login_pass = Digest::SHA256.base64digest "articuno"
+    user1.municipio=mun
+    user1.save
+
 
     redirect '/'
   end

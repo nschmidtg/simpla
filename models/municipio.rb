@@ -3,8 +3,8 @@ require 'mongoid'
 class Municipio
   include Mongoid::Document
 
-  embeds_many :users
-  embeds_many :states
+  has_many :users
+  has_many :states
 
   field :name, type: String
   field :id, type: String

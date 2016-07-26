@@ -4,9 +4,9 @@ class UserConnector
 
     user = nil
     if current_user.nil?
-      user = User.find_or_initialize_by trello_id: member["id"]
+      user = User.find_or_initialize_by login_mail: member["email"]
     else
-      unless member["id"] == current_user.trello_id || User.find_by(trello_id: member["id"]).nil?
+      unless member["email"] == current_user.login_mail || User.find_by(login_mail: member["email"]).nil?
         return {
           body: "User already exists using that account. Log out to connect with that account.",
           status: 400

@@ -1,0 +1,17 @@
+
+.landing-connect
+	.container
+		.row
+			.text-center
+				%a{class: "btn btn-primary btn-xl connect-btn", href: "javascript:void(0)", onClick: "TrelloController.authorize()"}
+					Connect to Get Started
+
+
+:javascript
+	$( document ).ready(function() {
+		Trello.setKey("d362373a44e62ddcbb30a60418a99f41");
+	  if (false) {
+	    Ollert.initDrawer();
+	  }
+	  TrelloController.authorize();
+	});

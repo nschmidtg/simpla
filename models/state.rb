@@ -4,12 +4,12 @@ class State
   include Mongoid::Document
 
 
-  embeds_many :tasks
+  has_many :tasks
 
   field :id, type: String
   field :name, type: String
   field :order, type: String
   
   validates_uniqueness_of :id
-  embedded_in :municipio
+  belongs_to :municipio
 end
