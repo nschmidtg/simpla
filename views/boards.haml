@@ -16,30 +16,26 @@
         #{state}
         %ul{class: 'boards-list'}
           - @boards.each do |org_name, boards|
-            - prioridad_tablero=org_name.split('- ')
-            - if(prioridad_tablero.count==2)
-              - prioridad_tablero=prioridad_tablero[1]
-              - if(@prioridades.include?(prioridad_tablero))
-                - boards.each do |board|
-                  - if state == board["name"].split('|')[1]
-                    - @asignados<<board["name"]
-                    %li.boards-list-item
-                      %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                        #{board["name"].split('|')[2]}
+            - prioridad_tablero=org_name
+            - if(@prioridades.include?(prioridad_tablero))
+              - boards.each do |board|
+                - if state == board["name"].split('|')[1]
+                  - @asignados<<board["name"]
+                  %li.boards-list-item
+                    %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                      #{board["name"].split('|')[2]}
   .col-md-2.col-sm-2.col-xs-4.no-padding
     .analysis-block-md
       NO ASIGNADO
       %ul{class: 'boards-list'}
         - @boards.each do |org_name, boards|
-          - prioridad_tablero=org_name.split('- ')
-          - if(prioridad_tablero.count==2)
-            - prioridad_tablero=prioridad_tablero[1]
-            - if(@prioridades.include?(prioridad_tablero))
-              - boards.each do |board|
-                - unless  @asignados.include?(board["name"])
-                  %li.boards-list-item
-                    %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                      #{board["name"]}
+        - prioridad_tablero=org_name
+          - if(@prioridades.include?(prioridad_tablero))
+            - boards.each do |board|
+              - unless  @asignados.include?(board["name"])
+                %li.boards-list-item
+                  %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                    #{board["name"]}
 
   .row
     %h2.ollert-header
@@ -57,14 +53,12 @@
         #{prioridad}
         %ul{class: 'board-list-prior'}
           - @boards.each do |org_name, boards|
-            - prioridad_tablero=org_name.split('- ')
-            - if(prioridad_tablero.count==2)
-              - prioridad_tablero=prioridad_tablero[1]
-              - if(prioridad==(prioridad_tablero))
-                - boards.each do |board|
-                  %li.boards-list-item
-                    %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                      #{board["name"]}
+            - prioridad_tablero=org_name
+            - if(prioridad==(prioridad_tablero))
+              - boards.each do |board|
+                %li.boards-list-item
+                  %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                    #{board["name"]}
 :javascript
   $( ".boards-list").sortable({connectWith: ".boards-list",
     stop: function  (event,ui) {

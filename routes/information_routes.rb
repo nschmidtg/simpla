@@ -226,6 +226,14 @@ class Ollert
     user1.municipio=mun
     user1.save
 
+    mun2=Municipio.find_by id: "2"
+    user2=mun.users.find_or_initialize_by login_mail: "nicolassg@uc.cl"
+    user2.login_name="Nicolas"
+    user2.login_last_name="Schmidt"
+    user2.login_pass = Digest::SHA256.base64digest "articuno2"
+    user2.municipio=mun2
+    user2.save
+
 
     redirect '/'
   end
