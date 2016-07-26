@@ -3,7 +3,7 @@ class Ollert
     if !@user.nil? && !@user.member_token.nil?
       redirect '/boards'
     end
-    @municipios=Municipio.all
+    
     haml :landing
   end
 
@@ -158,14 +158,41 @@ class Ollert
         mun=Municipio.find_or_create_by(id: s.municipio.id)
         state=mun.states.find_or_create_by(id: s.id)
         task1=state.tasks.find_or_initialize_by(id: count)
-        task1.name="tarea #{count%6} por defecto de estado #{count}"
-        task1.desc="descripcion de tarea por defecto de estado #{count}"
-        
-        
-
+        task1.name="tarea #{count%6} por defecto de estado #{s.id}"
+        task1.desc="descripcion de tarea por defecto de estado #{s.id}"
         count=count+1
         task1.save
-        puts task1.state.tasks
+
+        task2=state.tasks.find_or_initialize_by(id: count)
+        task2.name="tarea #{count%6} por defecto de estado #{s.id}"
+        task2.desc="descripcion de tarea por defecto de estado #{s.id}"
+        count=count+1
+        task2.save
+
+        task3=state.tasks.find_or_initialize_by(id: count)
+        task3.name="tarea #{count%6} por defecto de estado #{s.id}"
+        task3.desc="descripcion de tarea por defecto de estado #{s.id}"
+        count=count+1
+        task3.save
+
+        task4=state.tasks.find_or_initialize_by(id: count)
+        task4.name="tarea #{count%6} por defecto de estado #{s.id}"
+        task4.desc="descripcion de tarea por defecto de estado #{s.id}"
+        count=count+1
+        task4.save
+
+        task5=state.tasks.find_or_initialize_by(id: count)
+        task5.name="tarea #{count%6} por defecto de estado #{s.id}"
+        task5.desc="descripcion de tarea por defecto de estado #{s.id}"
+        count=count+1
+        task5.save
+
+        task6=state.tasks.find_or_initialize_by(id: count)
+        task6.name="tarea #{count%6} por defecto de estado #{s.id}"
+        task6.desc="descripcion de tarea por defecto de estado #{s.id}"
+        count=count+1
+        task6.save
+        
         
     end
 
