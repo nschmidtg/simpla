@@ -151,7 +151,10 @@
                   .col-md-6.col-sm-6.col-xs-12
                     #map
                     - if(params[:edit]=="true")
-                      %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
+                      - if(@board.coords != "")
+                        %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
+                      - else
+                        %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.085 -70.930", style: "cursor: auto;", type: "hidden"}/
                     - else
                       %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
                 .form-group

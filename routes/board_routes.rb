@@ -51,7 +51,7 @@ class Ollert
       @states=@user.municipio.states.pluck(:name)
       @prioridades=["Alta Prioridad","Baja Prioridad","No Priorizados"]
       @token=@user.member_token
-      
+
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -87,7 +87,10 @@ class Ollert
         config.member_token = @user.member_token
       end
       JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
-
+      boards=Board.where({board_id: board_id})
+      boards.each do |board|
+        board.remove
+      end
 
     rescue Trello::Error => e
       

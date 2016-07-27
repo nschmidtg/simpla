@@ -226,7 +226,7 @@ class Ollert
     user1.save
 
     
-    mun2=Municipio.find_or_initialize_by( id: "2")
+    mun2=Municipio.find_or_initialize_by( id: "1")
     user2=mun2.users.find_or_initialize_by(login_mail: "nicolassg@uc.cl")
     user2.login_name="Nicolas"
     user2.login_last_name="Schmidt"
