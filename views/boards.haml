@@ -59,6 +59,18 @@
                 %li.boards-list-item
                   %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
                     #{board["name"]}
+                    - last_updated_board=Board.find_by({board_id: board["id"]})
+                    - if(last_updated_board!=nil)
+                      - bdbrd=@user.boards.find_or_initialize_by(board_id: board["id"])
+                      - bdbrd.monto=last_updated_board.monto
+                      - bdbrd.tipo=last_updated_board.tipo
+                      - bdbrd.fondo=last_updated_board.fondo
+                      - bdbrd.coords=last_updated_board.coords
+                      - bdbrd.save
+                    - else
+                      - bdbrd=@user.boards.find_or_initialize_by(board_id: board["id"])
+                      - bdbrd.save
+          end
 :javascript
   $( ".boards-list").sortable({connectWith: ".boards-list",
     stop: function  (event,ui) {

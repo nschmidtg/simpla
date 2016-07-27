@@ -218,21 +218,21 @@ class Ollert
         
         
     end
-    mun=Municipio.find_by id: "1"
-    user1=mun.users.find_or_initialize_by login_mail: "nschmidtg@gmail.com"
+    mun=Municipio.find_or_initialize_by( id: "1")
+    user1=mun.users.find_or_initialize_by(login_mail: "nschmidtg@gmail.com")
     user1.login_name="Nicolas"
     user1.login_last_name="Schmidt"
-    user1.login_pass = Digest::SHA256.base64digest "articuno"
-    user1.municipio=mun
+    user1.login_pass = Digest::SHA256.base64digest("articuno")
     user1.save
 
-    mun2=Municipio.find_by id: "2"
-    user2=mun.users.find_or_initialize_by login_mail: "nicolassg@uc.cl"
+    
+    mun2=Municipio.find_or_initialize_by( id: "2")
+    user2=mun2.users.find_or_initialize_by(login_mail: "nicolassg@uc.cl")
     user2.login_name="Nicolas"
     user2.login_last_name="Schmidt"
-    user2.login_pass = Digest::SHA256.base64digest "articuno2"
-    user2.municipio=mun2
+    user2.login_pass = Digest::SHA256.base64digest("articuno2")
     user2.save
+    
 
 
     redirect '/'

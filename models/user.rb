@@ -18,6 +18,4 @@ class User
 
   belongs_to :municipio
 
-  validates_uniqueness_of :trello_id
-  validates_uniqueness_of :login_mail
 end

@@ -39,8 +39,8 @@
                   .col-md-6.col-sm-6.col-xs-12
                     - @board=nil
                     - if(params[:edit]=="true")
-                      - @board=Trello::Board.find(params[:last_board_id])
-                      %input#textinput.form-control.input-md{name: "monto",min: "0", step: "50000", style: "cursor: auto;", type: "number",value: "#{@board.description.split('|')[1]}"}/
+                      - @board=@user.boards.find_by board_id: params[:last_board_id]
+                      %input#textinput.form-control.input-md{name: "monto",min: "0", step: "50000", style: "cursor: auto;", type: "number",value: "#{@board.monto}"}/
                     - else
                       %input#textinput.form-control.input-md{name: "monto",min: "0",step: "50000", style: "cursor: auto;", type: "number"}/
                 .form-group
@@ -48,7 +48,7 @@
                   .col-md-6.col-sm-6.col-xs-12
                     %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
                       - if(params[:edit]=="true")
-                        - @tipo=@board.description.split('|')[2]
+                        - @tipo=@board.tipo
                         - if(@tipo=="salud")
                           %option{:value => "salud", :selected => ""} Salud
                           %option{:value => "educacion"} Educación
@@ -87,7 +87,7 @@
 
                     %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
                       - if(params[:edit]=="true")
-                        - @fondo=@board.description.split('|')[3]
+                        - @fondo=@board.fondo
                         - if(@fondo=="fndr")
                           %option{:value => "fndr", :selected => ""} FNDR
                           %option{:value => "pmu"} PMU
@@ -151,7 +151,7 @@
                   .col-md-6.col-sm-6.col-xs-12
                     #map
                     - if(params[:edit]=="true")
-                      %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.description.split('|')[4]}", style: "cursor: auto;", type: "hidden"}/
+                      %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
                     - else
                       %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
                 .form-group
@@ -186,14 +186,14 @@
   
   function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}},
+      center: {lat: #{if(params[:edit]=="true" && @board.coords!=nil) \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil) \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}},
       zoom: 14,
     });
     marker = new google.maps.Marker({
       map: map,
       draggable: true,
       animation: google.maps.Animation.DROP,
-      position: {lat: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.description.split('|')[4]!=nil) \n @board.description.split('|')[4].split(' ')[1] \n else '-70.9333' \n end}}
+      position: {lat: #{if(params[:edit]=="true" && @board.coords!=nil) \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil) \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}}
     });
     google.maps.event.addListener(marker, 'dragend', function(evt){
       $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));

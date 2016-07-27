@@ -51,6 +51,7 @@ class Ollert
       @states=@user.municipio.states.pluck(:name)
       @prioridades=["Alta Prioridad","Baja Prioridad","No Priorizados"]
       @token=@user.member_token
+      
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -122,19 +123,40 @@ class Ollert
       org_id=params[:org_id]
       memb="false"
       if org_id!=""
-        desc="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
-        data={:name=> params[:name],:description=> desc,:organization_id=> org_id}
+        
+        data={:name=> params[:name],:organization_id=> org_id}
         memb="true"
       else
-        desc="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
-        data={:name=> params[:name],:description=> desc}
+        
+        data={:name=> params[:name]}
       end
 
       
         
       if(params[:edit]=="false")
-        #El tablero no existe
+        #El tablero no existe, lo creo
         @board=Trello::Board.create(data)
+        #Creo el tablero a nivel de BD:
+        board_settings = @user.boards.find_or_create_by(board_id: @board.id)
+        board_settings.monto=params[:monto]
+        board_settings.tipo=params[:tipo]
+        board_settings.fondo=params[:fondo]
+        board_settings.coords=params[:zona]
+        board_settings.save
+        #TODO: Propago los cambios al mismo tablero pero de los otros usuarios.
+        
+        Board.all.each do |board|
+          if(board.board_id==@board.id)
+            board.monto=params[:monto]
+            board.tipo=params[:tipo]
+            board.fondo=params[:fondo]
+            board.coords=params[:zona]
+            board.save
+          end
+        end
+      
+
+
         #Cerrar las listas en inglés
         @board.lists.each do |l|
           l.close!
@@ -172,9 +194,26 @@ class Ollert
         #El tablero existe y va a ser editado
         @board=Trello::Board.find(params[:last_board_id])
         #@board.description="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
+        #Busco el tablero a nivel de BD:
+        board_settings = @user.boards.find_or_create_by(board_id: @board.id)
+        board_settings.monto=params[:monto]
+        board_settings.tipo=params[:tipo]
+        board_settings.fondo=params[:fondo]
+        board_settings.coords=params[:zona]
+        board_settings.save
+        #TODO: Propago los cambios al mismo tablero pero de los otros usuarios.
         
+        Board.all.each do |board|
+          if(board.board_id==@board.id)
+            board.monto=params[:monto]
+            board.tipo=params[:tipo]
+            board.fondo=params[:fondo]
+            board.coords=params[:zona]
+            board.save
+          end
+        end
+      
         @board.name=params[:name]
-        JSON.parse(client.put("/boards/#{params[:last_board_id]}/desc", {value: desc}))
         @board.update!
         
       end
