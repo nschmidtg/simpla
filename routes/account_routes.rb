@@ -85,11 +85,16 @@ class Ollert
       :member_token => params[:token]
     )
 
-    result = UserConnector.connect client, params[:token]
-
-    session[:user] = result[:id]
-    status result[:status]
-    body result[:body]
+    result = UserConnector.connect client, params[:token], params[:login_mail]
+    if(result[:status]==200)
+      session[:user] = result[:id]
+      status result[:status]
+      body result[:body]
+    else
+      session[:user] = nil
+      flash[:error] = "Cuentra de Trello no coincide con Email"
+      redirect '/'
+    end
   end
 
   put '/settings/trello/connect', auth: :connected do

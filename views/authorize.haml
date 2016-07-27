@@ -6,7 +6,59 @@
 				%a{class: "btn btn-primary btn-xl connect-btn", href: "javascript:void(0)", onClick: "TrelloController.authorize()"}
 					Connect to Get Started
 
+:javascript
+	var TrelloController = (function () {
+	var authorize = function (callback) {
+		var url=window.location.href;
+		var auth=url.split('/')[3]
+		if(auth =="authorize"){
+			Trello.deauthorize();
+			Trello.clearReady();
 
+			Trello.authorize({
+				name: "Ollert",
+				type: "popup",
+				interactive: true,
+				expiration: "never",
+				persist: false,
+				success: callback || onSuccessfulAuthorization,
+				scope: {
+					read: true,
+					write: true,
+					account: true
+				}
+			});
+		}
+	};
+
+	var onSuccessfulAuthorization = function (url) {
+		$(".connect-btn").text("Connecting...");
+
+		$.ajax({
+			url: "/trello/connect",
+			method: "put",
+			data: {
+				token: Trello.token(),
+				login_mail: "#{params[:mail]}"
+			},
+			success: function () {
+				$(".connect-btn").text("Connection successful. Redirecting...");
+				self.location = "/boards";
+			},
+			error: function (xhr, textStatus, errorThrown) {
+				if (xhr.responseText) {
+			FlashMessage.error(xhr.responseText);
+			$(".connect-btn").text("Connection failed. Try again.");
+				}
+			}
+		});
+	};
+  
+
+	return {
+		authorize: authorize
+	};
+	}());
 :javascript
 	$( document ).ready(function() {
 		Trello.setKey("d362373a44e62ddcbb30a60418a99f41");

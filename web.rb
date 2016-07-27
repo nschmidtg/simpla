@@ -45,7 +45,7 @@ class Ollert < Sinatra::Base
       if role == :connected
         if @user.nil?
           session[:user] = nil
-          flash[:warning] = "Hey! You should create an account to do that."
+          flash[:warning] = "Hubo un error de autentificación. Por favor inicie sesión."
           redirect '/'
         end
       end
@@ -53,7 +53,7 @@ class Ollert < Sinatra::Base
   end
 
   error Trello::Error do
-    body "There's something wrong with the Trello connection. Please re-establish the connection."
+    body "Hubo un error de autentificación. Por favor inicie sesión."
     status 500
   end
 end
