@@ -108,7 +108,7 @@ var Ollert = (function() {
             organizationBoards.append(item);
           }
           var section = $("<li class='org' id=\""+orgName+"\" role=\"presentation2\"><b>" + orgName + "</b></li>").append(organizationBoards)
-          var botonAgregar = $("<button onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
+          var botonAgregar = $("<button id='boton_agregar' onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
           var section2 = section.append(botonAgregar);
           $("#config-drawer-board-list").append(section2);
         }

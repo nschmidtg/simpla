@@ -223,7 +223,7 @@ class Ollert
     user1.login_name="Nicolas"
     user1.login_last_name="Schmidt"
     user1.login_pass = Digest::SHA256.base64digest("articuno")
-    user1.role="admin"
+    user1.role="secpla"
     user1.save
 
     zone1=Zone.find_or_initialize_by(id: "1")
@@ -244,7 +244,7 @@ class Ollert
     user2.login_name="Nicolas"
     user2.login_last_name="Schmidt"
     user2.login_pass = Digest::SHA256.base64digest("articuno2")
-    user2.role="admin"
+    user2.role="secpla"
 
     user2.save
     
