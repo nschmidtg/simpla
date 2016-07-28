@@ -154,12 +154,14 @@ class Ollert
         board_settings.users<<@user
         board_settings.municipio=@user.municipio
         board_settings.save
-        zonas.each do |zona_id|
-          zona=Zone.find_or_initialize_by( id: zona_id)
-          board_settings.zones<<Zone.find_or_initialize_by( id: zona)
-          zona.boards<<board_settings
-          zona.save
-          board_settings.save
+        if(zonas!=nil)
+          zonas.each do |zona_id|
+            zona=Zone.find_or_initialize_by( id: zona_id)
+            board_settings.zones<<Zone.find_or_initialize_by( id: zona)
+            zona.boards<<board_settings
+            zona.save
+            board_settings.save
+          end
         end
         @user.boards<<board_settings
         @user.save
@@ -210,6 +212,24 @@ class Ollert
         board_settings.fondo=params[:fondo]
         board_settings.coords=params[:zona]
         board_settings.save
+        if(zonas!=nil)
+          board_settings.zones.each do |zone|
+            board_settings.zones.delete(zone)
+          end
+          zonas.each do |zona_id|
+            zona=Zone.find_or_initialize_by( id: zona_id)
+            board_settings.zones<<Zone.find_or_initialize_by( id: zona)
+            zona.boards<<board_settings
+            zona.save
+            board_settings.save
+          end
+        else
+          board_settings.zones.each do |zone|
+            board_settings.zones.delete(zone)
+          end
+        end
+        @user.boards<<board_settings
+        @user.save
         
         if(params[:name]!=@board.name)
           @board.name=params[:name]

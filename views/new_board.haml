@@ -149,6 +149,11 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
                   .col-md-6.col-sm-6.col-xs-12
+                    .checkbox
+                      %label
+                        %input#select_all{:type => "checkbox", :onClick=>"toggle(this)"}>/
+                      
+                        Marcar Todas
                     - @user.municipio.zones.each do |zona|
                       .checkbox
                         %label
@@ -200,6 +205,14 @@
       %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
       %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
   
+
+:javascript
+  function toggle(source) {
+    checkboxes = document.getElementsByName('zonas[]');
+    for(var i=0, n=checkboxes.length;i<n;i++) {
+      checkboxes[i].checked = source.checked;
+    }
+  }
 :javascript
   
   function initMap() {
