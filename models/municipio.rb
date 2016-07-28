@@ -5,6 +5,8 @@ class Municipio
 
   has_many :users
   has_many :states
+  has_many :boards
+  has_many :zones
 
   field :name, type: String
   field :id, type: String

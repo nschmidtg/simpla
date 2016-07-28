@@ -149,6 +149,21 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
                   .col-md-6.col-sm-6.col-xs-12
+                    - @user.municipio.zones.each do |zona|
+                      .checkbox
+                        %label
+                          - if(params[:edit]=="true")
+                            - if(@board.zones.find_by(id: zona.id)!=nil)
+                              %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]", :checked =>"true"}>/
+                            - else
+                              %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
+                            #{zona.name}
+                          - else
+                            %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
+                            #{zona.name}
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
+                  .col-md-6.col-sm-6.col-xs-12
                     #map
                     - if(params[:edit]=="true")
                       - if(@board.coords != "")

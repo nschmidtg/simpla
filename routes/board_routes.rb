@@ -89,7 +89,13 @@ class Ollert
       JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
       boards=Board.where({board_id: board_id})
       boards.each do |board|
-        board.remove
+        board.users.each do |user|
+          user.boards.delete(board)
+        end
+        board.zones.each do |zone|
+          zone.boards.delete(board)
+        end
+        board.destroy
       end
 
     rescue Trello::Error => e
@@ -134,30 +140,30 @@ class Ollert
         data={:name=> params[:name]}
       end
 
-      
+      zonas=params[:zonas]
         
       if(params[:edit]=="false")
         #El tablero no existe, lo creo
         @board=Trello::Board.create(data)
         #Creo el tablero a nivel de BD:
-        board_settings = @user.boards.find_or_create_by(board_id: @board.id)
+        board_settings = Board.find_or_create_by(board_id: @board.id)
         board_settings.monto=params[:monto]
         board_settings.tipo=params[:tipo]
         board_settings.fondo=params[:fondo]
         board_settings.coords=params[:zona]
+        board_settings.users<<@user
+        board_settings.municipio=@user.municipio
         board_settings.save
-        #TODO: Propago los cambios al mismo tablero pero de los otros usuarios.
-        
-        Board.all.each do |board|
-          if(board.board_id==@board.id)
-            board.monto=params[:monto]
-            board.tipo=params[:tipo]
-            board.fondo=params[:fondo]
-            board.coords=params[:zona]
-            board.save
-          end
+        zonas.each do |zona_id|
+          zona=Zone.find_or_initialize_by( id: zona_id)
+          board_settings.zones<<Zone.find_or_initialize_by( id: zona)
+          zona.boards<<board_settings
+          zona.save
+          board_settings.save
         end
-      
+        @user.boards<<board_settings
+        @user.save
+        
 
 
         #Cerrar las listas en inglés
@@ -198,26 +204,17 @@ class Ollert
         @board=Trello::Board.find(params[:last_board_id])
         #@board.description="|#{params[:monto]}|#{params[:tipo]}|#{params[:fondo]}|#{params[:zona]}|"
         #Busco el tablero a nivel de BD:
-        board_settings = @user.boards.find_or_create_by(board_id: @board.id)
+        board_settings = Board.find_or_create_by(board_id: @board.id)
         board_settings.monto=params[:monto]
         board_settings.tipo=params[:tipo]
         board_settings.fondo=params[:fondo]
         board_settings.coords=params[:zona]
         board_settings.save
-        #TODO: Propago los cambios al mismo tablero pero de los otros usuarios.
         
-        Board.all.each do |board|
-          if(board.board_id==@board.id)
-            board.monto=params[:monto]
-            board.tipo=params[:tipo]
-            board.fondo=params[:fondo]
-            board.coords=params[:zona]
-            board.save
-          end
+        if(params[:name]!=@board.name)
+          @board.name=params[:name]
+          @board.update!
         end
-      
-        @board.name=params[:name]
-        @board.update!
         
       end
       
@@ -239,7 +236,11 @@ class Ollert
     end
 
     respond_to do |format|
-      flash[:success] = "Proyecto creado exitosamente."
+      if(params[:edit]=="false")
+        flash[:success] = "Proyecto creado exitosamente."
+      else
+        flash[:success] = "Proyecto editado exitosamente."
+      end
       redirect '/boards/'+@board.id
       
     end

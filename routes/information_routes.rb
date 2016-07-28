@@ -225,6 +225,18 @@ class Ollert
     user1.login_pass = Digest::SHA256.base64digest("articuno")
     user1.save
 
+    zone1=Zone.find_or_initialize_by(id: "1")
+    zone1.coords="-33.085 -80.930"
+    zone1.name="pelambres"
+    zone1.municipio=mun
+    zone1.save
+
+    zone2=Zone.find_or_initialize_by(id: "2")
+    zone2.coords="-33.085 -80.930"
+    zone2.name="Catemu"
+    zone2.municipio=mun
+    zone2.save
+
     
     mun2=Municipio.find_or_initialize_by( id: "1")
     user2=mun2.users.find_or_initialize_by(login_mail: "nicolassg@uc.cl")
