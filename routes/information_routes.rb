@@ -244,7 +244,7 @@ class Ollert
     user2.login_name="Nicolas"
     user2.login_last_name="Schmidt"
     user2.login_pass = Digest::SHA256.base64digest("articuno2")
-    user2.role="secpla"
+    user2.role="admin"
 
     user2.save
     
