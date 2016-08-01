@@ -223,7 +223,7 @@ class Ollert
     user1.login_name="Nicolas"
     user1.login_last_name="Schmidt"
     user1.login_pass = Digest::SHA256.base64digest("articuno")
-    user1.role="secpla"
+    user1.role="concejal"
     user1.save
 
     zone1=Zone.find_or_initialize_by(id: "1")
@@ -247,6 +247,13 @@ class Ollert
     user2.role="admin"
 
     user2.save
+
+    # Roles posibles:
+    # -admin (Crear municipios nuevos, enviar invitaciones a nuevos secpla)
+    #     -secpla (crear y editar proyectos, crear y editar zonas, crear nuevos funcionarios, crear y editar tareas predeterminadas por estado)
+    #         -alcalde (ver indicadores globales, ver indicadores de proyecto, filtrar por zonas)
+    #         -concejal
+    #         -funcionario
     
 
 

@@ -129,7 +129,7 @@ class Ollert
 
 
     begin
-      if(@user.role=="secpla")
+      if(@user.role=="secpla" || @user.role=="admin")
         org_id=params[:org_id]
         memb="false"
         if org_id!=""
@@ -303,7 +303,7 @@ class Ollert
     )
     
     begin
-      if(@user.role=="secpla")
+      if(@user.role=="secpla" || @user.role=="admin")
         @orgName=params[:orgName]
         Trello.configure do |config|
           config.developer_public_key = ENV['PUBLIC_KEY']

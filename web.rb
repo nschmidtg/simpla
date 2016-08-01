@@ -45,7 +45,7 @@ class Ollert < Sinatra::Base
       if role == :connected
         if @user.nil?
           session[:user] = nil
-          flash[:warning] = "Hubo un error de autentificación. Por favor inicie sesión."
+          flash[:warning] = "Su cuenta de Trello no coincide con las credenciales provistas."
           redirect '/'
         end
       end
@@ -53,7 +53,7 @@ class Ollert < Sinatra::Base
   end
 
   error Trello::Error do
-    body "Hubo un error de autentificación. Por favor inicie sesión."
+    body "Su cuenta de Trello no coincide con las credenciales provistas."
     status 500
   end
 end

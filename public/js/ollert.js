@@ -2,6 +2,7 @@ var Ollert = (function() {
 
   var teams = [];
   var info = [];
+  var esAdmin=false;
   var initDrawer = function() {
     refreshDrawer();
     $("body").toggleClass("has-drawer");
@@ -98,13 +99,14 @@ var Ollert = (function() {
           organizationBoards = $("<ul/>");
           
           teams.push(orgName);
-        
+          esAdmin=false;
           for (var j = 0; j < organization.length; ++j) {
             board = organization[j];
             item = $("<li/>", {
               role: "presentation1"
             });
             if(board.is_admin){
+              esAdmin=true;
               item.append($("<a style='display: inline-block;margin-left: -30px !important;overflow-wrap: break-word;    max-width: 250px;' href=\"/boards/" + board.id + "\">" + board.name + "</a><a onclick=\"Ollert.editProject('"+board.id+"','"+orgName+"','"+board.name+"')\" style='display: inline-block;float: right;padding: 5px !important;'><span class='glyphicon glyphicon-pencil' aria-hidden='true' style=''></span></a>"));
             }
             else{
@@ -113,8 +115,14 @@ var Ollert = (function() {
             organizationBoards.append(item);
           }
           var section = $("<li class='org' id=\""+orgName+"\" role=\"presentation2\"><b>" + orgName + "</b></li>").append(organizationBoards)
-          var botonAgregar = $("<button id='boton_agregar' onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
-          var section2 = section.append(botonAgregar);
+          var section2;
+          if(esAdmin){
+            var botonAgregar = $("<button id='boton_agregar' onclick=\"Ollert.newProject('"+board.id+"','"+orgName+"')\">Nuevo Proyecto</button>");
+            section2 = section.append(botonAgregar);
+          }
+          else{
+            section2=section
+          }
           $("#config-drawer-board-list").append(section2);
         }
         
@@ -157,8 +165,9 @@ var Ollert = (function() {
           break;
         }
       }
-      if(esta==false){
+      if(esta==false && esAdmin){
         if(orgName.includes("Alta Prioridad") || orgName.includes("Baja Prioridad") || orgName.includes("No Priorizados")){
+          
           appender=appender+"<li class='org' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
         
         }

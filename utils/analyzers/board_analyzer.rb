@@ -16,7 +16,7 @@ class BoardAnalyzer
 
     trello_boards = {}
     esAdmin=false
-    if(user.role=="secpla")
+    if(user.role=="secpla" || user.role=="admin")
       esAdmin=true
     end
     data.each do |board|
