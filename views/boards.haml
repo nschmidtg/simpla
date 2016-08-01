@@ -4,7 +4,7 @@
   .row
     %h2.ollert-header
       .text-center.col-xs-12
-        Estado de Proyectos
+        Etapa de Proyectos
 
   .row
     
@@ -23,8 +23,8 @@
                   - @asignados<<board["name"]
                   %li.boards-list-item
                     %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                      #{board["name"].split('|')[2]}
-  .col-md-2.col-sm-2.col-xs-4.no-padding
+                      #{board["name"].split('|')[0]}
+  .col-md-12.col-sm-12.col-xs-12.no-padding
     .analysis-block-md
       NO ASIGNADO
       %ul{class: 'boards-list'}

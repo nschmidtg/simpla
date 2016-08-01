@@ -177,11 +177,13 @@ var Ollert = (function() {
     var nodos=$(".org");
     for(var t=0;t<nodos.length;t++){
       for(var i=0;i<nodos.length;i++){
-        if(i!=1 && nodos[i].id.includes("Baja Prioridad")){
+        if(nodos[i].id.includes("Baja Prioridad")){
           $("#config-drawer-board-list").append(nodos[i]);
+          nodos=$(".org");
         }
-        if(i!=2 && nodos[i].id.includes("No Priorizados")){
+        if(nodos[i].id.includes("No Priorizados")){
           $("#config-drawer-board-list").append(nodos[i]);
+          nodos=$(".org");
         }
       }
     }
@@ -201,6 +203,7 @@ var Ollert = (function() {
     newProjectOrg: newProjectOrg,
     editProject: editProject,
     teams: teams,
-    info: info
+    info: info,
+    esAdmin: esAdmin
   };
 })();

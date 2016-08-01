@@ -89,10 +89,10 @@ class Ollert
 
     board=Trello::Board.find(board_id)
     if board.name.include? "|"
-      board.name="|"+state+"|"+board.name.split('|')[2]
+      board.name=board.name.split('|')[0]+" |"+state+"|"
       board.save
     else
-      board.name="|"+state+"| "+board.name
+      board.name=board.name+" |"+state+"|"
       board.save
     end
     body board.to_json
