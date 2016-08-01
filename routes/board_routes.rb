@@ -146,6 +146,7 @@ class Ollert
         if(params[:edit]=="false")
           #El tablero no existe, lo creo
           @board=Trello::Board.create(data)
+          JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
           #Creo el tablero a nivel de BD:
           board_settings = Board.find_or_create_by(board_id: @board.id)
           board_settings.monto=params[:monto]
@@ -206,6 +207,7 @@ class Ollert
 
           #El tablero existe y va a ser editado
           @board=Trello::Board.find(params[:last_board_id])
+          JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
           admins=JSON.parse(client.get("/boards/#{@board.id}/members/admins"))
 
           soyadmin=false
