@@ -294,7 +294,8 @@ class Ollert
         if(Board.find_by(board_id: board.id)==nil)
             begin
                 board.closed=true
-                board.name="¡No puede crear proyectos de esa forma! Conctáctese con el Director Secpla. Este tablero "
+                nombre=board.name
+                board.name="¡No puede crear proyectos de esa forma! Conctáctese con el Director Secpla. El tablero #{nombre} "
                 board.update!
                 puts "#{board.id} cerrado"
             rescue
