@@ -19,7 +19,7 @@ Since Ollert depends entirely on Trello for users, Ollert will support only brow
 * Chrome - Current stable release
 * Safari - Version 6.0 or higher
 * Firefox - Current stable release
-* Internet Explorer - Version 10.0 or higher
+* Internet Explorer - Version 10.0 or highes
 
 #### Development
 
