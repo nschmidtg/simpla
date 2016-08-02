@@ -247,6 +247,7 @@ class Ollert
     user2.role="admin"
 
     user2.save
+    #aca tienen que ir los datos del admin del equipo
     mem_tok="7fccb76f70cc1f8c993c67f16f16675b7852a06a8057a20f996063956b94091c"
     pub_key=ENV['PUBLIC_KEY']
     client = Trello::Client.new(
@@ -291,9 +292,13 @@ class Ollert
     boards=org.boards
     boards.each do |board|
         if(Board.find_by(board_id: board.id)==nil)
-            board.closed=true
-            board.update!
-            puts "#{board.id} cerrado"
+            begin
+                board.closed=true
+                board.update!
+                puts "#{board.id} cerrado"
+            rescue
+                puts "#{board.id} ya estaba cerrado"
+            end
         end
     end
     status 200
