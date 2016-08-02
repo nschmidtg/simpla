@@ -302,7 +302,8 @@ class Ollert
                     begin
                        
                         if(board.closed==false)
-                            JSON.parse(client.put("/boards/#{board.id}?closed=true&name=No tiene autorización para crear tableros desde Trello. Contáctese con su Derector Secpla. El tablero "))
+                            JSON.parse(client.put("/boards/#{board.id}?closed=true&name=No tiene autorización para crear tableros desde Trello. Contáctese con su Director Secpla. El tablero "))
+                            JSON.parse(client.put("/webhooks?idModel=#{board.id}&callbackURL=http://gestion-municipal.herokuapp.com/new_board_createds?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados"))
 
                             puts user.member_token
                             
