@@ -301,7 +301,7 @@ class Ollert
                     begin
                        
                         if(board.closed==false)
-                            puts user.trello_id
+                            puts user.member_token
                             board.closed=true
                             nombre=board.name
                             board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
