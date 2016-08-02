@@ -270,8 +270,30 @@ class Ollert
 
   post '/new_board_created', :auth => :none do
     puts params
-
     puts "******"
+    parametros=params[:data].split('|')
+    idModel=parametros[0]
+    member_token=parametros[1]
+    pub_key=parametros[2]
+
+
+    client = Trello::Client.new(
+      :developer_public_key => pub_key,
+      :member_token => member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = pub_key
+      config.member_token = member_token
+    end
+    org=Trello::Organization.find(idModel)
+    boards=org.boards
+    boards.each do |board|
+        if(Board.find_by(board_id: board.id)==nil)
+            board.closed=true
+            board.update!
+            puts "#{board.id} cerrado"
+        end
+    end
     status 200
   end
 end
