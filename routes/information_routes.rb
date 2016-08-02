@@ -299,8 +299,9 @@ class Ollert
                       config.member_token = user.member_token
                     end
                     begin
-                        puts user.login_mail
+                       
                         if(board.closed=="false")
+                            puts user.login_mail
                             board.closed=true
                             nombre=board.name
                             board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
