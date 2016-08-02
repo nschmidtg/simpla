@@ -300,6 +300,9 @@ class Ollert
                 puts "#{board.id} cerrado"
             rescue
                 puts "#{board.id} ya estaba cerrado"
+                board.idOrganization="null"
+                board.description="Cerrar"
+                board.update!
             end
         end
     end
