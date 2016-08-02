@@ -293,16 +293,23 @@ class Ollert
     boards.each do |board|
         if(Board.find_by(board_id: board.id)==nil)
             begin
-                board.closed=true
-                nombre=board.name
-                board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
-                board.update!
-                puts "#{board.id} cerrado"
+                User.each do |user|
+                    Trello.configure do |config|
+                      config.developer_public_key = pub_key
+                      config.member_token = user.member_token
+                    end
+                    begin
+                    board.closed=true
+                    nombre=board.name
+                    board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
+                    board.update!
+                    puts "#{board.id} cerrado"
+                    rescue
+                    puts "no se pudo"
+                    end
+                end
             rescue
                 puts "#{board.id} ya estaba cerrado"
-                
-                board.description="Cerrar"
-                board.update!
             end
         end
     end
