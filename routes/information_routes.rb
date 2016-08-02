@@ -259,4 +259,10 @@ class Ollert
 
     redirect '/'
   end
+
+  get '/new_board_created', :auth => :none do
+    puts params
+    puts "******"
+    status 200
+  end
 end
