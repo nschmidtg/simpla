@@ -294,10 +294,7 @@ class Ollert
         if(Board.find_by(board_id: board.id)==nil)
             begin
                 User.all.each do |user|
-                    Trello.configure do |config|
-                      config.developer_public_key = ENV['PUBLIC_KEY']
-                      config.member_token = user.member_token
-                    end
+                    
                     client = Trello::Client.new(
                       :developer_public_key => pub_key,
                       :member_token => user.member_token
@@ -305,11 +302,10 @@ class Ollert
                     begin
                        
                         if(board.closed==false)
+                            JSON.parse(client.put("/boards/#{board.id}?closed=true"))
+
                             puts user.member_token
-                            board.closed=true
-                            nombre=board.name
-                            board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
-                            board.update!
+                            
                             puts "#{board.id} cerrado"
                         end
                     rescue
