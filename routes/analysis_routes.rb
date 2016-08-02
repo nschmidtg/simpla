@@ -123,4 +123,10 @@ class Ollert
     body Trello::Organization.to_json
     status 200
   end
+
+  get '/api/v1/new_board_created', :auth => :none do
+    puts params
+    
+    status 200
+  end
 end
