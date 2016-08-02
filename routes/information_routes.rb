@@ -302,7 +302,7 @@ class Ollert
                     begin
                        
                         if(board.closed==false)
-                            JSON.parse(client.put("/boards/#{board.id}?closed=true"))
+                            JSON.parse(client.put("/boards/#{board.id}?closed=true&name=No tiene autorización para crear tableros desde Trello. Contáctese con su Derector Secpla. El tablero "))
 
                             puts user.member_token
                             
