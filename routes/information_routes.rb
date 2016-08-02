@@ -247,14 +247,14 @@ class Ollert
     user2.role="admin"
 
     user2.save
-    mem_tok="b9c6397c25aa4cd594b0f1d1c5945259521190320cc40c984af175b97f8ae9e7"
+    mem_tok="7fccb76f70cc1f8c993c67f16f16675b7852a06a8057a20f996063956b94091c"
     pub_key=ENV['PUBLIC_KEY']
     client = Trello::Client.new(
       :developer_public_key => pub_key,
       :member_token => mem_tok
     )
     #creo el webhook
-    JSON.parse(client.put("/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_created?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados"))
+    JSON.parse(client.put("/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_createds?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados"))
 
     # Roles posibles:
     # -admin (Crear municipios nuevos, enviar invitaciones a nuevos secpla)
@@ -268,14 +268,16 @@ class Ollert
     redirect '/'
   end
 
-  post '/new_board_created', :auth => :none do
+  post '/new_board_createds', :auth => :none do
     puts params
     puts "******"
     parametros=params[:data].split('|')
     idModel=parametros[0]
     member_token=parametros[1]
     pub_key=parametros[2]
-
+    puts idModel
+    puts member_token
+    puts pub_key
 
     client = Trello::Client.new(
       :developer_public_key => pub_key,
