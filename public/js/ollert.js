@@ -125,6 +125,13 @@ var Ollert = (function() {
           }
           $("#config-drawer-board-list").append(section2);
         }
+        else{
+          organization = boardData[orgName];
+          board=organization[0];
+          if(board.is_admin){
+            esAdmin=true;
+          }
+        }
         
 
       }
@@ -167,8 +174,18 @@ var Ollert = (function() {
       }
       if(esta==false && esAdmin){
         if(orgName.includes("Alta Prioridad") || orgName.includes("Baja Prioridad") || orgName.includes("No Priorizados")){
-          
-          appender=appender+"<li class='org' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+          if(orgName.includes("Alta Prioridad")){
+            appender=appender+"<li class='org' id='Alta Prioridad' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+
+          }
+          else if(orgName.includes("Baja Prioridad")){
+            appender=appender+"<li class='org' id='Baja Prioridad' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+
+          }
+          else if(orgName.includes("No Priorizados")){
+            appender=appender+"<li class='org' id='No Priorizados' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+
+          }
         
         }
       }  

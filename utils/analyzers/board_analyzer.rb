@@ -18,6 +18,7 @@ class BoardAnalyzer
     esAdmin=false
     if(user.role=="secpla" || user.role=="admin")
       esAdmin=true
+      
     end
     data.each do |board|
       
