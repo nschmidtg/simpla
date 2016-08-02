@@ -300,7 +300,7 @@ class Ollert
                     end
                     begin
                        
-                        if(board.closed=="false")
+                        if(board.closed==false)
                             puts user.login_mail
                             board.closed=true
                             nombre=board.name
