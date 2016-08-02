@@ -295,9 +295,13 @@ class Ollert
             begin
                 User.all.each do |user|
                     Trello.configure do |config|
-                      config.developer_public_key = pub_key
+                      config.developer_public_key = ENV['PUBLIC_KEY']
                       config.member_token = user.member_token
                     end
+                    client = Trello::Client.new(
+                      :developer_public_key => pub_key,
+                      :member_token => user.member_token
+                    )
                     begin
                        
                         if(board.closed==false)
