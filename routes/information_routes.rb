@@ -295,7 +295,7 @@ class Ollert
             begin
                 board.closed=true
                 nombre=board.name
-                board.name="¡No puede crear proyectos de esa forma! Conctáctese con el Director Secpla. El tablero #{nombre} "
+                board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
                 board.update!
                 puts "#{board.id} cerrado"
             rescue
