@@ -293,7 +293,7 @@ class Ollert
     boards.each do |board|
         if(Board.find_by(board_id: board.id)==nil)
             begin
-                User.each do |user|
+                User.all.each do |user|
                     Trello.configure do |config|
                       config.developer_public_key = pub_key
                       config.member_token = user.member_token
