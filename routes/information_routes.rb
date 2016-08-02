@@ -254,7 +254,7 @@ class Ollert
       :member_token => mem_tok
     )
     #creo el webhook
-    JSON.parse(client.put("https://api.trello.com/1/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_created?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados")
+    JSON.parse(client.put("https://api.trello.com/1/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_created?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados"))
 
     # Roles posibles:
     # -admin (Crear municipios nuevos, enviar invitaciones a nuevos secpla)
@@ -270,7 +270,7 @@ class Ollert
 
   post '/new_board_created', :auth => :none do
     puts params
-    
+
     puts "******"
     status 200
   end
