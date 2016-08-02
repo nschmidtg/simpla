@@ -299,13 +299,14 @@ class Ollert
                       config.member_token = user.member_token
                     end
                     begin
-                    board.closed=true
-                    nombre=board.name
-                    board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
-                    board.update!
-                    puts "#{board.id} cerrado"
+                        puts user.login_mail
+                        board.closed=true
+                        nombre=board.name
+                        board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
+                        board.update!
+                        puts "#{board.id} cerrado"
                     rescue
-                    puts "no se pudo"
+                        puts "no se pudo"
                     end
                 end
             rescue
