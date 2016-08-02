@@ -300,11 +300,13 @@ class Ollert
                     end
                     begin
                         puts user.login_mail
-                        board.closed=true
-                        nombre=board.name
-                        board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
-                        board.update!
-                        puts "#{board.id} cerrado"
+                        if(board.closed=="false")
+                            board.closed=true
+                            nombre=board.name
+                            board.name="¡No puede crear proyectos de esa forma! Conctáctese con su Director Secpla. El tablero #{nombre} "
+                            board.update!
+                            puts "#{board.id} cerrado"
+                        end
                     rescue
                         puts "no se pudo"
                     end
