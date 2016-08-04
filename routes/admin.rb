@@ -198,7 +198,7 @@ post '/admin/create_municipio', :auth => :connected do
 
     respond_to do |format|
       flash[:succes] = "Municipio eliminado satisfactoriamente."
-      redirect '/admin/municipio/users/#{mun.id}'
+      redirect "/admin/municipio/users?mun_id=#{mun.id}"
       
     end
 
