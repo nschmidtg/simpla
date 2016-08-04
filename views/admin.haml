@@ -1,0 +1,20 @@
+
+   
+.container
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12
+        Panel de administración
+
+  .row
+    
+  - @municipios.each do |muni|
+    .col-md-2.col-sm-2.col-xs-4.no-padding
+      .analysis-block-md
+        #{muni.name}
+        %ul{class: 'boards-list'}
+          - muni.boards.each do |board|
+            %li.boards-list-item
+              %a.btn.btn-link.boards-list-item-link{href: ""}
+                #{board.tipo}
+
