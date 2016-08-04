@@ -32,12 +32,21 @@
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del Municipio", style: "cursor: auto;", type: "text",required: ""}/
                 .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zonas
+                  .col-md-6.col-sm-6.col-xs-12
+                    .input_fields_wrap
+                      %button.add_field_button Añadir más zonas
+                      %div
+                        %input.form-control.input-md{:name => "zonas[]", :type => "text",required: "", placeholder: "Nombre de la zona"}/
+                .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)
                       %input{:type => "submit", :value => "Actualizar", :class => "button"} 
                     - else
                       %input{:type => "submit", :value => "Crear", :class => "button"}
+                
+
 - if(@municipio!=nil)
   #confirm.modal.hide.fade
     .modal-body{style: "background: #ce4e41; color: #ffffff"}
@@ -58,4 +67,23 @@
       $("#confirm").removeClass( "hide");
     });
     };
+:javascript
+  $(document).ready(function() {
+    var max_fields      = 10; //maximum input boxes allowed
+    var wrapper         = $(".input_fields_wrap"); //Fields wrapper
+    var add_button      = $(".add_field_button"); //Add button ID
+    
+    var x = 1; //initlal text box count
+    $(add_button).click(function(e){ //on add input button click
+        e.preventDefault();
+        if(x < max_fields){ //max input box allowed
+            x++; //text box increment
+            $(wrapper).append('<div><input type="text" name="zonas[]" required=""  placeholder="Nombre de la zona" class="form-control input-md"/><a href="#" class="remove_field">Quitar</a></div>'); //add input box
+        }
+    });
+    
+    $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+        e.preventDefault(); $(this).parent('div').remove(); x--;
+    })
+  });
   
