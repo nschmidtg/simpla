@@ -1,0 +1,17 @@
+
+   
+.container
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12
+        Usuarios de #{@mun.name}
+
+  .row
+    
+  - @mun.users.each do |user|
+    .col-md-3.col-sm-3.col-xs-4.no-padding
+      .analysis-block-md
+        #{user.login_name}
+        
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
+    %span.glyphicon.glyphicon-plus
