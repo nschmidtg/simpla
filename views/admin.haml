@@ -9,12 +9,24 @@
   .row
     
   - @municipios.each do |muni|
-    .col-md-2.col-sm-2.col-xs-4.no-padding
+    .col-md-3.col-sm-3.col-xs-4.no-padding
       .analysis-block-md
         #{muni.name}
         %ul{class: 'boards-list'}
-          - muni.boards.each do |board|
-            %li.boards-list-item
-              %a.btn.btn-link.boards-list-item-link{href: ""}
-                #{board.tipo}
+          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}"}
+            %span.glyphicon.glyphicon-pencil
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link{href: ""}
+              Proyectos: #{muni.boards.count}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link{href: ""}
+              Estados: #{muni.states.count}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link{href: ""}
+              Usuarios: #{muni.users.count}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link{href: ""}
+              Zonas: #{muni.zones.count}
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;'}
+    %span.glyphicon.glyphicon-pencil
 
