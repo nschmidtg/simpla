@@ -53,7 +53,7 @@
       e.preventDefault();
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#delete', function() {
-            window.location.href = "admin/municipio/#{@municipio.id}/delete";
+            window.location.href = "/admin/municipio/delete?id_municipio=#{@municipio.id}";
         });
       $("#confirm").removeClass( "hide");
     });
