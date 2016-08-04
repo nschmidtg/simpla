@@ -1,12 +1,61 @@
 
    
 .container
-  .row
-    %h2.ollert-header
-      .text-center.col-xs-12
-        - if(@municipio!=nil)
-          #{@municipio.name}
-        - else
-          Crear Nuevo Municipio
+  .container
+    .row
+      %h2.ollert-header
+        .text-center.col-xs-12
+          - if(@municipio!=nil)
+            #{@municipio.name}
+          -else
+            Nuevo Municipio
+    - if(@municipio!=nil)
+      .row
+        .col-md-10.col-sm-10.col-xs-10
+          %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
+            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :style => ""}
+        
 
+    .row
+      %form#components.form-horizontal{role: "form", :action=>"/admin/create_municipio", :method=>"post"}
+        %fieldset
+          .tab-content
+            / Tabs of snippets go here
+            #input.tab-pane.active
+              .component
+                / Text input
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@municipio!=nil)
+                      %input#textinput.form-control.input-md{name: "name", value: "#{@municipio.name}", style: "cursor: auto;", type: "text" ,required: ""}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del Municipio", style: "cursor: auto;", type: "text",required: ""}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@municipio!=nil)
+                      %input{:type => "submit", :value => "Actualizar", :class => "button"} 
+                    - else
+                      %input{:type => "submit", :value => "Crear", :class => "button"}
+- if(@municipio!=nil)
+  #confirm.modal.hide.fade
+    .modal-body{style: "background: #ce4e41; color: #ffffff"}
+      ¿Estás seguro que deseas eliminar #{@municipio.name}?
+    }
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
+      %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
+  
+  :javascript
+    window.onload = function() {
+      $('#delete').on('click', function(e){
+      e.preventDefault();
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#delete', function() {
+            window.location.href = "admin/municipio/#{@municipio.id}/delete";
+        });
+      $("#confirm").removeClass( "hide");
+    });
+    };
   

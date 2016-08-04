@@ -3,10 +3,10 @@ require 'mongoid'
 class Municipio
   include Mongoid::Document
 
-  has_many :users
-  has_many :states
-  has_many :boards
-  has_many :zones
+  has_many :users, :dependent => :destroy
+  has_many :states, :dependent => :destroy
+  has_many :boards, :dependent => :destroy
+  has_many :zones, :dependent => :destroy
 
   field :name, type: String
   field :id, type: String
