@@ -246,5 +246,98 @@ post '/admin/create_municipio', :auth => :connected do
     
   end
 
+  post '/admin/create_user', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "1There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      
+      @mun=Municipio.find_by(id: params[:mun_id])
+      new_user=User.new
+      new_user.login_name=params[:name]
+      new_user.login_last_name=params[:last_name]
+      new_user.login_mail=params[:mail]
+      new_user.login_pass=params[:pass]
+      new_user.role=params[:role]
+      new_user.municipio=@mun
+      new_user.save
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
 
+      respond_to do |format|
+        format.html do
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/admin'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+        format.html do
+          flash[:succes] = "Usuario creado exitosamente"
+          redirect "/admin/municipio/users?mun_id=#{@mun.id}"
+        end
+
+        format.json { status 400 }
+      end
+
+    
+  end
+
+  get '/admin/municipio/users/user', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "1There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      
+      @mun=Municipio.find_by(id: params[:mun_id])
+      @new_user=User.find_by(id: params[:user_id])
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :user }
+      
+    end
+
+    
+  end
 end

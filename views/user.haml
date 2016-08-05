@@ -1,0 +1,139 @@
+
+   
+.container
+  .container
+    .row
+      %h2.ollert-header
+        .text-center.col-xs-12
+          - if(@new_user!=nil)
+            #{@new_user.login_name}
+          -else
+            Nuevo Usuario para #{@mun.name}
+    - if(@new_user!=nil)
+      .row
+        .col-md-10.col-sm-10.col-xs-10
+          %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
+            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :style => ""}
+        
+
+    .row
+      %form#components.form-horizontal{role: "form", :action=>"/admin/create_user?mun_id=#{@mun.id}", :method=>"post"}
+        %fieldset
+          .tab-content
+            / Tabs of snippets go here
+            #input.tab-pane.active
+              .component
+                / Text input
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@new_user!=nil)
+                      %input#textinput.form-control.input-md{name: "name", value: "#{@new_user.login_name}", style: "cursor: auto;", type: "text" ,required: ""}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del Usuario", style: "cursor: auto;", type: "text",required: ""}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Apellido
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@new_user!=nil)
+                      %input#textinput.form-control.input-md{name: "last_name", value: "#{@new_user.login_last_name}", style: "cursor: auto;", type: "text" ,required: ""}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "last_name", placeholder: "Nombre del Usuario", style: "cursor: auto;", type: "text",required: ""}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Email
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@new_user!=nil)
+                      %input#textinput.form-control.input-md{name: "mail", value: "#{@new_user.login_mail}", style: "cursor: auto;", type: "email" ,required: ""}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "mail", placeholder: "Mail del usuario", style: "cursor: auto;", type: "email",required: ""}/
+                - if(@new_user==nil)
+                  .form-group
+                    %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Contraseña
+                    .col-md-6.col-sm-6.col-xs-12
+                      %input#textinput.form-control.input-md{name: "pass1", placeholder: "Contraseña", style: "cursor: auto;", type: "password",required: ""}/
+                - if(@new_user==nil)
+                  .form-group
+                    %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Repetir Contraseña
+                    .col-md-6.col-sm-6.col-xs-12
+                      %input#textinput.form-control.input-md{name: "pass2", placeholder: "Confirme Contraseña", style: "cursor: auto;", type: "password",required: ""}/
+                
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Rol
+                  .col-md-6.col-sm-6.col-xs-12
+                    %select#textinput.form-control.input-md{name: "role", style: "cursor: auto;",required: ""}
+                      - if(@new_user!=nil)
+                        - @tipo=@new_user.role
+                        - if(@tipo=="admin")
+                          %option{:value => "admin", :selected => ""} Admin
+                          %option{:value => "secpla"} Secpla
+                          %option{:value => "alcalde"} Alcalde
+                          %option{:value => "concejal"} Concejal
+                          %option{:value => "funcionario"} Funcionario
+                        - elsif (@tipo == "secpla")
+                          %option{:value => "admin"} Admin
+                          %option{:value => "secpla", :selected => ""} Secpla
+                          %option{:value => "alcalde"} Alcalde
+                          %option{:value => "concejal"} Concejal
+                          %option{:value => "funcionario"} Funcionario
+                        - elsif (@tipo == "alcalde")
+                          %option{:value => "admin"} Admin
+                          %option{:value => "secpla"} Secpla
+                          %option{:value => "alcalde", :selected => ""} Alcalde
+                          %option{:value => "concejal"} Concejal
+                          %option{:value => "funcionario"} Funcionario
+                        - elsif (@tipo == "concejal")
+                          %option{:value => "admin"} Admin
+                          %option{:value => "secpla"} Secpla
+                          %option{:value => "alcalde"} Alcalde
+                          %option{:value => "concejal", :selected => ""} Concejal
+                          %option{:value => "funcionario"} Funcionario
+                        - elsif (@tipo == "funcionario")
+                          %option{:value => "admin"} Admin
+                          %option{:value => "secpla"} Secpla
+                          %option{:value => "alcalde"} Alcalde
+                          %option{:value => "concejal"} Concejal
+                          %option{:value => "funcionario", :selected => ""} Funcionario
+                        - else
+                          %option{:disabled => ""} Seleccione
+                          %option{:value => "admin"} Admin
+                          %option{:value => "secpla"} Secpla
+                          %option{:value => "alcalde"} Alcalde
+                          %option{:value => "concejal"} Concejal
+                          %option{:value => "funcionario"} Funcionario
+                      - else
+                        %option{:disabled => ""} Seleccione
+                        %option{:value => "admin"} Admin
+                        %option{:value => "secpla"} Secpla
+                        %option{:value => "alcalde"} Alcalde
+                        %option{:value => "concejal"} Concejal
+                        %option{:value => "funcionario"} Funcionario
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@new_user!=nil)
+                      %input{:type => "submit", :value => "Actualizar", :class => "button"} 
+                    - else
+                      %input{:type => "submit", :value => "Crear", :class => "button"}
+                
+
+- if(@new_user!=nil)
+  #confirm.modal.hide.fade
+    .modal-body{style: "background: #ce4e41; color: #ffffff"}
+      ¿Estás seguro que deseas eliminar #{@new_user.login_name}?
+    }
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
+      %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
+  
+  :javascript
+    window.onload = function() {
+      $('#delete').on('click', function(e){
+      e.preventDefault();
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#delete', function() {
+            window.location.href = "/admin/municipio/users/user/delete?id_municipio=#{@new_user.id}&id_user=#{@new_user.id}";
+        });
+      $("#confirm").removeClass( "hide");
+    });
+    };
+
+  

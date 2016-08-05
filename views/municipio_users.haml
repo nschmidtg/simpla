@@ -13,7 +13,7 @@
       .analysis-block-md
         #{user.login_name} #{user.login_last_name}
         %ul{class: 'boards-list'}
-          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users?muni_id=#{@mun.id}&user_id=#{user.trello_id}"}
+          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
             %span.glyphicon.glyphicon-pencil
           %li.boards-list-item
             %a.btn.btn-link.boards-list-item-link
@@ -29,5 +29,5 @@
               Role: #{user.role}
           
         
-  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}"}
     %span.glyphicon.glyphicon-plus
