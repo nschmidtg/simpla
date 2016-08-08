@@ -255,7 +255,7 @@ class Ollert
       :member_token => mem_tok
     )
     #creo el webhook
-    JSON.parse(client.put("/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_createds?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados"))
+    ###  JSON.parse(client.put("/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_createds?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: No priorizados"))
 
     # Roles posibles:
     # -admin (Crear municipios nuevos, enviar invitaciones a nuevos secpla)
@@ -270,6 +270,7 @@ class Ollert
   end
 
   post '/new_board_createds', :auth => :none do
+    #este es el método al que llamaba el webhook
     puts params
     puts "******"
     parametros=params[:data].split('|')

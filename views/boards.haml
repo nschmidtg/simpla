@@ -33,7 +33,7 @@
           - if(@prioridades.include?(prioridad_tablero))
             - boards.each do |board|
               - unless  @asignados.include?(board["name"])
-                - bdbrd=Board.find_by(board_id: board["id"])
+                - bdbrd=Board.find_or_create_by(board_id: board["id"])
                 - if(bdbrd!=nil)
                   %li.boards-list-item
                     %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
@@ -58,7 +58,7 @@
             - prioridad_tablero=org_name
             - if(prioridad==(prioridad_tablero))
               - boards.each do |board|
-                - bdbrd=Board.find_by(board_id: board["id"])
+                - bdbrd=Board.find_or_create_by(board_id: board["id"])
                 - if(bdbrd!=nil)
                   - bdbrd.municipio=@user.municipio
                   - bdbrd.users<<@user
