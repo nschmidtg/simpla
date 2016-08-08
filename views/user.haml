@@ -9,7 +9,7 @@
             #{@new_user.login_name}
           -else
             Nuevo Usuario para #{@mun.name}
-    - if(@new_user!=nil)
+    - if(@new_user!=nil && @new_user.id!=@user.id)
       .row
         .col-md-10.col-sm-10.col-xs-10
           %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
@@ -62,11 +62,14 @@
                     %select#textinput.form-control.input-md{name: "role", style: "cursor: auto;",required: ""}
                       - if(@new_user!=nil)
                         - @tipo=@new_user.role
-                        - if (@tipo == "secpla")                          
-                          %option{:value => "secpla", :selected => ""} Secpla
-                          %option{:value => "alcalde"} Alcalde
-                          %option{:value => "concejal"} Concejal
-                          %option{:value => "funcionario"} Funcionario
+                        - if (@tipo == "secpla")
+                          - if(@user.id==@new_user.id)                          
+                            %option{:value => "secpla", :selected => ""} Secpla
+                          - else
+                            %option{:value => "secpla", :selected => ""} Secpla
+                            %option{:value => "alcalde"} Alcalde
+                            %option{:value => "concejal"} Concejal
+                            %option{:value => "funcionario"} Funcionario
                         - elsif (@tipo == "alcalde")                          
                           %option{:value => "secpla"} Secpla
                           %option{:value => "alcalde", :selected => ""} Alcalde
