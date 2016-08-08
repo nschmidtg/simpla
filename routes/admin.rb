@@ -133,11 +133,18 @@ post '/admin/create_municipio', :auth => :connected do
       
       nombre=params[:name]
       zonas=params[:zonas]
-      last_id=Municipio.first.id
-      id=last_id.to_i+1
-      mun=Municipio.new
+      edit=params[:edit]
+      if(edit=="true")
+        mun=Municipio.find_by(id: params[:id])
+        mun.zones.each do |zone|
+          zone.destroy
+        end
+      else
+        mun=Municipio.new
+      end
       mun.name=nombre
       mun.save
+      
       zonas.each do |zone|
 
         z=Zone.new
@@ -146,36 +153,38 @@ post '/admin/create_municipio', :auth => :connected do
         z.save
         
       end
-      estado1=State.new
-      estado1.name="No iniciado"
-      estado1.order="1"
-      estado1.municipio=mun
-      estado1.save
+      if(edit=="false")
+        estado1=State.new
+        estado1.name="No iniciado"
+        estado1.order="1"
+        estado1.municipio=mun
+        estado1.save
 
-      estado2=State.new
-      estado2.name="Formulación"
-      estado2.order="2"
-      estado2.municipio=mun
-      estado2.save
+        estado2=State.new
+        estado2.name="Formulación"
+        estado2.order="2"
+        estado2.municipio=mun
+        estado2.save
 
-      estado3=State.new
-      estado3.name="Observado"
-      estado3.order="3"
-      estado3.municipio=mun
-      estado3.save
+        estado3=State.new
+        estado3.name="Observado"
+        estado3.order="3"
+        estado3.municipio=mun
+        estado3.save
 
-      estado4=State.new
-      estado4.name="Licitación"
-      estado4.order="4"
-      estado4.municipio=mun
-      estado4.save
+        estado4=State.new
+        estado4.name="Licitación"
+        estado4.order="4"
+        estado4.municipio=mun
+        estado4.save
 
-      estado5=State.new
-      estado5.name="Ejecución"
-      estado5.order="5"
-      estado5.municipio=mun
-      estado5.save
-      mun.save
+        estado5=State.new
+        estado5.name="Ejecución"
+        estado5.order="5"
+        estado5.municipio=mun
+        estado5.save
+        mun.save
+      end
 
       puts mun.id
       puts Zone.find_by(id: mun.zones.last.id).municipio.id
@@ -254,15 +263,19 @@ post '/admin/create_municipio', :auth => :connected do
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "1There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
           redirect '/boards'
         end
       end
     end
     begin
-      
+      edit=params[:edit]
       @mun=Municipio.find_by(id: params[:mun_id])
-      new_user=User.new
+      if(edit=="true")
+        new_user=User.find_by(id: params[:id])
+      else
+        new_user=User.new
+      end
       new_user.login_name=params[:name]
       new_user.login_last_name=params[:last_name]
       new_user.login_mail=params[:mail]

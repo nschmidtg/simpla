@@ -18,4 +18,5 @@ class User
 
   belongs_to :municipio
 
+
 end
