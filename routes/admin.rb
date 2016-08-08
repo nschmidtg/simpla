@@ -156,7 +156,9 @@ post '/admin/create_municipio', :auth => :connected do
         if(edit=="true")
           mun=Municipio.find_by(id: params[:id])
           mun.zones.each do |zone|
-            zone.destroy
+            if(!zonas.include?(zone.name))
+              zone.destroy
+            end
           end
         else
           mun=Municipio.new
@@ -165,11 +167,12 @@ post '/admin/create_municipio', :auth => :connected do
         mun.save
         
         zonas.each do |zone|
-
-          z=Zone.new
-          z.name=zone
-          z.municipio=mun
-          z.save
+          if(!mun.zones.pluck(:name).include?(zone))
+            z=Zone.new
+            z.name=zone
+            z.municipio=mun
+            z.save
+          end
           
         end
         if(edit=="false")
