@@ -27,7 +27,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/'
         end
 
@@ -61,7 +61,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/'
         end
 
@@ -279,7 +279,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/'
         end
 
@@ -339,7 +339,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -385,7 +385,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/'
         end
 

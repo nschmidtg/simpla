@@ -9,14 +9,14 @@ class Ollert
       if(@user.role=="secpla")
         respond_to do |format|
         format.html do
-          flash[:succes] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:succes] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect "/admin/municipio?id=#{@user.municipio.id}"
         end
       end
       end
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
@@ -32,7 +32,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -54,7 +54,7 @@ class Ollert
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
@@ -81,7 +81,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -103,7 +103,7 @@ class Ollert
     if(@user.role!="admin")
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
@@ -120,7 +120,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -143,7 +143,7 @@ post '/admin/create_municipio', :auth => :connected do
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
@@ -210,7 +210,7 @@ post '/admin/create_municipio', :auth => :connected do
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
             redirect '/boards'
           end
 
@@ -226,7 +226,7 @@ post '/admin/create_municipio', :auth => :connected do
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -251,7 +251,7 @@ post '/admin/create_municipio', :auth => :connected do
     if(@user.role!="admin"  && @user.role!="secpla" )
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
@@ -262,7 +262,7 @@ post '/admin/create_municipio', :auth => :connected do
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
             redirect '/boards'
           end
 
@@ -278,7 +278,7 @@ post '/admin/create_municipio', :auth => :connected do
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -302,7 +302,7 @@ post '/admin/create_municipio', :auth => :connected do
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
@@ -337,7 +337,7 @@ post '/admin/create_municipio', :auth => :connected do
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
             redirect '/admin'
           end
 
@@ -353,7 +353,7 @@ post '/admin/create_municipio', :auth => :connected do
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/admin'
         end
 
@@ -381,15 +381,38 @@ post '/admin/create_municipio', :auth => :connected do
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "1There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
     end
     begin
-      
-      @mun=Municipio.find_by(id: params[:mun_id])
-      @new_user=User.find_by(id: params[:user_id])
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @new_user=User.find_by(id: params[:user_id])
+
+        if(@new_user!=nil)
+          if(@new_user.role=="admin" && @user.role!="admin")
+            respond_to do |format|
+              format.html do
+                flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+                redirect '/boards'
+              end
+
+              format.json { status 400 }
+            end
+          end
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -399,7 +422,7 @@ post '/admin/create_municipio', :auth => :connected do
 
       respond_to do |format|
         format.html do
-          flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -413,5 +436,62 @@ post '/admin/create_municipio', :auth => :connected do
     end
 
     
+  end
+
+  get '/admin/municipio/users/user/delete', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin"  && @user.role!="secpla" )
+      respond_to do |format|
+        format.html do
+          flash[:error] = "No tiene permiso para eliminar usuarios."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @new_user=@mun.users.find_by(id: params[:user_id])
+        if(@new_user!=nil)
+          @new_user.destroy
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/admin'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html do
+        flash[:succes] = "Usuario eliminado exitosamente."
+
+        redirect '/admin'
+      end
+      
+    end
   end
 end

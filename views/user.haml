@@ -130,7 +130,7 @@
       e.preventDefault();
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#delete', function() {
-            window.location.href = "/admin/municipio/users/user/delete?id_municipio=#{@new_user.id}&id_user=#{@new_user.id}";
+            window.location.href = "/admin/municipio/users/user/delete?mun_id=#{@new_user.municipio.id}&user_id=#{@new_user.id}";
         });
       $("#confirm").removeClass( "hide");
     });
