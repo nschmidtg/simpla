@@ -6,10 +6,18 @@ class Ollert
       :member_token => @user.member_token
     )
     if(@user.role!="admin")
+      if(@user.role=="secpla")
+        respond_to do |format|
+        format.html do
+          flash[:succes] = "There's something wrong with the Trello connection. Please re-establish the connection."
+          redirect "/admin/municipio?id=#{@user.municipio.id}"
+        end
+      end
+      end
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
       end
     end
@@ -25,7 +33,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }
@@ -43,16 +51,27 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin")
+    if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
       end
     end
     begin
-      @municipio = Municipio.find_by(id: params[:id])
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==Municipio.find_by(id: @user.municipio.id).id))
+        @municipio = Municipio.find_by(id: params[:id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "No tienes permiso para editar este municipio."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -63,7 +82,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }
@@ -85,7 +104,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
       end
     end
@@ -102,7 +121,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }
@@ -121,73 +140,83 @@ post '/admin/create_municipio', :auth => :connected do
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin")
+    if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
       end
     end
     begin
-      
-      nombre=params[:name]
-      zonas=params[:zonas]
-      edit=params[:edit]
-      if(edit=="true")
-        mun=Municipio.find_by(id: params[:id])
-        mun.zones.each do |zone|
-          zone.destroy
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==Municipio.find_by(id: @user.municipio.id).id))
+        nombre=params[:name]
+        zonas=params[:zonas]
+        edit=params[:edit]
+        if(edit=="true")
+          mun=Municipio.find_by(id: params[:id])
+          mun.zones.each do |zone|
+            zone.destroy
+          end
+        else
+          mun=Municipio.new
         end
-      else
-        mun=Municipio.new
-      end
-      mun.name=nombre
-      mun.save
-      
-      zonas.each do |zone|
-
-        z=Zone.new
-        z.name=zone
-        z.municipio=mun
-        z.save
-        
-      end
-      if(edit=="false")
-        estado1=State.new
-        estado1.name="No iniciado"
-        estado1.order="1"
-        estado1.municipio=mun
-        estado1.save
-
-        estado2=State.new
-        estado2.name="Formulación"
-        estado2.order="2"
-        estado2.municipio=mun
-        estado2.save
-
-        estado3=State.new
-        estado3.name="Observado"
-        estado3.order="3"
-        estado3.municipio=mun
-        estado3.save
-
-        estado4=State.new
-        estado4.name="Licitación"
-        estado4.order="4"
-        estado4.municipio=mun
-        estado4.save
-
-        estado5=State.new
-        estado5.name="Ejecución"
-        estado5.order="5"
-        estado5.municipio=mun
-        estado5.save
+        mun.name=nombre
         mun.save
-      end
+        
+        zonas.each do |zone|
 
-      puts mun.id
-      puts Zone.find_by(id: mun.zones.last.id).municipio.id
+          z=Zone.new
+          z.name=zone
+          z.municipio=mun
+          z.save
+          
+        end
+        if(edit=="false")
+          estado1=State.new
+          estado1.name="No iniciado"
+          estado1.order="1"
+          estado1.municipio=mun
+          estado1.save
+
+          estado2=State.new
+          estado2.name="Formulación"
+          estado2.order="2"
+          estado2.municipio=mun
+          estado2.save
+
+          estado3=State.new
+          estado3.name="Observado"
+          estado3.order="3"
+          estado3.municipio=mun
+          estado3.save
+
+          estado4=State.new
+          estado4.name="Licitación"
+          estado4.order="4"
+          estado4.municipio=mun
+          estado4.save
+
+          estado5=State.new
+          estado5.name="Ejecución"
+          estado5.order="5"
+          estado5.municipio=mun
+          estado5.save
+          mun.save
+        end
+
+        puts mun.id
+        puts Zone.find_by(id: mun.zones.last.id).municipio.id
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -198,7 +227,7 @@ post '/admin/create_municipio', :auth => :connected do
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }
@@ -219,17 +248,27 @@ post '/admin/create_municipio', :auth => :connected do
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin")
+    if(@user.role!="admin"  && @user.role!="secpla" )
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
       end
     end
     begin
-      
-      @mun=Municipio.find_by(id: params[:mun_id])
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+        @mun=Municipio.find_by(id: params[:mun_id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -240,7 +279,7 @@ post '/admin/create_municipio', :auth => :connected do
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }
@@ -269,20 +308,42 @@ post '/admin/create_municipio', :auth => :connected do
       end
     end
     begin
-      edit=params[:edit]
-      @mun=Municipio.find_by(id: params[:mun_id])
-      if(edit=="true")
-        new_user=User.find_by(id: params[:id])
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+
+        edit=params[:edit]
+        @mun=Municipio.find_by(id: params[:mun_id])
+        if(edit=="true")
+          new_user=User.find_by(id: params[:id])
+        else
+          new_user=User.new
+        end
+        new_user.login_name=params[:name]
+        new_user.login_last_name=params[:last_name]
+        new_user.login_mail=params[:mail]
+        new_user.login_pass=params[:pass]
+        if(params[:role]=="admin" && @user.role!="admin")
+          respond_to do |format|
+            format.html do
+              flash[:error] = "No tienes permiso para dar este rol."
+              redirect '/boards'
+            end
+
+            format.json { status 400 }
+          end
+        end
+        new_user.role=params[:role]
+        new_user.municipio=@mun
+        new_user.save
       else
-        new_user=User.new
+        respond_to do |format|
+          format.html do
+            flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
+            redirect '/admin'
+          end
+
+          format.json { status 400 }
+        end
       end
-      new_user.login_name=params[:name]
-      new_user.login_last_name=params[:last_name]
-      new_user.login_mail=params[:mail]
-      new_user.login_pass=params[:pass]
-      new_user.role=params[:role]
-      new_user.municipio=@mun
-      new_user.save
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -339,7 +400,7 @@ post '/admin/create_municipio', :auth => :connected do
       respond_to do |format|
         format.html do
           flash[:error] = "There's something wrong with the Trello connection. Please re-establish the connection."
-          redirect '/'
+          redirect '/boards'
         end
 
         format.json { status 400 }

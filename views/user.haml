@@ -62,46 +62,34 @@
                     %select#textinput.form-control.input-md{name: "role", style: "cursor: auto;",required: ""}
                       - if(@new_user!=nil)
                         - @tipo=@new_user.role
-                        - if(@tipo=="admin")
-                          %option{:value => "admin", :selected => ""} Admin
-                          %option{:value => "secpla"} Secpla
-                          %option{:value => "alcalde"} Alcalde
-                          %option{:value => "concejal"} Concejal
-                          %option{:value => "funcionario"} Funcionario
-                        - elsif (@tipo == "secpla")
-                          %option{:value => "admin"} Admin
+                        - if (@tipo == "secpla")                          
                           %option{:value => "secpla", :selected => ""} Secpla
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal"} Concejal
                           %option{:value => "funcionario"} Funcionario
-                        - elsif (@tipo == "alcalde")
-                          %option{:value => "admin"} Admin
+                        - elsif (@tipo == "alcalde")                          
                           %option{:value => "secpla"} Secpla
                           %option{:value => "alcalde", :selected => ""} Alcalde
                           %option{:value => "concejal"} Concejal
                           %option{:value => "funcionario"} Funcionario
-                        - elsif (@tipo == "concejal")
-                          %option{:value => "admin"} Admin
+                        - elsif (@tipo == "concejal")                          
                           %option{:value => "secpla"} Secpla
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal", :selected => ""} Concejal
                           %option{:value => "funcionario"} Funcionario
-                        - elsif (@tipo == "funcionario")
-                          %option{:value => "admin"} Admin
+                        - elsif (@tipo == "funcionario")                          
                           %option{:value => "secpla"} Secpla
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal"} Concejal
                           %option{:value => "funcionario", :selected => ""} Funcionario
                         - else
-                          %option{:disabled => ""} Seleccione
-                          %option{:value => "admin"} Admin
+                          %option{:disabled => ""} Seleccione                          
                           %option{:value => "secpla"} Secpla
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal"} Concejal
                           %option{:value => "funcionario"} Funcionario
                       - else
-                        %option{:disabled => ""} Seleccione
-                        %option{:value => "admin"} Admin
+                        %option{:disabled => ""} Seleccione                        
                         %option{:value => "secpla"} Secpla
                         %option{:value => "alcalde"} Alcalde
                         %option{:value => "concejal"} Concejal

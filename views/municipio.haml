@@ -9,7 +9,7 @@
             #{@municipio.name}
           -else
             Nuevo Municipio
-    - if(@municipio!=nil)
+    - if(@municipio!=nil && @user.role=="admin")
       .row
         .col-md-10.col-sm-10.col-xs-10
           %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
