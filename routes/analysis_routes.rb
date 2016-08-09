@@ -124,11 +124,17 @@ class Ollert
     data.each do |organization|
       if(organization["displayName"].include?(priority))
         board.organization_id=organization["id"]
+        
         board.update!
+
       end
     end
     
-    
+    if(priority=="Urgentes")
+      JSON.parse(client.put("/boards/#{board_id}/prefs/background?value=red"))
+    else
+      JSON.parse(client.put("/boards/#{board_id}/prefs/background?value=blue"))
+    end
     body Trello::Organization.to_json
     status 200
   end

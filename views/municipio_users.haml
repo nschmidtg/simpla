@@ -9,25 +9,25 @@
   .row
     
   - @mun.users.each do |user|
-    - if(user.role!="admin")
-      .col-md-3.col-sm-3.col-xs-4.no-padding
-        .analysis-block-md
-          #{user.login_name} #{user.login_last_name}
-          %ul{class: 'boards-list'}
+    .col-md-3.col-sm-3.col-xs-4.no-padding
+      .analysis-block-md
+        #{user.login_name} #{user.login_last_name}
+        %ul{class: 'boards-list'}
+          - if(user.role!="admin")
             %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
               %span.glyphicon.glyphicon-pencil
-            %li.boards-list-item
-              %a.btn.btn-link.boards-list-item-link
-                Trello ID: #{user.trello_id}
-            %li.boards-list-item
-              %a.btn.btn-link.boards-list-item-link
-                Mail: #{user.login_mail}
-            %li.boards-list-item
-              %a.btn.btn-link.boards-list-item-link
-                Member Token: #{user.member_token}
-            %li.boards-list-item
-              %a.btn.btn-link.boards-list-item-link
-                Role: #{user.role}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Trello ID: #{user.trello_id}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Mail: #{user.login_mail}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Member Token: #{user.member_token}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Role: #{user.role}
           
         
   %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}"}
