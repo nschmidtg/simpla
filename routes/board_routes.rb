@@ -206,6 +206,18 @@ class Ollert
                 @board.add_member(m,type=:normal)
               end
             end
+            Board.find_by(board_id: @board.id).municipio.users.each do |user|
+              if(user.role=="admin" || user.role=="secpla")
+                JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              else
+                JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              end
+            end
+
+            org_name=Trello::Organization.find(org_id).name
+            if(org_name="Urgentes")
+              JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
+            end
           end
         else
 

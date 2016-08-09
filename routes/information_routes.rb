@@ -269,6 +269,8 @@ class Ollert
     redirect '/'
   end
 
+
+
   post '/new_board_createds', :auth => :none do
     #este es el método al que llamaba el webhook
     puts params
@@ -321,4 +323,24 @@ class Ollert
     end
     status 200
   end
+
+
+  get '/prueba', :auth => :none do
+    client = Trello::Client.new(
+      :developer_public_key => "d362373a44e62ddcbb30a60418a99f41",
+      :member_token => "23fdcebf89b98d1542b4157091551fcaab03a063cdf3a784bdcac0f1bab8a5fb"
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  params['token']
+    end
+    JSON.parse(client.put("/boards/57a8d6365a77c2b4744e466a/members?email=mjcoloma@uc.cl&fullName=Nico"))
+
+  end
+
+
+
+
+
+
 end
