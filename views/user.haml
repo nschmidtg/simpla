@@ -37,7 +37,7 @@
                     - if(@new_user!=nil)
                       %input#textinput.form-control.input-md{name: "last_name", value: "#{@new_user.login_last_name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
-                      %input#textinput.form-control.input-md{name: "last_name", placeholder: "Nombre del Usuario", style: "cursor: auto;", type: "text",required: ""}/
+                      %input#textinput.form-control.input-md{name: "last_name", placeholder: "Apellido del Usuario", style: "cursor: auto;", type: "text",required: ""}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Email
                   .col-md-6.col-sm-6.col-xs-12
@@ -49,12 +49,17 @@
                   .form-group
                     %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Contraseña
                     .col-md-6.col-sm-6.col-xs-12
-                      %input#textinput.form-control.input-md{name: "pass1", placeholder: "Contraseña", style: "cursor: auto;", type: "password",required: ""}/
+                      %input#txtNewPassword.form-control.input-md{name: "pass1", placeholder: "Contraseña", style: "cursor: auto;", type: "password",required: ""}/
                 - if(@new_user==nil)
                   .form-group
                     %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Repetir Contraseña
                     .col-md-6.col-sm-6.col-xs-12
-                      %input#textinput.form-control.input-md{name: "pass2", placeholder: "Confirme Contraseña", style: "cursor: auto;", type: "password",required: ""}/
+                      %input#txtConfirmPassword.form-control.input-md{name: "pass2", placeholder: "Confirme Contraseña", style: "cursor: auto;", type: "password",required: ""}/
+                - if(@new_user==nil)
+                  .form-group
+                    %label.col-md-3.col-sm-3.col-xs-12.control-label
+                    .col-md-6.col-sm-6.col-xs-12
+                      #divCheckPasswordMatch
                 
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Rol
@@ -135,5 +140,46 @@
       $("#confirm").removeClass( "hide");
     });
     };
+- else
+  :javascript
+    function checkPasswordMatch() {
+      var password = $("#txtNewPassword").val();
+      var confirmPassword = $("#txtConfirmPassword").val();
+
+      if (password != confirmPassword){
+        $("#divCheckPasswordMatch").html("Las contraseñas no coinciden!");
+        return false;
+      }
+      else{
+        $("#divCheckPasswordMatch").html("Perfecto!");
+        return true;
+      }
+    }
+    $(document).ready(function () {
+      $("#txtNewPassword").keyup(checkPasswordMatch);
+      $("#txtConfirmPassword").keyup(checkPasswordMatch);
+    });
+    $(function() {
+      $('#components').submit(function() {
+        if(checkPasswordMatch())
+          return true; 
+        else
+          shake();
+          return false;
+      });
+    });
+    function shake(){
+      $('#divCheckPasswordMatch').animate({
+        'margin-left': '-=5px',
+        'margin-right': '+=5px'
+      }, 100, function() {
+        $('#divCheckPasswordMatch').animate({
+            'margin-left': '+=5px',
+            'margin-right': '-=5px'
+        }, 100, function() {
+            //and so on...
+        });
+      });
+    }
 
   

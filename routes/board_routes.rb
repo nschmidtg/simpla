@@ -180,14 +180,15 @@ class Ollert
             list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
             list2=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"2"})
             list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
+            list4=Trello::List.create({:name=>"Repositorio",:board_id=>@board.id,:pos=>"4"})
 
             #Crear las tareas por defecto
-            @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list3.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
           end
           Thread.new do
             #Encontrar al usuario como miembro

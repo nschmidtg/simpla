@@ -86,7 +86,7 @@
               state: boardState
             },
             error: function(xhr) {
-              alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.");
+              if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.")){window.location.reload();}
             }
           });
         }
@@ -116,7 +116,7 @@
             priority: boardPriority
           },
           error: function(xhr) {
-            alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.");
+            if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
           }
         });
       }
