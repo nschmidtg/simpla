@@ -323,7 +323,7 @@ post '/admin/create_municipio', :auth => :connected do
         new_user.login_name=params[:name]
         new_user.login_last_name=params[:last_name]
         new_user.login_mail=params[:mail]
-        new_user.login_pass=params[:pass]
+        new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
         if(params[:role]=="admin" && @user.role!="admin")
           respond_to do |format|
             format.html do
