@@ -49,7 +49,7 @@ class Ollert
     begin
       @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch(client, @user.trello_name),@user)
       @states=@user.municipio.states.pluck(:name)
-      @prioridades=["Alta Prioridad","Baja Prioridad","No Priorizados"]
+      @prioridades=["Urgentes","Priorizado","No Priorizados"]
       @token=@user.member_token
 
     rescue Trello::Error => e
@@ -183,12 +183,15 @@ class Ollert
             list4=Trello::List.create({:name=>"Repositorio",:board_id=>@board.id,:pos=>"4"})
 
             #Crear las tareas por defecto
-            @card1=Trello::Card.create({:name=>"Tarea defecto 1",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card2=Trello::Card.create({:name=>"Tarea defecto 2",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card3=Trello::Card.create({:name=>"Tarea defecto 3",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card4=Trello::Card.create({:name=>"Tarea defecto 4",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card5=Trello::Card.create({:name=>"Tarea defecto 5",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
-            @card6=Trello::Card.create({:name=>"Tarea defecto 6",:list_id=>list4.id, :desc=>"Esta es la descripción de la tarea por defecto"})
+            @user.municipio.states.each do |state|
+              if(state.order=="1")
+                state.tasks.each do |taskk|
+                  @card1=Trello::Card.create({:name=>"#{taskk.name}",:list_id=>list4.id, :desc=>"#{taskk.desc}"})
+                  @card1.save
+                end
+                
+              end
+            end
           end
           Thread.new do
             #Encontrar al usuario como miembro

@@ -95,11 +95,11 @@
       stop: function  (event, ui) {
         var $item=ui.item;
         var boardPriority=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
-        if(boardPriority=="BajaPrioridad"){
-          boardPriority="Baja Prioridad";
+        if(boardPriority=="Priorizado"){
+          boardPriority="Priorizado";
         }
-        else if(boardPriority=="AltaPrioridad"){
-          boardPriority="Alta Prioridad";
+        else if(boardPriority=="Urgentes"){
+          boardPriority="Urgentes";
         }
         else{
           boardPriority="No Priorizados";

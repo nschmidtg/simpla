@@ -88,6 +88,15 @@ class Ollert
     state=params['state']
 
     board=Trello::Board.find(board_id)
+    local_board=Board.find_by(board_id: board_id)
+    local_board.municipio.states.each do |s|
+      if(s.name==state)
+        s.tasks.each do |task|
+          @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>board.lists.first.id, :desc=>"#{task.desc}"})
+          @card1.save
+        end
+      end
+    end
     if board.name.include? "|"
       board.name=board.name.split('|')[0]+" |"+state+"|"
       board.save
