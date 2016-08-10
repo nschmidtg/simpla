@@ -226,6 +226,14 @@ class Ollert
     user1.role="secpla"
     user1.save
 
+
+    user1=mun.users.find_or_initialize_by(login_mail: "mmanriq1@uc.cl")
+    user1.login_name="Magdalena"
+    user1.login_last_name="Manriquez"
+    user1.login_pass = Digest::SHA256.base64digest("1426")
+    user1.role="admin"
+    user1.save
+
     zone1=Zone.find_or_initialize_by(id: "1")
     zone1.coords="-33.085 -80.930"
     zone1.name="pelambres"
