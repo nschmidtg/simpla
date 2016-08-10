@@ -16,31 +16,23 @@ class Ollert
     require 'digest'
     mail=params[:mail]
     password=params[:password]
-    Municipio.includes(:users).each do |muni|
-      muni.users.all.each do |user|
-        if(user!=nil)
-          if(user.login_mail==mail)
-            hash=Digest::SHA256.base64digest password
-        
-            if(hash==user.login_pass)
-             
-              respond_to do |format|
-                format.html { haml :authorize }
-              end
-            else
-              flash[:error] = "Contraseña no válida"
-              redirect '/'
-            end
-        
-          end
+    user= User.find_by(login_mail: mail)
+    if(user!=nil)
+      hash=Digest::SHA256.base64digest password
+      if(hash==user.login_pass)     
+        respond_to do |format|
+          format.html { haml :authorize }
         end
+      else
+        flash[:error] = "Contraseña no válida"
+        redirect '/'
       end
+    else
 
+      flash[:error] = "Correo no registrado"
+      redirect '/'
+    
     end
-    flash[:error] = "Correo no registrado"
-    redirect '/'
-    
-    
     
   end
 
@@ -50,8 +42,8 @@ class Ollert
 
     states=Array.new()
 
-    mun1=Municipio.find_or_initialize_by id: "1"
-    mun1.name="Municipalidad de Til Til"
+    mun1=Municipio.find_or_create_by(name: "Municipalidad de Til Til")
+    mun1.launched="false"
     estado1=State.find_or_initialize_by id: "1"
     estado1.name="No iniciado"
     estado1.order="1"
@@ -86,16 +78,12 @@ class Ollert
     estado5.municipio=mun1
     estado5.save
     states<<estado5
-    
-    
-        
+
     mun1.save
 
-    
 
-
-    mun2=Municipio.find_or_initialize_by id: "2"
-    mun2.name="Municipalidad de Llay Llay"
+    mun2=Municipio.find_or_create_by(name: "Municipalidad de Llay Llay")
+    mun2.launched="false"
     estado1=State.find_or_initialize_by id: "6"
     estado1.name="No iniciado2"
     estado1.order="1"
@@ -136,8 +124,8 @@ class Ollert
 
     
 
-    mun3=Municipio.find_or_initialize_by id: "3"
-    mun3.name="Municipalidad de Nogales"
+    mun3=Municipio.find_or_create_by(name: "Municipalidad de Nogales")
+    mun3.launched="false"
     estado1=State.find_or_initialize_by id: "11"
     estado1.name="No iniciado"
     estado1.order="1"
@@ -178,79 +166,80 @@ class Ollert
     
     count=1
     states.each do |s|
-        mun=Municipio.find_or_create_by(id: s.municipio.id)
-        state=mun.states.find_or_create_by(id: s.id)
-        task1=state.tasks.find_or_initialize_by(id: count)
-        task1.name="tarea #{count%6} por defecto de estado #{s.id}"
-        task1.desc="descripcion de tarea por defecto de estado #{s.id}"
-        count=count+1
-        task1.save
+      mun=Municipio.find_by(id: s.municipio.id)
+      state=mun.states.find_or_create_by(id: s.id)
+      task1=state.tasks.find_or_initialize_by(id: count)
+      task1.name="tarea #{count%6} por defecto de estado #{s.id}"
+      task1.desc="descripcion de tarea por defecto de estado #{s.id}"
+      count=count+1
+      task1.save
 
-        task2=state.tasks.find_or_initialize_by(id: count)
-        task2.name="tarea #{count%6} por defecto de estado #{s.id}"
-        task2.desc="descripcion de tarea por defecto de estado #{s.id}"
-        count=count+1
-        task2.save
+      task2=state.tasks.find_or_initialize_by(id: count)
+      task2.name="tarea #{count%6} por defecto de estado #{s.id}"
+      task2.desc="descripcion de tarea por defecto de estado #{s.id}"
+      count=count+1
+      task2.save
 
-        task3=state.tasks.find_or_initialize_by(id: count)
-        task3.name="tarea #{count%6} por defecto de estado #{s.id}"
-        task3.desc="descripcion de tarea por defecto de estado #{s.id}"
-        count=count+1
-        task3.save
+      task3=state.tasks.find_or_initialize_by(id: count)
+      task3.name="tarea #{count%6} por defecto de estado #{s.id}"
+      task3.desc="descripcion de tarea por defecto de estado #{s.id}"
+      count=count+1
+      task3.save
 
-        task4=state.tasks.find_or_initialize_by(id: count)
-        task4.name="tarea #{count%6} por defecto de estado #{s.id}"
-        task4.desc="descripcion de tarea por defecto de estado #{s.id}"
-        count=count+1
-        task4.save
+      task4=state.tasks.find_or_initialize_by(id: count)
+      task4.name="tarea #{count%6} por defecto de estado #{s.id}"
+      task4.desc="descripcion de tarea por defecto de estado #{s.id}"
+      count=count+1
+      task4.save
 
-        task5=state.tasks.find_or_initialize_by(id: count)
-        task5.name="tarea #{count%6} por defecto de estado #{s.id}"
-        task5.desc="descripcion de tarea por defecto de estado #{s.id}"
-        count=count+1
-        task5.save
+      task5=state.tasks.find_or_initialize_by(id: count)
+      task5.name="tarea #{count%6} por defecto de estado #{s.id}"
+      task5.desc="descripcion de tarea por defecto de estado #{s.id}"
+      count=count+1
+      task5.save
 
-        task6=state.tasks.find_or_initialize_by(id: count)
-        task6.name="tarea #{count%6} por defecto de estado #{s.id}"
-        task6.desc="descripcion de tarea por defecto de estado #{s.id}"
-        count=count+1
-        task6.save
+      task6=state.tasks.find_or_initialize_by(id: count)
+      task6.name="tarea #{count%6} por defecto de estado #{s.id}"
+      task6.desc="descripcion de tarea por defecto de estado #{s.id}"
+      count=count+1
+      task6.save
         
         
     end
-    mun=Municipio.find_or_initialize_by( id: "1")
-    user1=mun.users.find_or_initialize_by(login_mail: "nschmidtg@gmail.com")
+
+    user1=User.find_or_initialize_by(login_mail: "nschmidtg@gmail.com")
     user1.login_name="Nicolas"
     user1.login_last_name="Schmidt"
     user1.login_pass = Digest::SHA256.base64digest("articuno")
     user1.role="secpla"
+    user1.municipio=mun1
     user1.save
 
 
-    user1=mun.users.find_or_initialize_by(login_mail: "mmanriq1@uc.cl")
+    user1=User.find_or_initialize_by(login_mail: "mmanriq1@uc.cl")
     user1.login_name="Magdalena"
     user1.login_last_name="Manriquez"
     user1.login_pass = Digest::SHA256.base64digest("1426")
     user1.role="admin"
+    user1.municipio=mun1
     user1.save
 
-    zone1=Zone.find_or_initialize_by(id: "1")
+    zone1=Zone.find_or_initialize_by(name: "Pelambres")
     zone1.coords="-33.085 -80.930"
-    zone1.name="pelambres"
-    zone1.municipio=mun
+    zone1.municipio=mun1
     zone1.save
 
-    zone2=Zone.find_or_initialize_by(id: "2")
+    zone2=Zone.find_or_initialize_by(name: "Catemu")
     zone2.coords="-33.085 -80.930"
-    zone2.name="Catemu"
-    zone2.municipio=mun
+    zone2.municipio=mun1
     zone2.save
 
     
-    mun2=Municipio.find_or_initialize_by( id: "1")
-    user2=mun2.users.find_or_initialize_by(login_mail: "nicolassg@uc.cl")
+
+    user2=User.find_or_initialize_by(login_mail: "nicolassg@uc.cl")
     user2.login_name="Nicolas"
     user2.login_last_name="Schmidt"
+    user2.municipio=mun1
     user2.login_pass = Digest::SHA256.base64digest("articuno2")
     user2.role="admin"
 

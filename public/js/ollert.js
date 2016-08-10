@@ -84,11 +84,11 @@ var Ollert = (function() {
     var entro=false;
     
       for (var orgName in boardData) {
-        if((orgName.includes("Urgentes") ) || (orgName.includes("Priorizado") ) || (orgName.includes("No Priorizados") )){
+        if((orgName.includes("Urgentes") ) || (orgName.includes("Priorizados") ) || (orgName.includes("No Priorizados") )){
           if(orgName.includes("Urgentes")){
             entroAlta=true;
           }
-          else if(orgName.includes("Priorizado")){
+          else if(orgName.includes("Priorizados")){
             entroBaja=true;
           }
           else if(orgName.includes("No Priorizados")){
@@ -173,13 +173,13 @@ var Ollert = (function() {
         }
       }
       if(esta==false && esAdmin){
-        if(orgName.includes("Urgentes") || orgName.includes("Priorizado") || orgName.includes("No Priorizados")){
+        if(orgName.includes("Urgentes") || orgName.includes("Priorizados") || orgName.includes("No Priorizados")){
           if(orgName.includes("Urgentes")){
             appender=appender+"<li class='org' id='Urgentes' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
 
           }
-          else if(orgName.includes("Priorizado")){
-            appender=appender+"<li class='org' id='Priorizado' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
+          else if(orgName.includes("Priorizados")){
+            appender=appender+"<li class='org' id='Priorizados' role=\"presentation\"><b>" + orgName + "</b><ul style='padding-left: 0px;'></ul><button onclick=\"Ollert.newProjectOrg('"+orgData[i]['id']+"','"+orgName+"')\">Nuevo Proyecto</button></li>"
 
           }
           else if(orgName.includes("No Priorizados")){
@@ -194,7 +194,7 @@ var Ollert = (function() {
     var nodos=$(".org");
     for(var t=0;t<nodos.length;t++){
       for(var i=0;i<nodos.length;i++){
-        if(nodos[i].id.includes("Priorizado")){
+        if(nodos[i].id.includes("Priorizados")){
           $("#config-drawer-board-list").append(nodos[i]);
           nodos=$(".org");
         }

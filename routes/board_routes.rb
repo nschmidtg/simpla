@@ -45,11 +45,18 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-
+    if(@user.role=="admin")
+      respond_to do |format|
+        format.html do
+          redirect '/admin'
+        end
+        format.json { status 400 }
+      end
+    end
     begin
       @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch(client, @user.trello_name),@user)
       @states=@user.municipio.states.pluck(:name)
-      @prioridades=["Urgentes","Priorizado","No Priorizados"]
+      @prioridades=["Urgentes","Priorizados","No Priorizados"]
       @token=@user.member_token
 
     rescue Trello::Error => e

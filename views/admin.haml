@@ -16,17 +16,21 @@
           %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}"}
             %span.glyphicon.glyphicon-pencil
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/proyectos?mun_id=#{muni.id}"}
               Proyectos: #{muni.boards.count}
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link
+            %btn.btn-link.boards-list-item-link
               Estados: #{muni.states.count}
           %li.boards-list-item
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}"}
               Usuarios: #{muni.users.count}
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link{href: ""}
+            %btn.btn-link.boards-list-item-link
               Zonas: #{muni.zones.count}
+          - if(muni.launched=="false")
+            %li.boards-list-item
+              %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/launch?mun_id=#{muni.id}"}
+                Enviar invitaciones
   %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
     %span.glyphicon.glyphicon-plus
 

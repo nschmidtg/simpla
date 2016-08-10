@@ -13,6 +13,7 @@ class Board
   field :tipo, type: String
   field :fondo, type: String
   field :coords, type: String
+  field :name, type: String
 
   belongs_to :municipio
 end

@@ -1,0 +1,34 @@
+
+   
+.container
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12
+        Proyectos de #{@mun.name}
+
+  .row
+    
+  - @boards.each do |board|
+    .col-md-3.col-sm-3.col-xs-4.no-padding
+      .analysis-block-md
+        #{Trello::Board.find(board.board_id).name}
+        %ul{class: 'boards-list'}
+          - if(user.role!="admin")
+            %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
+              %span.glyphicon.glyphicon-pencil
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Trello ID: #{user.trello_id}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Mail: #{user.login_mail}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Member Token: #{user.member_token}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link
+              Role: #{user.role}
+          
+        
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}"}
+    %span.glyphicon.glyphicon-plus

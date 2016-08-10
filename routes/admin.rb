@@ -60,9 +60,14 @@ class Ollert
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==@user.municipio.id.to_s))
         @municipio = Municipio.find_by(id: params[:id])
       else
+        puts @user.municipio.id
+        puts @user.role
+        puts params[:id]
+        puts "*********************************"
+        puts (@user.role=="secpla" && params[:id]==@user.municipio.id.to_s)
         respond_to do |format|
           format.html do
             flash[:error] = "No tienes permiso para editar este municipio."
@@ -135,11 +140,94 @@ class Ollert
     end
 
   end
-post '/admin/create_municipio', :auth => :connected do
+
+  get '/admin/municipio/launch', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token = @user.member_token
+    end
+    if(@user.role!="admin")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    
+      if(@user.role=="admin")
+        mun=Municipio.find_by(id: params[:mun_id])
+        mun.launched="true"
+        mun.save
+        mun.organizations.each do |org|
+          trello_org=Trello::Organization.find(org.org_id)
+          mun.users.each do |user|
+            if(user.role=="admin" || user.role=="secpla")
+              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+            else
+              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+            end
+          end
+        end
+        mun.boards.each do |board|
+          mun.users.each do |user|
+            if(user.role=="admin" || user.role=="secpla")
+              JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+            else
+              JSON.parse(client.put("/boards/#{board.borad_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+            end
+          end
+        end
+        
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    
+      # unless @user.nil?
+      #   @user.member_token = nil
+      #   @user.trello_name = nil
+      #   @user.save
+      # end
+
+      # respond_to do |format|
+      #   format.html do
+      #     flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+      #     redirect '/boards'
+      #   end
+
+      #   format.json { status 400 }
+      # end
+    
+
+    respond_to do |format|
+      flash[:succes] = "Invitaciones enviadas satisfactoriamente."
+      redirect "/admin"
+      
+    end
+
+    
+  end
+
+  post '/admin/create_municipio', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token = @user.member_token
+    end
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
@@ -149,7 +237,7 @@ post '/admin/create_municipio', :auth => :connected do
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         nombre=params[:name]
         zonas=params[:zonas]
         edit=params[:edit]
@@ -162,6 +250,26 @@ post '/admin/create_municipio', :auth => :connected do
           end
         else
           mun=Municipio.new
+          mun.launched="false"
+          o1=JSON.parse(client.post("/organizations?name=Urgentes&displayName=Urgentes&desc=#{nombre}"))
+          puts o1
+          org=Organization.find_or_initialize_by(org_id: o1["id"])
+          org.name="Urgentes"
+          org.municipio=mun
+          org.save
+
+          o1=JSON.parse(client.post("/organizations?name=No Priorizados&displayName=No Priorizados&desc=#{nombre}"))
+          org=Organization.find_or_initialize_by(org_id: o1["id"])
+          org.name="No Priorizados"
+          org.municipio=mun
+          org.save
+
+          o1=JSON.parse(client.post("/organizations?name=Priorizados&displayName=Priorizados&desc=#{nombre}"))
+          org=Organization.find_or_initialize_by(org_id: o1["id"])
+          org.name="Priorizados"
+          org.municipio=mun
+          org.save
+
         end
         mun.name=nombre
         mun.save
@@ -238,7 +346,7 @@ post '/admin/create_municipio', :auth => :connected do
     end
 
     respond_to do |format|
-      flash[:succes] = "Municipio eliminado satisfactoriamente."
+      flash[:succes] = "Municipio creado satisfactoriamente."
       redirect "/admin/municipio/users?mun_id=#{mun.id}"
       
     end
@@ -376,6 +484,58 @@ post '/admin/create_municipio', :auth => :connected do
       end
 
     
+  end
+
+  get '/admin/municipio/proyectos', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @boards=@mun.boards
+
+        
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :user }
+      
+    end
   end
 
   get '/admin/municipio/users/user', :auth => :connected do
