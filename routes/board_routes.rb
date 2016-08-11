@@ -45,6 +45,10 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
     if(@user.role=="admin")
       respond_to do |format|
         format.html do
@@ -64,6 +68,7 @@ class Ollert
         @user.member_token = nil
         @user.trello_name = nil
         @user.save
+
       end
 
       respond_to do |format|
@@ -222,7 +227,7 @@ class Ollert
             end
 
             org_name=Trello::Organization.find(org_id).name
-            if(org_name="Urgentes")
+            if(org_name=="Urgentes")
               JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
             end
           end

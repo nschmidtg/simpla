@@ -105,6 +105,10 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
     if(@user.role!="admin")
       respond_to do |format|
         format.html do
@@ -115,6 +119,20 @@ class Ollert
     end
     begin
       @municipio = Municipio.find_by(id: params[:id_municipio])
+      @municipio.organizations.each do |org|
+        boards=Trello::Board.find(org.boards)
+        boards.each do |board|
+          begin
+            JSON.parse(client.delete("/boards/#{board.id}/closed?value=true"))
+          rescue
+          end
+        end
+        begin
+          JSON.parse(client.delete("/organizations/#{org.org_id}"))
+        rescue
+        end
+      end
+
       @municipio.destroy
     rescue Trello::Error => e
       unless @user.nil?
@@ -231,7 +249,7 @@ class Ollert
     if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          flash[:error] = "No es administrador. No puede crear o editar municipios."
           redirect '/boards'
         end
       end
@@ -249,26 +267,59 @@ class Ollert
             end
           end
         else
-          mun=Municipio.new
-          mun.launched="false"
-          o1=JSON.parse(client.post("/organizations?name=Urgentes&displayName=Urgentes&desc=#{nombre}"))
-          puts o1
-          org=Organization.find_or_initialize_by(org_id: o1["id"])
-          org.name="Urgentes"
-          org.municipio=mun
-          org.save
+          if(@user.role=="admin")
+            mun=Municipio.new
+            mun.launched="false"
+            o1=JSON.parse(client.post("/organizations?name=Urgentes&displayName=Urgentes&desc=#{nombre}"))
+            puts o1
+            org=Organization.find_or_initialize_by(org_id: o1["id"])
+            org.name="Urgentes"
+            org.municipio=mun
+            org.save
 
-          o1=JSON.parse(client.post("/organizations?name=No Priorizados&displayName=No Priorizados&desc=#{nombre}"))
-          org=Organization.find_or_initialize_by(org_id: o1["id"])
-          org.name="No Priorizados"
-          org.municipio=mun
-          org.save
+            o1=JSON.parse(client.post("/organizations?name=No Priorizados&displayName=No Priorizados&desc=#{nombre}"))
+            org=Organization.find_or_initialize_by(org_id: o1["id"])
+            org.name="No Priorizados"
+            org.municipio=mun
+            org.save
 
-          o1=JSON.parse(client.post("/organizations?name=Priorizados&displayName=Priorizados&desc=#{nombre}"))
-          org=Organization.find_or_initialize_by(org_id: o1["id"])
-          org.name="Priorizados"
-          org.municipio=mun
-          org.save
+            o1=JSON.parse(client.post("/organizations?name=Priorizados&displayName=Priorizados&desc=#{nombre}"))
+            org=Organization.find_or_initialize_by(org_id: o1["id"])
+            org.name="Priorizados"
+            org.municipio=mun
+            org.save
+
+            estado1=State.new
+            estado1.name="No iniciado"
+            estado1.order="1"
+            estado1.municipio=mun
+            estado1.save
+
+            estado2=State.new
+            estado2.name="Formulación"
+            estado2.order="2"
+            estado2.municipio=mun
+            estado2.save
+
+            estado3=State.new
+            estado3.name="Observado"
+            estado3.order="3"
+            estado3.municipio=mun
+            estado3.save
+
+            estado4=State.new
+            estado4.name="Licitación"
+            estado4.order="4"
+            estado4.municipio=mun
+            estado4.save
+
+            estado5=State.new
+            estado5.name="Ejecución"
+            estado5.order="5"
+            estado5.municipio=mun
+            estado5.save
+            mun.save
+          end
 
         end
         mun.name=nombre
@@ -283,45 +334,11 @@ class Ollert
           end
           
         end
-        if(edit=="false")
-          estado1=State.new
-          estado1.name="No iniciado"
-          estado1.order="1"
-          estado1.municipio=mun
-          estado1.save
-
-          estado2=State.new
-          estado2.name="Formulación"
-          estado2.order="2"
-          estado2.municipio=mun
-          estado2.save
-
-          estado3=State.new
-          estado3.name="Observado"
-          estado3.order="3"
-          estado3.municipio=mun
-          estado3.save
-
-          estado4=State.new
-          estado4.name="Licitación"
-          estado4.order="4"
-          estado4.municipio=mun
-          estado4.save
-
-          estado5=State.new
-          estado5.name="Ejecución"
-          estado5.order="5"
-          estado5.municipio=mun
-          estado5.save
-          mun.save
-        end
-
-        puts mun.id
-        puts Zone.find_by(id: mun.zones.last.id).municipio.id
+        
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            flash[:error] = "No tiene permiso para editar o crear Municipios."
             redirect '/boards'
           end
 
@@ -337,8 +354,8 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
+          flash[:error] = "cacaHubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/'
         end
 
         format.json { status 400 }
@@ -346,7 +363,11 @@ class Ollert
     end
 
     respond_to do |format|
-      flash[:succes] = "Municipio creado satisfactoriamente."
+      if(edit=="true")
+        flash[:succes] = "Municipio editado satisfactoriamente."
+      else
+        flash[:succes] = "Municipio creado satisfactoriamente."
+      end
       redirect "/admin/municipio/users?mun_id=#{mun.id}"
       
     end
@@ -362,18 +383,18 @@ class Ollert
     if(@user.role!="admin"  && @user.role!="secpla" )
       respond_to do |format|
         format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          flash[:error] = "1Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            flash[:error] = "2Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
             redirect '/boards'
           end
 
@@ -389,7 +410,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 

@@ -84,26 +84,35 @@ class Ollert
       config.developer_public_key = ENV['PUBLIC_KEY']
       config.member_token =  params['token']
     end
-
+    
     state=params['state']
 
     board=Trello::Board.find(board_id)
-    local_board=Board.find_by(board_id: board_id)
-    local_board.municipio.states.each do |s|
-      if(s.name==state)
-        s.tasks.each do |task|
-          @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>board.lists.first.id, :desc=>"#{task.desc}"})
-          @card1.save
-        end
-      end
-    end
     if board.name.include? "|"
       board.name=board.name.split('|')[0]+" |"+state+"|"
+      brd=Board.find_by(board_id: board_id)
+      brd.name=board.name
+      brd.save
       board.save
     else
       board.name=board.name+" |"+state+"|"
+      brd=Board.find_by(board_id: board_id)
+      brd.name=board.name
+      brd.save
       board.save
     end
+    Thread.new do
+      local_board=Board.find_by(board_id: board_id)
+      local_board.municipio.states.each do |s|
+        if(s.name==state)
+          s.tasks.each do |task|
+            @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>board.lists.first.id, :desc=>"#{task.desc}"})
+            @card1.save
+          end
+        end
+      end
+    end
+    
     body board.to_json
     status 200
   end
@@ -119,14 +128,14 @@ class Ollert
     end
     priority=params['priority']
     board=Trello::Board.find(board_id)
-    data=JSON.parse(client.get("/members/#{params['user_id']}/organizations", {fields: :displayName}))
-    trello_orgs = {}
-    data.each do |organization|
-      if(organization["displayName"].include?(priority))
-        board.organization_id=organization["id"]
-        
+    brd=Board.find_by(board_id: board_id)
+    orgs=brd.municipio.organizations
+    #data=JSON.parse(client.get("/members/#{params['user_id']}/organizations", {fields: :displayName}))
+    #trello_orgs = {}
+    orgs.each do |organization|
+      if(organization.name.include?(priority))
+        board.organization_id=organization.org_id
         board.update!
-
       end
     end
     

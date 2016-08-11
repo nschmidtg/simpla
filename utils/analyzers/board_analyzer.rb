@@ -23,10 +23,17 @@ class BoardAnalyzer
     data.each do |board|
       
       board["is_admin"]=esAdmin
+      
       organization = board["organization"].nil? ? "My Boards" : board["organization"]["displayName"]
+      if(board["organization"].nil?)
+        board["org_id"]="null"
+      else
+        board["org_id"]= board["organization"]["id"]
+      end
       trello_boards[organization] ||= []
       trello_boards[organization] << board
     end
+    puts trello_boards
 
     trello_boards
   end

@@ -48,10 +48,10 @@
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)
-                      %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", type: "text" ,required: "", type: "hidden"}/
-                      %input#textinput.form-control.input-md{name: "id", value: "#{@municipio.id}", style: "cursor: auto;", type: "text" ,required: "", type: "hidden"}/
+                      %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;" ,required: "", type: "hidden"}/
+                      %input#textinput.form-control.input-md{name: "id", value: "#{@municipio.id}", style: "cursor: auto;" ,required: "", type: "hidden"}/
                     - else
-                      %input#textinput.form-control.input-md{name: "edit", value: "false", placeholder: "Nombre del Municipio", style: "cursor: auto;", type: "text",required: "", type: "hidden"}/
+                      %input#textinput.form-control.input-md{name: "edit", value: "false", placeholder: "Nombre del Municipio", style: "cursor: auto;",required: "", type: "hidden"}/
 
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
