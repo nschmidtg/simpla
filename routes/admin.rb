@@ -9,8 +9,7 @@ class Ollert
       if(@user.role=="secpla")
         respond_to do |format|
         format.html do
-          flash[:succes] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect "/admin/municipio?id=#{@user.municipio.id}"
+          redirect "/admin/municipio/proyectos?mun_id=#{@user.municipio.id}"
         end
       end
       end
@@ -63,11 +62,6 @@ class Ollert
       if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==@user.municipio.id.to_s))
         @municipio = Municipio.find_by(id: params[:id])
       else
-        puts @user.municipio.id
-        puts @user.role
-        puts params[:id]
-        puts "*********************************"
-        puts (@user.role=="secpla" && params[:id]==@user.municipio.id.to_s)
         respond_to do |format|
           format.html do
             flash[:error] = "No tienes permiso para editar este municipio."
@@ -120,10 +114,10 @@ class Ollert
     begin
       @municipio = Municipio.find_by(id: params[:id_municipio])
       @municipio.organizations.each do |org|
-        boards=Trello::Board.find(org.boards)
+        boards=Trello::Organization.find(org.org_id).boards
         boards.each do |board|
           begin
-            JSON.parse(client.delete("/boards/#{board.id}/closed?value=true"))
+            JSON.parse(client.put("/boards/#{board.id}/closed?value=true"))
           rescue
           end
         end
@@ -507,7 +501,7 @@ class Ollert
     
   end
 
-  get '/admin/municipio/proyectos', :auth => :connected do
+  get '/admin/municipio/proyecto', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
@@ -520,8 +514,27 @@ class Ollert
         end
       end
     end
+  end
+
+  get '/admin/municipio/proyectos', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
         @boards=@mun.boards
 
@@ -554,7 +567,7 @@ class Ollert
     end
 
     respond_to do |format|
-      format.html { haml :user }
+      format.html { haml :admin_boards }
       
     end
   end

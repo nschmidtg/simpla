@@ -39,7 +39,7 @@
                   .col-md-6.col-sm-6.col-xs-12
                     - @board=nil
                     - if(params[:edit]=="true")
-                      - @board=@user.boards.find_by board_id: params[:last_board_id]
+                      - @board=Board.find_by board_id: params[:last_board_id]
                       %input#textinput.form-control.input-md{name: "monto",min: "0", step: "50000", style: "cursor: auto;", type: "number",value: "#{@board.monto}"}/
                     - else
                       %input#textinput.form-control.input-md{name: "monto",min: "0",step: "50000", style: "cursor: auto;", type: "number"}/
@@ -154,18 +154,19 @@
                         %input#select_all{:type => "checkbox", :onClick=>"toggle(this)"}>/
                       
                         Marcar Todas
-                    - @user.municipio.zones.each do |zona|
-                      .checkbox
-                        %label
-                          - if(params[:edit]=="true")
-                            - if(@board.zones.find_by(id: zona.id)!=nil)
-                              %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]", :checked =>"true"}>/
+                    - if(params[:org_id]!="nil")
+                      - Organization.find_by(org_id: params[:org_id]).municipio.zones.each do |zona|
+                        .checkbox
+                          %label
+                            - if(params[:edit]=="true")
+                              - if(@board.zones.find_by(id: zona.id)!=nil)
+                                %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]", :checked =>"true"}>/
+                              - else
+                                %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
+                              #{zona.name}
                             - else
                               %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
-                            #{zona.name}
-                          - else
-                            %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
-                            #{zona.name}
+                              #{zona.name}
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
                   .col-md-6.col-sm-6.col-xs-12

@@ -11,23 +11,32 @@
   - @boards.each do |board|
     .col-md-3.col-sm-3.col-xs-4.no-padding
       .analysis-block-md
-        #{Trello::Board.find(board.board_id).name}
+        #{board.name}
+        - @org=Trello::Board.find(board.board_id).organization
         %ul{class: 'boards-list'}
-          - if(user.role!="admin")
-            %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
-              %span.glyphicon.glyphicon-pencil
+          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{board.board_id}&orgName=#{@org.name}&board_name=#{board.name}&edit=true"}
+            %span.glyphicon.glyphicon-pencil
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link
-              Trello ID: #{user.trello_id}
+            %btn.btn-link.boards-list-item-link
+              Trello ID: #{board.board_id}
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link
-              Mail: #{user.login_mail}
+            %btn.btn-link.boards-list-item-link
+              Nombre: #{board.name}
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link
-              Member Token: #{user.member_token}
+            %btn.btn-link.boards-list-item-link
+              Monto: #{board.monto}
           %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link
-              Role: #{user.role}
+            %btn.btn-link.boards-list-item-link
+              Tipo: #{board.tipo}
+          %li.boards-list-item
+            %btn.btn-link.boards-list-item-link
+              Fondo: #{board.fondo}
+          %li.boards-list-item
+            %btn.btn-link.boards-list-item-link
+              - zoness="|"
+              - board.zones.each do |zone|
+                - zoness=zoness+zone.name+"|"
+                Zonas: #{zoness}
           
         
   %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}"}

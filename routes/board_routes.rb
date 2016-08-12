@@ -54,7 +54,6 @@ class Ollert
         format.html do
           redirect '/admin'
         end
-        format.json { status 400 }
       end
     end
     begin
@@ -140,7 +139,7 @@ class Ollert
     end
 
 
-    begin
+    #begin
       if(@user.role=="secpla" || @user.role=="admin")
         org_id=params[:org_id]
         memb="false"
@@ -225,8 +224,11 @@ class Ollert
                 JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
               end
             end
+            User.where(:role => "admin").each do |user|
+              JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+            end
 
-            org_name=Trello::Organization.find(org_id).name
+            org_name=Organization.find_by(org_id: org_id).name
             if(org_name=="Urgentes")
               JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
             end
@@ -238,13 +240,8 @@ class Ollert
           JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
           admins=JSON.parse(client.get("/boards/#{@board.id}/members/admins"))
 
-          soyadmin=false
-          admins.each do |admin|
-            if(admin["id"]==@user.trello_id)
-              soyadmin=true
-            end
-          end
-          if(soyadmin)
+          
+          
             #Busco el tablero a nivel de BD:
             board_settings = Board.find_or_create_by(board_id: @board.id)
             board_settings.monto=params[:monto]
@@ -275,16 +272,9 @@ class Ollert
               @board.name=params[:name]
               @board.update!
             end
-          else
-            respond_to do |format|
-              format.html do
-                flash[:error] = "No tienes permisos de administrador sobre este tablero."
-                redirect '/boards'
-          end
+          
 
-          format.json { status 400 }
-        end
-          end
+          
           
         end
       else
@@ -298,22 +288,22 @@ class Ollert
       end
       end
       
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
+    #rescue Trello::Error => e
+    #  unless @user.nil?
+    #    @user.member_token = nil
+    #    @user.trello_name = nil
+    #    @user.save
+    #  end
 
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
-        end
+    #  respond_to do |format|
+    #    format.html do
+    #      flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+    #      redirect '/'
+    #    end
 
-        format.json { status 400 }
-      end
-    end
+    #    format.json { status 400 }
+    #  end
+    #end
 
     respond_to do |format|
       if(params[:edit]=="false")

@@ -30,7 +30,7 @@
         $("#boton_agregar").hide();
       });
   %body
-    - unless @user.nil?
+    - if(@user!=nil && @user.role != "admin")
       #config-drawer.drawer.dw-xs-10.dw-sm-6.dw-md-4.dw-lg-3.fold{"aria-labelledby" => "config-drawer"}
         .drawer-controls
           %a.btn.btn-primary.btn-sm{"aria-controls" => "config-drawer", "aria-foldedopen" => "false", "data-toggle" => "drawer", :href => "#config-drawer"}
