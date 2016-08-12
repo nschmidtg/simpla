@@ -30,15 +30,15 @@
         $("#boton_agregar").hide();
       });
   %body
-    - if(@user!=nil && @user.role != "admin")
-      #config-drawer.drawer.dw-xs-10.dw-sm-6.dw-md-4.dw-lg-3.fold{"aria-labelledby" => "config-drawer"}
-        .drawer-controls
-          %a.btn.btn-primary.btn-sm{"aria-controls" => "config-drawer", "aria-foldedopen" => "false", "data-toggle" => "drawer", :href => "#config-drawer"}
-            %span.glyphicon.glyphicon-menu-hamburger{"aria-hidden": "true"}
-        .drawer-contents
-          .drawer-heading
-            %h2.drawer-title Proyectos
-          %ul.drawer-nav#config-drawer-board-list
+    / - if(@user!=nil && @user.role != "admin")
+    /   #config-drawer.drawer.dw-xs-10.dw-sm-6.dw-md-4.dw-lg-3.fold{"aria-labelledby" => "config-drawer"}
+    /     .drawer-controls
+    /       %a.btn.btn-primary.btn-sm{"aria-controls" => "config-drawer", "aria-foldedopen" => "false", "data-toggle" => "drawer", :href => "#config-drawer"}
+    /         %span.glyphicon.glyphicon-menu-hamburger{"aria-hidden": "true"}
+    /     .drawer-contents
+    /       .drawer-heading
+    /         %h2.drawer-title Proyectos
+    /       %ul.drawer-nav#config-drawer-board-list
           
 
     %div

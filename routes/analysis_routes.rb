@@ -127,6 +127,7 @@ class Ollert
       config.member_token =  params['token']
     end
     priority=params['priority']
+    #puts priority
     board=Trello::Board.find(board_id)
     brd=Board.find_by(board_id: board_id)
     orgs=brd.municipio.organizations
@@ -139,7 +140,7 @@ class Ollert
       end
     end
     
-    if(priority=="Urgentes")
+    if(priority=="1. Urgentes")
       JSON.parse(client.put("/boards/#{board_id}/prefs/background?value=red"))
     else
       JSON.parse(client.put("/boards/#{board_id}/prefs/background?value=blue"))

@@ -185,6 +185,9 @@
                     %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "hidden"}/
                 .form-group
                   %input#textinput.form-control.input-md{name: "last_board_id", value: "#{params[:last_board_id]}", style: "cursor: auto;", type: "hidden"}/
+                - if(params[:admin]=="true")
+                  .form-group
+                    %input#textinput.form-control.input-md{name: "admin", value: "true", style: "cursor: auto;", type: "hidden"}/
 
                 .form-group
                   

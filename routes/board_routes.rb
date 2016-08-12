@@ -59,7 +59,7 @@ class Ollert
     begin
       @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch(client, @user.trello_name),@user)
       @states=@user.municipio.states.pluck(:name)
-      @prioridades=["Urgentes","Priorizados","No Priorizados"]
+      @prioridades=["1. Urgentes","2. Priorizados","3. No Priorizados"]
       @token=@user.member_token
 
     rescue Trello::Error => e
@@ -158,6 +158,7 @@ class Ollert
           #El tablero no existe, lo creo
           @board=Trello::Board.create(data)
           JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+          
           #Creo el tablero a nivel de BD:
           board_settings = Board.find_or_create_by(board_id: @board.id)
           board_settings.monto=params[:monto]
@@ -195,7 +196,7 @@ class Ollert
             list4=Trello::List.create({:name=>"Repositorio",:board_id=>@board.id,:pos=>"4"})
 
             #Crear las tareas por defecto
-            @user.municipio.states.each do |state|
+            @board.municipio.states.each do |state|
               if(state.order=="1")
                 state.tasks.each do |taskk|
                   @card1=Trello::Card.create({:name=>"#{taskk.name}",:list_id=>list4.id, :desc=>"#{taskk.desc}"})
@@ -207,6 +208,7 @@ class Ollert
           end
           Thread.new do
             #Encontrar al usuario como miembro
+
             member_current=Trello::Member.find(Trello::Token.find(@user.member_token).member_id)
             @board.add_member(member_current,type=:admin)
             members=Trello::Organization.find(@board.organization_id).members
@@ -218,11 +220,13 @@ class Ollert
                 @board.add_member(m,type=:normal)
               end
             end
-            Board.find_by(board_id: @board.id).municipio.users.each do |user|
-              if(user.role=="admin" || user.role=="secpla")
-                JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-              else
-                JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+            if(params[:admin]==nil)
+              Board.find_by(board_id: @board.id).municipio.users.each do |user|
+                if(user.role=="admin" || user.role=="secpla")
+                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                else
+                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                end
               end
             end
             User.where(:role => "admin").each do |user|
@@ -230,7 +234,7 @@ class Ollert
             end
 
             org_name=Organization.find_by(org_id: org_id).name
-            if(org_name=="Urgentes")
+            if(org_name=="1. Urgentes")
               JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
             end
           end

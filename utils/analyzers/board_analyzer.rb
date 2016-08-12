@@ -33,7 +33,7 @@ class BoardAnalyzer
       trello_boards[organization] ||= []
       trello_boards[organization] << board
     end
-    puts trello_boards
+    #puts trello_boards
 
     trello_boards
   end

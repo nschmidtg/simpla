@@ -173,13 +173,15 @@ class Ollert
     
       if(@user.role=="admin")
         mun=Municipio.find_by(id: params[:mun_id])
-        mun.launched="true"
-        mun.save
         mun.organizations.each do |org|
           trello_org=Trello::Organization.find(org.org_id)
           mun.users.each do |user|
             if(user.role=="admin" || user.role=="secpla")
-              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              if(user.trello_id!=nil)
+                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              else
+                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              end
             else
               JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
             end
@@ -188,13 +190,18 @@ class Ollert
         mun.boards.each do |board|
           mun.users.each do |user|
             if(user.role=="admin" || user.role=="secpla")
-              JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              if(user.trello_id!=nil)
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              else
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              end
             else
               JSON.parse(client.put("/boards/#{board.borad_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
             end
           end
         end
-        
+        mun.launched="true"
+        mun.save
       else
         respond_to do |format|
           format.html do
@@ -264,22 +271,22 @@ class Ollert
           if(@user.role=="admin")
             mun=Municipio.new
             mun.launched="false"
-            o1=JSON.parse(client.post("/organizations?name=Urgentes&displayName=Urgentes&desc=#{nombre}"))
-            puts o1
+            o1=JSON.parse(client.post("/organizations?name=1. Urgentes&displayName=1. Urgentes&desc=#{nombre}"))
+            #puts o1
             org=Organization.find_or_initialize_by(org_id: o1["id"])
-            org.name="Urgentes"
+            org.name="1. Urgentes"
             org.municipio=mun
             org.save
 
-            o1=JSON.parse(client.post("/organizations?name=No Priorizados&displayName=No Priorizados&desc=#{nombre}"))
+            o1=JSON.parse(client.post("/organizations?name=3. No Priorizados&displayName=3. No Priorizados&desc=#{nombre}"))
             org=Organization.find_or_initialize_by(org_id: o1["id"])
-            org.name="No Priorizados"
+            org.name="3. No Priorizados"
             org.municipio=mun
             org.save
 
-            o1=JSON.parse(client.post("/organizations?name=Priorizados&displayName=Priorizados&desc=#{nombre}"))
+            o1=JSON.parse(client.post("/organizations?name=2. Priorizados&displayName=2. Priorizados&desc=#{nombre}"))
             org=Organization.find_or_initialize_by(org_id: o1["id"])
-            org.name="Priorizados"
+            org.name="2. Priorizados"
             org.municipio=mun
             org.save
 
@@ -434,7 +441,7 @@ class Ollert
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
 
         edit=params[:edit]
         @mun=Municipio.find_by(id: params[:mun_id])
@@ -462,6 +469,8 @@ class Ollert
         new_user.role=params[:role]
         new_user.municipio=@mun
         new_user.save
+        @mun.launched="false"
+        @mun.save
       else
         respond_to do |format|
           format.html do
@@ -586,7 +595,7 @@ class Ollert
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
         @new_user=User.find_by(id: params[:user_id])
 
@@ -651,7 +660,7 @@ class Ollert
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id))
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
         @new_user=@mun.users.find_by(id: params[:user_id])
         if(@new_user!=nil)

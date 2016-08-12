@@ -57,8 +57,6 @@
           - @boards.each do |org_name, boards|
             - prioridad_tablero=org_name
             - if(prioridad==(prioridad_tablero))
-
-              - @user.municipio.organizations.new
               - boards.each do |board|
                 - org=Organization.find_or_initialize_by(org_id: Trello::Board.find(board["id"]).organization.id)
                 - org.name=prioridad
@@ -110,14 +108,15 @@
       stop: function  (event, ui) {
         var $item=ui.item;
         var boardPriority=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
-        if(boardPriority=="Priorizados"){
-          boardPriority="Priorizados";
+        
+        if(boardPriority=="2.Priorizados"){
+          boardPriority="2. Priorizados";
         }
-        else if(boardPriority=="Urgentes"){
-          boardPriority="Urgentes";
+        else if(boardPriority=="1.Urgentes"){
+          boardPriority="1. Urgentes";
         }
         else{
-          boardPriority="No Priorizados";
+          boardPriority="3. No Priorizados";
         }
         var boardId=$item.find('a').attr('href').split('/')[2];
         
