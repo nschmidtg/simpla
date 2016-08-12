@@ -244,7 +244,9 @@ class Ollert
           @board=Trello::Board.find(params[:last_board_id])
           JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
           admins=JSON.parse(client.get("/boards/#{@board.id}/members/admins"))
-
+          User.where(:role => "admin").each do |user|
+            JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+          end
           
           
             #Busco el tablero a nivel de BD:
