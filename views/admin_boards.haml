@@ -38,6 +38,6 @@
                 - zoness=zoness+zone.name+"|"
                 Zonas: #{zoness}
           
-        
-  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}"}
+  - @org=@mun.organizations.find_by(name: "No Priorizados")
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false"}
     %span.glyphicon.glyphicon-plus

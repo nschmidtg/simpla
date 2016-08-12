@@ -164,8 +164,9 @@ class Ollert
           board_settings.tipo=params[:tipo]
           board_settings.fondo=params[:fondo]
           board_settings.coords=params[:zona]
+          board_settings.name=params[:name]
           board_settings.users<<@user
-          board_settings.municipio=@user.municipio
+          board_settings.municipio=Organization.find_by(org_id: org_id).municipio
           board_settings.save
           if(zonas!=nil)
             zonas.each do |zona_id|
