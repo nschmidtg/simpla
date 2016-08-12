@@ -275,7 +275,17 @@ class Ollert
             
             if(params[:name]!=@board.name)
               @board.name=params[:name]
-              @board.update!
+              begin
+                @board.update!
+              rescue
+                respond_to do |format|
+                  format.html do
+                    flash[:error] = "No tienes permisos de administrador sobre este tablero, por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                    redirect '/admin'
+                  end
+                  format.json { status 400 }
+                end
+              end
             end
           
 
