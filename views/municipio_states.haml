@@ -1,0 +1,27 @@
+
+   
+.container
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12
+        Estados de #{@mun.name}
+
+  .row
+    
+  - @mun.states.each do |state|
+    .col-md-3.col-sm-3.col-xs-4.no-padding
+      .analysis-block-md
+        #{state.name}
+        %ul{class: 'boards-list'}
+          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/state?mun_id=#{@mun.id}&state_id=#{state.id}"}
+            %span.glyphicon.glyphicon-pencil
+          %li.boards-list-item
+            %btn.btn-link.boards-list-item-link
+              Orden: #{state.order}
+          %li.boards-list-item
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/states/tasks?mun_id=#{@mun.id}&state_id=#{state.id}"}
+              Tareas: #{state.tasks.count}
+          
+        
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/state?mun_id=#{@mun.id}"}
+    %span.glyphicon.glyphicon-plus

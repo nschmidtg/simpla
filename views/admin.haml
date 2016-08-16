@@ -19,7 +19,7 @@
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/proyectos?mun_id=#{muni.id}"}
               Proyectos: #{muni.boards.count}
           %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/states?mun_id=#{muni.id}"}
               Estados: #{muni.states.count}
           %li.boards-list-item
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}"}

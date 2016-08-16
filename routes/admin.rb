@@ -453,6 +453,271 @@ class Ollert
     
   end
 
+  get '/admin/municipio/states/tasks', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin"  && @user.role!="secpla" )
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @state=State.find_by(id: params[:state_id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Está tratando de editar un municipio que no es el suyo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :municipio_states_tasks }
+      
+    end
+
+    
+  end
+
+  get '/admin/municipio/states/tasks/task', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @state=State.find_by(id: params[:state_id])
+        @task=Task.find_by(id: params[:task_id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :task }
+      
+    end
+
+    
+  end
+
+  get '/admin/municipio/states', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin"  && @user.role!="secpla" )
+      respond_to do |format|
+        format.html do
+          flash[:error] = "1Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Está tratando de editar un municipio que no es el suyo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :municipio_states }
+      
+    end
+
+    
+  end
+
+  get '/admin/municipio/states/state', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @state=State.find_by(id: params[:state_id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :state }
+      
+    end
+
+    
+  end
+
+  get '/admin/municipio/states/state/delete', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin"  && @user.role!="secpla" )
+      respond_to do |format|
+        format.html do
+          flash[:error] = "No tiene permiso para eliminar estados."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @new_state=@mun.states.find_by(id: params[:state_id])
+        if(@new_state!=nil)
+          @new_state.destroy
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/admin'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html do
+        flash[:succes] = "Estado eliminado exitosamente."
+        redirect '/admin'
+      end
+      
+    end
+  end
+
   post '/admin/create_user', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -562,10 +827,150 @@ class Ollert
     respond_to do |format|
         format.html do
           flash[:succes] = "Usuario creado exitosamente"
-          redirect "/admin/municipio/users?mun_id=#{@mun.id}"
+          redirect "/admin"
+        end
+      end
+
+    
+  end
+
+  post '/admin/create_state', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+
+        edit=params[:edit]
+        @mun=Municipio.find_by(id: params[:mun_id])
+        if(edit=="true")
+          new_state=State.find_by(id: params[:id])
+        else
+          new_state=State.new
+        end
+        new_state.name=params[:name]
+        new_state.order=params[:order]
+        new_state.municipio=@mun
+        new_state.save
+        @mun.save
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/admin'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/admin'
         end
 
         format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+        format.html do
+          flash[:succes] = "Estado creado exitosamente"
+          redirect "/admin"
+        end
+      end
+
+    
+  end
+
+  post '/admin/create_task', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+
+        edit=params[:edit]
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @state=@mun.states.find_by(id: params[:state_id])
+        if(@state!=nil)
+          if(edit=="true")
+            new_task=Task.find_by(id: params[:id])
+          else
+            new_task=Task.new
+          end
+          new_task.name=params[:name]
+          new_task.desc=params[:desc]
+          new_task.state=@state
+          new_task.save
+          @state.save
+        else
+          respond_to do |format|
+            format.html do
+              flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+              redirect '/admin'
+            end
+
+            format.json { status 400 }
+          end
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/admin'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/admin'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+        format.html do
+          flash[:succes] = "Estado creado exitosamente"
+          redirect "/admin"
+        end
       end
 
     

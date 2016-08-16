@@ -104,7 +104,7 @@ class Ollert
     Thread.new do
       local_board=Board.find_by(board_id: board_id)
       local_board.municipio.states.each do |s|
-        if(s.name==state)
+        if(s.name.gsub!(" ","")==state)
           s.tasks.each do |task|
             @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>board.lists.first.id, :desc=>"#{task.desc}"})
             @card1.save

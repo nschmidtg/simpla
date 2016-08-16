@@ -1,0 +1,27 @@
+
+   
+.container
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12
+        Tareas predeterminadas del estado #{@state.name}
+
+  .row
+    
+  - @state.tasks.each do |task|
+    .col-md-3.col-sm-3.col-xs-4.no-padding
+      .analysis-block-md
+        #{task.name}
+        %ul{class: 'boards-list'}
+          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{@state.id}&task_id=#{task.id}"}
+            %span.glyphicon.glyphicon-pencil
+          %li.boards-list-item
+            %btn.btn-link.boards-list-item-link
+              Nombre: #{task.name}
+          %li.boards-list-item
+            %btn.btn-link.boards-list-item-link
+              Descripción: #{task.desc}
+          
+        
+  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{@state.id}"}
+    %span.glyphicon.glyphicon-plus
