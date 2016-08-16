@@ -25,7 +25,7 @@
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}"}
               Usuarios: #{muni.users.count}
           %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio?id=#{muni.id}"}
               Zonas: #{muni.zones.count}
           - if(muni.launched=="false")
             %li.boards-list-item
