@@ -191,42 +191,42 @@ class Ollert
           mun.users.each do |user|
             if(user.role=="admin" || user.role=="secpla")
               if(user.trello_id!=nil)
-                begin
+                # begin
                   JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                rescue
-                  respond_to do |format|
-                    format.html do
-                      flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                      redirect '/admin'
-                    end
-                    format.json { status 400 }
-                  end
-                end
+                # rescue
+                #   respond_to do |format|
+                #     format.html do
+                #       flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                      
+                #     end
+                #     format.json { status 400 }
+                #   end
+                # end
               else
-                begin
+                # begin
                   JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                rescue
-                  respond_to do |format|
-                    format.html do
-                      flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                      redirect '/admin'
-                    end
-                    format.json { status 400 }
-                  end
-                end
+                # rescue
+                #   respond_to do |format|
+                #     format.html do
+                #       flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                      
+                #     end
+                #     format.json { status 400 }
+                #   end
+                # end
               end
             else
-              begin
-                JSON.parse(client.put("/boards/#{board.borad_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              rescue
-                respond_to do |format|
-                  format.html do
-                    flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                    redirect '/admin'
-                  end
-                  format.json { status 400 }
-                end
-              end
+              # begin
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              # rescue
+              #   respond_to do |format|
+              #    format.html do
+              #      flash[:error] = "1No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                    
+              #    end
+              #    format.json { status 400 }
+              #   end
+              # end
             end
           end
         end
@@ -496,10 +496,45 @@ class Ollert
             format.json { status 400 }
           end
         end
-        new_user.role=params[:role]
+        
         new_user.municipio=@mun
+        if(new_user.role!=params[:role] && new_user.trello_id!=nil)
+          #Estoy editando el rol de un usuario que ya tenia cuenta en Ollert
+          new_user.role=params[:role]
+          if(new_user.role=="admin" || new_user.role=="secpla")
+            new_user.municipio.organizations.each do |org|
+              begin
+                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+              rescue
+              end
+            end
+            new_user.municipio.boards.each do |board|
+              begin
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+              rescue
+              end
+            end
+          else
+            new_user.municipio.organizations.each do |org|
+              begin
+                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+              rescue
+              end
+            end
+            new_user.municipio.boards.each do |board|
+              begin
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+              rescue
+              end
+            end
+          end
+        else
+          new_user.role=params[:role]
+        end
         new_user.save
-        @mun.launched="false"
+        if(edit=="false")
+          @mun.launched="false"
+        end
         @mun.save
       else
         respond_to do |format|
