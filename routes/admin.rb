@@ -6,13 +6,6 @@ class Ollert
       :member_token => @user.member_token
     )
     if(@user.role!="admin")
-      if(@user.role=="secpla")
-        respond_to do |format|
-        format.html do
-          redirect "/admin/municipio/proyectos?mun_id=#{@user.municipio.id}"
-        end
-      end
-      end
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
@@ -21,6 +14,9 @@ class Ollert
       end
     end
     begin
+      if(@user.role=="secpla")
+        @municipios = @user.municipio
+      end
       @municipios = Municipio.all
     rescue Trello::Error => e
       unless @user.nil?
