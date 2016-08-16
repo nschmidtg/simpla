@@ -5,7 +5,7 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin")
+    if(@user.role!="admin" && @user.role!="secpla" )
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
