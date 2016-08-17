@@ -1112,6 +1112,64 @@ class Ollert
     
   end
 
+  
+  get '/admin/municipio/states/tasks/task/delete', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin"  && @user.role!="secpla" )
+      respond_to do |format|
+        format.html do
+          flash[:error] = "No tiene permiso para eliminar tareas."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @new_task=Task.find_by(id: params[:task_id])
+        if(@new_task!=nil)
+          @new_task.destroy
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/admin'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html do
+        flash[:succes] = "Tarea eliminado exitosamente."
+
+        redirect '/admin'
+      end
+      
+    end
+  end
+
   get '/admin/municipio/users/user/delete', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
