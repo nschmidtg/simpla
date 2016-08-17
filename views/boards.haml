@@ -17,6 +17,7 @@
         %ul{class: 'boards-list'}
           - @boards.each do |org_name, boards|
             - prioridad_tablero=org_name
+            - puts org_name
             - if(@prioridades.include?(prioridad_tablero))
               - boards.each do |board|
                 - if state == board["name"].split('|')[1]
@@ -87,7 +88,8 @@
     $( ".boards-list").sortable({connectWith: ".boards-list",
       stop: function  (event,ui) {
           var $item=ui.item;
-          var boardState=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
+          var palabra=$item.parent().parent().text().split('\n')[1];
+          var boardState=palabra.substring(14,palabra.length);
           if(boardState=="Noiniciado"){
             boardState="No iniciado";
           }

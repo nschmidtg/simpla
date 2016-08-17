@@ -58,7 +58,8 @@ class Ollert
     end
     begin
       @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch(client, @user.trello_name),@user)
-      @states=@user.municipio.states.pluck(:name)
+      @states=@user.municipio.states.order(:order => 'asc')
+      @states=@states.pluck(:name)
       @prioridades=["1. Urgentes","2. Priorizados","3. No Priorizados"]
       @token=@user.member_token
 

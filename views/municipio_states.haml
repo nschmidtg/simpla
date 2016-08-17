@@ -7,8 +7,7 @@
         Estados de #{@mun.name}
 
   .row
-    
-  - @mun.states.each do |state|
+  - @mun.states.order(:order => 'asc').each do |state|
     .col-md-3.col-sm-3.col-xs-4.no-padding
       .analysis-block-md
         #{state.name}
