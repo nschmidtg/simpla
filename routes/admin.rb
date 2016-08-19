@@ -169,141 +169,146 @@ class Ollert
     
       if(@user.role=="admin")
         mun=Municipio.find_by(id: params[:mun_id])
-        mun.organizations.each do |org|
-          data=JSON.parse(client.get("/organizations/#{org.org_id}/members?filter=admins"))
-          admin_ids=Array.new()
-          data.each do |admin|
-            admin_ids<<admin["id"]
-          end
-          data=JSON.parse(client.get("/organizations/#{org.org_id}/members?filter=normal"))
-          normal_ids=Array.new()
-          data.each do |normal|
-            normal_ids<<normal["id"]
-          end
+        Thread.new do
+          mun.organizations.each do |org|
+            data=JSON.parse(client.get("/organizations/#{org.org_id}/members?filter=admins"))
+            admin_ids=Array.new()
+            data.each do |admin|
+              admin_ids<<admin["id"]
+            end
+            data=JSON.parse(client.get("/organizations/#{org.org_id}/members?filter=normal"))
+            normal_ids=Array.new()
+            data.each do |normal|
+              normal_ids<<normal["id"]
+            end
 
-          mun.users.each do |user|
-            if(user.trello_id!=nil)
-              if(user.role=="admin" || user.role=="secpla")
-                if(!admin_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts ad
-                   rescue
-                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
-                   end
-                end
-              else
-                if(!normal_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts as
-                  rescue
+            mun.users.each do |user|
+              if(user.trello_id!=nil)
+                if(user.role=="admin" || user.role=="secpla")
+                  if(!admin_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      puts ad
+                     rescue
+                      as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                     end
                   end
-                end
-              end
-            else
-              data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              data=JSON.parse(client.get("/members/#{user.login_mail}"))
-              aux=User.find_by(trello_id: data["id"])
-              if(aux==nil)
-                user.trello_id=data["id"]
-                user.save                  
-              end
-            
-              if(user.role=="admin" || user.role=="secpla")
-                if(!admin_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts as
-                  rescue
+                else
+                  if(!normal_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      puts as
+                    rescue
+                    end
                   end
                 end
               else
-                if(!normal_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
-                  rescue
+                data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                data=JSON.parse(client.get("/members/#{user.login_mail}"))
+                aux=User.find_by(trello_id: data["id"])
+                if(aux==nil)
+                  user.trello_id=data["id"]
+                  user.save                  
+                end
+              
+                if(user.role=="admin" || user.role=="secpla")
+                  if(!admin_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      puts as
+                    rescue
+                    end
+                  end
+                else
+                  if(!normal_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                    rescue
+                    end
                   end
                 end
               end
             end
           end
-        end
-        mun.boards.each do |board|
-          data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
-          admin_ids=Array.new()
-          data.each do |admin|
-            admin_ids<<admin["id"]
-          end
-          data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=normal"))
-          normal_ids=Array.new()
-          data.each do |normal|
-            normal_ids<<normal["id"]
-          end
-          mun.users.each do |user|
-            if(user.trello_id!=nil)
-              if(user.role=="admin" || user.role=="secpla")
-                if(!admin_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts as
-                  rescue
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
+          mun.boards.each do |board|
+            data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
+            admin_ids=Array.new()
+            data.each do |admin|
+              admin_ids<<admin["id"]
+            end
+            data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=normal"))
+            normal_ids=Array.new()
+            data.each do |normal|
+              normal_ids<<normal["id"]
+            end
+            mun.users.each do |user|
+              if(user.trello_id!=nil)
+                if(user.role=="admin" || user.role=="secpla")
+                  if(!admin_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      puts as
+                    rescue
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                    end
+                  end
+                else
+                  if(!normal_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      puts as
+                     rescue
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                     end
                   end
                 end
               else
-                if(!normal_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts as
-                   rescue
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
-                   end
+                data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                data=JSON.parse(client.get("/members/#{user.login_mail}"))
+                aux=User.find_by(trello_id: data["id"])
+                if(aux==nil)
+                  user.trello_id=data["id"]
+                  user.save                  
                 end
-              end
-            else
-              data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              data=JSON.parse(client.get("/members/#{user.login_mail}"))
-              aux=User.find_by(trello_id: data["id"])
-              if(aux==nil)
-                user.trello_id=data["id"]
-                user.save                  
-              end
-            
-              if(user.role=="admin" || user.role=="secpla")
-                if(!admin_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts as
-                  rescue
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
+              
+                if(user.role=="admin" || user.role=="secpla")
+                  if(!admin_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      puts as
+                    rescue
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                    end
                   end
-                end
-              else
-                if(!normal_ids.include?(user.trello_id))
-                  begin
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
-                  rescue
-                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    puts as
+                else
+                  if(!normal_ids.include?(user.trello_id))
+                    begin
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                    rescue
+                      as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      puts as
+                    end
                   end
                 end
               end
             end
           end
+          mun.launched="true"
+          mun.save
         end
-        mun.launched="true"
-        mun.save
       else
         respond_to do |format|
           format.html do
             flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            mun=Municipio.find_by(id: params[:mun_id])
+            mun.launched="false"
+            mun.save
             redirect '/boards'
           end
 
@@ -325,7 +330,9 @@ class Ollert
 
       #   format.json { status 400 }
       # end
-    
+      mun=Municipio.find_by(id: params[:mun_id])
+      mun.launched="true"
+      mun.save
 
     respond_to do |format|
       flash[:succes] = "Invitaciones enviadas satisfactoriamente."
