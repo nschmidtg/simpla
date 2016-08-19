@@ -186,11 +186,11 @@ class Ollert
               if(user.role=="admin" || user.role=="secpla")
                 if(!admin_ids.include?(user.trello_id))
                   begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                     as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                     puts ad
                    rescue
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
                    end
                 end
               else
@@ -198,8 +198,8 @@ class Ollert
                   begin
                     as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                     puts as
-                   rescue
-                   end
+                  rescue
+                  end
                 end
               end
             else
@@ -214,64 +214,87 @@ class Ollert
               if(user.role=="admin" || user.role=="secpla")
                 if(!admin_ids.include?(user.trello_id))
                   begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                
-                    rescue
-                    end
+                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                    puts as
+                  rescue
+                  end
                 end
               else
                 if(!normal_ids.include?(user.trello_id))
                   begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    
-                    rescue
-                    end
+                    as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
+                  rescue
+                  end
                 end
               end
             end
           end
         end
         mun.boards.each do |board|
+          data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
+          admin_ids=Array.new()
+          data.each do |admin|
+            admin_ids<<admin["id"]
+          end
+          data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=normal"))
+          normal_ids=Array.new()
+          data.each do |normal|
+            normal_ids<<normal["id"]
+          end
           mun.users.each do |user|
-            if(user.role=="admin" || user.role=="secpla")
-              begin
-                # begin
-                  as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-
-                # rescue
-                #   respond_to do |format|
-                #     format.html do
-                #       flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                      
-                #     end
-                #     format.json { status 400 }
-                #   end
-                # end
-              rescue
-                # begin
-                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                # rescue
-                #   respond_to do |format|
-                #     format.html do
-                #       flash[:error] = "No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                      
-                #     end
-                #     format.json { status 400 }
-                #   end
-                # end
+            if(user.trello_id!=nil)
+              if(user.role=="admin" || user.role=="secpla")
+                if(!admin_ids.include?(user.trello_id))
+                  begin
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                    puts as
+                  rescue
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
+                  end
+                end
+              else
+                if(!normal_ids.include?(user.trello_id))
+                  begin
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                    puts as
+                   rescue
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
+                   end
+                end
               end
             else
-              # begin
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              # rescue
-              #   respond_to do |format|
-              #    format.html do
-              #      flash[:error] = "1No tienes permisos de administrador sobre el tablero '#{board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                    
-              #    end
-              #    format.json { status 400 }
-              #   end
-              # end
+              data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              data=JSON.parse(client.get("/members/#{user.login_mail}"))
+              aux=User.find_by(trello_id: data["id"])
+              if(aux==nil)
+                user.trello_id=data["id"]
+                user.save                  
+              end
+            
+              if(user.role=="admin" || user.role=="secpla")
+                if(!admin_ids.include?(user.trello_id))
+                  begin
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                    puts as
+                  rescue
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
+                  end
+                end
+              else
+                if(!normal_ids.include?(user.trello_id))
+                  begin
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
+                  rescue
+                    as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    puts as
+                  end
+                end
+              end
             end
           end
         end
