@@ -186,8 +186,9 @@ class Ollert
               if(user.role=="admin" || user.role=="secpla")
                 if(!admin_ids.include?(user.trello_id))
                   begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                     as=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    puts as
+                    puts ad
                    rescue
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                    end
@@ -203,29 +204,28 @@ class Ollert
               end
             else
               data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              data["members"].each do |mem|
-                aux=User.find_by(trello_id: mem["id"])
-                if(aux==nil && (user.login_name[0]+user.login_last_name[0]).upcase==mem["initials"])
-                  
-                  user.trello_id=mem["id"]
-                  user.save
-                end
+              data=JSON.parse(client.get("/members/#{user.login_mail}"))
+              aux=User.find_by(trello_id: data["id"])
+              if(aux==nil)
+                user.trello_id=data["id"]
+                user.save                  
               end
+            
               if(user.role=="admin" || user.role=="secpla")
                 if(!admin_ids.include?(user.trello_id))
                   begin
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    
-                   rescue
-                   end
+                
+                    rescue
+                    end
                 end
               else
                 if(!normal_ids.include?(user.trello_id))
                   begin
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                     
-                   rescue
-                   end
+                    rescue
+                    end
                 end
               end
             end
