@@ -158,7 +158,7 @@ class Ollert
       config.developer_public_key = ENV['PUBLIC_KEY']
       config.member_token = @user.member_token
     end
-    if(@user.role!="admin")
+    if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
@@ -167,7 +167,7 @@ class Ollert
       end
     end
     
-      if(@user.role=="admin")
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==@user.municipio.id.to_s))
         mun=Municipio.find_by(id: params[:mun_id])
         Thread.new do
           mun.organizations.each do |org|
