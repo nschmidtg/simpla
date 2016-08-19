@@ -1274,6 +1274,13 @@ class Ollert
             rescue
             end
           end
+          orgs=@new_user.municipio.organizations
+          orgs.each do |org|
+            begin
+              JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{@new_user.trello_id}"))
+            rescue
+            end
+          end
           @new_user.destroy
         end
       else

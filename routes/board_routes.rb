@@ -281,21 +281,21 @@ class Ollert
 
           #El tablero existe y va a ser editado
           @board=Trello::Board.find(params[:last_board_id])
-          # JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-          # admins=JSON.parse(client.get("/boards/#{@board.id}/members/admins"))
-          # User.where(:role => "admin").each do |user|
-          #   begin
-          #     JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-          #   rescue
-          #     respond_to do |format|
-          #       format.html do
-          #         flash[:error] = "No tienes permisos de administrador sobre el tablero '#{@board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-          #         redirect '/admin'
-          #       end
-          #       format.json { status 400 }
-          #     end
-          #   end
-          # end
+          JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+          admins=JSON.parse(client.get("/boards/#{@board.id}/members/admins"))
+          User.where(:role => "admin").each do |user|
+            begin
+              JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+            rescue
+              respond_to do |format|
+                format.html do
+                  flash[:error] = "No tienes permisos de administrador sobre el tablero '#{@board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                  redirect '/admin'
+                end
+                format.json { status 400 }
+              end
+            end
+          end
           
           
             #Busco el tablero a nivel de BD:
