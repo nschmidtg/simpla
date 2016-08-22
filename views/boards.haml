@@ -17,7 +17,6 @@
         %ul{class: 'boards-list'}
           - @boards.each do |org_name, boards|
             - prioridad_tablero=org_name
-            - puts org_name
             - if(@prioridades.include?(prioridad_tablero))
               - boards.each do |board|
                 - if state == board["name"].split('|')[1]

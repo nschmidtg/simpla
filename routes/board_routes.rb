@@ -221,21 +221,17 @@ class Ollert
                   if(user.role=="admin" || user.role=="secpla")
                     if(!admin_ids.include?(user.trello_id))
                       begin
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                       rescue
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                       end
                     end
                   else
                     if(!normal_ids.include?(user.trello_id))
                       begin
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                        rescue
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                        end
                     end
                   end
@@ -251,21 +247,17 @@ class Ollert
                   if(user.role=="admin" || user.role=="secpla")
                     if(!admin_ids.include?(user.trello_id))
                       begin
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
                       rescue
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                       end
                     end
                   else
                     if(!normal_ids.include?(user.trello_id))
                       begin
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                       rescue
-                        as=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        puts as
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                       end
                     end
                   end
@@ -276,16 +268,43 @@ class Ollert
             if(org_name=="1. Urgentes")
               JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
             end
+           
+            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+            users_admins=User.where(:role => "admin")
+           
+            users_admins.each do |user|
+              begin
+                JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                brd=Board.find_by(board_id: @board.id)
+                brd.users<<user
+                brd.save
+
+              rescue
+                respond_to do |format|
+                  format.html do
+                    puts "********ERROR!"
+                    flash[:error] = "No tienes permisos de administrador sobre el tablero '#{@board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                    redirect '/admin'
+                  end
+                  format.json { status 400 }
+                end
+              end
+            end
           end
         else
 
           #El tablero existe y va a ser editado
           @board=Trello::Board.find(params[:last_board_id])
           JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-          admins=JSON.parse(client.get("/boards/#{@board.id}/members/admins"))
-          User.where(:role => "admin").each do |user|
+          users_admins=User.where(:role => "admin")
+         
+          users_admins.each do |user|
             begin
               JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              brd=Board.find_by(board_id: @board.id)
+              brd.users<<user
+              brd.save
+
             rescue
               respond_to do |format|
                 format.html do
