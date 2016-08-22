@@ -164,7 +164,7 @@ class Ollert
           board_settings = Board.find_or_create_by(board_id: @board.id)
           board_settings.monto=params[:monto]
           board_settings.tipo=params[:tipo]
-          board_settings.fondo=params[:fondo]
+          board_settings.fondo=Fondo.find_by(id: params[:fondo])
           board_settings.coords=params[:zona]
           board_settings.name=params[:name]
           board_settings.users<<@user
@@ -196,11 +196,17 @@ class Ollert
             list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
           
             #Crear las tareas por defecto
-            state=@board.municipio.states.find_by(order: "1")
-            state.tasks.each do |taskk|
-              @card1=Trello::Card.create({:name=>"#{taskk.name}",:list_id=>list3.id, :desc=>"#{taskk.desc}"})
-              @card1.save
+            
+            local_board=Board.find_by(board_id: @board.id)
+            s=local_board.municipio.states.find_by(name: "Formulación")
+            if(s!=nil)
+              Task.where("state_id == ? AND fondo_id == ?",s.id,local_board.fondo.id).each do |task|
+                @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>@board.lists.first.id, :desc=>"#{task.desc}"})
+                @card1.save
+              end
             end
+            
+    
           end
           Thread.new do
             #Encontrar al usuario como miembro
@@ -421,6 +427,7 @@ class Ollert
         else
           @org_id=params[:org_id]
         end
+        
       else
         respond_to do |format|
           format.html do

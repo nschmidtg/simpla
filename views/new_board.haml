@@ -88,64 +88,17 @@
                     %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
                       - if(params[:edit]=="true")
                         - @fondo=@board.fondo
-                        - if(@fondo=="fndr")
-                          %option{:value => "fndr", :selected => ""} FNDR
-                          %option{:value => "pmu"} PMU
-                          %option{:value => "pmb"} PMB
-                          %option{:value => "fril"} FRIL
-                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                          %option{:value => "circular-33"} Circular 33
-                        - elsif(@fondo=="pmu")
-                          %option{:value => "fndr"} FNDR
-                          %option{:value => "pmu", :selected => ""} PMU
-                          %option{:value => "pmb"} PMB
-                          %option{:value => "fril"} FRIL
-                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                          %option{:value => "circular-33"} Circular 33
-                        - elsif(@fondo=="pmb")
-                          %option{:value => "fndr"} FNDR
-                          %option{:value => "pmu"} PMU
-                          %option{:value => "pmb", :selected => ""} PMB
-                          %option{:value => "fril"} FRIL
-                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                          %option{:value => "circular-33"} Circular 33
-                        - elsif(@fondo=="fril")
-                          %option{:value => "fndr"} FNDR
-                          %option{:value => "pmu"} PMU
-                          %option{:value => "pmb"} PMB
-                          %option{:value => "fril", :selected => ""} FRIL
-                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                          %option{:value => "circular-33"} Circular 33
-                        - elsif(@fondo=="pavimentos-participativos")
-                          %option{:value => "fndr"} FNDR
-                          %option{:value => "pmu"} PMU
-                          %option{:value => "pmb"} PMB
-                          %option{:value => "fril"} FRIL
-                          %option{:value => "pavimentos-participativos", :selected => ""} Pavimentos Participativos
-                          %option{:value => "circular-33"} Circular 33
-                        - elsif(@fondo=="circular-33")
-                          %option{:value => "fndr"} FNDR
-                          %option{:value => "pmu"} PMU
-                          %option{:value => "pmb"} PMB
-                          %option{:value => "fril"} FRIL
-                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                          %option{:value => "circular-33", :selected => ""} Circular 33
-                        - else
-                          %option{:disabled => "", :selected => ""} Seleccione
-                          %option{:value => "fndr"} FNDR
-                          %option{:value => "pmu"} PMU
-                          %option{:value => "pmb"} PMB
-                          %option{:value => "fril"} FRIL
-                          %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                          %option{:value => "circular-33"} Circular 33
+                        - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
+                        - @fondos.each do |f|
+                          - if(@fondo.id==f.id)
+                            %option{:value => "#{f.id}", :selected => ""} #{f.name}
+                          - else
+                            %option{:value => "#{f.id}"} #{f.name}
                       - else
+                        - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
                         %option{:disabled => "", :selected => ""} Seleccione
-                        %option{:value => "fndr"} FNDR
-                        %option{:value => "pmu"} PMU
-                        %option{:value => "pmb"} PMB
-                        %option{:value => "fril"} FRIL
-                        %option{:value => "pavimentos-participativos"} Pavimentos Participativos
-                        %option{:value => "circular-33"} Circular 33
+                        - @fondos.each do |f|
+                          %option{:value => "#{f.id}"} #{f.name}
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
                   .col-md-6.col-sm-6.col-xs-12

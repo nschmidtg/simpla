@@ -382,6 +382,63 @@ class Ollert
             org.municipio=mun
             org.save
 
+            f1=Fondo.new
+            f1.name="Municipal"
+            f1.etapa="Diseno"
+            f1.custom="false"
+            f1.municipio=mun
+            f1.save
+
+            f2=Fondo.new
+            f2.name="FNDR"
+            f2.etapa="Diseno"
+            f2.custom="false"
+            f2.municipio=mun
+            f2.save
+
+            f3=Fondo.new
+            f3.name="FRIL"
+            f3.etapa="Diseno"
+            f3.custom="false"
+            f3.municipio=mun
+            f3.save
+
+            f4=Fondo.new
+            f4.name="Municipal"
+            f4.etapa="Ejecucion"
+            f4.custom="false"
+            f4.municipio=mun
+            f4.save
+
+            f5=Fondo.new
+            f5.name="FNDR"
+            f5.etapa="Ejecucion"
+            f5.custom="false"
+            f5.municipio=mun
+            f5.save
+
+            f6=Fondo.new
+            f6.name="FRIL"
+            f6.etapa="Ejecucion"
+            f6.custom="false"
+            f6.municipio=mun
+            f6.save
+
+            f7=Fondo.new
+            f7.name="PMU"
+            f7.etapa="Ejecucion"
+            f7.custom="false"
+            f7.municipio=mun
+            f7.save
+
+            f8=Fondo.new
+            f8.name="PMB"
+            f8.etapa="Ejecucion"
+            f8.custom="false"
+            f8.municipio=mun
+            f8.save
+            
+
             estado1=State.new
             estado1.name="No iniciado"
             estado1.order="1"
@@ -393,6 +450,15 @@ class Ollert
             estado2.order="2"
             estado2.municipio=mun
             estado2.save
+
+
+            task1=Task.new
+            task1.name="tarea por defecto de No iniciado FNDR Ejecucion"
+            task1.desc="desc de t1"
+            task1.state=estado1
+            task1.fondo=f5
+            task1.save
+
 
             estado3=State.new
             estado3.name="Observado"
@@ -411,6 +477,9 @@ class Ollert
             estado5.order="5"
             estado5.municipio=mun
             estado5.save
+
+            
+            
             mun.save
           end
 

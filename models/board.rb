@@ -16,4 +16,5 @@ class Board
   field :name, type: String
 
   belongs_to :municipio
+  belongs_to :fondo
 end

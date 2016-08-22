@@ -104,8 +104,17 @@ class Ollert
     Thread.new do
       local_board=Board.find_by(board_id: board_id)
       local_board.municipio.states.each do |s|
-        if(s.name.gsub!(" ","")==state)
-          s.tasks.each do |task|
+        puts state
+        if(s.name==state)
+          puts "Dentro"
+          puts s.id
+          puts local_board.fondo.id
+          Task.all.each do |t|
+            puts t.state_id
+            puts t.fondo_id
+          end
+          Task.where("(state_id == ? AND fondo_id == ?)",s.id,local_board.fondo.id).each do |task|
+            puts "Dentro2222"
             @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>board.lists.first.id, :desc=>"#{task.desc}"})
             @card1.save
           end
