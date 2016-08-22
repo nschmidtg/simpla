@@ -282,7 +282,6 @@ class Ollert
               rescue
                 respond_to do |format|
                   format.html do
-                    puts "********ERROR!"
                     flash[:error] = "No tienes permisos de administrador sobre el tablero '#{@board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
                     redirect '/admin'
                   end

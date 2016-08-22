@@ -31,39 +31,6 @@ class UserConnector
       user.trello_name = member["username"]
       user.gravatar_hash = member["gravatarHash"]
       user.email = member["email"] || user.email
-
-      
-        mun=user.municipio
-        if(mun!=nil)
-          client = Trello::Client.new(
-            :developer_public_key => ENV['PUBLIC_KEY'],
-            :member_token => User.find_by(role: "admin").member_token
-          )
-          mun.organizations.each do |org|
-            if(user.role=="admin" || user.role=="secpla")
-              if(user.trello_id!=nil)
-                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-              else
-                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              end
-            else
-              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-            end
-          end
-          mun.boards.each do |board|
-            if(user.role=="admin" || user.role=="secpla")
-              if(user.trello_id!=nil)
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-              else
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-              end
-            else
-              JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-            end  
-          end
-          mun.launched="true"
-          mun.save
-      end
       user.save
 
       return {
