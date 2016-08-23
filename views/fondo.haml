@@ -5,11 +5,11 @@
     .row
       %h2.ollert-header
         .text-center.col-xs-12
-          - if(@task!=nil)
-            #{@task.name}
+          - if(@fondo!=nil)
+            #{@fondo.name}
           -else
-            Nueva Tarea para el estado #{@state.name}
-    - if(@task!=nil)
+            Nuevo Fondo para #{@mun.name}
+    - if(@fondo!=nil)
       .row
         .col-md-10.col-sm-10.col-xs-10
           %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
@@ -17,7 +17,7 @@
         
 
     .row
-      %form#components.form-horizontal{role: "form", :action=>"/admin/create_task?mun_id=#{@mun.id}&state_id=#{@state.id}&fondo_id=#{@fondo.id}", :method=>"post"}
+      %form#components.form-horizontal{role: "form", :action=>"/admin/create_fondo?mun_id=#{@mun.id}", :method=>"post"}
         %fieldset
           .tab-content
             / Tabs of snippets go here
@@ -27,37 +27,46 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
-                    - if(@task!=nil)
-                      %input#textinput.form-control.input-md{name: "name", value: "#{@task.name}", style: "cursor: auto;", type: "text" ,required: ""}/
+                    - if(@fondo!=nil)
+                      %input#textinput.form-control.input-md{name: "name", value: "#{@fondo.name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
-                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre de la tarea", style: "cursor: auto;", type: "text",required: ""}/
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del fondo", style: "cursor: auto;", type: "text",required: ""}/
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Descripción
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Etapa
                   .col-md-6.col-sm-6.col-xs-12
-                    - if(@task!=nil)
-                      %input#textinput.form-control.input-md{name: "desc", value: "#{@task.desc}", style: "cursor: auto;", type: "text"}/
-                    - else
-                      %input#textinput.form-control.input-md{name: "desc", placeholder: "Decripción de la tarea", style: "cursor: auto;", type: "text"}/
+                    %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
+                      - if(params[:edit]=="true")
+                        - @etapa=@fondo.etapa
+                        - if(@etapa=="diseno")
+                          %option{:value => "diseno", :selected => ""} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                        - elsif (@etapa == "ejecucion")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion", :selected => ""} Ejecución
+                      - else
+                        %option{:disabled => "", :selected => ""} Seleccione
+                        %option{:value => "diseno", :selected => ""} Diseño
+                        %option{:value => "ejecucion"} Ejecución
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
-                    - if(@task!=nil)
+                    - if(@fondo!=nil)
                       %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
-                      %input#textinput.form-control.input-md{name: "id", value: "#{@task.id}", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
+                      %input#textinput.form-control.input-md{name: "id", value: "#{@fondo.id}", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
                     - else
                       %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
-                    - if(@task!=nil)
+                    - if(@fondo!=nil)
                       %input{:type => "submit", :value => "Actualizar", :class => "button"} 
                     - else
                       %input{:type => "submit", :value => "Crear", :class => "button"}
                 
 
-- if(@task!=nil)
+- if(@fondo!=nil)
   #confirm.modal.hide.fade
     .modal-body{style: "background: #ce4e41; color: #ffffff"}
-      ¿Estás seguro que deseas eliminar la tarea #{@task.name}?
+      ¿Estás seguro que deseas eliminar el fondo #{@fondo.name}?
     }
     .modal-footer
       %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
@@ -69,7 +78,7 @@
       e.preventDefault();
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#delete', function() {
-            window.location.href = "/admin/municipio/states/tasks/task/delete?mun_id=#{@mun.id}&task_id=#{@task.id}";
+            window.location.href = "/admin/municipio/fondos/fondo/delete?mun_id=#{@fondo.municipio.id}&fondo_id=#{@fondo.id}";
         });
       $("#confirm").removeClass( "hide");
     });

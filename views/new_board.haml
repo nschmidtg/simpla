@@ -86,19 +86,30 @@
                   .col-md-6.col-sm-6.col-xs-12
 
                     %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
-                      - if(params[:edit]=="true")
+                      - if(params[:edit]=="true" && @board.fondo!=nil)
                         - @fondo=@board.fondo
                         - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
-                        - @fondos.each do |f|
+                        %optgroup{:label=>"Diseño"}
+                        - @fondos.where(:etapa => "diseno").each do |f|
                           - if(@fondo.id==f.id)
-                            %option{:value => "#{f.id}", :selected => ""} #{f.name}
+                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
                           - else
-                            %option{:value => "#{f.id}"} #{f.name}
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        %optgroup{:label=>"Ejecución"}
+                        - @fondos.where(:etapa => "ejecucion").each do |f|
+                          - if(@fondo.id==f.id)
+                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                          - else
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                       - else
                         - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
                         %option{:disabled => "", :selected => ""} Seleccione
-                        - @fondos.each do |f|
-                          %option{:value => "#{f.id}"} #{f.name}
+                        %optgroup{:label=>"Diseño"}
+                        - @fondos.where(:etapa => "diseno").each do |f|
+                          %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        %optgroup{:label=>"Ejecución"}
+                        - @fondos.where(:etapa => "ejecucion").each do |f|
+                          %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
                   .col-md-6.col-sm-6.col-xs-12
@@ -205,13 +216,14 @@
     initMap();
     $("")
     $('#delete').on('click', function(e){
-    e.preventDefault();
-    $('#confirm').modal({ backdrop: 'static', keyboard: false })
-      .one('click', '#delete', function() {
-          window.location.href = "/boards/delete/#{params[:last_board_id]}";
-      });
-    $("#confirm").removeClass( "hide");
-  });
+      e.preventDefault();
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#delete', function() {
+            window.location.href = "/boards/delete/#{params[:last_board_id]}";
+        });
+      $("#confirm").removeClass( "hide");
+    });
+    
   };
 
   

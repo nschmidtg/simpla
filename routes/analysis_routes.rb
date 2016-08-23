@@ -104,29 +104,17 @@ class Ollert
     Thread.new do
       local_board=Board.find_by(board_id: board_id)
       s=local_board.municipio.states.find_by(name: state)
-      puts state
-      if(s.name==state)
-        puts "Dentro"
-        
-        s.tasks.each do |t|
-          puts "#{t.fondo.id} == #{local_board.fondo.id}"
-          if(t.fondo.id==local_board.fondo.id)
-            puts "holo"
-            
-            puts "Dentro2222"
-            if(t.card_id==nil)
-              @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
-              @card1.save
-              t.card_id=@card1.id
-              t.save
-            end
-            
+      s.tasks.where(:fondo_id => local_board.fondo.id).each do |t|
+        if(t.fondo.id==local_board.fondo.id)
+          if(t.card_id==nil)
+            #para verificar que la tarjeta no haya sido creada
+            @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
+            @card1.save
+            t.card_id=@card1.id
+            t.save
           end
         end
-        
-        
       end
-      
     end
     
     body board.to_json
