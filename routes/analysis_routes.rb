@@ -103,23 +103,30 @@ class Ollert
     end
     Thread.new do
       local_board=Board.find_by(board_id: board_id)
-      local_board.municipio.states.each do |s|
-        puts state
-        if(s.name==state)
-          puts "Dentro"
-          puts s.id
-          puts local_board.fondo.id
-          Task.all.each do |t|
-            puts t.state_id
-            puts t.fondo_id
-          end
-          Task.where("(state_id == ? AND fondo_id == ?)",s.id,local_board.fondo.id).each do |task|
+      s=local_board.municipio.states.find_by(name: state)
+      puts state
+      if(s.name==state)
+        puts "Dentro"
+        
+        s.tasks.each do |t|
+          puts "#{t.fondo.id} == #{local_board.fondo.id}"
+          if(t.fondo.id==local_board.fondo.id)
+            puts "holo"
+            
             puts "Dentro2222"
-            @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>board.lists.first.id, :desc=>"#{task.desc}"})
-            @card1.save
+            if(t.card_id==nil)
+              @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
+              @card1.save
+              t.card_id=@card1.id
+              t.save
+            end
+            
           end
         end
+        
+        
       end
+      
     end
     
     body board.to_json
