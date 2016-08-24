@@ -597,6 +597,165 @@ class Ollert
             task1.checked="true"
             task1.save
 
+            #Licitacion1
+            task1=Task.new
+            task1.name="Documento que certifique disponibilidad presupuestaria"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Crear cuenta (enviar Decreto a finanzas)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+
+
+
+
+
             #Tareas predeterminadas para FNDR de Diseño. Formulación.
             task1=Task.new
             task1.name="Certificado de compromiso de operación y mantención"
@@ -742,6 +901,144 @@ class Ollert
             task1.checked="true"
             task1.save
 
+            #Licitacion1
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
             #Tareas predeterminadas para FRIL de Diseño. Formulación. TAMBIEN ES EL DEFAULT DISEÑO
             task1=Task.new
             task1.name="Certificado de compromiso de operación y mantención"
@@ -871,6 +1168,144 @@ class Ollert
             task1.checked="true"
             task1.save
 
+            #Licitacion1
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
             #Tareas predeterminadas para MUNICIPAL de EJECUCIÓN. Formulación.
             task1=Task.new
             task1.name="Certificado de compromiso de operación y mantención"
@@ -980,6 +1415,160 @@ class Ollert
             task1.name="Fotografías antes de la intervención"
             task1.desc=""
             task1.state=estado1
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            #Licitacion1
+            task1=Task.new
+            task1.name="Documento que certifique disponibilidad presupuestaria"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Crear cuenta (enviar Decreto a finanzas)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
             task1.fondo=f4
             task1.checked="true"
             task1.save
@@ -1146,6 +1735,144 @@ class Ollert
             task1.checked="true"
             task1.save
 
+            #Licitacion1
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
 
             #Tareas predeterminadas para FRIL de EJECUCIÓN. Formulación.
             task1=Task.new
@@ -1256,6 +1983,144 @@ class Ollert
             task1.name="Fotografías antes de la intervención"
             task1.desc=""
             task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            #Licitacion1
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
             task1.fondo=f6
             task1.checked="true"
             task1.save
@@ -1373,6 +2238,152 @@ class Ollert
             task1.checked="true"
             task1.save
 
+            #Licitacion1
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Crear cuenta (enviar Decreto a finanzas)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
             #Tareas predeterminadas para PMB de EJECUCIÓN. Formulación.
             task1=Task.new
             task1.name="Certificado de propiedad o BNUP"
@@ -1474,6 +2485,152 @@ class Ollert
             task1.name="Fotografías antes de la intervención"
             task1.desc=""
             task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            #Licitacion1
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Crear cuenta (enviar Decreto a finanzas)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
             task1.fondo=f8
             task1.checked="true"
             task1.save
