@@ -39,12 +39,22 @@
                     - else
                       %input#textinput.form-control.input-md{name: "desc", placeholder: "Decripción de la tarea", style: "cursor: auto;", type: "text"}/
                 .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Predeterminada
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
-                      %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
-                      %input#textinput.form-control.input-md{name: "id", value: "#{@task.id}", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
+                      - if(@task.checked=="true")
+                        %input#textinput.input-md{type: "checkbox", name: "checked", checked: "true", style: "cursor: auto;"}/
+                      - else
+                        %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
                     - else
-                      %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
+                      %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
+                .form-group
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@task!=nil)
+                      %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", required: "", type: "hidden"}/
+                      %input#textinput.form-control.input-md{name: "id", value: "#{@task.id}", style: "cursor: auto;", required: "", type: "hidden"}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", required: "", type: "hidden"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12

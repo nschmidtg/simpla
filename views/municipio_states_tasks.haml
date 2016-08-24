@@ -21,6 +21,12 @@
           %li.boards-list-item
             %btn.btn-link.boards-list-item-link
               Descripción: #{task.desc}
+          %li.boards-list-item
+            %btn.btn-link.boards-list-item-link
+              - if(task.checked=="true")
+                Predeterminada: Sí
+              - else
+                Predeterminada: No
           
         
   %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{@state.id}&fondo_id=#{@fondo.id}"}

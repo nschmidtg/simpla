@@ -2181,6 +2181,11 @@ class Ollert
           new_task.desc=params[:desc]
           new_task.state=@state
           new_task.fondo=@fondo
+          if(params[:checked].to_s=="on")
+            new_task.checked="true"
+          else
+            new_task.checked="false"
+          end
           new_task.save
           @state.save
         else

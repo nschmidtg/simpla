@@ -105,17 +105,35 @@ class Ollert
       local_board=Board.find_by(board_id: board_id)
       s=local_board.municipio.states.find_by(name: state)
       s.tasks.where(:fondo_id => local_board.fondo.id).each do |t|
-        if(t.fondo.id==local_board.fondo.id)
-          if(!t.board_ids.split(',').include?(local_board.id.to_s))
-            #para verificar que la tarjeta no haya sido creada
-            @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
-            @card1.save
+        if(t.checked=="true")
+          if(t.fondo.id==local_board.fondo.id)
+
             if(t.board_ids!=nil)
-              t.board_ids=t.board_ids+","+local_board.id.to_s
+              splitted=t.board_ids.split(',')
+              if(!splitted.include?(local_board.id.to_s))
+    
+                #para verificar que la tarjeta no haya sido creada
+                @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
+                @card1.save
+                if(t.board_ids!=nil)
+                  t.board_ids=t.board_ids+","+local_board.id.to_s
+                else
+                  t.board_ids=local_board.id.to_s
+                end
+                t.save
+              end
             else
-              t.board_ids=local_board.id.to_s
+  
+              #para verificar que la tarjeta no haya sido creada
+              @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
+              @card1.save
+              if(t.board_ids!=nil)
+                t.board_ids=t.board_ids+","+local_board.id.to_s
+              else
+                t.board_ids=local_board.id.to_s
+              end
+              t.save
             end
-            t.save
           end
         end
       end
