@@ -30,14 +30,14 @@ class Ollert < Sinatra::Base
   use Rack::Session::Cookie, secret: ENV['SESSION_SECRET'], expire_after: 30 * (60*60*24) # 30 days in seconds
   use Rack::Flash, sweep: true
 
-  #configure :production do
-  #  use Rack::SSL
-  #  use Rack::Rewrite do
-  #    r301 %r{.*}, 'https://ollertapp.com$&', :if => Proc.new {|rack_env|
-  #      rack_env['SERVER_NAME'] != 'ollertapp.com'
-  #    }
-  #  end
-  #end
+  configure :production do
+   use Rack::SSL
+   use Rack::Rewrite do
+     r301 %r{.*}, 'https://gestion-municipal.herokuapp.com$&', :if => Proc.new {|rack_env|
+       rack_env['SERVER_NAME'] != 'gestion-municipal.herokuapp.com'
+     }
+   end
+  end
 
   set(:auth) do |role|
     condition do

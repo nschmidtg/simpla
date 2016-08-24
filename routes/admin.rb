@@ -259,18 +259,9 @@ class Ollert
                 end
               
                 if(user.role=="admin" || user.role=="secpla")
-                  if(!admin_ids.include?(user.trello_id))
-                    begin
-                      JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    rescue
-                    end
-                  end
-                else
-                  if(!normal_ids.include?(user.trello_id))
-                    begin
-                      JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    rescue
-                    end
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                  rescue
                   end
                 end
               end
@@ -307,31 +298,7 @@ class Ollert
                   end
                 end
               else
-                data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                data=JSON.parse(client.get("/members/#{user.login_mail}"))
-                aux=User.find_by(trello_id: data["id"])
-                if(aux==nil)
-                  user.trello_id=data["id"]
-                  user.save                  
-                end
-              
-                if(user.role=="admin" || user.role=="secpla")
-                  if(!admin_ids.include?(user.trello_id))
-                    begin
-                      JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    rescue
-                      JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    end
-                  end
-                else
-                  if(!normal_ids.include?(user.trello_id))
-                    begin
-                      JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    rescue
-                      JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    end
-                  end
-                end
+                puts "++++No debería entrar nunca acá, porque ya se asignó el trello id++++"
               end
             end
           end
@@ -1309,7 +1276,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
+          redirect '/admin'
         end
       end
     end
@@ -1323,7 +1290,7 @@ class Ollert
         respond_to do |format|
           format.html do
             flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/boards'
+            redirect '/admin'
           end
 
           format.json { status 400 }
@@ -1339,7 +1306,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
+          redirect '/admin'
         end
 
         format.json { status 400 }
