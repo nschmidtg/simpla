@@ -9,35 +9,94 @@
   .row
     
   
-  - @asignados = Array.new()
-  - @states.each do |state|
-    .col-md-2.col-sm-2.col-xs-4.no-padding
-      .analysis-block-md
-        #{state}
+    - @asignados = Array.new()
+    - count=0
+    .col-md-4.col-sm-4.col-xs-12.no-padding
+      - @states.each do |state|
+        - count=count+1
+        - if(count<4)
+          .col-md-4.col-sm-4.col-xs-12.no-padding
+            .analysis-block-md
+              #{state}
+              %ul{class: 'boards-list'}
+                - @boards.each do |org_name, boards|
+                  - prioridad_tablero=org_name
+                  - if(@prioridades.include?(prioridad_tablero))
+                    - boards.each do |board|
+                      - if(state == board["name"].split('|')[1])
+                        - @asignados<<board["name"]
+                        %li.boards-list-item
+                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                            #{board["name"].split('|')[0]}
+    - count=0
+    .col-md-4.col-sm-4.col-xs-12.no-padding
+      - @states.each do |state|
+        - count=count+1
+        - if (count>=4 && count <7)
+          .col-md-4.col-sm-4.col-xs-12.no-padding
+            .analysis-block-md
+              #{state}
+              %ul{class: 'boards-list'}
+                - @boards.each do |org_name, boards|
+                  - prioridad_tablero=org_name
+                  - if(@prioridades.include?(prioridad_tablero))
+                    - boards.each do |board|
+                      - if(state == board["name"].split('|')[1])
+                        - @asignados<<board["name"]
+                        %li.boards-list-item
+                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                            #{board["name"].split('|')[0]}
+    - count=0
+    .col-md-4.col-sm-4.col-xs-12.no-padding
+      - @states.each do |state|
+        - count=count+1
+        -if (count>=7 && count <10)
+          .col-md-4.col-sm-4.col-xs-12.no-padding
+            .analysis-block-md
+              #{state}
+              %ul{class: 'boards-list'}
+                - @boards.each do |org_name, boards|
+                  - prioridad_tablero=org_name
+                  - if(@prioridades.include?(prioridad_tablero))
+                    - boards.each do |board|
+                      - if(state == board["name"].split('|')[1])
+                        - @asignados<<board["name"]
+                        %li.boards-list-item
+                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                            #{board["name"].split('|')[0]}
+  .row
+    - count=0
+    .col-md-5.col-sm-5.col-xs-5.no-padding
+      - @states.each do |state|
+        - count=count+1
+        -if (count >=10)
+          .col-md-12.col-sm-12.col-xs-12.no-padding
+            .analysis-block-md{style: "height:200px;"}
+              #{state}
+              %ul{class: 'boards-list'}
+                - @boards.each do |org_name, boards|
+                  - prioridad_tablero=org_name
+                  - if(@prioridades.include?(prioridad_tablero))
+                    - boards.each do |board|
+                      - if(state == board["name"].split('|')[1])
+                        - @asignados<<board["name"]
+                        %li.boards-list-item
+                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                            #{board["name"].split('|')[0]}
+    .col-md-7.col-sm-7.col-xs-7.no-padding
+      .analysis-block-md{style: "height:200px;"}
+        NO ASIGNADO
         %ul{class: 'boards-list'}
           - @boards.each do |org_name, boards|
-            - prioridad_tablero=org_name
+          - prioridad_tablero=org_name
             - if(@prioridades.include?(prioridad_tablero))
               - boards.each do |board|
-                - if state == board["name"].split('|')[1]
-                  - @asignados<<board["name"]
+                - unless  @asignados.include?(board["name"])
+                  - #bdbrd=Board.find_or_create_by(board_id: board["id"])
+                  - #if(bdbrd!=nil)
                   %li.boards-list-item
                     %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                      #{board["name"].split('|')[0]}
-  .col-md-2.col-sm-2.col-xs-4.no-padding
-    .analysis-block-md
-      NO ASIGNADO
-      %ul{class: 'boards-list'}
-        - @boards.each do |org_name, boards|
-        - prioridad_tablero=org_name
-          - if(@prioridades.include?(prioridad_tablero))
-            - boards.each do |board|
-              - unless  @asignados.include?(board["name"])
-                - #bdbrd=Board.find_or_create_by(board_id: board["id"])
-                - #if(bdbrd!=nil)
-                %li.boards-list-item
-                  %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                    #{board["name"]}
+                      #{board["name"]}
 
   .row
     %h2.ollert-header
@@ -88,7 +147,7 @@
       stop: function  (event,ui) {
           var $item=ui.item;
           var palabra=$item.parent().parent().text().split('\n')[1];
-          var boardState=palabra.substring(14,palabra.length);
+          var boardState=palabra.substring(18,palabra.length);
           if(boardState=="Noiniciado"){
             boardState="No iniciado";
           }

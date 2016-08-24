@@ -456,46 +456,1028 @@ class Ollert
             
 
             estado1=State.new
-            estado1.name="No iniciado"
-            estado1.order="1"
+            estado1.name="En Formulación"
+            estado1.order=1
             estado1.municipio=mun
             estado1.save
 
             estado2=State.new
-            estado2.name="Formulación"
-            estado2.order="2"
+            estado2.name="Ingresado"
+            estado2.order=2
             estado2.municipio=mun
             estado2.save
 
-
-            task1=Task.new
-            task1.name="tarea por defecto de No iniciado FNDR Ejecucion"
-            task1.desc="desc de t1"
-            task1.state=estado1
-            task1.fondo=f5
-            task1.save
-
-
             estado3=State.new
             estado3.name="Observado"
-            estado3.order="3"
+            estado3.order=3
             estado3.municipio=mun
             estado3.save
 
             estado4=State.new
-            estado4.name="Licitación"
-            estado4.order="4"
+            estado4.name="Con Aprobación Técnica"
+            estado4.order=4
             estado4.municipio=mun
             estado4.save
 
             estado5=State.new
-            estado5.name="Ejecución"
-            estado5.order="5"
+            estado5.name="Con recursos Aprobados"
+            estado5.order=5
             estado5.municipio=mun
             estado5.save
 
+            estado6=State.new
+            estado6.name="Preparación de Licitación"
+            estado6.order=6
+            estado6.municipio=mun
+            estado6.save
+
+            estado7=State.new
+            estado7.name="Evaluación y Adjudicación"
+            estado7.order=7
+            estado7.municipio=mun
+            estado7.save
+
+            estado8=State.new
+            estado8.name="En Ejecución"
+            estado8.order=8
+            estado8.municipio=mun
+            estado8.save
             
-            
+            estado9=State.new
+            estado9.name="Descartado"
+            estado9.order=9
+            estado9.municipio=mun
+            estado9.save
+
+            estado10=State.new
+            estado10.name="Finalizado"
+            estado10.order=10
+            estado10.municipio=mun
+            estado10.save
+
+
+            #Tareas predeterminadas para Municipal de Diseño. Formulación.
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura o programa arquitectónico"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f1
+            task1.checked="true"
+            task1.save
+
+            #Tareas predeterminadas para FNDR de Diseño. Formulación.
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura o programa arquitectónico"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Descripción y justificación del proyecto"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cronograma de inversión"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f2
+            task1.checked="true"
+            task1.save
+
+            #Tareas predeterminadas para FRIL de Diseño. Formulación. TAMBIEN ES EL DEFAULT DISEÑO
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura o programa arquitectónico"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f3
+            task1.checked="true"
+            task1.save
+
+            #Tareas predeterminadas para MUNICIPAL de EJECUCIÓN. Formulación.
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de especialidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Estudio de suelo"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f4
+            task1.checked="true"
+            task1.save
+
+
+            #Tareas predeterminadas para FNDR de EJECUCIÓN. Formulación.
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de especialidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Estudio de suelo"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Descripción y justificación del proyecto"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cronograma de inversión"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f5
+            task1.checked="true"
+            task1.save
+
+
+            #Tareas predeterminadas para FRIL de EJECUCIÓN. Formulación.
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de especialidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Estudio de suelo"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            #Tareas predeterminadas para PMU de EJECUCIÓN. Formulación. También es casi default para la creación de fondos, excepto por la fichi idi, que es opcional en vez de obligatoria
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de especialidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Estudio de suelo"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            #Tareas predeterminadas para PMB de EJECUCIÓN. Formulación.
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de especialidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Estudio de suelo"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
             mun.save
           end
 
