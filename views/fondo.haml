@@ -34,8 +34,8 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Etapa
                   .col-md-6.col-sm-6.col-xs-12
-                    %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
-                      - if(params[:edit]=="true")
+                    - if(params[:edit]=="true")
+                      %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;", disabled: "true"}
                         - @etapa=@fondo.etapa
                         - if(@etapa=="diseno")
                           %option{:value => "diseno", :selected => ""} Diseño
@@ -43,7 +43,8 @@
                         - elsif (@etapa == "ejecucion")
                           %option{:value => "diseno"} Diseño
                           %option{:value => "ejecucion", :selected => ""} Ejecución
-                      - else
+                    - else
+                      %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
                         %option{:disabled => "", :selected => ""} Seleccione
                         %option{:value => "diseno", :selected => ""} Diseño
                         %option{:value => "ejecucion"} Ejecución
