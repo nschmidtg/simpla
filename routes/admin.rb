@@ -1956,6 +1956,38 @@ class Ollert
             task1.save
 
             task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f6
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
             task1.name="Planos de arquitectura"
             task1.desc=""
             task1.state=estado1
@@ -2207,6 +2239,38 @@ class Ollert
             task1.save
 
             task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f7
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
             task1.name="Planos de arquitectura"
             task1.desc=""
             task1.state=estado1
@@ -2455,6 +2519,38 @@ class Ollert
             task1.state=estado1
             task1.fondo=f8
             task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=f8
+            task1.checked="true"
             task1.save
 
             task1=Task.new
