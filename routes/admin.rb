@@ -412,12 +412,12 @@ class Ollert
             f2.municipio=mun
             f2.save
 
-            f3=Fondo.new
-            f3.name="FRIL"
-            f3.etapa="diseno"
-            f3.custom="false"
-            f3.municipio=mun
-            f3.save
+            new_fondo=Fondo.new
+            new_fondo.name="FRIL"
+            new_fondo.etapa="diseno"
+            new_fondo.custom="false"
+            new_fondo.municipio=mun
+            new_fondo.save
 
             f4=Fondo.new
             f4.name="Municipal"
@@ -440,12 +440,12 @@ class Ollert
             f6.municipio=mun
             f6.save
 
-            f7=Fondo.new
-            f7.name="PMU"
-            f7.etapa="ejecucion"
-            f7.custom="false"
-            f7.municipio=mun
-            f7.save
+            new_fondo=Fondo.new
+            new_fondo.name="PMU"
+            new_fondo.etapa="ejecucion"
+            new_fondo.custom="false"
+            new_fondo.municipio=mun
+            new_fondo.save
 
             f8=Fondo.new
             f8.name="PMB"
@@ -1044,7 +1044,7 @@ class Ollert
             task1.name="Certificado de compromiso de operación y mantención"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1052,7 +1052,7 @@ class Ollert
             task1.name="Certificado de propiedad o BNUP"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1060,7 +1060,7 @@ class Ollert
             task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1068,7 +1068,7 @@ class Ollert
             task1.name="Factibilidad eléctrica"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1076,7 +1076,7 @@ class Ollert
             task1.name="Factibilidad sanitaria"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1084,7 +1084,7 @@ class Ollert
             task1.name="Cotizaciones que respalden los montos solicitados"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1092,7 +1092,7 @@ class Ollert
             task1.name="Visitar terreno para identificar necesidades"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1100,7 +1100,7 @@ class Ollert
             task1.name="Acta de participación ciudadana"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -1108,7 +1108,7 @@ class Ollert
             task1.name="Oficio conductor del alcalde"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1116,7 +1116,7 @@ class Ollert
             task1.name="Ficha IDI o equivalente"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1124,7 +1124,7 @@ class Ollert
             task1.name="Planos de ubicación"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1132,7 +1132,7 @@ class Ollert
             task1.name="Planos de emplazamiento"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1140,7 +1140,7 @@ class Ollert
             task1.name="Planos de arquitectura o programa arquitectónico"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1148,7 +1148,7 @@ class Ollert
             task1.name="Presupuesto itemizado por partida"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1156,7 +1156,7 @@ class Ollert
             task1.name="Especificaciones técnicas"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1164,7 +1164,7 @@ class Ollert
             task1.name="Fotografías antes de la intervención"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1173,7 +1173,7 @@ class Ollert
             task1.name="Elaborar bases de licitación"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1181,7 +1181,7 @@ class Ollert
             task1.name="Decreto aprueba bases"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1189,7 +1189,7 @@ class Ollert
             task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1197,7 +1197,7 @@ class Ollert
             task1.name="Definir comisiónes de apertura y evaluación "
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1205,7 +1205,7 @@ class Ollert
             task1.name="Generar Decreto nombra comisión"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1213,7 +1213,7 @@ class Ollert
             task1.name="Revisar bases de licitación (visto bueno)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1221,7 +1221,7 @@ class Ollert
             task1.name="Publicar licitación en Mercado Público"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1230,7 +1230,7 @@ class Ollert
             task1.name="Visita a terreno"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1238,7 +1238,7 @@ class Ollert
             task1.name="Responder preguntas"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1246,7 +1246,7 @@ class Ollert
             task1.name="Evaluar ofertas (comisión de apertura)"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1254,7 +1254,7 @@ class Ollert
             task1.name="Evaluar ofertas (comisión de evaluación)"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1262,7 +1262,7 @@ class Ollert
             task1.name="Elaborar Decreto de adjudicación o deseerción"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1270,7 +1270,7 @@ class Ollert
             task1.name="Generar orden de compra"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1278,7 +1278,7 @@ class Ollert
             task1.name="Elaborar contrato"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1286,7 +1286,7 @@ class Ollert
             task1.name="Gestionar firma de contrato"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1294,7 +1294,7 @@ class Ollert
             task1.name="Devolver boletas de garantía"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -1302,7 +1302,7 @@ class Ollert
             task1.name="Enviar antecedentes a DOM para entrega de terreno"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f3
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2162,7 +2162,7 @@ class Ollert
             task1.name="Certificado de compromiso de operación y mantención"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2170,7 +2170,7 @@ class Ollert
             task1.name="Certificado de propiedad o BNUP"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2178,7 +2178,7 @@ class Ollert
             task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2186,7 +2186,7 @@ class Ollert
             task1.name="Planos de especialidades"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2194,7 +2194,7 @@ class Ollert
             task1.name="Factibilidad eléctrica"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2202,7 +2202,7 @@ class Ollert
             task1.name="Factibilidad sanitaria"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2210,7 +2210,7 @@ class Ollert
             task1.name="Estudio de suelo"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2218,7 +2218,7 @@ class Ollert
             task1.name="Cotizaciones que respalden los montos solicitados"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2226,7 +2226,7 @@ class Ollert
             task1.name="Visitar terreno para identificar necesidades"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2234,7 +2234,7 @@ class Ollert
             task1.name="Acta de participación ciudadana"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="false"
             task1.save
 
@@ -2242,7 +2242,7 @@ class Ollert
             task1.name="Oficio conductor del alcalde"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2250,7 +2250,7 @@ class Ollert
             task1.name="Ficha IDI o equivalente"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2258,7 +2258,7 @@ class Ollert
             task1.name="Planos de ubicación"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2266,7 +2266,7 @@ class Ollert
             task1.name="Planos de emplazamiento"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2274,7 +2274,7 @@ class Ollert
             task1.name="Planos de arquitectura"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2282,7 +2282,7 @@ class Ollert
             task1.name="Presupuesto itemizado por partida"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2290,7 +2290,7 @@ class Ollert
             task1.name="Especificaciones técnicas"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2298,7 +2298,7 @@ class Ollert
             task1.name="Fotografías antes de la intervención"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2307,7 +2307,7 @@ class Ollert
             task1.name="Elaborar bases de licitación"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2315,7 +2315,7 @@ class Ollert
             task1.name="Decreto aprueba bases"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2323,7 +2323,7 @@ class Ollert
             task1.name="Crear cuenta (enviar Decreto a finanzas)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2331,7 +2331,7 @@ class Ollert
             task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2339,7 +2339,7 @@ class Ollert
             task1.name="Definir comisiónes de apertura y evaluación "
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2347,7 +2347,7 @@ class Ollert
             task1.name="Generar Decreto nombra comisión"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2355,7 +2355,7 @@ class Ollert
             task1.name="Revisar bases de licitación (visto bueno)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2363,7 +2363,7 @@ class Ollert
             task1.name="Publicar licitación en Mercado Público"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2372,7 +2372,7 @@ class Ollert
             task1.name="Visita a terreno"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2380,7 +2380,7 @@ class Ollert
             task1.name="Responder preguntas"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2388,7 +2388,7 @@ class Ollert
             task1.name="Evaluar ofertas (comisión de apertura)"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2396,7 +2396,7 @@ class Ollert
             task1.name="Evaluar ofertas (comisión de evaluación)"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2404,7 +2404,7 @@ class Ollert
             task1.name="Elaborar Decreto de adjudicación o deseerción"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2412,7 +2412,7 @@ class Ollert
             task1.name="Generar orden de compra"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2420,7 +2420,7 @@ class Ollert
             task1.name="Elaborar contrato"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2428,7 +2428,7 @@ class Ollert
             task1.name="Gestionar firma de contrato"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2436,7 +2436,7 @@ class Ollert
             task1.name="Devolver boletas de garantía"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -2444,7 +2444,7 @@ class Ollert
             task1.name="Enviar antecedentes a DOM para entrega de terreno"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=f7
+            task1.fondo=new_fondo
             task1.checked="true"
             task1.save
 
@@ -3361,9 +3361,570 @@ class Ollert
           new_fondo=Fondo.find_by(id: params[:id])
         else
           new_fondo=Fondo.new
+          if(params[:etapa]=="diseno")
+            #Tareas predeterminadas para FRIL de Diseño. Formulación. TAMBIEN ES EL DEFAULT DISEÑO
+            estado1=@mun.states[0]
+
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura o programa arquitectónico"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            #Licitacion1
+            estado6=@mun.states[5]
+            
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            estado7=@mun.states[6]
+
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+          else
+            estado1=@mun.states[0]
+
+            task1=Task.new
+            task1.name="Certificado de compromiso de operación y mantención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Certificado de propiedad o BNUP"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de especialidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad eléctrica"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Factibilidad sanitaria"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Estudio de suelo"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Cotizaciones que respalden los montos solicitados"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Visitar terreno para identificar necesidades"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Acta de participación ciudadana"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Oficio conductor del alcalde"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Ficha IDI o equivalente"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="false"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de ubicación"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de emplazamiento"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Planos de arquitectura"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Presupuesto itemizado por partida"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Especificaciones técnicas"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Fotografías antes de la intervención"
+            task1.desc=""
+            task1.state=estado1
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            #Licitacion1
+            estado6=@mun.states[5]
+            task1=Task.new
+            task1.name="Elaborar bases de licitación"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Decreto aprueba bases"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Definir comisiónes de apertura y evaluación "
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar Decreto nombra comisión"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Revisar bases de licitación (visto bueno)"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Publicar licitación en Mercado Público"
+            task1.desc=""
+            task1.state=estado6
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            #Licitación 2
+            estado7=@mun.states[6]
+            task1=Task.new
+            task1.name="Visita a terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Responder preguntas"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de apertura)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Evaluar ofertas (comisión de evaluación)"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar Decreto de adjudicación o deseerción"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Generar orden de compra"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Elaborar contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Gestionar firma de contrato"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Devolver boletas de garantía"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+
+            task1=Task.new
+            task1.name="Enviar antecedentes a DOM para entrega de terreno"
+            task1.desc=""
+            task1.state=estado7
+            task1.fondo=new_fondo
+            task1.checked="true"
+            task1.save
+          end
         end
         new_fondo.name=params[:name]
         new_fondo.etapa=params[:etapa]
+        
         new_fondo.municipio=@mun
         new_fondo.save
         @mun.save
