@@ -14,23 +14,30 @@ class UserConnector
         end
         user = current_user
       end
-
-      unless user.member_token.nil? || user.member_token == member_token
-        begin
-          client.delete("/tokens/#{user.member_token}")
-        rescue
-          # do nothing
-          # most likely token either expired or was revoked
+      if(user.role!="alcalde" && user.role!="concejal")
+        unless user.member_token.nil? || user.member_token == member_token
+          begin
+            client.delete("/tokens/#{user.member_token}")
+          rescue
+            # do nothing
+            # most likely token either expired or was revoked
+          end
         end
+      
+        user.member_token = member_token
+        user.trello_id = member["id"]
+        user.trello_name = member["username"]
+        user.gravatar_hash = member["gravatarHash"]
+        user.email = member["email"] || user.email
+      else
+        user.member_token = User.find_by(role: "admin").member_token
+        user.trello_id = User.find_by(role: "admin").trello_id
+        user.trello_name = User.find_by(role: "admin").trello_name
+        user.gravatar_hash = ""
       end
 
-      user.member_token = member_token
-
       # set or update other fields
-      user.trello_id = member["id"]
-      user.trello_name = member["username"]
-      user.gravatar_hash = member["gravatarHash"]
-      user.email = member["email"] || user.email
+      
       user.save
 
       return {

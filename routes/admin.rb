@@ -142,7 +142,7 @@ class Ollert
     end
 
     respond_to do |format|
-      flash[:succes] = "Municipio eliminado satisfactoriamente."
+      flash[:success] = "Municipio eliminado satisfactoriamente."
       redirect '/admin'
       
     end
@@ -191,7 +191,7 @@ class Ollert
     end
 
     respond_to do |format|
-      flash[:succes] = "Fondo eliminado satisfactoriamente."
+      flash[:success] = "Fondo eliminado satisfactoriamente."
       redirect '/admin'
       
     end
@@ -241,7 +241,7 @@ class Ollert
                       JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                      end
                   end
-                else
+                elsif(user.role=="funcionario")
                   if(!normal_ids.include?(user.trello_id))
                     begin
                       JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
@@ -250,18 +250,20 @@ class Ollert
                   end
                 end
               else
-                data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                data=JSON.parse(client.get("/members/#{user.login_mail}"))
-                aux=User.find_by(trello_id: data["id"])
-                if(aux==nil)
-                  user.trello_id=data["id"]
-                  user.save                  
-                end
-              
-                if(user.role=="admin" || user.role=="secpla")
-                  begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                  rescue
+                if(user.role!="alcalde" && user.role!="concejal")
+                  data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                  data=JSON.parse(client.get("/members/#{user.login_mail}"))
+                  aux=User.find_by(trello_id: data["id"])
+                  if(aux==nil)
+                    user.trello_id=data["id"]
+                    user.save                  
+                  end
+                
+                  if(user.role=="admin" || user.role=="secpla")
+                    begin
+                      JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                    rescue
+                    end
                   end
                 end
               end
@@ -288,7 +290,7 @@ class Ollert
                       JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                     end
                   end
-                else
+                elsif(user.role=="funcionario")
                   if(!normal_ids.include?(user.trello_id))
                     begin
                       JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
@@ -338,7 +340,7 @@ class Ollert
       mun.save
 
     respond_to do |format|
-      flash[:succes] = "Invitaciones enviadas satisfactoriamente."
+      flash[:success] = "Invitaciones enviadas satisfactoriamente."
       redirect "/admin"
       
     end
@@ -2767,7 +2769,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "cacaHubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/'
         end
 
@@ -2777,11 +2779,13 @@ class Ollert
 
     respond_to do |format|
       if(edit=="true")
-        flash[:succes] = "Municipio editado satisfactoriamente."
+        flash[:success] = "Municipio editado satisfactoriamente."
+        redirect "/admin"
       else
-        flash[:succes] = "Municipio creado satisfactoriamente."
+        flash[:success] = "Municipio creado satisfactoriamente."
+        redirect "/admin"
       end
-      redirect "/admin/municipio/users?mun_id=#{mun.id}"
+      
       
     end
 
@@ -3151,7 +3155,7 @@ class Ollert
 
     respond_to do |format|
       format.html do
-        flash[:succes] = "Estado eliminado exitosamente."
+        flash[:success] = "Estado eliminado exitosamente."
         redirect '/admin'
       end
       
@@ -3215,7 +3219,7 @@ class Ollert
               rescue
               end
             end
-          else
+          elsif(new_user.role=="funcionario")
             new_user.municipio.organizations.each do |org|
               begin
                 JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
@@ -3228,9 +3232,14 @@ class Ollert
               rescue
               end
             end
+          else
+            new_user.member_token=User.find_by(role: "admin").member_token
           end
         else
           new_user.role=params[:role]
+          if(new_user.role=="alcalde"|| new_user.role="concejal")
+            new_user.member_token=User.find_by(role: "admin").member_token
+          end
         end
         new_user.save
         if(edit=="false")
@@ -3266,8 +3275,8 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:succes] = "Usuario creado exitosamente"
-          redirect "/admin"
+          flash[:success] = "Usuario creado exitosamente"
+          redirect "/admin/municipio/users?mun_id=#{@mun.id}"
         end
       end
 
@@ -3331,7 +3340,7 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:succes] = "Estado creado exitosamente"
+          flash[:success] = "Estado creado exitosamente"
           redirect "/admin"
         end
       end
@@ -3359,6 +3368,7 @@ class Ollert
         @mun=Municipio.find_by(id: params[:mun_id])
         if(edit=="true")
           new_fondo=Fondo.find_by(id: params[:id])
+          new_fondo.custom="true"
         else
           new_fondo=Fondo.new
           if(params[:etapa]=="diseno")
@@ -3957,8 +3967,8 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:succes] = "Estado creado exitosamente"
-          redirect "/admin"
+          flash[:success] = "Estado creado exitosamente"
+          redirect "/admin/municipio/fondos?mun_id=#{@mun.id}"
         end
       end
 
@@ -4041,8 +4051,8 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:succes] = "Estado creado exitosamente"
-          redirect "/admin"
+          flash[:success] = "Estado creado exitosamente"
+          redirect "/admin/municipio/states/tasks?mun_id=#{@mun.id}&state_id=#{@state.id}&fondo_id=#{@fondo.id}"
         end
       end
 
@@ -4235,7 +4245,7 @@ class Ollert
 
     respond_to do |format|
       format.html do
-        flash[:succes] = "Tarea eliminado exitosamente."
+        flash[:success] = "Tarea eliminado exitosamente."
 
         redirect '/admin'
       end
@@ -4306,7 +4316,7 @@ class Ollert
 
     respond_to do |format|
       format.html do
-        flash[:succes] = "Usuario eliminado exitosamente."
+        flash[:success] = "Usuario eliminado exitosamente."
 
         redirect '/admin'
       end

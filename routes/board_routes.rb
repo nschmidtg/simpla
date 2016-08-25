@@ -232,7 +232,7 @@ class Ollert
                         JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                       end
                     end
-                  else
+                  elsif(user.role=="funcionario")
                     if(!normal_ids.include?(user.trello_id))
                       begin
                         JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
@@ -242,28 +242,30 @@ class Ollert
                     end
                   end
                 else
-                  data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                  data=JSON.parse(client.get("/members/#{user.login_mail}"))
-                  aux=User.find_by(trello_id: data["id"])
-                  if(aux==nil)
-                    user.trello_id=data["id"]
-                    user.save                  
-                  end
-                
-                  if(user.role=="admin" || user.role=="secpla")
-                    if(!admin_ids.include?(user.trello_id))
-                      begin
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                      rescue
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                      end
+                  if(user.role!="alcalde" && user.role!="concejal")
+                    data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    data=JSON.parse(client.get("/members/#{user.login_mail}"))
+                    aux=User.find_by(trello_id: data["id"])
+                    if(aux==nil)
+                      user.trello_id=data["id"]
+                      user.save                  
                     end
-                  else
-                    if(!normal_ids.include?(user.trello_id))
-                      begin
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                      rescue
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                  
+                    if(user.role=="admin" || user.role=="secpla")
+                      if(!admin_ids.include?(user.trello_id))
+                        begin
+                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                        rescue
+                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                        end
+                      end
+                    else
+                      if(!normal_ids.include?(user.trello_id))
+                        begin
+                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                        rescue
+                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                        end
                       end
                     end
                   end
@@ -401,7 +403,7 @@ class Ollert
       else
         flash[:success] = "Proyecto editado exitosamente."
       end
-      redirect '/boards/'+@board.id
+      redirect "/admin/municipio/proyectos?mun_id=#{board_settings.municipio.id}"
       
     end
   end
