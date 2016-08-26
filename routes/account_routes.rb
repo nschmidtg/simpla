@@ -87,10 +87,12 @@ class Ollert
 
     result = UserConnector.connect client, params[:token], params[:login_mail]
     if(result[:status]==200)
+      puts "2000000000000000000"
       session[:user] = result[:id]
       status result[:status]
       body result[:body]
     else
+      puts result
       session[:user] = nil
       flash[:error] = "Cuenta de Trello no coincide con Email"
       redirect '/'

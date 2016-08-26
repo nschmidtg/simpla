@@ -1,10 +1,13 @@
 class UserConnector
   def self.connect(client, member_token, login_mail, current_user = nil)
     member = MemberAnalyzer.analyze(MemberFetcher.fetch(client, member_token))
-    if(member["email"]==login_mail)
+    if(member["email"]==login_mail || User.find_by(login_mail: member["email"]).role=="secpla")
+      puts "EHH!!!"
       user = nil
-      if current_user.nil?
+      if(current_user.nil? && member["email"]==login_mail)
         user = User.find_or_initialize_by login_mail: member["email"]
+      elsif(current_user.nil?)
+        user=User.find_or_initialize_by login_mail: login_mail
       else
         unless member["email"] == current_user.login_mail || User.find_by(login_mail: member["email"]).nil?
           return {
@@ -30,9 +33,10 @@ class UserConnector
         user.gravatar_hash = member["gravatarHash"]
         user.email = member["email"] || user.email
       else
-        user.member_token = User.find_by(role: "admin").member_token
-        user.trello_id = User.find_by(role: "admin").trello_id
-        user.trello_name = User.find_by(role: "admin").trello_name
+        secpla=User.find_by(login_mail: member["email"])
+        user.member_token = secpla.member_token
+        user.trello_id = secpla.trello_id
+        user.trello_name = secpla.trello_name
         user.gravatar_hash = ""
       end
 

@@ -41,6 +41,8 @@ class Ollert < Sinatra::Base
 
   set(:auth) do |role|
     condition do
+      puts session[:user]
+      #puts User.find(session[:user])
       @user = session[:user].nil? ? nil : User.find(session[:user])
       if role == :connected
         if @user.nil?

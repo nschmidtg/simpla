@@ -300,7 +300,7 @@ class Ollert
                   end
                 end
               else
-                puts "++++No debería entrar nunca acá, porque ya se asignó el trello id++++"
+                puts "++++Estoy aca porque el usuario es concejal o alcalde++++"
               end
             end
           end
@@ -3177,7 +3177,7 @@ class Ollert
     end
     begin
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-
+        puts "asdasdasdasd!!!!"+params[:role]
         edit=params[:edit]
         @mun=Municipio.find_by(id: params[:mun_id])
         if(edit=="true")
@@ -3190,6 +3190,8 @@ class Ollert
         new_user.login_mail=params[:mail]
         if(edit=="false")
           new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
+          new_user.role=params[:role]
+
         end
         if(params[:role]=="admin" && @user.role!="admin")
           respond_to do |format|
@@ -3203,6 +3205,7 @@ class Ollert
         end
         
         new_user.municipio=@mun
+        new_user.save
         if(new_user.role!=params[:role] && new_user.trello_id!=nil)
           #Estoy editando el rol de un usuario que ya tenia cuenta en Ollert
           new_user.role=params[:role]
@@ -3236,9 +3239,11 @@ class Ollert
             new_user.member_token=User.find_by(role: "admin").member_token
           end
         else
+          puts "aca 2"+params[:role]
           new_user.role=params[:role]
-          if(new_user.role=="alcalde"|| new_user.role="concejal")
-            new_user.member_token=User.find_by(role: "admin").member_token
+          if(new_user.role=="alcalde"|| new_user.role=="concejal")
+            puts "entre en algo que no debía"
+            new_user.member_token=@mun.users.find_by(role: "secpla").member_token
           end
         end
         new_user.save
