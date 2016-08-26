@@ -9,6 +9,7 @@ class Municipio
   has_many :zones, :dependent => :destroy
   has_many :boards, :dependent => :destroy
   has_many :organizations, :dependent => :destroy
+  has_many :tipos, :dependent => :destroy
   
   field :name, type: String
   field :launched, type: String

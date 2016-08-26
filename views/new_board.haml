@@ -47,40 +47,20 @@
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo
                   .col-md-6.col-sm-6.col-xs-12
                     %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
-                      - if(params[:edit]=="true")
+                      - if(params[:edit]=="true" && @board.tipo!=nil)
                         - @tipo=@board.tipo
-                        - if(@tipo=="salud")
-                          %option{:value => "salud", :selected => ""} Salud
-                          %option{:value => "educacion"} Educación
-                          %option{:value => "espacios-publicos"} Espacios Públicos
-                          %option{:value => "tecnologia"} Tecnología
-                        - elsif (@tipo == "educacion")
-                          %option{:value => "salud"} Salud
-                          %option{:value => "educacion", :selected => ""} Educación
-                          %option{:value => "espacios-publicos"} Espacios Públicos
-                          %option{:value => "tecnologia"} Tecnología
-                        - elsif (@tipo == "espacios-publicos")
-                          %option{:value => "salud"} Salud
-                          %option{:value => "educacion"} Educación
-                          %option{:value => "espacios-publicos", :selected => ""} Espacios Públicos
-                          %option{:value => "tecnologia"} Tecnología
-                        - elsif (@tipo == "tecnologia")
-                          %option{:value => "salud"} Salud
-                          %option{:value => "educacion"} Educación
-                          %option{:value => "espacios-publicos"} Espacios Públicos
-                          %option{:value => "tecnologia", :selected => ""} Tecnología
-                        - else
-                          %option{:disabled => "", :selected => ""} Seleccione
-                          %option{:value => "salud"} Salud
-                          %option{:value => "educacion"} Educación
-                          %option{:value => "espacios-publicos"} Espacios Públicos
-                          %option{:value => "tecnologia"} Tecnología
+                        - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
+                        - @tipos.each do |f|
+                          - if(@tipo.id==f.id)
+                            %option{:value => "#{f.id}", :selected => ""} #{f.name}
+                          - else
+                            %option{:value => "#{f.id}"} #{f.name}
+                        
                       - else
+                        - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
                         %option{:disabled => "", :selected => ""} Seleccione
-                        %option{:value => "salud"} Salud
-                        %option{:value => "educacion"} Educación
-                        %option{:value => "espacios-publicos"} Espacios Públicos
-                        %option{:value => "tecnologia"} Tecnología
+                        - @tipos.each do |f|
+                          %option{:value => "#{f.id}"} #{f.name}
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fondo
                   .col-md-6.col-sm-6.col-xs-12

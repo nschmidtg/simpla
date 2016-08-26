@@ -10,11 +10,12 @@ class Board
   field :starting_list, type: String
   field :ending_list, type: String
   field :monto, type: String
-  field :tipo, type: String
   field :fondo, type: String
   field :coords, type: String
   field :name, type: String
 
   belongs_to :municipio
   belongs_to :fondo
+  belongs_to :tipo
+  
 end

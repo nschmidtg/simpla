@@ -163,7 +163,7 @@ class Ollert
           #Creo el tablero a nivel de BD:
           board_settings = Board.find_or_create_by(board_id: @board.id)
           board_settings.monto=params[:monto]
-          board_settings.tipo=params[:tipo]
+          board_settings.tipo=Tipo.find_by(id: params[:tipo])
           board_settings.fondo=Fondo.find_by(id: params[:fondo])
           board_settings.coords=params[:zona]
           board_settings.name=params[:name]
@@ -327,7 +327,7 @@ class Ollert
             #Busco el tablero a nivel de BD:
             board_settings = Board.find_or_create_by(board_id: @board.id)
             board_settings.monto=params[:monto]
-            board_settings.tipo=params[:tipo]
+            board_settings.tipo=Tipo.find_by(id: params[:tipo])
             board_settings.fondo=params[:fondo]
             board_settings.coords=params[:zona]
             board_settings.save

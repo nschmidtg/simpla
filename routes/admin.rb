@@ -403,6 +403,119 @@ class Ollert
             org.municipio=mun
             org.save
 
+
+            t1=Tipo.new
+            t1.name="Agua Potable y Alcantarillado"
+            t1.municipio=mun
+            t1.save
+
+            t2=Tipo.new
+            t2.name="Comercio, Finanzas y Turismo"
+            t2.municipio=mun
+            t2.save
+
+            t3=Tipo.new
+            t3.name="Comunicaciones"
+            t3.municipio=mun
+            t3.save
+
+            t4=Tipo.new
+            t4.name="Defensa y Seguridad"
+            t4.municipio=mun
+            t4.save
+
+            t5=Tipo.new
+            t5.name="Deportes"
+            t5.municipio=mun
+            t5.save
+
+            t6=Tipo.new
+            t6.name="Edificación Pública"
+            t6.municipio=mun
+            t6.save
+
+            t7=Tipo.new
+            t7.name="Educación, Cultura y Patrimonio"
+            t7.municipio=mun
+            t7.save
+
+            t8=Tipo.new
+            t8.name="Empresas Públicas"
+            t8.municipio=mun
+            t8.save
+
+            t9=Tipo.new
+            t9.name="Energía"
+            t9.municipio=mun
+            t9.save
+
+            t10=Tipo.new
+            t10.name="Justicia"
+            t10.municipio=mun
+            t10.save
+
+            t11=Tipo.new
+            t11.name="Macro Infraestructura Urbana"
+            t11.municipio=mun
+            t11.save
+
+            t12=Tipo.new
+            t12.name="Minería"
+            t12.municipio=mun
+            t12.save
+
+            t13=Tipo.new
+            t13.name="Multisectorial - Desarrollo Urbano"
+            t13.municipio=mun
+            t13.save
+
+            t14=Tipo.new
+            t14.name="Multisectorial - Defensas Fluviales, Marítimas y Causes Artificiales"
+            t14.municipio=mun
+            t14.save
+
+            t15=Tipo.new
+            t15.name="Multisectorial - Medio Ambiente"
+            t15.municipio=mun
+            t15.save
+
+            t16=Tipo.new
+            t16.name="Multisectorial - Organizaciones Comunitarias"
+            t16.municipio=mun
+            t16.save
+
+            t17=Tipo.new
+            t17.name="Pesca"
+            t17.municipio=mun
+            t17.save
+
+            t18=Tipo.new
+            t18.name="PIRDT"
+            t18.municipio=mun
+            t18.save
+
+            t19=Tipo.new
+            t19.name="Salud"
+            t19.municipio=mun
+            t19.save
+
+            t20=Tipo.new
+            t20.name="Silvoagropecuario"
+            t20.municipio=mun
+            t20.save
+
+            t21=Tipo.new
+            t21.name="Transporte"
+            t21.municipio=mun
+            t21.save
+            
+            t22=Tipo.new
+            t22.name="Vivienda"
+            t22.municipio=mun
+            t22.save
+
+
+
             f1=Fondo.new
             f1.name="Municipal"
             f1.etapa="diseno"
@@ -417,12 +530,12 @@ class Ollert
             f2.municipio=mun
             f2.save
 
-            new_fondo=Fondo.new
-            new_fondo.name="FRIL"
-            new_fondo.etapa="diseno"
-            new_fondo.custom="false"
-            new_fondo.municipio=mun
-            new_fondo.save
+            f3=Fondo.new
+            f3.name="FRIL"
+            f3.etapa="diseno"
+            f3.custom="false"
+            f3.municipio=mun
+            f3.save
 
             f4=Fondo.new
             f4.name="Municipal"
@@ -445,12 +558,12 @@ class Ollert
             f6.municipio=mun
             f6.save
 
-            new_fondo=Fondo.new
-            new_fondo.name="PMU"
-            new_fondo.etapa="ejecucion"
-            new_fondo.custom="false"
-            new_fondo.municipio=mun
-            new_fondo.save
+            f7=Fondo.new
+            f7.name="PMU"
+            f7.etapa="ejecucion"
+            f7.custom="false"
+            f7.municipio=mun
+            f7.save
 
             f8=Fondo.new
             f8.name="PMB"
@@ -2167,7 +2280,7 @@ class Ollert
             task1.name="Certificado de compromiso de operación y mantención"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2175,7 +2288,7 @@ class Ollert
             task1.name="Certificado de propiedad o BNUP"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2183,7 +2296,7 @@ class Ollert
             task1.name="Visación de entidad relacionada (Educ, salud, Serviu)"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2191,7 +2304,7 @@ class Ollert
             task1.name="Planos de especialidades"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2199,7 +2312,7 @@ class Ollert
             task1.name="Factibilidad eléctrica"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2207,7 +2320,7 @@ class Ollert
             task1.name="Factibilidad sanitaria"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2215,7 +2328,7 @@ class Ollert
             task1.name="Estudio de suelo"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2223,7 +2336,7 @@ class Ollert
             task1.name="Cotizaciones que respalden los montos solicitados"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2231,7 +2344,7 @@ class Ollert
             task1.name="Visitar terreno para identificar necesidades"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2239,7 +2352,7 @@ class Ollert
             task1.name="Acta de participación ciudadana"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="false"
             task1.save
 
@@ -2247,7 +2360,7 @@ class Ollert
             task1.name="Oficio conductor del alcalde"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2255,7 +2368,7 @@ class Ollert
             task1.name="Ficha IDI o equivalente"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2263,7 +2376,7 @@ class Ollert
             task1.name="Planos de ubicación"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2271,7 +2384,7 @@ class Ollert
             task1.name="Planos de emplazamiento"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2279,7 +2392,7 @@ class Ollert
             task1.name="Planos de arquitectura"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2287,7 +2400,7 @@ class Ollert
             task1.name="Presupuesto itemizado por partida"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2295,7 +2408,7 @@ class Ollert
             task1.name="Especificaciones técnicas"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2303,7 +2416,7 @@ class Ollert
             task1.name="Fotografías antes de la intervención"
             task1.desc=""
             task1.state=estado1
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2312,7 +2425,7 @@ class Ollert
             task1.name="Elaborar bases de licitación"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2320,7 +2433,7 @@ class Ollert
             task1.name="Decreto aprueba bases"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2328,7 +2441,7 @@ class Ollert
             task1.name="Crear cuenta (enviar Decreto a finanzas)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2336,7 +2449,7 @@ class Ollert
             task1.name="Subir documentos al sistema (bases, EE.TT., presupuesto, planos)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2344,7 +2457,7 @@ class Ollert
             task1.name="Definir comisiónes de apertura y evaluación "
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2352,7 +2465,7 @@ class Ollert
             task1.name="Generar Decreto nombra comisión"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2360,7 +2473,7 @@ class Ollert
             task1.name="Revisar bases de licitación (visto bueno)"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2368,7 +2481,7 @@ class Ollert
             task1.name="Publicar licitación en Mercado Público"
             task1.desc=""
             task1.state=estado6
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2377,7 +2490,7 @@ class Ollert
             task1.name="Visita a terreno"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2385,7 +2498,7 @@ class Ollert
             task1.name="Responder preguntas"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2393,7 +2506,7 @@ class Ollert
             task1.name="Evaluar ofertas (comisión de apertura)"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2401,7 +2514,7 @@ class Ollert
             task1.name="Evaluar ofertas (comisión de evaluación)"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2409,7 +2522,7 @@ class Ollert
             task1.name="Elaborar Decreto de adjudicación o deseerción"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2417,7 +2530,7 @@ class Ollert
             task1.name="Generar orden de compra"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2425,7 +2538,7 @@ class Ollert
             task1.name="Elaborar contrato"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2433,7 +2546,7 @@ class Ollert
             task1.name="Gestionar firma de contrato"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2441,7 +2554,7 @@ class Ollert
             task1.name="Devolver boletas de garantía"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
@@ -2449,7 +2562,7 @@ class Ollert
             task1.name="Enviar antecedentes a DOM para entrega de terreno"
             task1.desc=""
             task1.state=estado7
-            task1.fondo=new_fondo
+            task1.fondo=f7
             task1.checked="true"
             task1.save
 
