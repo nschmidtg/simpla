@@ -40,6 +40,53 @@ class Ollert
     end
   end
 
+  get '/closed', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
+    if(@user.role=="admin")
+      respond_to do |format|
+        format.html do
+          redirect '/admin'
+        end
+      end
+    end
+    begin
+      @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch2(client, @user.trello_name),@user)
+      @statesd=@user.municipio.states.order(:order => 'asc')
+      @states=@statesd.pluck(:name)
+      @prioridades=["1. Urgentes","2. Priorizados","3. No Priorizados"]
+      @token=@user.member_token
+
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :boards }
+      format.json { {'data' => @boards }.to_json }
+    end
+  end
+
   get '/boards', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -163,6 +210,7 @@ class Ollert
           #Creo el tablero a nivel de BD:
           board_settings = Board.find_or_create_by(board_id: @board.id)
           board_settings.monto=params[:monto]
+          board_settings.closed="false"
           board_settings.tipo=Tipo.find_by(id: params[:tipo])
           board_settings.fondo=Fondo.find_by(id: params[:fondo])
           if(params[:coords]=="on")
@@ -423,6 +471,8 @@ class Ollert
       
     end
   end
+
+
 
   get '/new_board', :auth => :connected do
     client = Trello::Client.new(

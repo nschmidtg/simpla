@@ -111,7 +111,7 @@ class Ollert
             if(t.board_ids!=nil)
               splitted=t.board_ids.split(',')
               if(!splitted.include?(local_board.id.to_s))
-    
+                
                 #para verificar que la tarjeta no haya sido creada
                 @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
                 @card1.save
@@ -121,6 +121,8 @@ class Ollert
                   t.board_ids=local_board.id.to_s
                 end
                 t.save
+              
+                
               end
             else
   
@@ -137,6 +139,16 @@ class Ollert
           end
         end
       end
+      if(s.name=="Finalizado" && board.closed=="false")
+        JSON.parse(client.put("/boards/#{board_id}/closed?value=true"))
+        board.closed="true"
+        board.save
+      elsif(board.closed=="true")
+        JSON.parse(client.put("/boards/#{board_id}/closed?value=false"))
+        board.closed="false"
+        board.save
+      end
+                
     end
     
     body board.to_json

@@ -16,6 +16,8 @@ class Board
   field :desc, type: String
   field :start_date, type: String
   field :end_date, type: String
+  field :closed, type: String
+
 
   belongs_to :municipio
   belongs_to :fondo
