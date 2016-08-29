@@ -1,7 +1,7 @@
 class UserConnector
   def self.connect(client, member_token, login_mail, current_user = nil)
     member = MemberAnalyzer.analyze(MemberFetcher.fetch(client, member_token))
-    if(member["email"]==login_mail || User.find_by(login_mail: member["email"]).role=="secpla")
+    if(member["email"]==login_mail || (User.find_by(login_mail: member["email"]).role=="secpla" && (User.find_by(login_mail: login_mail).role=="alcalde" || User.find_by(login_mail: login_mail).role=="concejal")))
       puts "EHH!!!"
       user = nil
       if(current_user.nil? && member["email"]==login_mail)
