@@ -1,5 +1,5 @@
 !!! html
-%html{lang: 'en'}
+%html{lang: 'es'}
   %head
     %title Ollert
     #{title_for @title}
@@ -8,6 +8,7 @@
     %meta{name: 'author', content: 'Larry Price <larry@ollertapp.com>'}
 
     %link{rel: 'shortcut icon', href:'/img/favicon.ico'}
+    %link{:href => "//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css", :rel => "stylesheet"}/
 
     %link{href: '/css/vendor/bootstrap.min.css', rel: 'stylesheet'}
     %link{href: '/css/vendor/drawer.min.css', rel: 'stylesheet'}
@@ -26,9 +27,34 @@
       !function(a){function f(a,b){if(!(a.originalEvent.touches.length>1)){a.preventDefault();var c=a.originalEvent.changedTouches[0],d=document.createEvent("MouseEvents");d.initMouseEvent(b,!0,!0,window,1,c.screenX,c.screenY,c.clientX,c.clientY,!1,!1,!1,!1,0,null),a.target.dispatchEvent(d)}}if(a.support.touch="ontouchend"in document,a.support.touch){var e,b=a.ui.mouse.prototype,c=b._mouseInit,d=b._mouseDestroy;b._touchStart=function(a){var b=this;!e&&b._mouseCapture(a.originalEvent.changedTouches[0])&&(e=!0,b._touchMoved=!1,f(a,"mouseover"),f(a,"mousemove"),f(a,"mousedown"))},b._touchMove=function(a){e&&(this._touchMoved=!0,f(a,"mousemove"))},b._touchEnd=function(a){e&&(f(a,"mouseup"),f(a,"mouseout"),this._touchMoved||f(a,"click"),e=!1)},b._mouseInit=function(){var b=this;b.element.bind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),c.call(b)},b._mouseDestroy=function(){var b=this;b.element.unbind({touchstart:a.proxy(b,"_touchStart"),touchmove:a.proxy(b,"_touchMove"),touchend:a.proxy(b,"_touchEnd")}),d.call(b)}}}(jQuery);
     :javascript
       $(document).ready(function() {
-      
         $("#boton_agregar").hide();
       });
+    :javascript
+      function initMap(){
+        $("#map").height("200px");
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: #{if(params[:edit]=="true" && @board.coords!=nil && @board.coords!="") \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}},
+          zoom: 14,
+        });
+        marker = new google.maps.Marker({
+          map: map,
+          draggable: true,
+          animation: google.maps.Animation.DROP,
+          position: {lat: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}}
+        });
+        google.maps.event.addListener(marker, 'dragend', function(evt){
+          $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
+        });
+      }
+    :javascript
+      $( function() {
+        $( "#datepicker1" ).datepicker({
+          dateFormat: "dd-mm-yy"
+        });
+        $( "#datepicker2" ).datepicker({
+          dateFormat: "dd-mm-yy"
+        });
+      } );
   %body
     / - if(@user!=nil && @user.role != "admin")
     /   #config-drawer.drawer.dw-xs-10.dw-sm-6.dw-md-4.dw-lg-3.fold{"aria-labelledby" => "config-drawer"}

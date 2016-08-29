@@ -40,7 +40,7 @@
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Descripción
                   .col-md-6.col-sm-6.col-xs-12
                     - if(params[:edit]=="true" && @board.desc!=nil)
-                      %textarea#textinput.form-control.input-md{name: "desc", value: "#{@board.desc}", style: "cursor: auto;", type: "textarea"}
+                      %textarea#textinput.form-control.input-md{name: "desc", style: "cursor: auto;", type: "textarea"}#{@board.desc}
                     - else
                       %textarea#textinput.form-control.input-md{name: "desc", placeholder: "Descripción del proyecto (Opcional)", style: "cursor: auto;", type: "textarea"}
                 .form-group
@@ -49,7 +49,14 @@
                     - if(params[:edit]=="true" && @board.start_date!=nil)
                       %input#datepicker1.form-control.input-md{name: "start_date", value: "#{@board.start_date}", style: "cursor: auto;", type: "text"}
                     - else
-                      %input#datepicker1.form-control.input-md{name: "start_date", placeholder: "Fecha de Inicio del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
+                      %input#datepicker1.form-control.input-md{name: "start_date", placeholder: "Fecha tentativa de Inicio del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fecha de fin
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(params[:edit]=="true" && @board.end_date!=nil)
+                      %input#datepicker2.form-control.input-md{name: "end_date", value: "#{@board.end_date}", style: "cursor: auto;", type: "text"}
+                    - else
+                      %input#datepicker2.form-control.input-md{name: "end_date", placeholder: "Fecha tentativa de fin del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
                   .col-md-6.col-sm-6.col-xs-12
@@ -105,7 +112,7 @@
                         - @fondos.where(:etapa => "ejecucion").each do |f|
                           %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona (Opcional)
                   .col-md-6.col-sm-6.col-xs-12
                     .checkbox
                       %label
@@ -126,11 +133,18 @@
                               %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
                               #{zona.name}
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Ubicación (Opcional)
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(params[:edit]=="true" && @board.coords!="")
+                      %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
+                    - else
+                      %input#always{:type => "checkbox", :name =>"coords"}>/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     #map
                     - if(params[:edit]=="true")
-                      - if(@board.coords != "")
+                      - if(@board.coords != nil)
                         %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
                       - else
                         %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.085 -70.930", style: "cursor: auto;", type: "hidden"}/
@@ -177,23 +191,7 @@
   }
 :javascript
   
-  function initMap() {
-    var map = new google.maps.Map(document.getElementById('map'), {
-      center: {lat: #{if(params[:edit]=="true" && @board.coords!=nil && @board.coords!="") \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}},
-      zoom: 14,
-    });
-    marker = new google.maps.Marker({
-      map: map,
-      draggable: true,
-      animation: google.maps.Animation.DROP,
-      position: {lat: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}}
-    });
-    google.maps.event.addListener(marker, 'dragend', function(evt){
-      $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
-    });
-
   
-  }
 
   function toggleBounce() {
     if (marker.getAnimation() !== null) {
@@ -202,13 +200,20 @@
       marker.setAnimation(google.maps.Animation.BOUNCE);
     }
   }
+  
+    $('#always').change(function () { 
+      if(!this.checked)               
+        $('#map').hide();
+      else
+        $('#map').show();
+    }); //ensure visible state matches initially
+  
 
     
 :javascript
   window.onload = function() {
-    $("#map").height("200px");
-    initMap();
-    $( "#datepicker1" ).datepicker();
+    if(!$("#always").prop('checked'))
+      $("#map").hide();
     $('#delete').on('click', function(e){
       e.preventDefault();
       $('#confirm').modal({ backdrop: 'static', keyboard: false })

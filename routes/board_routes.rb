@@ -165,8 +165,16 @@ class Ollert
           board_settings.monto=params[:monto]
           board_settings.tipo=Tipo.find_by(id: params[:tipo])
           board_settings.fondo=Fondo.find_by(id: params[:fondo])
-          board_settings.coords=params[:zona]
+          if(params[:coords]=="on")
+            board_settings.coords=params[:zona]
+          else
+            board_settings.coords=""
+          end
+          board_settings.start_date=params[:start_date]
+          board_settings.end_date=params[:end_date]
+          board_settings.desc=params[:desc]
           board_settings.name=params[:name]
+
           board_settings.users<<@user
           board_settings.municipio=Organization.find_by(org_id: org_id).municipio
           board_settings.save
@@ -329,7 +337,15 @@ class Ollert
             board_settings.monto=params[:monto]
             board_settings.tipo=Tipo.find_by(id: params[:tipo])
             board_settings.fondo=params[:fondo]
-            board_settings.coords=params[:zona]
+            puts params[:coords]
+            if(params[:coords]=="on")
+              board_settings.coords=params[:zona]
+            else
+              board_settings.coords=""
+            end
+            board_settings.start_date=params[:start_date]
+            board_settings.end_date=params[:end_date]
+            board_settings.desc=params[:desc]
             board_settings.save
             if(zonas!=nil)
               board_settings.zones.each do |zone|
