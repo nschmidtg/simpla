@@ -30,23 +30,6 @@
         $("#boton_agregar").hide();
       });
     :javascript
-      function initMap(){
-        $("#map").height("200px");
-        var map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: #{if(params[:edit]=="true" && @board.coords!=nil && @board.coords!="") \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}},
-          zoom: 14,
-        });
-        marker = new google.maps.Marker({
-          map: map,
-          draggable: true,
-          animation: google.maps.Animation.DROP,
-          position: {lat: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else '-70.9333' \n end}}
-        });
-        google.maps.event.addListener(marker, 'dragend', function(evt){
-          $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
-        });
-      }
-    :javascript
       $( function() {
         $( "#datepicker1" ).datepicker({
           dateFormat: "dd-mm-yy"

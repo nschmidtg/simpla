@@ -13,7 +13,7 @@
       .analysis-block-md
         #{muni.name}
         %ul{class: 'boards-list'}
-          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}"}
+          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}&edit=true"}
             %span.glyphicon.glyphicon-pencil
           %li.boards-list-item
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/proyectos?mun_id=#{muni.id}"}

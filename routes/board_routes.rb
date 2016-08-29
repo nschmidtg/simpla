@@ -439,11 +439,19 @@ class Ollert
         end
         if params[:org_id]=='nil'
           @org_id=Trello::Board.find(params[:last_board_id]).organization_id
+          
           if @org_id == nil
             @org_id=""
           end
         else
           @org_id=params[:org_id]
+          @municipio=Organization.find_by(org_id: @org_id).municipio
+          puts @municipio.id
+          
+        end
+        if(params[:edit]=="true")
+          @board=Board.find_by board_id: params[:last_board_id]
+          @municipio=@board.municipio
         end
         
       else

@@ -1,5 +1,22 @@
 
-   
+:javascript
+  function initMap(){
+    $("#map").height("200px");
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: #{if(params[:edit]=="true" && @municipio.coords!=nil && @municipio.coords!="") \n @municipio.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @municipio.coords!=nil  && @municipio.coords!="") \n @municipio.coords.split(' ')[1] \n else '-70.9333' \n end}},
+      zoom: 14,
+    });
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: {lat: #{if(params[:edit]=="true" && @municipio.coords!=nil  && @municipio.coords!="") \n @municipio.coords.split(' ')[0] \n else '-33.0833' \n end}, lng: #{if(params[:edit]=="true" && @municipio.coords!=nil  && @municipio.coords!="") \n @municipio.coords.split(' ')[1] \n else '-70.9333' \n end}}
+    });
+    google.maps.event.addListener(marker, 'dragend', function(evt){
+      $("#textinput-zona").val(evt.latLng.lat().toFixed(3) + ' ' + evt.latLng.lng().toFixed(3));
+    });
+  }
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCfYWTKUU4QL_d1WLpJVLfjcTAJTwYVl3w&callback=initMap"}
 .container
   .container
     .row
@@ -31,6 +48,17 @@
                       %input#textinput.form-control.input-md{name: "name", value: "#{@municipio.name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del Municipio", style: "cursor: auto;", type: "text",required: ""}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Ubicación
+                  .col-md-6.col-sm-6.col-xs-12
+                    #map
+                    - if(params[:edit]=="true")
+                      - if(@municipio.coords != nil)
+                        %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@municipio.coords}", style: "cursor: auto;", type: "hidden"}/
+                      - else
+                        %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.085 -70.930", style: "cursor: auto;", type: "hidden"}/
+                    - else
+                      %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zonas
                   .col-md-6.col-sm-6.col-xs-12

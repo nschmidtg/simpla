@@ -13,5 +13,7 @@ class Municipio
   
   field :name, type: String
   field :launched, type: String
+  field :coords, type: String
+
 
 end

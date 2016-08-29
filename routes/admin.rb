@@ -369,6 +369,7 @@ class Ollert
       if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         nombre=params[:name]
         zonas=params[:zonas]
+        ubicacion=params[:zona]
         edit=params[:edit]
         if(edit=="true")
           mun=Municipio.find_by(id: params[:id])
@@ -2854,6 +2855,7 @@ class Ollert
 
         end
         mun.name=nombre
+        mun.coords=ubicacion
         mun.save
         
         zonas.each do |zone|
