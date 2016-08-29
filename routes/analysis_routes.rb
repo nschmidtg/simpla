@@ -139,11 +139,14 @@ class Ollert
           end
         end
       end
-      if(s.name=="Finalizado" && board.closed=="false")
+      puts s.name=="Finalizado"
+      puts board.closed.to_s=="false"
+      if(s.name=="Finalizado" && board.closed.to_s=="false")
+        puts "dentro"
         JSON.parse(client.put("/boards/#{board_id}/closed?value=true"))
         board.closed="true"
         board.save
-      elsif(board.closed=="true")
+      elsif(board.closed.to_s=="true")
         JSON.parse(client.put("/boards/#{board_id}/closed?value=false"))
         board.closed="false"
         board.save
