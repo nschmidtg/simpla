@@ -26,20 +26,34 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
-                    - if(params[:edit]=="true")
-                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name]}", style: "cursor: auto;", type: "text" ,required: ""}/
-                    - else
-                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text",required: ""}/
-                .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo
-                  .col-md-6.col-sm-6.col-xs-12
-                    %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}/
-                .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
-                  .col-md-6.col-sm-6.col-xs-12
                     - @board=nil
                     - if(params[:edit]=="true")
                       - @board=Board.find_by board_id: params[:last_board_id]
+                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name]}", style: "cursor: auto;", type: "text" ,required: ""}
+                    - else
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text",required: ""}
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo
+                  .col-md-6.col-sm-6.col-xs-12
+                    %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Descripción
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(params[:edit]=="true" && @board.desc!=nil)
+                      %textarea#textinput.form-control.input-md{name: "desc", value: "#{@board.desc}", style: "cursor: auto;", type: "textarea"}
+                    - else
+                      %textarea#textinput.form-control.input-md{name: "desc", placeholder: "Descripción del proyecto (Opcional)", style: "cursor: auto;", type: "textarea"}
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fecha de inicio
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(params[:edit]=="true" && @board.start_date!=nil)
+                      %input#datepicker1.form-control.input-md{name: "start_date", value: "#{@board.start_date}", style: "cursor: auto;", type: "text"}
+                    - else
+                      %input#datepicker1.form-control.input-md{name: "start_date", placeholder: "Fecha de Inicio del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(params[:edit]=="true")
                       %input#textinput.form-control.input-md{name: "monto",min: "0", step: "50000", style: "cursor: auto;", type: "number",value: "#{@board.monto}"}/
                     - else
                       %input#textinput.form-control.input-md{name: "monto",min: "0",step: "50000", style: "cursor: auto;", type: "number"}/
@@ -194,7 +208,7 @@
   window.onload = function() {
     $("#map").height("200px");
     initMap();
-    $("")
+    $( "#datepicker1" ).datepicker();
     $('#delete').on('click', function(e){
       e.preventDefault();
       $('#confirm').modal({ backdrop: 'static', keyboard: false })

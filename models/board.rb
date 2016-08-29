@@ -13,6 +13,9 @@ class Board
   field :fondo, type: String
   field :coords, type: String
   field :name, type: String
+  field :desc, type: String
+  field :start_date, type: String
+  field :end_date, type: String
 
   belongs_to :municipio
   belongs_to :fondo
