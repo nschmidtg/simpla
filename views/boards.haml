@@ -148,8 +148,8 @@
           var $item=ui.item;
           var palabra=$item.parent().parent().text().split('\n')[1];
           var boardState=palabra.substring(18,palabra.length);
-          if(boardState=="Noiniciado"){
-            boardState="No iniciado";
+          if(boardState=="Finalizado"){
+            if(!confirm("El proyecto se cerrará")){window.location.reload();}
           }
           var boardId=$item.find('a').attr('href').split('/')[2];
           $.ajax({
