@@ -25,19 +25,22 @@
           %li.boards-list-item
             %btn.btn-link.boards-list-item-link
               Monto: #{board.monto}
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Tipo: #{board.tipo.name}
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Fondo: #{board.fondo.name}
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              - zoness=" | "
-              - board.zones.each do |zone|
-                - zoness=zoness+zone.name+" | "
-              Zonas: #{zoness}
-          
+          - if(board.tipo!=nil)
+            %li.boards-list-item
+              %btn.btn-link.boards-list-item-link
+                Tipo: #{board.tipo.name}
+          - if(board.fondo!=nil)
+            %li.boards-list-item
+              %btn.btn-link.boards-list-item-link
+                Fondo: #{board.fondo.name}
+            - if(board.zones!=nil)
+            %li.boards-list-item
+              %btn.btn-link.boards-list-item-link
+                - zoness=" | "
+                - board.zones.each do |zone|
+                  - zoness=zoness+zone.name+" | "
+                Zonas: #{zoness}
+            
   - @org=@mun.organizations.find_by(name: "3. No Priorizados")
   %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
     %span.glyphicon.glyphicon-plus
