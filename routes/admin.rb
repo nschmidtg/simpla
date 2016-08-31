@@ -15,7 +15,7 @@ class Ollert
     end
     begin
       if(@user.role=="secpla")
-        @municipios = @user.municipio
+        @municipios = Municipio.where(id: @user.municipio.id)
       else
         @municipios = Municipio.all
       end
