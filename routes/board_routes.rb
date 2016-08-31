@@ -205,7 +205,11 @@ class Ollert
         if(params[:edit]=="false")
           #El tablero no existe, lo creo
           @board=Trello::Board.create(data)
-          JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+          begin
+            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+          rescue => error
+            puts error
+          end
           
           #Creo el tablero a nivel de BD:
           board_settings = Board.find_or_create_by(board_id: @board.id)
