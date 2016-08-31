@@ -324,16 +324,18 @@ class Ollert
                   end
                 end
               end
-              User.where(role: "admin").each do |admin|
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-              end
+              
             end
             org_name=Organization.find_by(org_id: org_id).name
             if(org_name=="1. Urgentes")
               JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
             end
-           
-            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+            user33=User.find_by(role: "admin")
+            JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
+            begin 
+              JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+            rescue
+            end
             users_admins=User.where(:role => "admin")
            
             users_admins.each do |user|
@@ -358,7 +360,10 @@ class Ollert
 
           #El tablero existe y va a ser editado
           @board=Trello::Board.find(params[:last_board_id])
-          JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+          begin
+            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
+          rescue
+          end
           users_admins=User.where(:role => "admin")
          
           users_admins.each do |user|
