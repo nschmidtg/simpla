@@ -16,8 +16,9 @@ class Ollert
     begin
       if(@user.role=="secpla")
         @municipios = @user.municipio
+      else
+        @municipios = Municipio.all
       end
-      @municipios = Municipio.all
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
