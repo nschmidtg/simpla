@@ -146,16 +146,9 @@ class Ollert
         config.member_token = @user.member_token
       end
       JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
-      boards=Board.where({board_id: board_id})
-      boards.each do |board|
-        board.users.each do |user|
-          user.boards.delete(board)
-        end
-        board.zones.each do |zone|
-          zone.boards.delete(board)
-        end
-        board.destroy
-      end
+      board=Board.find_by(board_id: board_id)
+      board.destroy
+      
 
     rescue Trello::Error => e
       
