@@ -324,6 +324,9 @@ class Ollert
                   end
                 end
               end
+              User.where(role: "admin").each do |admin|
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              end
             end
             org_name=Organization.find_by(org_id: org_id).name
             if(org_name=="1. Urgentes")
