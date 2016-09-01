@@ -214,36 +214,36 @@ class Ollert
     user1.role="admin"
     user1.save
 
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token = @user.member_token
-    end
+    # client = Trello::Client.new(
+    #   :developer_public_key => ENV['PUBLIC_KEY'],
+    #   :member_token => @user.member_token
+    # )
+    # Trello.configure do |config|
+    #   config.developer_public_key = ENV['PUBLIC_KEY']
+    #   config.member_token = @user.member_token
+    # end
 
-    nico=User.find_by(login_mail: "nschmidtg@gmail.com")
-    Municipio.all.each do |muni|
-      muni.boards.all.each do |board|
-        begin
-          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
-          JSON.parse(client.delete("/boards/#{board.board_id}/members/#{nico.trello_id}"))
-        rescue => error
-          puts error
-        end
-      end
-      muni.organizations.all.each do |org|
-        begin
-          JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
-          JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{nico.trello_id}"))
-        rescue => error
-          puts error
-        end
-      end
+    # nico=User.find_by(login_mail: "nschmidtg@gmail.com")
+    # Municipio.all.each do |muni|
+    #   muni.boards.all.each do |board|
+    #     begin
+    #       JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
+    #       JSON.parse(client.delete("/boards/#{board.board_id}/members/#{nico.trello_id}"))
+    #     rescue => error
+    #       puts error
+    #     end
+    #   end
+    #   muni.organizations.all.each do |org|
+    #     begin
+    #       JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
+    #       JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{nico.trello_id}"))
+    #     rescue => error
+    #       puts error
+    #     end
+    #   end
 
-    end
-    nico.destroy
+    # end
+    # nico.destroy
 
     # user1=User.find_or_initialize_by(login_mail: "mmanriq1@uc.cl")
     # user1.login_name="Magdalena"

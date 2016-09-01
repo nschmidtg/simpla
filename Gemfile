@@ -17,7 +17,7 @@ gem 'mongoid'
 gem 'ruby-trello'
 gem 'business_time'
 gem 'require_all'
-
+gem 'newrelic_rpm'
 
 
 group :development do
