@@ -256,6 +256,7 @@ class Ollert
                   data=JSON.parse(client.get("/members/#{user.login_mail}"))
                   aux=User.find_by(trello_id: data["id"])
                   if(aux==nil)
+                    puts "aux nulo"
                     user.trello_id=data["id"]
                     user.save                  
                   end
@@ -269,6 +270,8 @@ class Ollert
                 end
               end
             end
+            user33=User.find_by(role: "admin")
+            JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
           end
           mun.boards.each do |board|
             data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
@@ -304,6 +307,8 @@ class Ollert
                 puts "++++Estoy aca porque el usuario es concejal o alcalde++++"
               end
             end
+            user33=User.find_by(role: "admin")
+            JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
           end
           mun.launched="true"
           mun.save
