@@ -226,12 +226,20 @@ class Ollert
     nico=User.find_by(login_mail: "nschmidtg@gmail.com")
     Municipio.all.each do |muni|
       muni.boards.all.each do |board|
-        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
-        JSON.parse(client.delete("/boards/#{board.board_id}/members/#{nico.trello_id}"))
+        begin
+          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
+          JSON.parse(client.delete("/boards/#{board.board_id}/members/#{nico.trello_id}"))
+        rescue => error
+          puts error
+        end
       end
       muni.organizations.all.each do |org|
-        JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
-        JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{nico.trello_id}"))
+        begin
+          JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
+          JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{nico.trello_id}"))
+        rescue => error
+          puts error
+        end
       end
 
     end
