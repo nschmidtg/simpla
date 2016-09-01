@@ -17,7 +17,7 @@
             %span.glyphicon.glyphicon-pencil
           %li.boards-list-item
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/proyectos?mun_id=#{muni.id}"}
-              Proyectos: #{muni.boards.count}
+              Proyectos Abiertos: #{muni.boards.where(closed: "false").count}
           %li.boards-list-item
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos?mun_id=#{muni.id}"}
               Fondos: #{muni.fondos.count}
