@@ -207,13 +207,35 @@ class Ollert
         
     # end
 
-    user1=User.find_or_initialize_by(login_mail: "nschmidtg@gmail.com")
-    user1.login_name="Nicolas"
-    user1.login_last_name="Schmidt"
-    user1.login_pass = Digest::SHA256.base64digest("articuno")
+    user1=User.find_or_initialize_by(login_mail: "sistema.gestion.cpp@gmail.com")
+    user1.login_name="Admin"
+    user1.login_last_name="CPP"
+    user1.login_pass = Digest::SHA256.base64digest("subdipro2016")
     user1.role="admin"
     user1.save
 
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token = @user.member_token
+    end
+
+    nico=User.find_by(login_mail: "nschmidtg@gmail.com")
+    Municipio.all.each do |muni|
+      muni.boards.all.each do |board|
+        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
+        JSON.parse(client.delete("/boards/#{board.board_id}/members/#{nico.trello_id}"))
+      end
+      muni.organizations.all.each do |org|
+        JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
+        JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{nico.trello_id}"))
+      end
+
+    end
+    nico.destroy
 
     # user1=User.find_or_initialize_by(login_mail: "mmanriq1@uc.cl")
     # user1.login_name="Magdalena"
