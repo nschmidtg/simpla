@@ -1,5 +1,6 @@
 .ruby-gemset
 .sass-cache
+.log
 .bundle
 *.swp
 *.db
