@@ -5,6 +5,7 @@ require 'rack/ssl'
 require 'rack/rewrite'
 require 'sinatra/base'
 require 'sinatra/respond_with'
+require 'newrelic_rpm'
 require 'trello'
 require_relative 'helpers'
 
