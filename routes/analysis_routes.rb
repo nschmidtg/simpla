@@ -106,7 +106,7 @@ class Ollert
         puts "se cierra"
         brd.closed="true"
         brd.save
-      elsif(board.closed.to_s=="true")
+      elsif(brd.closed.to_s=="true")
         puts "se abre"
         JSON.parse(client.put("/boards/#{board_id}/closed?value=false"))
         brd.closed="false"
