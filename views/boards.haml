@@ -126,17 +126,20 @@
                   - bdbrd=Board.new
                   - bdbrd.name=board["name"]
                   - bdbrd.board_id=board["id"]
+                  - if(@closed.to_s=="true")
+                    - bdbrd.closed="true"
+                  - else
+                    - bdbrd.closed="false"
                   - bdbrd.municipio=@user.municipio
                   - bdbrd.users<<@user
                   - bdbrd.save
-                  - @user.boards<<bdbrd
-                  - @user.save
                 - else
-                  - bdbrd.users<<@user
                   - bdbrd.name=board["name"]
+                  - if(@closed.to_s=="true")
+                    - bdbrd.closed="true"
+                  - else
+                    - bdbrd.closed="false"
                   - bdbrd.save
-                  - @user.boards<<bdbrd
-                  - @user.save
                 %li.boards-list-item
                   %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
                     #{board["name"]}
@@ -175,7 +178,7 @@
         else if(boardPriority=="1.Urgentes"){
           boardPriority="1. Urgentes";
         }
-        else{
+        else if(boardPriority=="3.NoPriorizados"){
           boardPriority="3. No Priorizados";
         }
         var boardId=$item.find('a').attr('href').split('/')[2];

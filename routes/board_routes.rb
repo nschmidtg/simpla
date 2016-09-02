@@ -62,7 +62,7 @@ class Ollert
       @states=@statesd.pluck(:name)
       @prioridades=["1. Urgentes","2. Priorizados","3. No Priorizados"]
       @token=@user.member_token
-
+      @closed="true"
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
