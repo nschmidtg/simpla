@@ -67,12 +67,12 @@
                       - if(@municipio!=nil)
                         - @municipio.zones.each do |zone|
                           %div
-                            %input.form-control.input-md{:name => "zonas[]", :value => "#{zone.name}",:type => "text",required: "", placeholder: "Nombre de la zona"}/
+                            %input.form-control.input-md{:name => "zonas[#{zone.id}]", :value => "#{zone.name}",:type => "text",required: "", placeholder: "Nombre de la zona"}/
                             - if(@municipio.zones.first!=zone)
                               %a.remove_field{:href=>"#"}Quitar
                       - else
                         %div
-                          %input.form-control.input-md{:name => "zonas[]", :value => "",:type => "text",required: "", placeholder: "Nombre de la zona"}/
+                          %input.form-control.input-md{:name => "zonas[nuevo]", :value => "",:type => "text",required: "", placeholder: "Nombre de la zona"}/
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)
@@ -121,7 +121,7 @@
         e.preventDefault();
         if(x < max_fields){ //max input box allowed
             x++; //text box increment
-            $(wrapper).append('<div><input type="text" name="zonas[]" required=""  placeholder="Nombre de la zona" class="form-control input-md"/><a href="#" class="remove_field">Quitar</a></div>'); //add input box
+            $(wrapper).append('<div><input type="text" name="zonas[nuevo_'+x+']" required=""  placeholder="Nombre de la zona" class="form-control input-md"/><a href="#" class="remove_field">Quitar</a></div>'); //add input box
         }
     });
     

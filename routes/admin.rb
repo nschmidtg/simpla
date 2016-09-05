@@ -379,11 +379,6 @@ class Ollert
         edit=params[:edit]
         if(edit=="true")
           mun=Municipio.find_by(id: params[:id])
-          mun.zones.each do |zone|
-            if(!zonas.include?(zone.name))
-              zone.destroy
-            end
-          end
           orgs=mun.organizations.each do |org|
             JSON.parse(client.put("/organizations/#{org.org_id}/desc?value=#{nombre}"))
           end
@@ -2863,15 +2858,33 @@ class Ollert
         mun.name=nombre
         mun.coords=ubicacion
         mun.save
-        
-        zonas.each do |zone|
-          if(!mun.zones.pluck(:name).include?(zone))
+
+        zonas.each do |zone_id,zone_name|
+          if(!zone_id.include?("nuevo"))
+            z=Zone.find_or_initialize_by(id: zone_id)
+            z.name=zone_name.to_s
+            z.municipio=mun
+            z.save
+          else
             z=Zone.new
-            z.name=zone
+            z.name=zone_name.to_s
             z.municipio=mun
             z.save
           end
-          
+        end
+        mun.zones.each do |mun_zone|
+          esta=false
+          zonas.each do |zone_id,zone_name|
+            if(zone_id.include?("nuevo"))
+              esta=true
+            end
+            if(zone_id==mun_zone.id.to_s)
+              esta=true
+            end
+          end
+          if(esta==false)
+            mun_zone.destroy
+          end
         end
         
       else
