@@ -79,9 +79,9 @@
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto (Opcional)
                   .col-md-6.col-sm-6.col-xs-12
                     - if(params[:edit]=="true")
-                      %input#textinput.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "number",value: "#{@board.monto}"}/
+                      %input#monto.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "text",value: "#{@board.monto}"}/
                     - else
-                      %input#textinput.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "number",value: "0"}/
+                      %input#monto.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "text",value: "0"}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo
                   .col-md-6.col-sm-6.col-xs-12
@@ -240,7 +240,24 @@
         });
       $("#confirm").removeClass( "hide");
     });
-    
+    / $('#monto').bind('input', function() { 
+    /   var numero=$(this).val().replace(/./g, '');
+    /   var i =numero.length-1;
+    /   count=0;
+    /   string="";
+    /   while(i>-1){
+    /     count++;
+    /     if(count%3==0){
+    /       string="."+numero[i]+string;
+    /     }
+    /     else{
+    /       string=numero[i]+string;
+    /     }
+    /     i--;
+    /   }
+    /   $(this).val(string);
+
+    / });
   };
 
   
