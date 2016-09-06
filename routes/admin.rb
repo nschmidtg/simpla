@@ -412,17 +412,17 @@ class Ollert
             t1.save
 
             t2=Tipo.new
-            t2.name="Comercio, Finanzas y Turismo"
+            t2.name="Cultura, patrimonio y turismo"
             t2.municipio=mun
             t2.save
 
             t3=Tipo.new
-            t3.name="Comunicaciones"
+            t3.name="Telecomunicaciones"
             t3.municipio=mun
             t3.save
 
             t4=Tipo.new
-            t4.name="Defensa y Seguridad"
+            t4.name="Seguridad"
             t4.municipio=mun
             t4.save
 
@@ -432,89 +432,46 @@ class Ollert
             t5.save
 
             t6=Tipo.new
-            t6.name="Edificación Pública"
+            t6.name="Energía"
             t6.municipio=mun
             t6.save
 
             t7=Tipo.new
-            t7.name="Educación, Cultura y Patrimonio"
+            t7.name="Infraestructura vial"
             t7.municipio=mun
             t7.save
 
             t8=Tipo.new
-            t8.name="Empresas Públicas"
+            t8.name="Medioambiente"
             t8.municipio=mun
             t8.save
 
             t9=Tipo.new
-            t9.name="Energía"
+            t9.name="Espacio público"
             t9.municipio=mun
             t9.save
 
             t10=Tipo.new
-            t10.name="Justicia"
+            t10.name="Salud"
             t10.municipio=mun
             t10.save
 
             t11=Tipo.new
-            t11.name="Macro Infraestructura Urbana"
+            t11.name="Infraestructura comunitaria"
             t11.municipio=mun
             t11.save
 
             t12=Tipo.new
-            t12.name="Minería"
+            t12.name="Vivienda"
             t12.municipio=mun
             t12.save
 
             t13=Tipo.new
-            t13.name="Multisectorial - Desarrollo Urbano"
+            t13.name="Educación"
             t13.municipio=mun
             t13.save
 
-            t14=Tipo.new
-            t14.name="Multisectorial - Defensas Fluviales, Marítimas y Causes Artificiales"
-            t14.municipio=mun
-            t14.save
-
-            t15=Tipo.new
-            t15.name="Multisectorial - Medio Ambiente"
-            t15.municipio=mun
-            t15.save
-
-            t16=Tipo.new
-            t16.name="Multisectorial - Organizaciones Comunitarias"
-            t16.municipio=mun
-            t16.save
-
-            t17=Tipo.new
-            t17.name="Pesca"
-            t17.municipio=mun
-            t17.save
-
-            t18=Tipo.new
-            t18.name="PIRDT"
-            t18.municipio=mun
-            t18.save
-
-            t19=Tipo.new
-            t19.name="Salud"
-            t19.municipio=mun
-            t19.save
-
-            t20=Tipo.new
-            t20.name="Silvoagropecuario"
-            t20.municipio=mun
-            t20.save
-
-            t21=Tipo.new
-            t21.name="Transporte"
-            t21.municipio=mun
-            t21.save
             
-            t22=Tipo.new
-            t22.name="Vivienda"
-            t22.municipio=mun
-            t22.save
 
 
 
