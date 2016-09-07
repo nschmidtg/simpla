@@ -240,24 +240,27 @@
         });
       $("#confirm").removeClass( "hide");
     });
-    / $('#monto').bind('input', function() { 
-    /   var numero=$(this).val().replace(/./g, '');
-    /   var i =numero.length-1;
-    /   count=0;
-    /   string="";
-    /   while(i>-1){
-    /     count++;
-    /     if(count%3==0){
-    /       string="."+numero[i]+string;
-    /     }
-    /     else{
-    /       string=numero[i]+string;
-    /     }
-    /     i--;
-    /   }
-    /   $(this).val(string);
+    $('#monto').bind('input', function() { 
+      var numero=$(this).val().replace(/\./g,'')
+      var i =numero.length-1;
+      count=0;
+      string="";
+      while(i>-1){
+        count++;
+        if(count%3==0){
+          string="."+numero[i]+string;
+        }
+        else{
+          string=numero[i]+string;
+        }
+        i--;
+      }
+      if(string[0]=='.'){
+        string=string.substring(1,string.length);
+      }
+      $(this).val(string);
 
-    / });
+    });
   };
 
   

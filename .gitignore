@@ -2,6 +2,7 @@
 .sass-cache
 .log
 .bundle
+config
 *.swp
 *.db
 .env
