@@ -581,13 +581,13 @@ class Ollert
             estado8.save
             
             estado9=State.new
-            estado9.name="Descartado"
+            estado9.name="Finalizado"
             estado9.order=9
             estado9.municipio=mun
             estado9.save
 
             estado10=State.new
-            estado10.name="Finalizado"
+            estado10.name="Descartado"
             estado10.order=10
             estado10.municipio=mun
             estado10.save
@@ -595,7 +595,7 @@ class Ollert
 
             #Tareas predeterminadas para Municipal de Diseño. Formulación.
             task1=Task.new
-            task1.name="Visación de entidad relacionada (Educación, salud, Serviu)"
+            task1.name="Visación de entidad relacionada (Educación, Salud, Serviu)"
             task1.desc=""
             task1.state=estado1
             task1.fondo=f1
