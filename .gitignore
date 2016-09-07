@@ -3,7 +3,7 @@
 .log
 .bundle
 config
-log/
+log
 *.swp
 *.db
 .env

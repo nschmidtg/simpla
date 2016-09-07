@@ -418,9 +418,16 @@ class Ollert
             end
             @user.boards<<board_settings
             @user.save
-            
-            if(params[:name]!=@board.name)
-              @board.name=params[:name]
+            state=@board.name.split('|')[1]
+            if(state!=nil)
+              new_name=params[:name]+' |'+state+'|'
+            else
+              new_name=params[:name]
+            end
+            if(new_name!=@board.name)
+              @board.name=new_name
+              board_settings.name=new_name
+              board_settings.save
               begin
                 @board.update!
               rescue

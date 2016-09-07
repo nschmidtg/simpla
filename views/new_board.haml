@@ -47,7 +47,7 @@
                     - @board=nil
                     - if(params[:edit]=="true")
                       - @board=Board.find_by board_id: params[:last_board_id]
-                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name]}", style: "cursor: auto;", type: "text" ,required: ""}
+                      %input#textinput.form-control.input-md{name: "name", value: "#{params[:board_name].split(' |')[0]}", style: "cursor: auto;", type: "text" ,required: ""}
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text",required: ""}
                 .form-group

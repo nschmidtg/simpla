@@ -151,7 +151,7 @@
           var $item=ui.item;
           var palabra=$item.parent().parent().text().split('\n')[1];
           var boardState=palabra.substring(18,palabra.length);
-          if(boardState=="Finalizado"){
+          if(boardState=="Finalizado" || boardState=="Descartado"){
             if(!confirm("¿Está seguro de que quiere marcar el proyecto como finalizado? El proyecto se cerrará")){window.location.reload();}
           }
           else{
