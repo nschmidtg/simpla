@@ -158,9 +158,9 @@
                             %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Adquisición)
                         - @estudios=@fondos.where(:etapa => "estudios")
                         - if(@estudios.count>0)
-                          %optgroup{:label=>"Estudio"}
+                          %optgroup{:label=>"Estudios"}
                           - @estudios.each do |f|
-                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Estudio)
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Estudios)
                         - @otros=@fondos.where(:etapa => "otro")
                         - if(@otros.count>0)
                           %optgroup{:label=>"Otro"}
