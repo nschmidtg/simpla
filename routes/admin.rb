@@ -159,7 +159,7 @@ class Ollert
       config.developer_public_key = ENV['PUBLIC_KEY']
       config.member_token =  @user.member_token
     end
-    if(@user.role!="admin")
+    if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
@@ -3743,7 +3743,7 @@ class Ollert
             task1.fondo=new_fondo
             task1.checked="true"
             task1.save
-          else
+          elsif(params[:etapa]=="ejecucion")
             estado1=@mun.states[0]
 
             task1=Task.new

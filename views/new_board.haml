@@ -42,7 +42,7 @@
               .component
                 / Text input
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre*
                   .col-md-6.col-sm-6.col-xs-12
                     - @board=nil
                     - if(params[:edit]=="true")
@@ -51,7 +51,7 @@
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "text",required: ""}
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Equipo*
                   .col-md-6.col-sm-6.col-xs-12
                     %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "text", disabled: "true"}
                 .form-group
@@ -60,7 +60,7 @@
                     - if(params[:edit]=="true" && @board.desc!=nil)
                       %textarea#textinput.form-control.input-md{name: "desc", style: "cursor: auto;", type: "textarea"}#{@board.desc}
                     - else
-                      %textarea#textinput.form-control.input-md{name: "desc", placeholder: "Descripción del proyecto (Opcional)", style: "cursor: auto;", type: "textarea"}
+                      %textarea#textinput.form-control.input-md{name: "desc", placeholder: "Descripción del proyecto", style: "cursor: auto;", type: "textarea"}
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fecha de inicio
                   .col-md-6.col-sm-6.col-xs-12
@@ -76,16 +76,16 @@
                     - else
                       %input#datepicker2.form-control.input-md{name: "end_date", placeholder: "Fecha tentativa de fin del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto (Opcional)
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Monto
                   .col-md-6.col-sm-6.col-xs-12
                     - if(params[:edit]=="true")
                       %input#monto.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "text",value: "#{@board.monto}"}/
                     - else
                       %input#monto.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "text",value: "0"}/
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Tipo*
                   .col-md-6.col-sm-6.col-xs-12
-                    %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;"}
+                    %select#textinput.form-control.input-md{name: "tipo", style: "cursor: auto;", required: "true"}
                       - if(params[:edit]=="true" && @board.tipo!=nil)
                         - @tipo=@board.tipo
                         - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
@@ -97,14 +97,14 @@
                         
                       - else
                         - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
-                        %option{:disabled => "", :selected => ""} Seleccione
+                        %option{:disabled => "disabled", :selected => "", :value=>""} Seleccione
                         - @tipos.each do |f|
                           %option{:value => "#{f.id}"} #{f.name}
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fondo
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Fondo*
                   .col-md-6.col-sm-6.col-xs-12
 
-                    %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;"}
+                    %select#textinput.form-control.input-md{name: "fondo", style: "cursor: auto;",required:""}
                       - if(params[:edit]=="true" && @board.fondo!=nil)
                         - @fondo=@board.fondo
                         - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
@@ -120,17 +120,54 @@
                             %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
                           - else
                             %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        %optgroup{:label=>"Adquisición"}
+                        - @fondos.where(:etapa => "adquisicion").each do |f|
+                          - if(@fondo.id==f.id)
+                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                          - else
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        %optgroup{:label=>"Estudios"}
+                        - @fondos.where(:etapa => "estudios").each do |f|
+                          - if(@fondo.id==f.id)
+                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                          - else
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        %optgroup{:label=>"Otro"}
+                        - @fondos.where(:etapa => "otro").each do |f|
+                          - if(@fondo.id==f.id)
+                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                          - else
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                       - else
                         - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
-                        %option{:disabled => "", :selected => ""} Seleccione
-                        %optgroup{:label=>"Diseño"}
-                        - @fondos.where(:etapa => "diseno").each do |f|
-                          %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Diseño)
-                        %optgroup{:label=>"Ejecución"}
-                        - @fondos.where(:etapa => "ejecucion").each do |f|
-                          %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Ejecución)
+                        %option{:disabled => "", :selected => "", :value=>""} Seleccione
+                        - @disenos=@fondos.where(:etapa => "diseno")
+                        - if(@disenos.count>0)
+                          %optgroup{:label=>"Diseño"}
+                          - @disenos.each do |f|
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Diseño)
+                        - @ejecuciones=@fondos.where(:etapa => "ejecucion")
+                        - if(@ejecuciones.count>0)
+                          %optgroup{:label=>"Ejecución"}
+                          - @ejecuciones.each do |f|
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Ejecución)
+                        - @adquisiciones=@fondos.where(:etapa => "adquisicion")
+                        - if(@adquisiciones.count>0)
+                          %optgroup{:label=>"Adquisición"}
+                          - @adquisiciones.each do |f|
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Adquisición)
+                        - @estudios=@fondos.where(:etapa => "estudio")
+                        - if(@estudios.count>0)
+                          %optgroup{:label=>"Estudio"}
+                          - @estudios.each do |f|
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Estudio)
+                        - @otros=@fondos.where(:etapa => "otro")
+                        - if(@otros.count>0)
+                          %optgroup{:label=>"Otro"}
+                          - @otros.each do |f|
+                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Otro)
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona (Opcional)
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona*
                   .col-md-6.col-sm-6.col-xs-12
                     .checkbox
                       %label
@@ -151,7 +188,7 @@
                               %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
                               #{zona.name}
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Ubicación (Opcional)
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Ubicación
                   .col-md-6.col-sm-6.col-xs-12
                     - if(params[:edit]=="true" && @board.coords!="")
                       %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
@@ -229,7 +266,11 @@
 
     
 :javascript
+  
+
   window.onload = function() {
+    
+
     if(!$("#always").prop('checked'))
       $("#map").hide();
     $('#delete').on('click', function(e){
@@ -240,6 +281,8 @@
         });
       $("#confirm").removeClass( "hide");
     });
+
+
     $('#monto').bind('input', function() { 
       var numero=$(this).val().replace(/\./g,'')
       var i =numero.length-1;
@@ -261,6 +304,9 @@
       $(this).val(string);
 
     });
+    
+
+    
   };
 
   
