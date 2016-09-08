@@ -132,8 +132,8 @@
                             %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
                           - else
                             %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
-                        %optgroup{:label=>"Otro"}
-                        - @fondos.where(:etapa => "otro").each do |f|
+                        %optgroup{:label=>"Otros"}
+                        - @fondos.where(:etapa => "otros").each do |f|
                           - if(@fondo.id==f.id)
                             %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
                           - else
@@ -161,9 +161,9 @@
                           %optgroup{:label=>"Estudios"}
                           - @estudios.each do |f|
                             %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Estudios)
-                        - @otros=@fondos.where(:etapa => "otro")
+                        - @otros=@fondos.where(:etapa => "otros")
                         - if(@otros.count>0)
-                          %optgroup{:label=>"Otro"}
+                          %optgroup{:label=>"Otros"}
                           - @otros.each do |f|
                             %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Otro)
                 .form-group

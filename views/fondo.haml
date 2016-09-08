@@ -42,31 +42,31 @@
                           %option{:value => "ejecucion"} Ejecución
                           %option{:value => "adquisicion"} Adquisición
                           %option{:value => "estudios"} Estudios
-                          %option{:value => "otro"} Otro
+                          %option{:value => "otros"} Otros
                         - elsif (@etapa == "ejecucion")
                           %option{:value => "diseno"} Diseño
                           %option{:value => "ejecucion", :selected => ""} Ejecución
                           %option{:value => "adquisicion"} Adquisición
                           %option{:value => "estudios"} Estudios
-                          %option{:value => "otro"} Otro
+                          %option{:value => "otros"} Otros
                         - elsif (@etapa == "adquisicion")
                           %option{:value => "diseno"} Diseño
                           %option{:value => "ejecucion"} Ejecución
                           %option{:value => "adquisicion", :selected => ""} Adquisición
                           %option{:value => "estudios"} Estudios
-                          %option{:value => "otro"} Otro
+                          %option{:value => "otros"} Otros
                         - elsif (@etapa == "estudios")
                           %option{:value => "diseno"} Diseño
                           %option{:value => "ejecucion"} Ejecución
                           %option{:value => "adquisicion"} Adquisición
                           %option{:value => "estudios", :selected => ""} Estudios
-                          %option{:value => "otro"} Otro
+                          %option{:value => "otros"} Otros
                         - elsif (@etapa == "estudios")
                           %option{:value => "diseno"} Diseño
                           %option{:value => "ejecucion"} Ejecución
                           %option{:value => "adquisicion"} Adquisición
                           %option{:value => "estudios"} Estudios
-                          %option{:value => "otro", :selected => ""} Otro
+                          %option{:value => "otros", :selected => ""} Otros
                     - else
                       %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
                         %option{:disabled => "", :selected => ""} Seleccione
@@ -74,7 +74,7 @@
                         %option{:value => "ejecucion"} Ejecución
                         %option{:value => "adquisicion"} Adquisición
                         %option{:value => "estudios"} Estudios
-                        %option{:value => "otro"} Otro
+                        %option{:value => "otros"} Otros
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@fondo!=nil)

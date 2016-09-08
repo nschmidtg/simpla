@@ -792,3 +792,20 @@
 [2016-09-08 14:30:41 -0300 cpp-VirtualBox (11704)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-09-08 14:30:41 -0300 cpp-VirtualBox (11701)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-09-08 14:30:42 -0300 cpp-VirtualBox (11699)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sistema/gestion-municipal)
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Environment: development
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Dispatcher: unicorn
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Application: Gestion Municipal (Development)
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Installing Net instrumentation
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Installing Sinatra instrumentation
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Installing Mongo instrumentation
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Finished instrumentation
+[2016-09-08 14:34:49 -0300 cpp-VirtualBox (12006)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-08 14:35:02 -0300 cpp-VirtualBox (12021)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-08 14:35:02 -0300 cpp-VirtualBox (12018)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-08 14:35:04 -0300 cpp-VirtualBox (12016)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
