@@ -40,14 +40,30 @@
                         - if(@etapa=="diseno")
                           %option{:value => "diseno", :selected => ""} Diseño
                           %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios"} Estudios
                         - elsif (@etapa == "ejecucion")
                           %option{:value => "diseno"} Diseño
                           %option{:value => "ejecucion", :selected => ""} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios"} Estudios
+                        - elsif (@etapa == "adquisicion")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion", :selected => ""} Adquisición
+                          %option{:value => "estudios"} Estudios
+                        - elsif (@etapa == "estudios")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios", :selected => ""} Estudios
                     - else
                       %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
                         %option{:disabled => "", :selected => ""} Seleccione
                         %option{:value => "diseno", :selected => ""} Diseño
                         %option{:value => "ejecucion"} Ejecución
+                        %option{:value => "adquisicion"} Adquisición
+                        %option{:value => "estudios"} Estudios
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@fondo!=nil)
