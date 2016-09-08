@@ -34,7 +34,7 @@
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Etapa
                   .col-md-6.col-sm-6.col-xs-12
-                    - if(params[:edit]=="true")
+                    - if(params[:edit]=="true" && @fondo.etapa!=nil)
                       %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;", disabled: "true"}
                         - @etapa=@fondo.etapa
                         - if(@etapa=="diseno")

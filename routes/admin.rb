@@ -4032,8 +4032,9 @@ class Ollert
           end
         end
         new_fondo.name=params[:name]
-        new_fondo.etapa=params[:etapa]
-        
+        if(params[:etapa]!=nil)
+          new_fondo.etapa=params[:etapa]
+        end
         new_fondo.municipio=@mun
         new_fondo.save
         @mun.save

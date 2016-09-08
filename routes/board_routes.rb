@@ -340,19 +340,13 @@ class Ollert
            
             users_admins.each do |user|
               begin
-                JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                brd=Board.find_by(board_id: @board.id)
-                brd.users<<user
-                brd.save
-
-              rescue
-                respond_to do |format|
-                  format.html do
-                    flash[:error] = "No tienes permisos de administrador sobre el tablero '#{@board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                    redirect '/admin'
-                  end
-                  format.json { status 400 }
+                if(!admin_ids.include?(user.trello_id))
+                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                  brd=Board.find_by(board_id: @board.id)
+                  brd.users<<user
+                  brd.save
                 end
+              rescue
               end
             end
           end
@@ -365,24 +359,18 @@ class Ollert
           rescue
           end
           users_admins=User.where(:role => "admin")
-         
-          users_admins.each do |user|
-            begin
-              JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-              brd=Board.find_by(board_id: @board.id)
-              brd.users<<user
-              brd.save
-
-            rescue
-              respond_to do |format|
-                format.html do
-                  flash[:error] = "No tienes permisos de administrador sobre el tablero '#{@board.name}', por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                  redirect '/admin'
+           
+            users_admins.each do |user|
+              begin
+                if(!admin_ids.include?(user.trello_id))
+                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                  brd=Board.find_by(board_id: @board.id)
+                  brd.users<<user
+                  brd.save
                 end
-                format.json { status 400 }
+              rescue
               end
             end
-          end
           
           
             #Busco el tablero a nivel de BD:
