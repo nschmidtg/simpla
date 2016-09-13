@@ -809,3 +809,68 @@
 [2016-09-08 14:35:02 -0300 cpp-VirtualBox (12021)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-09-08 14:35:02 -0300 cpp-VirtualBox (12018)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-09-08 14:35:04 -0300 cpp-VirtualBox (12016)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Environment: development
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Dispatcher: unicorn
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Application: Gestion Municipal (Development)
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Installing Net instrumentation
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Installing Sinatra instrumentation
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Installing Mongo instrumentation
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Finished instrumentation
+[2016-09-13 17:09:45 -0300 cpp-VirtualBox (13904)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Environment: development
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Dispatcher: unicorn
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Application: Gestion Municipal (Development)
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Installing Net instrumentation
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Installing Sinatra instrumentation
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Installing Mongo instrumentation
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Finished instrumentation
+[2016-09-13 17:11:19 -0300 cpp-VirtualBox (14000)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-13 17:11:35 -0300 cpp-VirtualBox (14010)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:11:35 -0300 cpp-VirtualBox (14012)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:11:36 -0300 cpp-VirtualBox (14015)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Environment: development
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Dispatcher: unicorn
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Application: Gestion Municipal (Development)
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Installing Net instrumentation
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Installing Sinatra instrumentation
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Installing Mongo instrumentation
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Finished instrumentation
+[2016-09-13 17:19:27 -0300 cpp-VirtualBox (14632)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-13 17:19:36 -0300 cpp-VirtualBox (14647)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:19:36 -0300 cpp-VirtualBox (14644)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:19:41 -0300 cpp-VirtualBox (14642)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Environment: development
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Dispatcher: unicorn
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Application: Gestion Municipal (Development)
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Installing Net instrumentation
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Installing Sinatra instrumentation
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Installing Mongo instrumentation
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Finished instrumentation
+[2016-09-13 17:26:24 -0300 cpp-VirtualBox (15004)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-13 17:26:28 -0300 cpp-VirtualBox (15028)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:26:28 -0300 cpp-VirtualBox (15025)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-13 17:26:29 -0300 cpp-VirtualBox (15023)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039

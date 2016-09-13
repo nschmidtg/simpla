@@ -3279,9 +3279,9 @@ class Ollert
         else
           new_user=User.new
         end
-        new_user.login_name=params[:name]
-        new_user.login_last_name=params[:last_name]
-        new_user.login_mail=params[:mail]
+        new_user.login_name=params[:name].gsub(" ","")
+        new_user.login_last_name=params[:last_name].gsub(" ","")
+        new_user.login_mail=params[:mail].downcase
         if(edit=="false")
           new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
           new_user.role=params[:role]
