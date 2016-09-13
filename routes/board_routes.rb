@@ -288,40 +288,22 @@ class Ollert
                   elsif(user.role=="funcionario")
                     if(!normal_ids.include?(user.trello_id))
                       begin
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                       rescue
                         JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                       end
+                      rescue
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      end
                     end
                   end
                 else
-                  if(user.role!="alcalde" && user.role!="concejal")
-                    data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    data=JSON.parse(client.get("/members/#{user.login_mail}"))
-                    aux=User.find_by(trello_id: data["id"])
-                    if(aux==nil)
-                      user.trello_id=data["id"]
-                      user.save                  
-                    end
-                  
-                    if(user.role=="admin" || user.role=="secpla")
-                      if(!admin_ids.include?(user.trello_id))
-                        begin
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                        rescue
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        end
-                      end
-                    else
-                      if(!normal_ids.include?(user.trello_id))
-                        begin
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        rescue
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        end
-                      end
-                    end
-                  end
+                  puts "++++Estoy aca porque el usuario es concejal o alcalde++++"
+                end
+              end
+              user=User.find_by(role: "admin")
+              if(!admin_ids.include?(user.trello_id))
+                begin
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                rescue
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                 end
               end
               
@@ -330,108 +312,118 @@ class Ollert
             if(org_name=="1. Urgentes")
               JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
             end
-            user33=User.find_by(role: "admin")
-            JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
-            begin 
-              JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-            rescue
-            end
-            users_admins=User.where(:role => "admin")
-           
-            users_admins.each do |user|
-              begin
-                if(!admin_ids.include?(user.trello_id))
-                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                  brd=Board.find_by(board_id: @board.id)
-                  brd.users<<user
-                  brd.save
-                end
-              rescue
-              end
-            end
           end
         else
 
           #El tablero existe y va a ser editado
           @board=Trello::Board.find(params[:last_board_id])
-          begin
-            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-          rescue
+          #Busco el tablero a nivel de BD:
+          board_settings = Board.find_or_create_by(board_id: @board.id)
+          board_settings.monto=params[:monto]
+          board_settings.tipo=Tipo.find_by(id: params[:tipo])
+          board_settings.fondo=params[:fondo]
+          puts params[:coords]
+          if(params[:coords]=="on")
+            board_settings.coords=params[:zona]
+          else
+            board_settings.coords=""
           end
-          users_admins=User.where(:role => "admin")
-           
-            users_admins.each do |user|
-              begin
-                if(!admin_ids.include?(user.trello_id))
-                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                  brd=Board.find_by(board_id: @board.id)
-                  brd.users<<user
-                  brd.save
-                end
-              rescue
-              end
+          board_settings.start_date=params[:start_date]
+          board_settings.end_date=params[:end_date]
+          board_settings.desc=params[:desc]
+          board_settings.save
+          if(zonas!=nil)
+            board_settings.zones.each do |zone|
+              board_settings.zones.delete(zone)
             end
-          
-          
-            #Busco el tablero a nivel de BD:
-            board_settings = Board.find_or_create_by(board_id: @board.id)
-            board_settings.monto=params[:monto]
-            board_settings.tipo=Tipo.find_by(id: params[:tipo])
-            board_settings.fondo=params[:fondo]
-            puts params[:coords]
-            if(params[:coords]=="on")
-              board_settings.coords=params[:zona]
-            else
-              board_settings.coords=""
-            end
-            board_settings.start_date=params[:start_date]
-            board_settings.end_date=params[:end_date]
-            board_settings.desc=params[:desc]
-            board_settings.save
-            if(zonas!=nil)
-              board_settings.zones.each do |zone|
-                board_settings.zones.delete(zone)
-              end
-              zonas.each do |zona_id|
-                zona=Zone.find_or_initialize_by( id: zona_id)
-                board_settings.zones<<Zone.find_or_initialize_by( id: zona)
-                zona.boards<<board_settings
-                zona.save
-                board_settings.save
-              end
-            else
-              board_settings.zones.each do |zone|
-                board_settings.zones.delete(zone)
-              end
-            end
-            @user.boards<<board_settings
-            @user.save
-            state=@board.name.split('|')[1]
-            if(state!=nil)
-              new_name=params[:name]+' |'+state+'|'
-            else
-              new_name=params[:name]
-            end
-            if(new_name!=@board.name)
-              @board.name=new_name
-              board_settings.name=new_name
+            zonas.each do |zona_id|
+              zona=Zone.find_or_initialize_by( id: zona_id)
+              board_settings.zones<<Zone.find_or_initialize_by( id: zona)
+              zona.boards<<board_settings
+              zona.save
               board_settings.save
-              begin
-                @board.update!
-              rescue
-                respond_to do |format|
-                  format.html do
-                    flash[:error] = "No tienes permisos de administrador sobre este tablero, por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                    redirect '/admin'
-                  end
-                  format.json { status 400 }
+            end
+          else
+            board_settings.zones.each do |zone|
+              board_settings.zones.delete(zone)
+            end
+          end
+          @user.boards<<board_settings
+          @user.save
+          state=@board.name.split('|')[1]
+          if(state!=nil)
+            new_name=params[:name]+' |'+state+'|'
+          else
+            new_name=params[:name]
+          end
+          if(new_name!=@board.name)
+            @board.name=new_name
+            board_settings.name=new_name
+            board_settings.save
+            begin
+              @board.update!
+            rescue
+              respond_to do |format|
+                format.html do
+                  flash[:error] = "No tienes permisos de administrador sobre este tablero, por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                  redirect '/admin'
                 end
+                format.json { status 400 }
               end
             end
-          
-
-          
-          
+          end
+          Thread.new do
+            #Encontrar al usuario como miembro
+            board=Board.find_by(board_id: @board.id)
+            if(board.municipio.launched=="true")
+              data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
+              admin_ids=Array.new()
+              data.each do |admin|
+                admin_ids<<admin["id"]
+              end
+              data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=normal"))
+              normal_ids=Array.new()
+              data.each do |normal|
+                normal_ids<<normal["id"]
+              end
+              board.municipio.users.each do |user|
+                if(user.trello_id!=nil)
+                  if(user.role=="admin" || user.role=="secpla")
+                    if(!admin_ids.include?(user.trello_id))
+                      begin
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                      rescue
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      end
+                    end
+                  elsif(user.role=="funcionario")
+                    if(!normal_ids.include?(user.trello_id))
+                      begin
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      rescue
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                      end
+                    end
+                  end
+                else
+                  puts "++++Estoy aca porque el usuario es concejal o alcalde++++"
+                end
+              end
+              user=User.find_by(role: "admin")
+              if(!admin_ids.include?(user.trello_id))
+                begin
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                rescue
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                end
+              end
+              
+            end
+            org_name=Organization.find_by(org_id: org_id).name
+            if(org_name=="1. Urgentes")
+              JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
+            end
+          end
         end
       else
          respond_to do |format|

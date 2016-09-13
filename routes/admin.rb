@@ -252,26 +252,38 @@ class Ollert
                 end
               else
                 if(user.role!="alcalde" && user.role!="concejal")
-                  data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                  data=JSON.parse(client.get("/members/#{user.login_mail}"))
-                  aux=User.find_by(trello_id: data["id"])
-                  if(aux==nil)
-                    puts "aux nulo"
-                    user.trello_id=data["id"]
-                    user.save                  
+                  if(!normal_ids.include?(user.trello_id))
+                    data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+                    data=JSON.parse(client.get("/members/#{user.login_mail.downcase}"))
+                    aux=User.find_by(trello_id: data["id"])
+                    if(aux==nil)
+                      puts "aux nulo"
+                      user.trello_id=data["id"]
+                      user.save                  
+                    end
                   end
                 
                   if(user.role=="admin" || user.role=="secpla")
-                    begin
-                      JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                    rescue
+                    if(!admin_ids.include?(user.trello_id))
+                      begin
+                        JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                        puts "tenia trello id null pero pude agregarlo como admin"
+                      rescue
+                        puts "tenia trello id null y NO PUDE agregarlo como admin"
+                      end
                     end
                   end
                 end
               end
             end
-            user33=User.find_by(role: "admin")
-            JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
+            user=User.find_by(role: "admin")
+            if(!admin_ids.include?(user.trello_id))
+              begin
+                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              rescue
+                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              end
+            end
           end
           mun.boards.each do |board|
             data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
@@ -298,17 +310,23 @@ class Ollert
                   if(!normal_ids.include?(user.trello_id))
                     begin
                       JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                     rescue
+                    rescue
                       JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                     end
+                    end
                   end
                 end
               else
                 puts "++++Estoy aca porque el usuario es concejal o alcalde++++"
               end
             end
-            user33=User.find_by(role: "admin")
-            JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
+            user=User.find_by(role: "admin")
+            if(!admin_ids.include?(user.trello_id))
+              begin
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+              rescue
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+              end
+            end
           end
           mun.launched="true"
           mun.save
@@ -3279,9 +3297,9 @@ class Ollert
         else
           new_user=User.new
         end
-        new_user.login_name=params[:name]
-        new_user.login_last_name=params[:last_name]
-        new_user.login_mail=params[:mail]
+        new_user.login_name=params[:name].gsub(" ","")
+        new_user.login_last_name=params[:last_name].gsub(" ","")
+        new_user.login_mail=params[:mail].downcase
         if(edit=="false")
           new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
           new_user.role=params[:role]
