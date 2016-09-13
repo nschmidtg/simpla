@@ -244,20 +244,12 @@ class Ollert
           
           Thread.new do
             #Crear las listas en español
-            list1=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"1"})
-            list2=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"2"})
-            list3=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"3"})
+            list1=Trello::List.create({:name=>"Revisadas",:board_id=>@board.id,:pos=>"1"})
+            list2=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"2"})
+            list3=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"3"})
+            list4=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"4"})
           
             #Crear las tareas por defecto
-            
-            local_board=Board.find_by(board_id: @board.id)
-            s=local_board.municipio.states.find_by(name: "Formulación")
-            if(s!=nil)
-              Task.where("state_id == ? AND fondo_id == ?",s.id,local_board.fondo.id).each do |task|
-                @card1=Trello::Card.create({:name=>"#{task.name}",:list_id=>@board.lists.first.id, :desc=>"#{task.desc}"})
-                @card1.save
-              end
-            end
             
     
           end
@@ -288,7 +280,7 @@ class Ollert
                   elsif(user.role=="funcionario")
                     if(!normal_ids.include?(user.trello_id))
                       begin
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                        rescue
                         JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
                        end
