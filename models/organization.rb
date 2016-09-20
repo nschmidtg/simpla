@@ -29,6 +29,13 @@ class Organization
 	          if(!admin_ids.include?(user.trello_id))
 	            begin
 	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+	             	data=JSON.parse(client.get("/members/#{user.login_mail}"))
+			          aux=User.find_by(trello_id: data["id"])
+			          if(aux==nil)
+			            puts "aux nulo"
+			            user.trello_id=data["id"]
+			            user.save                  
+			          end
 	             rescue
 	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
 	             end
@@ -37,6 +44,13 @@ class Organization
 	          if(!normal_ids.include?(user.trello_id))
 	            begin
 	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+	            	data=JSON.parse(client.get("/members/#{user.login_mail}"))
+			          aux=User.find_by(trello_id: data["id"])
+			          if(aux==nil)
+			            puts "aux nulo"
+			            user.trello_id=data["id"]
+			            user.save                  
+			          end
 	            rescue
 	            end
 	          end
@@ -55,7 +69,15 @@ class Organization
 	          if(user.role=="admin" || user.role=="secpla")
 	            begin
 	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-	            rescue
+	            	data=JSON.parse(client.get("/members/#{user.login_mail}"))
+			          aux=User.find_by(trello_id: data["id"])
+			          if(aux==nil)
+			            puts "aux nulo"
+			            user.trello_id=data["id"]
+			            user.save                  
+			          end
+	            rescue => error
+	            	puts error
 	            end
 	          end
 	        end
@@ -66,6 +88,13 @@ class Organization
 	      begin
 	        if(!admin_ids.include?(user.trello_id))
 	          JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+	       		data=JSON.parse(client.get("/members/#{user.login_mail}"))
+	          aux=User.find_by(trello_id: data["id"])
+	          if(aux==nil)
+	            puts "aux nulo"
+	            user.trello_id=data["id"]
+	            user.save                  
+	          end
 	        end
 	      rescue
 	      end
