@@ -1,4 +1,5 @@
 class Ollert
+  require 'socket'
   get '/', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
       redirect '/boards'
@@ -40,172 +41,7 @@ class Ollert
 
   get '/seed', :auth => :none do
 
-    # states=Array.new()
-
-    # mun1=Municipio.find_or_create_by(name: "Municipalidad de Til Til")
-    # mun1.launched="false"
-    # estado1=State.find_or_initialize_by id: "1"
-    # estado1.name="No iniciado"
-    # estado1.order="1"
-    # estado1.municipio=mun1
-    # estado1.save
-    # states<<estado1
-
-    # estado2=State.find_or_initialize_by id: "2"
-    # estado2.name="Formulación"
-    # estado2.order="2"
-    # estado2.municipio=mun1
-    # estado2.save
-    # states<<estado2
-
-    # estado3=State.find_or_initialize_by id: "3"
-    # estado3.name="Observado"
-    # estado3.order="3"
-    # estado3.municipio=mun1
-    # estado3.save
-    # states<<estado3
     
-    # estado4=State.find_or_initialize_by id: "4"
-    # estado4.name="Licitación"
-    # estado4.order="4"
-    # estado4.municipio=mun1
-    # estado4.save
-    # states<<estado4
-    
-    # estado5=State.find_or_initialize_by id: "5"
-    # estado5.name="Ejecución"
-    # estado5.order="5"
-    # estado5.municipio=mun1
-    # estado5.save
-    # states<<estado5
-
-    # mun1.save
-
-
-    # mun2=Municipio.find_or_create_by(name: "Municipalidad de Llay Llay")
-    # mun2.launched="false"
-    # estado1=State.find_or_initialize_by id: "6"
-    # estado1.name="No iniciado2"
-    # estado1.order="1"
-    # estado1.municipio=mun2
-    # estado1.save
-    # states<<estado1
-
-    # estado2=State.find_or_initialize_by id: "7"
-    # estado2.name="Formulación2"
-    # estado2.order="2"
-    # estado2.municipio=mun2
-    # estado2.save
-    # states<<estado2
-
-    # estado3=State.find_or_initialize_by id: "8"
-    # estado3.name="Observado2"
-    # estado3.order="3"
-    # estado3.municipio=mun2
-    # estado3.save
-    # states<<estado3
-
-    # estado4=State.find_or_initialize_by id: "9"
-    # estado4.name="Licitación2"
-    # estado4.order="4"
-    # estado4.municipio=mun2
-    # estado4.save
-    # states<<estado4
-
-    # estado5=State.find_or_initialize_by id: "10"
-    # estado5.name="Ejecución2"
-    # estado5.order="5"
-    # estado5.municipio=mun2
-    # estado5.save
-    # states<<estado5
-
-      
-    # mun2.save
-
-    
-
-    # mun3=Municipio.find_or_create_by(name: "Municipalidad de Nogales")
-    # mun3.launched="false"
-    # estado1=State.find_or_initialize_by id: "11"
-    # estado1.name="No iniciado"
-    # estado1.order="1"
-    # estado1.municipio=mun3
-    # estado1.save
-    # states<<estado1
-
-    # estado2=State.find_or_initialize_by id: "12"
-    # estado2.name="Formulación"
-    # estado2.order="2"
-    # estado2.municipio=mun3
-    # estado2.save
-    # states<<estado2
-
-    # estado3=State.find_or_initialize_by id: "13"
-    # estado3.name="Observado"
-    # estado3.order="3"
-    # estado3.municipio=mun3
-    # estado3.save
-    # states<<estado3
-
-    # estado4=State.find_or_initialize_by id: "14"
-    # estado4.name="Licitación"
-    # estado4.order="4"
-    # estado4.municipio=mun3
-    # estado4.save
-    # states<<estado4
-
-    # estado5=State.find_or_initialize_by id: "15"
-    # estado5.name="Ejecución"
-    # estado5.order="5"
-    # estado5.municipio=mun3
-    # estado5.save
-    # states<<estado5
-
-      
-    # mun3.save
-    
-    # count=1
-    # states.each do |s|
-    #   mun=Municipio.find_by(id: s.municipio.id)
-    #   state=mun.states.find_or_create_by(id: s.id)
-    #   task1=state.tasks.find_or_initialize_by(id: count)
-    #   task1.name="tarea #{count%6} por defecto de estado #{s.id}"
-    #   task1.desc="descripcion de tarea por defecto de estado #{s.id}"
-    #   count=count+1
-    #   task1.save
-
-    #   task2=state.tasks.find_or_initialize_by(id: count)
-    #   task2.name="tarea #{count%6} por defecto de estado #{s.id}"
-    #   task2.desc="descripcion de tarea por defecto de estado #{s.id}"
-    #   count=count+1
-    #   task2.save
-
-    #   task3=state.tasks.find_or_initialize_by(id: count)
-    #   task3.name="tarea #{count%6} por defecto de estado #{s.id}"
-    #   task3.desc="descripcion de tarea por defecto de estado #{s.id}"
-    #   count=count+1
-    #   task3.save
-
-    #   task4=state.tasks.find_or_initialize_by(id: count)
-    #   task4.name="tarea #{count%6} por defecto de estado #{s.id}"
-    #   task4.desc="descripcion de tarea por defecto de estado #{s.id}"
-    #   count=count+1
-    #   task4.save
-
-    #   task5=state.tasks.find_or_initialize_by(id: count)
-    #   task5.name="tarea #{count%6} por defecto de estado #{s.id}"
-    #   task5.desc="descripcion de tarea por defecto de estado #{s.id}"
-    #   count=count+1
-    #   task5.save
-
-    #   task6=state.tasks.find_or_initialize_by(id: count)
-    #   task6.name="tarea #{count%6} por defecto de estado #{s.id}"
-    #   task6.desc="descripcion de tarea por defecto de estado #{s.id}"
-    #   count=count+1
-    #   task6.save
-        
-        
-    # end
 
     user1=User.find_or_initialize_by(login_mail: "sistema.gestion.cpp@gmail.com")
     user1.login_name="Admin"
@@ -214,85 +50,40 @@ class Ollert
     user1.role="admin"
     user1.save
 
-    # client = Trello::Client.new(
-    #   :developer_public_key => ENV['PUBLIC_KEY'],
-    #   :member_token => @user.member_token
-    # )
-    # Trello.configure do |config|
-    #   config.developer_public_key = ENV['PUBLIC_KEY']
-    #   config.member_token = @user.member_token
-    # end
 
-    # nico=User.find_by(login_mail: "nschmidtg@gmail.com")
-    # Municipio.all.each do |muni|
-    #   muni.boards.all.each do |board|
-    #     begin
-    #       JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
-    #       JSON.parse(client.delete("/boards/#{board.board_id}/members/#{nico.trello_id}"))
-    #     rescue => error
-    #       puts error
-    #     end
-    #   end
-    #   muni.organizations.all.each do |org|
-    #     begin
-    #       JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user1.login_mail}&fullName=#{user1.login_name} #{user1.login_last_name}&type=admin"))
-    #       JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{nico.trello_id}"))
-    #     rescue => error
-    #       puts error
-    #     end
-    #   end
-
-    # end
-    # nico.destroy
-
-    # user1=User.find_or_initialize_by(login_mail: "mmanriq1@uc.cl")
-    # user1.login_name="Magdalena"
-    # user1.login_last_name="Manriquez"
-    # user1.login_pass = Digest::SHA256.base64digest("1426")
-    # user1.role="admin"
-    # user1.save
-
-    # zone1=Zone.find_or_initialize_by(name: "Pelambres")
-    # zone1.coords="-33.085 -80.930"
-    # zone1.municipio=mun1
-    # zone1.save
-
-    # zone2=Zone.find_or_initialize_by(name: "Catemu")
-    # zone2.coords="-33.085 -80.930"
-    # zone2.municipio=mun1
-    # zone2.save
-
-    
-
-    # user2=User.find_or_initialize_by(login_mail: "nicolassg@uc.cl")
-    # user2.login_name="Nicolas"
-    # user2.login_last_name="Schmidt"
-    # user2.login_pass = Digest::SHA256.base64digest("articuno2")
-    # user2.role="admin"
-    # user2.save
-    #aca tienen que ir los datos del admin del equipo
-    # mem_tok="7fccb76f70cc1f8c993c67f16f16675b7852a06a8057a20f996063956b94091c"
-    # pub_key=ENV['PUBLIC_KEY']
-    # client = Trello::Client.new(
-    #   :developer_public_key => pub_key,
-    #   :member_token => mem_tok
-    # )
     #creo el webhook
-    ###  JSON.parse(client.put("/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_createds?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: 3. No priorizados"))
+    #JSON.parse(client.put("/webhooks?idModel=5783f95e2dbc20dad889a3fb&callbackURL=http://gestion-municipal.herokuapp.com/new_board_createds?data=5783f95e2dbc20dad889a3fb|#{mem_tok}|#{pub_key}&description=primera descripcion del webhook del equipo: 3. No priorizados"))
 
-    # Roles posibles:
-    # -admin (Crear municipios nuevos, enviar invitaciones a nuevos secpla)
-    #     -secpla (crear y editar proyectos, crear y editar zonas, crear nuevos funcionarios, crear y editar tareas predeterminadas por estado)
-    #         -alcalde (ver indicadores globales, ver indicadores de proyecto, filtrar por zonas)
-    #         -concejal
-    #         -funcionario
-    
+   
 
 
     redirect '/'
   end
 
-
+  post '/virtual_member', :auth => :none do
+    client = Trello::Client.new(
+      :developer_public_key => pub_key,
+      :member_token => member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = pub_key
+      config.member_token = member_token
+    end
+    parametros=params[:data].split('|')
+    idModel=parametros[0]
+    board_id=parametros[1]
+    member_token=parametros[2]
+    pub_key=parametros[3]
+    puts idModel
+    puts board_id
+    puts member_token
+    puts pub_key
+    begin
+      JSON.parse(client.put("/boards/#{board_id}/members/#{idModel}?type=admin"))
+    rescue => error
+      puts error
+    end
+  end
 
   # post '/new_board_createds', :auth => :none do
   #   #este es el método al que llamaba el webhook
@@ -347,7 +138,12 @@ class Ollert
   #   status 200
   # end
 
-
+  get '/prueba', :auth => :none do
+    puts "HOLA1!"
+    puts request.host
+    redirect '/'
+    
+  end
   # get '/prueba', :auth => :none do
   #   client = Trello::Client.new(
   #     :developer_public_key => "d362373a44e62ddcbb30a60418a99f41",

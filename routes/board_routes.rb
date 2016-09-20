@@ -198,11 +198,6 @@ class Ollert
         if(params[:edit]=="false")
           #El tablero no existe, lo creo
           @board=Trello::Board.create(data)
-          begin
-            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-          rescue => error
-            puts error
-          end
           
           #Creo el tablero a nivel de BD:
           board_settings = Board.find_or_create_by(board_id: @board.id)
@@ -257,99 +252,13 @@ class Ollert
             #Encontrar al usuario como miembro
             board=Board.find_by(board_id: @board.id)
             if(board.municipio.launched=="true")
-              data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
-              admin_ids=Array.new()
-              data.each do |admin|
-                admin_ids<<admin["id"]
-              end
-              data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=normal"))
-              normal_ids=Array.new()
-              data.each do |normal|
-                normal_ids<<normal["id"]
-              end
-              board.municipio.users.each do |user|
-                if(user.trello_id!=nil)
-                  if(user.role=="admin" || user.role=="secpla")
-                    if(!admin_ids.include?(user.trello_id))
-                      begin
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                      rescue
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                      end
-                    end
-                  elsif(user.role=="funcionario")
-                    if(!normal_ids.include?(user.trello_id))
-                      begin
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                       rescue
-                        JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                       end
-                    end
-                  end
-                else
-                  if(user.role!="alcalde" && user.role!="concejal")
-                    data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                    data=JSON.parse(client.get("/members/#{user.login_mail}"))
-                    aux=User.find_by(trello_id: data["id"])
-                    if(aux==nil)
-                      user.trello_id=data["id"]
-                      user.save                  
-                    end
-                  
-                    if(user.role=="admin" || user.role=="secpla")
-                      if(!admin_ids.include?(user.trello_id))
-                        begin
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                        rescue
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        end
-                      end
-                    else
-                      if(!normal_ids.include?(user.trello_id))
-                        begin
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        rescue
-                          JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                        end
-                      end
-                    end
-                  end
-                end
-              end
-              
-            end
-            org_name=Organization.find_by(org_id: org_id).name
-            if(org_name=="1. Urgentes")
-              JSON.parse(client.put("/boards/#{@board.id}/prefs/background?value=red"))
-            end
-            user33=User.find_by(role: "admin")
-            JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user33.login_mail}&fullName=#{user33.login_name} #{user33.login_last_name}&type=admin"))
-            begin 
-              JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-            rescue
-            end
-            users_admins=User.where(:role => "admin")
-           
-            users_admins.each do |user|
-              begin
-                if(!admin_ids.include?(user.trello_id))
-                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                  brd=Board.find_by(board_id: @board.id)
-                  brd.users<<user
-                  brd.save
-                end
-              rescue
-              end
+              board.add_members(client,request.host,request.port)
             end
           end
         else
 
           #El tablero existe y va a ser editado
           @board=Trello::Board.find(params[:last_board_id])
-          begin
-            JSON.parse(client.post("/boards/#{@board.id}/powerUps?value=calendar"))
-          rescue
-          end
           users_admins=User.where(:role => "admin")
            
             users_admins.each do |user|
@@ -436,22 +345,7 @@ class Ollert
       end
       end
       
-    #rescue Trello::Error => e
-    #  unless @user.nil?
-    #    @user.member_token = nil
-    #    @user.trello_name = nil
-    #    @user.save
-    #  end
 
-    #  respond_to do |format|
-    #    format.html do
-    #      flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-    #      redirect '/'
-    #    end
-
-    #    format.json { status 400 }
-    #  end
-    #end
 
     respond_to do |format|
       if(params[:edit]=="false")
@@ -471,7 +365,6 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    
     begin
       if(@user.role=="secpla" || @user.role=="admin")
         @orgName=params[:orgName]
