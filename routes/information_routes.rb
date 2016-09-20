@@ -61,14 +61,7 @@ class Ollert
   end
 
   post '/virtual_member', :auth => :none do
-    client = Trello::Client.new(
-      :developer_public_key => pub_key,
-      :member_token => member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = pub_key
-      config.member_token = member_token
-    end
+    
     parametros=params[:data].split('|')
     idModel=parametros[0]
     board_id=parametros[1]
@@ -78,6 +71,14 @@ class Ollert
     puts board_id
     puts member_token
     puts pub_key
+    client = Trello::Client.new(
+      :developer_public_key => pub_key,
+      :member_token => member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = pub_key
+      config.member_token = member_token
+    end
     begin
       JSON.parse(client.put("/boards/#{board_id}/members/#{idModel}?type=admin"))
     rescue => error
