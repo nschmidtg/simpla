@@ -81,6 +81,7 @@ class Ollert
     end
     begin
       JSON.parse(client.put("/boards/#{board_id}/members/#{idModel}?type=admin"))
+      status 200
     rescue => error
       puts error
     end
