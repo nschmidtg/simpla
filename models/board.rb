@@ -46,7 +46,7 @@ class Board
               rescue => error
                 puts error
                 JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=#{host}:#{port}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+                data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=http://#{host}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
                 puts "webhook agregado"
                 puts data
               end
@@ -77,7 +77,7 @@ class Board
                 rescue => error
                   puts error
                   JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                  data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=#{host}:#{port}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+                  data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=http://#{host}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
                   puts "webhook agregado"
                   puts data
                 end
