@@ -87,7 +87,7 @@ class Ollert
 
     result = UserConnector.connect client, params[:token], params[:login_mail]
     if(result[:status]==200)
-      puts "2000000000000000000"
+      puts "200"
       session[:user] = result[:id]
       status result[:status]
       body result[:body]
