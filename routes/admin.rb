@@ -3242,14 +3242,14 @@ class Ollert
             else
               new_user.municipio.organizations.each do |org|
                 begin
-                  JSON.parse(client.delete("/organizations/#{org.org_id}/members/new_user.trello_id"))
+                  JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
                 rescue => error
                   puts error
                 end
               end
               new_user.municipio.boards.each do |board|
                 begin
-                  JSON.parse(client.delete("/boards/#{board.board_id}/members/new_user.trello_id"))
+                  JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
                 rescue => error
                   puts error
                 end
