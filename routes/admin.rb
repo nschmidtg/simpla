@@ -3247,7 +3247,22 @@ class Ollert
           puts "aca 2"+params[:role]
           new_user.role=params[:role]
           if(new_user.role=="alcalde"|| new_user.role=="concejal")
-            puts "entre en algo que no debía"
+            #sacar a este loco de los tableros
+            new_user.municipio.organizations.each do |org|
+              begin
+                JSON.parse(client.delete("/organizations/#{org.org_id}/members/new_user.trello_id"))
+              rescue => error
+                puts error
+              end
+            end
+            new_user.municipio.boards.each do |board|
+              begin
+                JSON.parse(client.delete("/boards/#{board.board_id}/members/new_user.trello_id"))
+              rescue => error
+                puts error
+              end
+            end
+            puts "se sacó al concejal o alcalde de los tableros y equipos"
             new_user.member_token=new_user.municipio.users.find_by(role: "secpla").member_token
           end
         end
