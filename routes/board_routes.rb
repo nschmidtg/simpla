@@ -178,164 +178,149 @@ class Ollert
       config.developer_public_key = ENV['PUBLIC_KEY']
       config.member_token = @user.member_token
     end
+    if(@user.role=="secpla" || @user.role=="admin")
+      org_id=params[:org_id]
+      memb="false"
+      if org_id!=""
+        data={:name=> params[:name],:organization_id=> org_id}
+        memb="true"
+      else
+        data={:name=> params[:name]}
+      end
 
-
-    #begin
-      if(@user.role=="secpla" || @user.role=="admin")
-        org_id=params[:org_id]
-        memb="false"
-        if org_id!=""
-          
-          data={:name=> params[:name],:organization_id=> org_id}
-          memb="true"
+      zonas=params[:zonas]
+        
+      if(params[:edit]=="false")
+        #El tablero no existe, lo creo
+        @board=Trello::Board.create(data)
+        
+        #Creo el tablero a nivel de BD:
+        board_settings = Board.find_or_create_by(board_id: @board.id)
+        board_settings.monto=params[:monto]
+        board_settings.closed="false"
+        board_settings.tipo=Tipo.find_by(id: params[:tipo])
+        board_settings.fondo=Fondo.find_by(id: params[:fondo])
+        if(params[:coords]=="on")
+          board_settings.coords=params[:zona]
         else
-          
-          data={:name=> params[:name]}
+          board_settings.coords=""
         end
-
-        zonas=params[:zonas]
-          
-        if(params[:edit]=="false")
-          #El tablero no existe, lo creo
-          @board=Trello::Board.create(data)
-          
-          #Creo el tablero a nivel de BD:
-          board_settings = Board.find_or_create_by(board_id: @board.id)
-          board_settings.monto=params[:monto]
-          board_settings.closed="false"
-          board_settings.tipo=Tipo.find_by(id: params[:tipo])
-          board_settings.fondo=Fondo.find_by(id: params[:fondo])
-          if(params[:coords]=="on")
-            board_settings.coords=params[:zona]
-          else
-            board_settings.coords=""
-          end
-          board_settings.start_date=params[:start_date]
-          board_settings.end_date=params[:end_date]
-          board_settings.desc=params[:desc]
-          board_settings.name=params[:name]
-
-          board_settings.users<<@user
-          board_settings.municipio=Organization.find_by(org_id: org_id).municipio
-          board_settings.save
-          if(zonas!=nil)
-            zonas.each do |zona_id|
-              zona=Zone.find_or_initialize_by( id: zona_id)
-              board_settings.zones<<Zone.find_or_initialize_by( id: zona)
-              zona.boards<<board_settings
-              zona.save
-              board_settings.save
-            end
-          end
-          @user.boards<<board_settings
-          @user.save
-          
-
-
-          #Cerrar las listas en inglés
-          @board.lists.each do |l|
-            l.close!
-          end
-          
-          Thread.new do
-            #Crear las listas en español
-            list1=Trello::List.create({:name=>"Revisadas",:board_id=>@board.id,:pos=>"1"})
-            list2=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"2"})
-            list3=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"3"})
-            list4=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"4"})
-          
-            #Crear las tareas por defecto
-            
-    
-          end
-          Thread.new do
-            #Encontrar al usuario como miembro
-            board=Board.find_by(board_id: @board.id)
-            if(board.municipio.launched=="true")
-              board.add_members(client,request.host,request.port)
-            end
-          end
-        else
-
-          #El tablero existe y va a ser editado
-          @board=Trello::Board.find(params[:last_board_id])
-          users_admins=User.where(:role => "admin")
-           
-            users_admins.each do |user|
-              begin
-                if(!admin_ids.include?(user.trello_id))
-                  JSON.parse(client.put("/boards/#{@board.id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-                  brd=Board.find_by(board_id: @board.id)
-                  brd.users<<user
-                  brd.save
-                end
-              rescue
-              end
-            end
-          
-          
-            #Busco el tablero a nivel de BD:
-            board_settings = Board.find_or_create_by(board_id: @board.id)
-            board_settings.monto=params[:monto]
-            board_settings.tipo=Tipo.find_by(id: params[:tipo])
-            board_settings.fondo=params[:fondo]
-            puts params[:coords]
-            if(params[:coords]=="on")
-              board_settings.coords=params[:zona]
-            else
-              board_settings.coords=""
-            end
-            board_settings.start_date=params[:start_date]
-            board_settings.end_date=params[:end_date]
-            board_settings.desc=params[:desc]
+        board_settings.start_date=params[:start_date]
+        board_settings.end_date=params[:end_date]
+        board_settings.desc=params[:desc]
+        board_settings.name=params[:name]
+        #Asigno al admin o secpla como miembro del tablero
+        board_settings.users<<@user
+        board_settings.municipio=Organization.find_by(org_id: org_id).municipio
+        board_settings.save
+        if(zonas!=nil)
+          zonas.each do |zona_id|
+            zona=Zone.find_or_initialize_by( id: zona_id)
+            board_settings.zones<<Zone.find_or_initialize_by( id: zona)
+            zona.boards<<board_settings
+            zona.save
             board_settings.save
-            if(zonas!=nil)
-              board_settings.zones.each do |zone|
-                board_settings.zones.delete(zone)
-              end
-              zonas.each do |zona_id|
-                zona=Zone.find_or_initialize_by( id: zona_id)
-                board_settings.zones<<Zone.find_or_initialize_by( id: zona)
-                zona.boards<<board_settings
-                zona.save
-                board_settings.save
-              end
-            else
-              board_settings.zones.each do |zone|
-                board_settings.zones.delete(zone)
-              end
-            end
-            @user.boards<<board_settings
-            @user.save
-            state=@board.name.split('|')[1]
-            if(state!=nil)
-              new_name=params[:name]+' |'+state+'|'
-            else
-              new_name=params[:name]
-            end
-            if(new_name!=@board.name)
-              @board.name=new_name
-              board_settings.name=new_name
-              board_settings.save
-              begin
-                @board.update!
-              rescue
-                respond_to do |format|
-                  format.html do
-                    flash[:error] = "No tienes permisos de administrador sobre este tablero, por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                    redirect '/admin'
-                  end
-                  format.json { status 400 }
-                end
-              end
-            end
-          
+          end
+        end
+        @user.boards<<board_settings
+        @user.save
+        
 
+
+        #Cerrar las listas en inglés
+        @board.lists.each do |l|
+          l.close!
+        end
+        
+        Thread.new do
+          #Crear las listas en español
+          list1=Trello::List.create({:name=>"Revisadas",:board_id=>@board.id,:pos=>"1"})
+          list2=Trello::List.create({:name=>"Terminadas",:board_id=>@board.id,:pos=>"2"})
+          list3=Trello::List.create({:name=>"Haciendo",:board_id=>@board.id,:pos=>"3"})
+          list4=Trello::List.create({:name=>"Pendientes",:board_id=>@board.id,:pos=>"4"})
+        
+          #Crear las tareas por defecto
           
-          
+  
+        end
+        Thread.new do
+          #Encontrar al usuario como miembro
+          board=Board.find_by(board_id: @board.id)
+          if(board.municipio.launched=="true")
+            board.add_members(client,request.host)
+          end
         end
       else
-         respond_to do |format|
+
+        #El tablero existe y va a ser editado
+        @board=Trello::Board.find(params[:last_board_id])
+        Thread.new do
+          #Encontrar al usuario como miembro
+          board=Board.find_by(board_id: @board.id)
+          if(board.municipio.launched=="true")
+            board.add_members(client,request.host)
+          end
+        end
+      
+      
+        #Busco el tablero a nivel de BD:
+        board_settings = Board.find_or_create_by(board_id: @board.id)
+        board_settings.monto=params[:monto]
+        board_settings.tipo=Tipo.find_by(id: params[:tipo])
+        board_settings.fondo=params[:fondo]
+        puts params[:coords]
+        if(params[:coords]=="on")
+          board_settings.coords=params[:zona]
+        else
+          board_settings.coords=""
+        end
+        board_settings.start_date=params[:start_date]
+        board_settings.end_date=params[:end_date]
+        board_settings.desc=params[:desc]
+        board_settings.save
+        if(zonas!=nil)
+          board_settings.zones.each do |zone|
+            board_settings.zones.delete(zone)
+          end
+          zonas.each do |zona_id|
+            zona=Zone.find_or_initialize_by( id: zona_id)
+            board_settings.zones<<Zone.find_or_initialize_by( id: zona)
+            zona.boards<<board_settings
+            zona.save
+            board_settings.save
+          end
+        else
+          board_settings.zones.each do |zone|
+            board_settings.zones.delete(zone)
+          end
+        end
+        @user.boards<<board_settings
+        @user.save
+        state=@board.name.split('|')[1]
+        if(state!=nil)
+          new_name=params[:name]+' |'+state+'|'
+        else
+          new_name=params[:name]
+        end
+        if(new_name!=@board.name)
+          @board.name=new_name
+          board_settings.name=new_name
+          board_settings.save
+          begin
+            @board.update!
+          rescue
+            respond_to do |format|
+              format.html do
+                flash[:error] = "No tienes permisos de administrador sobre este tablero, por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
+                redirect '/admin'
+              end
+              format.json { status 400 }
+            end
+          end
+        end
+      end
+    else
+      respond_to do |format|
         format.html do
           flash[:error] = "No tienes permisos de administrador, por lo que no puedes crear nuevos proyectos."
           redirect '/boards'
@@ -343,7 +328,7 @@ class Ollert
 
         format.json { status 400 }
       end
-      end
+    end
       
 
 

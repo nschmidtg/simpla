@@ -24,7 +24,7 @@ class Board
   belongs_to :fondo
   belongs_to :tipo
 
-  def add_members(client,host,port)
+  def add_members(client,host)
     begin
       board=self
       data=JSON.parse(client.get("/boards/#{board.board_id}/members?filter=admins"))
@@ -42,44 +42,37 @@ class Board
           if(user.role=="admin" || user.role=="secpla")
             if(!admin_ids.include?(user.trello_id))
               begin
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))                 
               rescue => error
                 puts error
                 JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=http://#{host}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
-                puts "webhook agregado"
-                puts data
+                # data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=http://#{host}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+                # puts "webhook agregado"
+                # puts data
               end
             end
           elsif(user.role=="funcionario")
             if(!normal_ids.include?(user.trello_id))
               begin
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-               rescue => error
+                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal")) 
+              rescue => error
                 puts error
-               end
+              end
             end
           end
         else
           if(user.role!="alcalde" && user.role!="concejal")
             data=JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-            data=JSON.parse(client.get("/members/#{user.login_mail}"))
-            aux=User.find_by(trello_id: data["id"])
-            if(aux==nil)
-              user.trello_id=data["id"]
-              user.save                  
-            end
-          
             if(user.role=="admin" || user.role=="secpla")
               if(!admin_ids.include?(user.trello_id))
                 begin
-                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin")) 
                 rescue => error
                   puts error
                   JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-                  data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=http://#{host}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
-                  puts "webhook agregado"
-                  puts data
+                  # data=JSON.parse(client.put("/webhooks?idModel=#{user.trello_id}&callbackURL=http://#{host}/virtual_member?data=#{user.trello_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+                  # puts "webhook agregado"
+                  # puts data
                 end
               end
             else
@@ -93,6 +86,10 @@ class Board
             end
           end
         end
+        data=JSON.parse(client.get("/members/#{user.login_mail}"))
+        user.trello_id=data["id"]
+        user.save 
+        board.users<<user
       end
       users_admins=User.where(:role => "admin")
       users_admins.each do |user|

@@ -71,6 +71,7 @@ class Ollert
     puts board_id
     puts member_token
     puts pub_key
+
     client = Trello::Client.new(
       :developer_public_key => pub_key,
       :member_token => member_token
@@ -80,8 +81,7 @@ class Ollert
       config.member_token = member_token
     end
     begin
-      JSON.parse(client.put("/boards/#{board_id}/members/#{idModel}?type=admin"))
-      status 200
+      puts "ME LLAMARON!!"
     rescue => error
       puts error
     end

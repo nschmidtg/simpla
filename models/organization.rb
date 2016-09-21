@@ -9,7 +9,7 @@ class Organization
   belongs_to :municipio
 
 
-  def add_members(client,host,port)
+  def add_members(client,host)
   	begin
 	  	org=self
 	  	data=JSON.parse(client.get("/organizations/#{org.org_id}/members?filter=admins"))
@@ -28,60 +28,45 @@ class Organization
 	        if(user.role=="admin" || user.role=="secpla")
 	          if(!admin_ids.include?(user.trello_id))
 	            begin
-	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-	             	data=JSON.parse(client.get("/members/#{user.login_mail}"))
-			          aux=User.find_by(trello_id: data["id"])
-			          if(aux==nil)
-			            puts "aux nulo"
-			            user.trello_id=data["id"]
-			            user.save                  
-			          end
-	             rescue
-	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-	             end
+	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin")) 	
+	            rescue =>error
+	            	puts error
+	            	JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+	            	data=JSON.parse(client.put("/webhooks?idModel=#{user.municipio.organizations.first.org_id}&callbackURL=http://#{host}/virtual_member?data=#{user.municipio.organizations.first.org_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+                puts "webhook agregado"
+                puts data
+	            end
 	          end
 	        elsif(user.role=="funcionario")
 	          if(!normal_ids.include?(user.trello_id))
 	            begin
 	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-	            	data=JSON.parse(client.get("/members/#{user.login_mail}"))
-			          aux=User.find_by(trello_id: data["id"])
-			          if(aux==nil)
-			            puts "aux nulo"
-			            user.trello_id=data["id"]
-			            user.save                  
-			          end
-	            rescue
+	            rescue => error
+	            	puts error
 	            end
 	          end
 	        end
 	      else
 	        if(user.role!="alcalde" && user.role!="concejal")
 	          data=JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-	          data=JSON.parse(client.get("/members/#{user.login_mail}"))
-	          aux=User.find_by(trello_id: data["id"])
-	          if(aux==nil)
-	            puts "aux nulo"
-	            user.trello_id=data["id"]
-	            user.save                  
-	          end
-	        
 	          if(user.role=="admin" || user.role=="secpla")
-	            begin
-	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
-	            	data=JSON.parse(client.get("/members/#{user.login_mail}"))
-			          aux=User.find_by(trello_id: data["id"])
-			          if(aux==nil)
-			            puts "aux nulo"
-			            user.trello_id=data["id"]
-			            user.save                  
-			          end
-	            rescue => error
-	            	puts error
-	            end
+	          	if(!admin_ids.include?(user.trello_id))
+		            begin
+		              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
+		            rescue => error
+		            	puts error
+		            	JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+		            	data=JSON.parse(client.put("/webhooks?idModel=#{user.municipio.organizations.first.org_id}&callbackURL=http://#{host}/virtual_member?data=#{user.municipio.organizations.first.org_id}|#{self.board_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+	                puts "webhook agregado"
+	                puts data
+		            end
+		          end
 	          end
 	        end
 	      end
+	      data=JSON.parse(client.get("/members/#{user.login_mail}"))
+        user.trello_id=data["id"]
+        user.save 
 	    end
 	    users_admins=User.where(:role => "admin")
 	    users_admins.each do |user|
@@ -89,12 +74,8 @@ class Organization
 	        if(!admin_ids.include?(user.trello_id))
 	          JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=admin"))
 	       		data=JSON.parse(client.get("/members/#{user.login_mail}"))
-	          aux=User.find_by(trello_id: data["id"])
-	          if(aux==nil)
-	            puts "aux nulo"
-	            user.trello_id=data["id"]
-	            user.save                  
-	          end
+            user.trello_id=data["id"]
+            user.save 
 	        end
 	      rescue
 	      end

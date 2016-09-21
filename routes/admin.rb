@@ -221,10 +221,10 @@ class Ollert
         mun=Municipio.find_by(id: params[:mun_id])
         Thread.new do
           mun.organizations.each do |org|
-            org.add_members(client,request.host,request.port)
+            org.add_members(client,request.host)
           end
           mun.boards.each do |board|
-            board.add_members(client,request.host,request.port)         
+            board.add_members(client,request.host)         
           end
           mun.launched="true"
           mun.save
@@ -243,20 +243,6 @@ class Ollert
         end
       end
     
-      # unless @user.nil?
-      #   @user.member_token = nil
-      #   @user.trello_name = nil
-      #   @user.save
-      # end
-
-      # respond_to do |format|
-      #   format.html do
-      #     flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-      #     redirect '/boards'
-      #   end
-
-      #   format.json { status 400 }
-      # end
       mun=Municipio.find_by(id: params[:mun_id])
       mun.launched="true"
       mun.save
@@ -294,12 +280,15 @@ class Ollert
         ubicacion=params[:zona]
         edit=params[:edit]
         if(edit=="true")
+          #Si edito, sólo cambio la descripción de la organización en las 3 org.
           mun=Municipio.find_by(id: params[:id])
           orgs=mun.organizations.each do |org|
             JSON.parse(client.put("/organizations/#{org.org_id}/desc?value=#{nombre}"))
           end
         else
+          #crear el municipio
           if(@user.role=="admin")
+            #sólo si es admin puede crear el municipio
             mun=Municipio.new
             mun.launched="false"
             o1=JSON.parse(client.post("/organizations?name=1. Urgentes&displayName=1. Urgentes&desc=#{nombre}"))
@@ -2728,6 +2717,7 @@ class Ollert
           end
 
         end
+        #Independiente de si creo o edito, asigno el nombre, coordenadas y zonas al municipio
         mun.name=nombre
         mun.coords=ubicacion
         mun.save
@@ -3187,7 +3177,6 @@ class Ollert
     end
     begin
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        puts "asdasdasdasd!!!!"+params[:role]
         edit=params[:edit]
         @mun=Municipio.find_by(id: params[:mun_id])
         if(edit=="true")
@@ -3218,42 +3207,48 @@ class Ollert
         new_user.save
         if(new_user.role!=params[:role] && new_user.trello_id!=nil)
           #Estoy editando el rol de un usuario que ya tenia cuenta en Ollert
-          new_user.role=params[:role]
-          if(new_user.role=="admin" || new_user.role=="secpla")
-            new_user.municipio.organizations.each do |org|
-              begin
-                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-              rescue
+          if(new_user.municipio.launched=="true")
+            new_user.role=params[:role]
+            if(new_user.role=="admin" || new_user.role=="secpla")
+              new_user.municipio.organizations.each do |org|
+                begin
+                  JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                rescue => error
+                  puts error
+                end
               end
-            end
-            new_user.municipio.boards.each do |board|
-              begin
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-              rescue
+              new_user.municipio.boards.each do |board|
+                begin
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                rescue => error
+                  puts error
+                end
               end
-            end
-          elsif(new_user.role=="funcionario")
-            new_user.municipio.organizations.each do |org|
-              begin
-                JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-              rescue
+            elsif(new_user.role=="funcionario")
+              new_user.municipio.organizations.each do |org|
+                begin
+                  JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                rescue => error
+                  puts error
+                end
               end
-            end
-            new_user.municipio.boards.each do |board|
-              begin
-                JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-              rescue
+              new_user.municipio.boards.each do |board|
+                begin
+                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                rescue => error
+                  puts error
+                end
               end
+            else
+              new_user.member_token=new_user.municipio.users.find_by(role: "secpla").member_token
             end
-          else
-            new_user.member_token=User.find_by(role: "admin").member_token
           end
         else
           puts "aca 2"+params[:role]
           new_user.role=params[:role]
           if(new_user.role=="alcalde"|| new_user.role=="concejal")
             puts "entre en algo que no debía"
-            new_user.member_token=@mun.users.find_by(role: "secpla").member_token
+            new_user.member_token=new_user.municipio.users.find_by(role: "secpla").member_token
           end
         end
         new_user.save
