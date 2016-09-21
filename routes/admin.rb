@@ -3250,6 +3250,7 @@ class Ollert
               new_user.municipio.boards.each do |board|
                 begin
                   JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                  new_user.municipio.boards.delete(board)
                 rescue => error
                   puts error
                 end
@@ -3273,6 +3274,7 @@ class Ollert
             new_user.municipio.boards.each do |board|
               begin
                 JSON.parse(client.delete("/boards/#{board.board_id}/members/new_user.trello_id"))
+                new_user.municipio.boards.delete(board)
               rescue => error
                 puts error
               end
