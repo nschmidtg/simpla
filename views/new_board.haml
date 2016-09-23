@@ -108,36 +108,46 @@
                       - if(params[:edit]=="true" && @board.fondo!=nil)
                         - @fondo=@board.fondo
                         - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
-                        %optgroup{:label=>"Diseño"}
-                        - @fondos.where(:etapa => "diseno").each do |f|
-                          - if(@fondo.id==f.id)
-                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
-                          - else
-                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
-                        %optgroup{:label=>"Ejecución"}
-                        - @fondos.where(:etapa => "ejecucion").each do |f|
-                          - if(@fondo.id==f.id)
-                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
-                          - else
-                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
-                        %optgroup{:label=>"Adquisición"}
-                        - @fondos.where(:etapa => "adquisicion").each do |f|
-                          - if(@fondo.id==f.id)
-                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
-                          - else
-                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
-                        %optgroup{:label=>"Estudios"}
-                        - @fondos.where(:etapa => "estudios").each do |f|
-                          - if(@fondo.id==f.id)
-                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
-                          - else
-                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
-                        %optgroup{:label=>"Otros"}
-                        - @fondos.where(:etapa => "otros").each do |f|
-                          - if(@fondo.id==f.id)
-                            %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
-                          - else
-                            %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        - disegnos = @fondos.where(:etapa => "diseno")
+                        - if(disegnos.count!=0)
+                          %optgroup{:label=>"Diseño"}
+                          - disegnos.each do |f|
+                            - if(@fondo.id==f.id)
+                              %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                            - else
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        - ejecuciones = @fondos.where(:etapa => "ejecucion")
+                        - if(ejecuciones.count!=0)
+                          %optgroup{:label=>"Ejecución"}
+                          - ejecuciones.each do |f|
+                            - if(@fondo.id==f.id)
+                              %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                            - else
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        - adquisiciones = @fondos.where(:etapa => "adquisicion")
+                        - if(adquisiciones.count!=0)
+                          %optgroup{:label=>"Adquisición"}
+                          - adquisiciones.each do |f|
+                            - if(@fondo.id==f.id)
+                              %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                            - else
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        - estudios = @fondos.where(:etapa => "estudios")
+                        - if(estudios.count!=0)
+                          %optgroup{:label=>"Estudios"}
+                          - estudios.each do |f|
+                            - if(@fondo.id==f.id)
+                              %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                            - else
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
+                        - otros=@fondos.where(:etapa => "otros")
+                        - if(otros.count!=0)
+                          %optgroup{:label=>"Otros"}
+                          - otros.each do |f|
+                            - if(@fondo.id==f.id)
+                              %option{:value => "#{f.id}", :selected => "", :id => "#{f.etapa}"} #{f.name}
+                            - else
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                       - else
                         - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
                         %option{:disabled => "", :selected => "", :value=>""} Seleccione
