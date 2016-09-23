@@ -32,9 +32,9 @@ class Organization
 	            rescue =>error
 	            	puts error
 	            	JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-	            	data=JSON.parse(client.put("/webhooks?idModel=#{self.org_id}&callbackURL=http://#{host}/virtual_member?data=#{self.org_id}|#{self.org_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
-                puts "webhook agregado"
-                puts data
+	            	# data=JSON.parse(client.put("/webhooks?idModel=#{self.org_id}&callbackURL=http://#{host}/virtual_member?data=#{self.org_id}|#{self.org_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+              #   puts "webhook agregado"
+              #   puts data
 	            end
 	          end
 	        elsif(user.role=="funcionario")
@@ -56,9 +56,9 @@ class Organization
 		            rescue => error
 		            	puts error
 		            	JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
-		            	data=JSON.parse(client.put("/webhooks?idModel=#{self.org_id}&callbackURL=http://#{host}/virtual_member?data=#{self.org_id}|#{self.org_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
-	                puts "webhook agregado"
-	                puts data
+		            	# data=JSON.parse(client.put("/webhooks?idModel=#{self.org_id}&callbackURL=http://#{host}/virtual_member?data=#{self.org_id}|#{self.org_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
+	              #   puts "webhook agregado"
+	              #   puts data
 		            end
 		          end
 	          end
