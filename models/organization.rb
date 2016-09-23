@@ -24,6 +24,9 @@ class Organization
 	    end
 
 	    self.municipio.users.each do |user|
+	    	data=JSON.parse(client.get("/members/#{user.login_mail}"))
+        user.trello_id=data["id"]
+        user.save 
 	      if(user.trello_id!=nil)
 	        if(user.role=="admin" || user.role=="secpla")
 	          if(!admin_ids.include?(user.trello_id))
@@ -64,9 +67,6 @@ class Organization
 	          end
 	        end
 	      end
-	      data=JSON.parse(client.get("/members/#{user.login_mail}"))
-        user.trello_id=data["id"]
-        user.save 
 	    end
 	    users_admins=User.where(:role => "admin")
 	    users_admins.each do |user|

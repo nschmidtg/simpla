@@ -38,6 +38,10 @@ class Board
         normal_ids<<normal["id"]
       end
       self.municipio.users.each do |user|
+        data=JSON.parse(client.get("/members/#{user.login_mail}"))
+        user.trello_id=data["id"]
+        user.save 
+        board.users<<user
         if(user.trello_id!=nil)
           if(user.role=="admin" || user.role=="secpla")
             if(!admin_ids.include?(user.trello_id))
@@ -86,10 +90,6 @@ class Board
             end
           end
         end
-        data=JSON.parse(client.get("/members/#{user.login_mail}"))
-        user.trello_id=data["id"]
-        user.save 
-        board.users<<user
       end
       users_admins=User.where(:role => "admin")
       users_admins.each do |user|
