@@ -18,6 +18,8 @@ class Board
   field :start_date, type: String
   field :end_date, type: String
   field :closed, type: String
+  field :current_state, type: String
+  field :state_change_dates, type: Array
 
 
   belongs_to :municipio

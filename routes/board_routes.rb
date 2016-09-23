@@ -198,6 +198,7 @@ class Ollert
         board_settings = Board.find_or_create_by(board_id: @board.id)
         board_settings.monto=params[:monto]
         board_settings.closed="false"
+        board_settings.state_change_dates=Array.new(10)
         board_settings.tipo=Tipo.find_by(id: params[:tipo])
         board_settings.fondo=Fondo.find_by(id: params[:fondo])
         if(params[:coords]=="on")

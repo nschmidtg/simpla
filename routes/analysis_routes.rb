@@ -90,17 +90,19 @@ class Ollert
     board=Trello::Board.find(board_id)
     if board.name.include? "|"
       board.name=board.name.split('|')[0]+" |"+state+"|"
-      brd=Board.find_by(board_id: board_id)
-      brd.name=board.name
-      brd.save
-      board.save
     else
       board.name=board.name+" |"+state+"|"
-      brd=Board.find_by(board_id: board_id)
-      brd.name=board.name
-      brd.save
-      board.save
     end
+    brd=Board.find_by(board_id: board_id)
+    brd.name=board.name
+    brd.current_state=state
+    muni_state=brd.municipio.states.find_by(name: state)
+    if(muni_state!=nil)
+      order=muni_state.order
+      brd.state_change_dates[order.to_i-1]=Time.now.strftime("%d/%m/%Y %H:%M")
+    end
+    brd.save
+    board.save
     if(state=="Finalizado" && brd.closed.to_s=="false")
         JSON.parse(client.put("/boards/#{board_id}/closed?value=true"))
         puts "se cierra"
