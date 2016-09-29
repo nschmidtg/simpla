@@ -41,40 +41,45 @@
         });
       } );
   %body
-    / - if(@user!=nil && @user.role != "admin")
-    /   #config-drawer.drawer.dw-xs-10.dw-sm-6.dw-md-4.dw-lg-3.fold{"aria-labelledby" => "config-drawer"}
-    /     .drawer-controls
-    /       %a.btn.btn-primary.btn-sm{"aria-controls" => "config-drawer", "aria-foldedopen" => "false", "data-toggle" => "drawer", :href => "#config-drawer"}
-    /         %span.glyphicon.glyphicon-menu-hamburger{"aria-hidden": "true"}
-    /     .drawer-contents
-    /       .drawer-heading
-    /         %h2.drawer-title Proyectos
-    /       %ul.drawer-nav#config-drawer-board-list
+    / #config-drawer.drawer.dw-xs-10.dw-sm-6.dw-md-4.dw-lg-3.fold{"aria-labelledby" => "config-drawer"}
+    /   .drawer-controls
+    /     %a.btn.btn-primary.btn-sm{"aria-controls" => "config-drawer", "aria-foldedopen" => "false", "data-toggle" => "drawer", :href => "#config-drawer"}
+    /       %span.glyphicon.glyphicon-menu-hamburger{"aria-hidden": "true"}
+    /   .drawer-contents
+    /     .drawer-heading
+    /       %h2.drawer-title Proyectos
+    /     %ul.drawer-nav#config-drawer-board-list
           
 
     %div
       %nav{class: 'navbar navbar-default navbar-static-top', role: 'navigation'}
-        .container-fluid
+        .container-fluid.header-naranjo
           .navbar-header
             %a.navbar-brand{href: '/'}
-              Ollert
+              SING
           - if @user.nil?
             
           - else @user.nil?
-            %ul.nav.navbar-nav.navbar-right
-              %li
-                %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
-                  %img{src: "https://www.gravatar.com/avatar/#{@user.gravatar_hash}?s=40", alt: "Profile Avatar"}
-                  %b.caret
-                %ul.dropdown-menu.pull-right
+            .avatar-right
+              .avatar-right-center
+                .h5.nombre-usuario
+                  #{@user.login_name} #{@user.login_last_name}
+                
+                %ul.nav.navbar-nav.navbar-right
+                  
                   %li
-                    %a{href: "/settings", alt: "Settings"}
-                      %span.glyphicon.glyphicon-cog
-                      Configuración
-                  %li
-                    %a{href: "/logout", alt: "Log out"}
-                      %span.glyphicon.glyphicon-off
-                      Cerrar Sesión
+                    %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
+                      %img{src: "https://www.gravatar.com/avatar/#{@user.gravatar_hash}?s=40", alt: "Profile Avatar"}
+                      %b.caret
+                    %ul.dropdown-menu.pull-right
+                      %li
+                        %a{href: "/settings", alt: "Settings"}
+                          %span.glyphicon.glyphicon-cog
+                          Configuración
+                      %li
+                        %a{href: "/logout", alt: "Log out"}
+                          %span.glyphicon.glyphicon-off
+                          Cerrar Sesión
 
       #mainContent
         - if flash.has? :error
@@ -93,7 +98,34 @@
           .row{id: 'flash', class: 'alert alert-info'}
             .container
               #{flash[:info]}
-        = yield
+        .no-padding-nav
+          .drawer-contents-nav
+            %ul.drawer-nav#config-drawer-board-list.no-padding
+              %li.icon-element
+                %a.icon-link{href:"/boards"}
+                  %object.svg-element{data: "/img/Iconos-20.svg", type:"image/svg+xml"}
+              %li.icon-element
+                %a.icon-link{href:"#"}
+                  %object.svg-element{data: "/img/Iconos-23.svg", type:"image/svg+xml"}
+              %li.icon-element
+                %a.icon-link{href:"#"}
+                  %object.svg-element{data: "/img/Iconos-26.svg", type:"image/svg+xml"}
+              %li.icon-element
+                %a.icon-link{href:"#"}
+                  %object.svg-element{data: "/img/Iconos-27.svg", type:"image/svg+xml"}
+              %li.icon-element
+                %a.icon-link{href:"#"}
+                  %object.svg-element{data: "/img/Iconos-24.svg", type:"image/svg+xml"}
+              %li.icon-element
+                %a.icon-link{href:"#"}
+                  %object.svg-element{data: "/img/Iconos-21.svg", type:"image/svg+xml"}
+                
+
+
+        .col.md-12.col-sm-12.col-xs-12.principal
+
+
+          = yield
 
     %div#footer
       .container
@@ -127,14 +159,7 @@
     %script{src: "/js/vendor/underscore-min.js"}
     %script{src: "/js/dist/ollert.min.js"}
 
-    :javascript
-      $(document).ready(function() {
-        Trello.setKey("#{ENV['PUBLIC_KEY']}");
-        if (#{!@user.nil?}) {
-          Ollert.initDrawer();
-        }
-
-      });
+    
       
 
         

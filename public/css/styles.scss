@@ -1046,10 +1046,20 @@ $medium-light: #A0A0A0;
 $light: #CCCCCC;
 $light-light: #F2F2F2;
 
-$bgDefault      : #e74c3c;
+$rojo: #EB5A46;
+$azul: #0167A3;
+$azulino: #0079BF;
+$celeste: #4D97C1;
+$gris_oscurito: #999999;
+$gris_clarito: #E2E4E6;
+$blanco: #FFFFFF;
+
+$bgDefault      : $azul;
 $bgHighlight    : #a4251c;
 $colDefault     : #ecf0f1;
 $colHover       : #ffbbbc;
+
+
 
 @font-face {
   font-family: 'Muli';
@@ -1094,6 +1104,20 @@ body {
   box-shadow: 0 0 12px black;
   padding:20px 0;
 }
+.drawer{
+  display: block;
+  background-color: #f8f8f8;
+  color: #333;
+  border-right: 1px solid #dfdfdf;
+  min-height: 1px;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 1035;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+}
 
 #config-drawer {
   z-index: auto;
@@ -1115,8 +1139,18 @@ body {
     }
   }
   .drawer-contents {
-    z-index: 1035;
+    background-color: $celeste;
+    z-index: 1;
+    width: 60px;
   }
+}
+
+.drawer-contents-nav {
+  background-color: $celeste !important;
+  z-index: 1;
+  width: 60px;
+  height: 100vh;
+  position: fixed;
 }
 
 @keyframes shake {
@@ -1168,7 +1202,7 @@ body {
   color: #ADB3BA;
   border: none;
   font-size: 1.3em;
-
+  z-index: 1040;
   a {
     color: #ADB3BA;
 
@@ -1178,22 +1212,70 @@ body {
   }
 }
 
+.svg-element{
+  width: 100%;
+  pointer-events: none;
+}
+
 #config-drawer-board-list{
   padding-left: 0px;
+  margin-top: 50px;
+  height: 100%;
 }
+
+.avatar-right{
+  display: table;  
+  overflow: hidden;
+  float: right;
+}
+
+.avatar-right-center{
+  display: table-cell; 
+  vertical-align: middle;
+
+}
+
+.nombre-usuario{
+  display: -webkit-inline-box;
+  margin-top:16px;
+  color: white;
+}
+
 
 hr {
   border-top: 1px solid $light;
 }
+.header-naranjo{
+  padding-left: 0px;  
+}
+.no-padding-nav{
+  padding:0;
+  float:left;
+  position:relative;
+  min-height:1px;
+  display:block;
+
+}
+.principal{
+  padding-left:60px !important;
+
+}
 
 .navbar-default {
   background-color: $bgDefault;
+  position: fixed;
+  width: 100%;
+  border: none;
   border-color: $bgDefault;
   .navbar-header {
     float: left !important;
+    height:50px;
+    width:20vw;
+    border-style:none;
+    background-color: #e2882d;
     .navbar-brand {
       color: $colDefault;
-      background: url(/img/ollert-logo-white.svg) no-repeat;
+      //background: url(/img/ollert-logo-white.svg) no-repeat;
       height: 35px;
       width: 101px;
       text-indent: -99999px;
