@@ -1542,3 +1542,146 @@
 [2016-09-23 17:52:42 -0300 cpp-VirtualBox (374)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-09-23 17:53:59 -0300 cpp-VirtualBox (377)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-09-23 17:54:20 -0300 cpp-VirtualBox (377)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : Environment: development
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : Dispatcher: unicorn
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 09:56:28 -0300 cpp-VirtualBox (2711)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 09:56:29 -0300 cpp-VirtualBox (2711)] INFO : Installing Net instrumentation
+[2016-09-29 09:56:29 -0300 cpp-VirtualBox (2711)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 09:56:29 -0300 cpp-VirtualBox (2711)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 09:56:29 -0300 cpp-VirtualBox (2711)] INFO : Installing Sinatra instrumentation
+[2016-09-29 09:56:29 -0300 cpp-VirtualBox (2711)] INFO : Installing Mongo instrumentation
+[2016-09-29 09:56:29 -0300 cpp-VirtualBox (2711)] INFO : Finished instrumentation
+[2016-09-29 09:56:34 -0300 cpp-VirtualBox (2711)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 09:57:03 -0300 cpp-VirtualBox (2776)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 09:57:03 -0300 cpp-VirtualBox (2779)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 09:57:04 -0300 cpp-VirtualBox (2782)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Environment: development
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Dispatcher: unicorn
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Installing Net instrumentation
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 10:44:54 -0300 cpp-VirtualBox (16410)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 10:44:55 -0300 cpp-VirtualBox (16410)] INFO : Installing Sinatra instrumentation
+[2016-09-29 10:44:55 -0300 cpp-VirtualBox (16410)] INFO : Installing Mongo instrumentation
+[2016-09-29 10:44:55 -0300 cpp-VirtualBox (16410)] INFO : Finished instrumentation
+[2016-09-29 10:44:55 -0300 cpp-VirtualBox (16410)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 10:45:02 -0300 cpp-VirtualBox (16420)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 10:45:03 -0300 cpp-VirtualBox (16425)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 10:45:03 -0300 cpp-VirtualBox (16422)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 10:45:54 -0300 cpp-VirtualBox (16536)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 10:45:55 -0300 cpp-VirtualBox (16530)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 10:45:55 -0300 cpp-VirtualBox (16533)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:21:07 -0300 cpp-VirtualBox (18046)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:21:08 -0300 cpp-VirtualBox (18044)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:46:46 -0300 cpp-VirtualBox (18044)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Environment: development
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Dispatcher: unicorn
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Installing Net instrumentation
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Installing Sinatra instrumentation
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Installing Mongo instrumentation
+[2016-09-29 11:49:03 -0300 cpp-VirtualBox (19409)] INFO : Finished instrumentation
+[2016-09-29 11:49:04 -0300 cpp-VirtualBox (19409)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 11:49:10 -0300 cpp-VirtualBox (19419)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:49:10 -0300 cpp-VirtualBox (19422)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:49:18 -0300 cpp-VirtualBox (19424)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:49:34 -0300 cpp-VirtualBox (19419)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Environment: development
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Dispatcher: unicorn
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Installing Net instrumentation
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Installing Sinatra instrumentation
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Installing Mongo instrumentation
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Finished instrumentation
+[2016-09-29 11:52:58 -0300 cpp-VirtualBox (19634)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 11:53:04 -0300 cpp-VirtualBox (19645)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:53:05 -0300 cpp-VirtualBox (19647)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:53:05 -0300 cpp-VirtualBox (19650)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:53:41 -0300 cpp-VirtualBox (19645)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:57:53 -0300 cpp-VirtualBox (19650)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:57:59 -0300 cpp-VirtualBox (19645)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:58:37 -0300 cpp-VirtualBox (19647)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:58:41 -0300 cpp-VirtualBox (19645)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Environment: development
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Dispatcher: unicorn
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Installing Net instrumentation
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Installing Sinatra instrumentation
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Installing Mongo instrumentation
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Finished instrumentation
+[2016-09-29 11:58:59 -0300 cpp-VirtualBox (19962)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 11:59:51 -0300 cpp-VirtualBox (19972)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 11:59:54 -0300 cpp-VirtualBox (19974)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Environment: development
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Dispatcher: unicorn
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Installing Net instrumentation
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Installing Sinatra instrumentation
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Installing Mongo instrumentation
+[2016-09-29 12:00:38 -0300 cpp-VirtualBox (20124)] INFO : Finished instrumentation
+[2016-09-29 12:00:39 -0300 cpp-VirtualBox (20124)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 12:00:46 -0300 cpp-VirtualBox (20141)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:00:46 -0300 cpp-VirtualBox (20136)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:00:47 -0300 cpp-VirtualBox (20138)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:01:40 -0300 cpp-VirtualBox (20136)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:01:58 -0300 cpp-VirtualBox (20138)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:02:01 -0300 cpp-VirtualBox (20136)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:05:24 -0300 cpp-VirtualBox (20138)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:05:55 -0300 cpp-VirtualBox (20136)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:07:08 -0300 cpp-VirtualBox (20138)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:07:10 -0300 cpp-VirtualBox (20141)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:08:37 -0300 cpp-VirtualBox (20138)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:12:43 -0300 cpp-VirtualBox (20138)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:13:49 -0300 cpp-VirtualBox (20136)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Starting the New Relic agent in "development" environment.
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Environment: development
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Dispatcher: unicorn
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Application: Gestion Municipal (Development)
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Installing Net instrumentation
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Installing Sinatra instrumentation
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Installing Mongo instrumentation
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Finished instrumentation
+[2016-09-29 12:14:38 -0300 cpp-VirtualBox (20763)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-09-29 12:16:50 -0300 cpp-VirtualBox (20776)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:16:50 -0300 cpp-VirtualBox (20781)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:16:50 -0300 cpp-VirtualBox (20778)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-09-29 12:21:28 -0300 cpp-VirtualBox (20778)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:24:06 -0300 cpp-VirtualBox (20781)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-09-29 12:31:39 -0300 cpp-VirtualBox (20776)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.

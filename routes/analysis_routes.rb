@@ -128,6 +128,12 @@ class Ollert
                 #para verificar que la tarjeta no haya sido creada
                 @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
                 @card1.save
+                if(t.checklist!=nil && t.checklist!="")
+                  checklist=JSON.parse(client.post("/checklist?idCard=#{@card1.id}"))["id"]
+                  t.checklist.split("|").each do |st|
+                    JSON.parse(client.post("/cards/#{@card1.id}/checklist/#{checklist}/checkItem?name=#{st}&idChecklist=#{checklist}"))
+                  end
+                end
                 if(t.board_ids!=nil)
                   t.board_ids=t.board_ids+","+local_board.id.to_s
                 else
@@ -141,7 +147,13 @@ class Ollert
   
               #para verificar que la tarjeta no haya sido creada
               @card1=Trello::Card.create({:name=>"#{t.name}",:list_id=>board.lists.first.id, :desc=>"#{t.desc}"})
-              @card1.save
+                @card1.save
+                if(t.checklist!=nil && t.checklist!="")
+                  checklist=JSON.parse(client.post("/checklist?idCard=#{@card1.id}"))["id"]
+                  t.checklist.split("|").each do |st|
+                    JSON.parse(client.post("/cards/#{@card1.id}/checklist/#{checklist}/checkItem?name=#{st}&idChecklist=#{checklist}"))
+                  end
+                end
               if(t.board_ids!=nil)
                 t.board_ids=t.board_ids+","+local_board.id.to_s
               else

@@ -8,6 +8,7 @@ class Task
   field :desc, type: String
   field :checked, type: String
   field :board_ids, type: String
+  field :checklist, type: String
   
   belongs_to :state
   belongs_to :fondo

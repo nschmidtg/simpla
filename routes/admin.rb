@@ -4062,6 +4062,7 @@ class Ollert
         @mun=Municipio.find_by(id: params[:mun_id])
         @fondo=Fondo.find_by(id: params[:fondo_id])
         @state=@mun.states.find_by(id: params[:state_id])
+        @checklist=params[:checklist]
         if(@state!=nil)
           if(edit=="true")
             new_task=Task.find_by(id: params[:id])
@@ -4070,6 +4071,19 @@ class Ollert
           end
           new_task.name=params[:name]
           new_task.desc=params[:desc]
+
+          stringaux=""
+          if(@checklist!=nil)
+            
+            stringaux=@checklist[0]
+            @checklist.delete(stringaux)
+            @checklist.each do |subtask|
+              stringaux=stringaux+'|'+subtask
+            end
+            
+          end
+          new_task.checklist=stringaux
+
           new_task.state=@state
           new_task.fondo=@fondo
           if(params[:checked].to_s=="on")
@@ -4314,7 +4328,7 @@ class Ollert
       format.html do
         flash[:success] = "Tarea eliminado exitosamente."
 
-        redirect '/admin'
+        redirect "/admin/municipio/states/tasks?mun_id=#{params[:mun_id]}&state_id=#{params[:state_id]}&fondo_id=#{params[:fondo_id]}"
       end
       
     end
