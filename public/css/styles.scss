@@ -1289,6 +1289,7 @@ hr {
   }
   &.navbar {
     margin-bottom: 0;
+    max-height: 50px;
   }
   .navbar-nav {
     color: $colDefault;
@@ -1550,6 +1551,7 @@ ul.board-list-prior{
 
 .dropdown-menu {
   overflow-y: auto;
+  position: inherit !important;
   max-height: 26em;
 
   .divider-section{
