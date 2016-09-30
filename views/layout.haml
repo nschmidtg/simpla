@@ -68,18 +68,23 @@
                 %ul.nav.navbar-nav.navbar-right
                   
                   %li
-                    %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
-                      %img{src: "https://www.gravatar.com/avatar/#{@user.gravatar_hash}?s=40", alt: "Profile Avatar"}
-                      %b.caret
-                    %ul.dropdown-menu.pull-right
-                      %li
-                        %a{href: "/settings", alt: "Settings"}
-                          %span.glyphicon.glyphicon-cog
-                          Configuración
-                      %li
-                        %a{href: "/logout", alt: "Log out"}
-                          %span.glyphicon.glyphicon-off
-                          Cerrar Sesión
+                    - if(@user.gravatar_hash=="default")
+                      %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
+                        %img{src: "/img/Iconos-blancos-28.svg", alt: "Profile Avatar", style: "width: 45px;"}
+                        %b.caret
+                    -else
+                      %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
+                        %img{src: "https://www.gravatar.com/avatar/#{@user.gravatar_hash}?s=40", alt: "Profile Avatar"}
+                        %b.caret
+                      %ul.dropdown-menu.pull-right
+                        %li
+                          %a{href: "/settings", alt: "Settings"}
+                            %span.glyphicon.glyphicon-cog
+                            Configuración
+                        %li
+                          %a{href: "/logout", alt: "Log out"}
+                            %span.glyphicon.glyphicon-off
+                            Cerrar Sesión
 
       #mainContent
         - if flash.has? :error
@@ -103,22 +108,19 @@
             %ul.drawer-nav#config-drawer-board-list.no-padding
               %li.icon-element
                 %a.icon-link{href:"/boards"}
-                  %object.svg-element{data: "/img/Iconos-20.svg", type:"image/svg+xml"}
+                  %img.svg-element#boton{src: "/img/Iconos-blancos-26.svg", type:"image/svg+xml"}
               %li.icon-element
                 %a.icon-link{href:"#"}
-                  %object.svg-element{data: "/img/Iconos-23.svg", type:"image/svg+xml"}
+                  %img.svg-element#boton{src: "/img/Iconos-blancos-23.svg", type:"image/svg+xml"}
               %li.icon-element
                 %a.icon-link{href:"#"}
-                  %object.svg-element{data: "/img/Iconos-26.svg", type:"image/svg+xml"}
+                  %img.svg-element#boton{src: "/img/Iconos-blancos-27.svg", type:"image/svg+xml"}
               %li.icon-element
                 %a.icon-link{href:"#"}
-                  %object.svg-element{data: "/img/Iconos-27.svg", type:"image/svg+xml"}
+                  %img.svg-element#boton{src: "/img/Iconos-blancos-24.svg", type:"image/svg+xml"}
               %li.icon-element
                 %a.icon-link{href:"#"}
-                  %object.svg-element{data: "/img/Iconos-24.svg", type:"image/svg+xml"}
-              %li.icon-element
-                %a.icon-link{href:"#"}
-                  %object.svg-element{data: "/img/Iconos-21.svg", type:"image/svg+xml"}
+                  %img.svg-element#boton{src: "/img/Iconos-blancos-21.svg", type:"image/svg+xml"}
                 
 
 
@@ -127,26 +129,26 @@
 
           = yield
 
-    %div#footer
-      .container
-        .row
-          .col-sm-6.col-xs-12
-            %ul.footer-item.footer-links
-              %li
-                %a{href: "https://github.com/sep/ollert", title: "Source Code", alt: "Link to our Github page"}
-                  Código Fuente
-              %li
-                %a{href: "/privacy", title: "Privacy Policy", alt: "Link to privacy policy"}
-                  Política de Privacidad
-              %li
-                %a{href: "/terms", title: "Terms and Conditions", alt: "Link to Terms of Service"}
-                  Términos y Condiciones
-              %li
-                %a{href: "mailto:connect@ollertapp.com", title: "Contact Us", alt: "Email us at connect@ollertapp.com"}
-                  Contáctenos
-          .col-md-3.col-md-offset-3.col-sm-4.col-sm-offset-2.hidden-xs.no-padding
-            %a{href: "http://www.sep.com/labs/", alt: "SEP Labs", target: "blank", title: "Danger! Experimental"}
-              %img.footer-item.footer-lab{"src": "/img/labs-logo.png"}
+        .col.md-12.col-sm-12.col-xs-12.no-padding
+          .container#footer
+            .row
+              .col-sm-6.col-xs-12
+                %ul.footer-item.footer-links
+                  %li
+                    %a{href: "https://github.com/sep/ollert", title: "Source Code", alt: "Link to our Github page"}
+                      Código Fuente
+                  %li
+                    %a{href: "/privacy", title: "Privacy Policy", alt: "Link to privacy policy"}
+                      Política de Privacidad
+                  %li
+                    %a{href: "/terms", title: "Terms and Conditions", alt: "Link to Terms of Service"}
+                      Términos y Condiciones
+                  %li
+                    %a{href: "mailto:connect@ollertapp.com", title: "Contact Us", alt: "Email us at connect@ollertapp.com"}
+                      Contáctenos
+              .col-md-3.col-md-offset-3.col-sm-4.col-sm-offset-2.hidden-xs.no-padding
+                %a{href: "http://www.sep.com/labs/", alt: "SEP Labs", target: "blank", title: "Danger! Experimental"}
+                  %img.footer-item.footer-lab{"src": "/img/labs-logo.png"}
 
 
     %script{src: "/js/vendor/bootstrap.min.js"}
@@ -158,6 +160,29 @@
     %script{src: "/js/vendor/trello-client.js"}
     %script{src: "/js/vendor/underscore-min.js"}
     %script{src: "/js/dist/ollert.min.js"}
+
+    :javascript
+      $(document).ready(function(){
+      var lastName="";
+        $(".icon-link").each(function() {
+          if (window.location.href.includes(this.href)) {
+            $(this).removeClass("icon-link");
+            $(this).addClass("icon-link-hover");
+            lastName=$(this).find("#boton").attr("src");
+            $( this ).find(".svg-element").attr("src",lastName.replace("blancos-",""));
+          }
+          else{
+            $(this).hover(
+              function() {
+                lastName=$(this).find("#boton").attr("src");
+                $( this ).find(".svg-element").attr("src",lastName.replace("blancos-",""));
+              }, function() {
+                $( this ).find(".svg-element").attr("src",lastName);
+              }
+            );
+          }
+        });
+      });
 
     
       

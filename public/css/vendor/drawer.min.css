@@ -98,7 +98,7 @@ body.has-drawer {
 .drawer-nav li,
 .drawer-fullnav li {
     position: relative;
-    margin-bottom: 5px
+    margin-bottom: 0px
 }
 .drawer-nav li a,
 .drawer-fullnav li a {
@@ -127,6 +127,15 @@ body.has-drawer {
     border-left-color: #e2882d; 
 
 }
+.icon-link-hover{
+    color: #515151;
+    text-decoration: none;
+    background-color: #fff;
+    border-left-width: 3px;
+    border-left-style: solid;
+    border-left-color: #e2882d !important;
+}
+
 .drawer-fullnav {
     color: #fff;
     padding: 0

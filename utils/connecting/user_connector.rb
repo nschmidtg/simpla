@@ -2,7 +2,6 @@ class UserConnector
   def self.connect(client, member_token, login_mail, current_user = nil)
     member = MemberAnalyzer.analyze(MemberFetcher.fetch(client, member_token))
     if(member["email"]==login_mail || (User.find_by(login_mail: member["email"]).role=="secpla" && (User.find_by(login_mail: login_mail).role=="alcalde" || User.find_by(login_mail: login_mail).role=="concejal")))
-      puts "EHH!!!"
       user = nil
       if(current_user.nil? && member["email"]==login_mail)
         user = User.find_or_initialize_by login_mail: member["email"]
@@ -30,7 +29,15 @@ class UserConnector
         user.member_token = member_token
         user.trello_id = member["id"]
         user.trello_name = member["username"]
-        user.gravatar_hash = member["gravatarHash"]
+        require 'net/http'
+        url = URI.parse("http://www.gravatar.com/avatar/#{member["gravatarHash"]}?s=1&d=404")
+        req = Net::HTTP::Get.new(url.to_s)
+        res = Net::HTTP.start(url.host, url.port) {|http| http.request(req)}
+        if(res.body.include?("404"))
+          user.gravatar_hash = "default"
+        else
+          user.gravatar_hash = member["gravatarHash"]
+        end
         user.email = member["email"] || user.email
       else
         secpla=User.find_by(login_mail: member["email"])
