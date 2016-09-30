@@ -129,6 +129,7 @@ body.has-drawer {
 }
 .icon-link-hover{
     color: #515151;
+    height: 57px;
     text-decoration: none;
     background-color: #fff;
     border-left-width: 3px;

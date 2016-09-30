@@ -933,6 +933,9 @@ ol.example {
 body .fc {
   font-size: 1em;
 }
+.icon-element{
+  display:-webkit-inline-box;
+}
 .fc-icon-left-single-arrow:after {
   content: "\02039";
   font-weight: bold;
@@ -1078,6 +1081,28 @@ html {
 body {
   font-family: 'Muli', sans-serif;
   margin-bottom: 190px;
+}
+.izq-menu{
+  display: table-caption;
+  width:60px;
+  height:57px;
+}
+.general{
+  height:57px;
+}
+
+#header-lateral{
+  width: 180px !important;
+  height: 57px;
+  display: inline-block;
+  z-index: 3000;
+  background-color: #0167A3;
+}
+
+.h5-lateral{
+  margin-top:22px;
+  padding-left:15px;
+  color:#ffffff;
 }
 
 #footer {

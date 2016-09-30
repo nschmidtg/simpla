@@ -106,23 +106,46 @@
         .no-padding-nav
           .drawer-contents-nav
             %ul.drawer-nav#config-drawer-board-list.no-padding
-              %li.icon-element
-                %a.icon-link{href:"/boards"}
-                  %img.svg-element#boton{src: "/img/Iconos-blancos-26.svg", type:"image/svg+xml"}
-              %li.icon-element
-                %a.icon-link{href:"#"}
-                  %img.svg-element#boton{src: "/img/Iconos-blancos-23.svg", type:"image/svg+xml"}
-              %li.icon-element
-                %a.icon-link{href:"#"}
-                  %img.svg-element#boton{src: "/img/Iconos-blancos-27.svg", type:"image/svg+xml"}
-              %li.icon-element
-                %a.icon-link{href:"#"}
-                  %img.svg-element#boton{src: "/img/Iconos-blancos-24.svg", type:"image/svg+xml"}
-              %li.icon-element
-                %a.icon-link{href:"#"}
-                  %img.svg-element#boton{src: "/img/Iconos-blancos-21.svg", type:"image/svg+xml"}
-                
-
+              .col.md.general
+                %li.icon-element
+                  .col.md.izq-menu
+                    %a.icon-link{href:"/boards"}
+                      %img.svg-element#boton{src: "/img/Iconos-blancos-26.svg", type:"image/svg+xml"}
+                  .col#header-lateral
+                    %h5.h5-lateral
+                      Indicadores Globales
+              .col.md.general
+                %li.icon-element
+                  .col.md.izq-menu
+                    %a.icon-link{href:"#"}
+                      %img.svg-element#boton{src: "/img/Iconos-blancos-23.svg", type:"image/svg+xml"}
+                  .col#header-lateral
+                    %h5.h5-lateral
+                      Gestión Proyectos
+              .col.md.general
+                %li.icon-element
+                  .col.md.izq-menu
+                    %a.icon-link{href:"#"}
+                      %img.svg-element#boton{src: "/img/Iconos-blancos-27.svg", type:"image/svg+xml"}
+                  .col#header-lateral
+                    %h5.h5-lateral
+                      Calendario General
+              .col.md.general
+                %li.icon-element
+                  .col.md.izq-menu
+                    %a.icon-link{href:"#"}
+                      %img.svg-element#boton{src: "/img/Iconos-blancos-24.svg", type:"image/svg+xml"}
+                  .col#header-lateral
+                    %h5.h5-lateral
+                      Archivo de Proyectos
+              .col.md.general
+                %li.icon-element
+                  .col.md.izq-menu
+                    %a.icon-link{href:"#"}
+                      %img.svg-element#boton{src: "/img/Iconos-blancos-21.svg", type:"image/svg+xml"}
+                  .col#header-lateral
+                    %h5.h5-lateral
+                      Panel Administración
 
         .col.md-12.col-sm-12.col-xs-12.principal
 
@@ -165,19 +188,30 @@
       $(document).ready(function(){
       var lastName="";
         $(".icon-link").each(function() {
+          $(this).parent().parent().find("#header-lateral").hide();
           if (window.location.href.includes(this.href)) {
+
             $(this).removeClass("icon-link");
             $(this).addClass("icon-link-hover");
             lastName=$(this).find("#boton").attr("src");
             $( this ).find(".svg-element").attr("src",lastName.replace("blancos-",""));
+            $(this).hover(
+              function() {
+                $(this).parent().parent().find("#header-lateral").show();
+              }, function() {
+                $(this).parent().parent().find("#header-lateral").hide();
+              }
+            );
           }
           else{
             $(this).hover(
               function() {
                 lastName=$(this).find("#boton").attr("src");
+                $(this).parent().parent().find("#header-lateral").show();
                 $( this ).find(".svg-element").attr("src",lastName.replace("blancos-",""));
               }, function() {
                 $( this ).find(".svg-element").attr("src",lastName);
+                $(this).parent().parent().find("#header-lateral").hide();
               }
             );
           }
