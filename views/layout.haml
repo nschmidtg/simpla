@@ -87,68 +87,71 @@
                           Cerrar Sesión
 
       #mainContent
-        - if flash.has? :error
-          .row{id: 'flash', class: 'alert alert-danger'}
-            .container
-              #{flash[:error]}
-        - if flash.has? :warning
-          .row{id: 'flash', class: 'alert alert-warning'}
-            .container
-              #{flash[:warning]}
-        - if flash.has? :success
-          .row{id: 'flash', class: 'alert alert-success'}
-            .container
-              #{flash[:success]}
-        - if flash.has? :info
-          .row{id: 'flash', class: 'alert alert-info'}
-            .container
-              #{flash[:info]}
-        .no-padding-nav
-          .drawer-contents-nav
-            %ul.drawer-nav#config-drawer-board-list.no-padding
-              .col.md.general
-                %li.icon-element
-                  .col.md.izq-menu
-                    %a.icon-link{href:"/boards"}
-                      %img.svg-element#boton{src: "/img/Iconos-blancos-26.svg", type:"image/svg+xml"}
-                  .col#header-lateral
-                    %h5.h5-lateral
-                      Indicadores Globales
-              .col.md.general
-                %li.icon-element
-                  .col.md.izq-menu
-                    %a.icon-link{href:"#"}
-                      %img.svg-element#boton{src: "/img/Iconos-blancos-23.svg", type:"image/svg+xml"}
-                  .col#header-lateral
-                    %h5.h5-lateral
-                      Gestión Proyectos
-              .col.md.general
-                %li.icon-element
-                  .col.md.izq-menu
-                    %a.icon-link{href:"#"}
-                      %img.svg-element#boton{src: "/img/Iconos-blancos-27.svg", type:"image/svg+xml"}
-                  .col#header-lateral
-                    %h5.h5-lateral
-                      Calendario General
-              .col.md.general
-                %li.icon-element
-                  .col.md.izq-menu
-                    %a.icon-link{href:"#"}
-                      %img.svg-element#boton{src: "/img/Iconos-blancos-24.svg", type:"image/svg+xml"}
-                  .col#header-lateral
-                    %h5.h5-lateral
-                      Archivo de Proyectos
-              .col.md.general
-                %li.icon-element
-                  .col.md.izq-menu
-                    %a.icon-link{href:"#"}
-                      %img.svg-element#boton{src: "/img/Iconos-blancos-21.svg", type:"image/svg+xml"}
-                  .col#header-lateral
-                    %h5.h5-lateral
-                      Panel Administración
+        
+        - if @user.nil?
+            
+        - else @user.nil?
+          .no-padding-nav
+            .drawer-contents-nav
+              %ul.drawer-nav#config-drawer-board-list.no-padding
+                .col.md.general
+                  %li.icon-element
+                    .col.md.izq-menu
+                      %a.icon-link{href:"/boards"}
+                        %img.svg-element#boton{src: "/img/Iconos-blancos-26.svg", type:"image/svg+xml"}
+                    .col#header-lateral
+                      %h5.h5-lateral
+                        Indicadores Globales
+                .col.md.general
+                  %li.icon-element
+                    .col.md.izq-menu
+                      %a.icon-link{href:"#"}
+                        %img.svg-element#boton{src: "/img/Iconos-blancos-23.svg", type:"image/svg+xml"}
+                    .col#header-lateral
+                      %h5.h5-lateral
+                        Gestión Proyectos
+                .col.md.general
+                  %li.icon-element
+                    .col.md.izq-menu
+                      %a.icon-link{href:"#"}
+                        %img.svg-element#boton{src: "/img/Iconos-blancos-27.svg", type:"image/svg+xml"}
+                    .col#header-lateral
+                      %h5.h5-lateral
+                        Calendario General
+                .col.md.general
+                  %li.icon-element
+                    .col.md.izq-menu
+                      %a.icon-link{href:"#"}
+                        %img.svg-element#boton{src: "/img/Iconos-blancos-24.svg", type:"image/svg+xml"}
+                    .col#header-lateral
+                      %h5.h5-lateral
+                        Archivo de Proyectos
+                .col.md.general
+                  %li.icon-element
+                    .col.md.izq-menu
+                      %a.icon-link{href:"#"}
+                        %img.svg-element#boton{src: "/img/Iconos-blancos-21.svg", type:"image/svg+xml"}
+                    .col#header-lateral
+                      %h5.h5-lateral
+                        Panel Administración
 
         .col.md-12.col-sm-12.col-xs-12.principal
-
+          - if flash.has? :error
+            .row{id: 'flash', class: 'alert alert-danger'}
+              .container
+                #{flash[:error]}
+          - if flash.has? :warning
+            .row{id: 'flash', class: 'alert alert-warning'}
+              .container
+                #{flash[:warning]}
+          - if flash.has? :success
+            .row{id: 'flash', class: 'alert alert-success'}
+              .container
+                #{flash[:success]}
+          - if flash.has? :info
+            .row{id: 'flash', class: 'alert alert-info'}
+              .container
+                #{flash[:info]}
 
           = yield
 
@@ -184,6 +187,13 @@
     %script{src: "/js/vendor/trello-client.js"}
     %script{src: "/js/vendor/underscore-min.js"}
     %script{src: "/js/dist/ollert.min.js"}
+
+    - if @user.nil?
+      :javascript
+        $(document).ready(function(){
+          $(".principal").addClass("no-padding")     
+        });
+       
 
     :javascript
       $(document).ready(function(){
