@@ -1071,7 +1071,13 @@ $colHover       : #ffbbbc;
   font-family: 'Muli';
   font-style: normal;
   font-weight: 400;
-  src: local('Muli'), url(fonts/muli.woff) format('woff');
+  src: local('Muli'), url(fonts/facit-regular.otf) format('woff');
+}
+
+@font-face {
+    font-family: 'Facit';
+    font-style: normal;
+    src: url(fonts/facit-bold.otf);
 }
 
 //  begin sticky footer
@@ -1932,6 +1938,10 @@ table.sortable>thead th div.mozilla {
   height: 100%;
   display: -webkit-inline-box
 }
+.cuerpo-tabla{
+  border-top-color: $azul;
+  border-top-style: solid;
+}
 
 #myTab{
   display: -webkit-inline-box;
@@ -1944,7 +1954,7 @@ table.sortable>thead th div.mozilla {
   color: $celeste;
 }
 
-.nav-tabs>li>a.tab-custom.active:hover{
+.nav-tabs>li.r-tabs-state-active>a.tab-custom:hover{
   border: 1px solid $celeste !important;
   color: #fff;
 }

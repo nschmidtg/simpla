@@ -57,7 +57,7 @@
                     %th Estado
                 
 
-                %tbody
+                %tbody.cuerpo-tabla
                   - @boards.each do |org_name, boards|
                     - prioridad_tablero=org_name
                     - if(@prioridades.include?(prioridad_tablero))
@@ -70,16 +70,16 @@
                                 #{board["name"].split('|')[0]}
                             - actual_board=Board.find_by(board_id: board["id"])
                             %td.celda-tabla
-                              %a.boards-list-item-link-b
+                              .boards-list-item-link-b
                                 #{actual_board.fondo.name}
                             %td.celda-tabla
-                              %a.boards-list-item-link-b
+                              .boards-list-item-link-b
                                 #{actual_board.tipo.name}
                             %td.celda-tabla
-                              %a.boards-list-item-link-b
+                              .boards-list-item-link-b
                                 #{actual_board.zones.all.pluck(:name)}
                             %td.celda-tabla
-                              %a.boards-list-item-link-b
+                              .boards-list-item-link-b
                                 #{actual_board.current_state}
         %div{id: "tab-1", class: "tab-pane"}
           .col-md-12.col-sm-12.col-xs-12.no-padding
@@ -100,7 +100,7 @@
                       %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
                   %th Zonas
                   %th Estado
-              %tbody
+              %tbody.cuerpo-tabla
                 - @boards.each do |org_name, boards|
                 - prioridad_tablero=org_name
                   - if(@prioridades.include?(prioridad_tablero))
@@ -114,7 +114,7 @@
                               #{board["name"]}
                           - actual_board=Board.find_by(board_id: board["id"])
                           %td.celda-tabla
-                            %a.boards-list-item-link-b
+                            .boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.fondo != nil
                                   #{actual_board.fondo.name}
@@ -123,7 +123,7 @@
                               - else
                                 NO ASIGNADO
                           %td.celda-tabla
-                            %a.boards-list-item-link-b
+                            .boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.tipo != nil
                                   #{actual_board.tipo.name}
@@ -132,7 +132,7 @@
                               - else
                                 NO ASIGNADO
                           %td.celda-tabla
-                            %a.boards-list-item-link-b
+                            .boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.zones != nil
                                   #{actual_board.zones.all.pluck(:name)}
@@ -141,7 +141,7 @@
                               - else
                                 NO ASIGNADAS
                           %td.celda-tabla
-                            %a.boards-list-item-link-b
+                            .boards-list-item-link-b
                               NO ASIGNADO
 
 
