@@ -17,6 +17,7 @@ $white_75: rgba(255, 255, 255, 0.75);
 $white_20: rgba(255, 255, 255, 0.2);
 $black_5: rgba(0, 0, 0, 0.05);
 $color_celeste_approx: #cccccc;
+$negro: #595959;
 $black_15: rgba(0, 0, 0, 0.15);
 $color_boston_blue_approx: #3a87ad;
 $black_20: rgba(0, 0, 0, 0.2);
@@ -83,6 +84,8 @@ ol.example {
     }
   }
 }
+
+
 
 //original selectors
 //.fc-ltr .fc-h-event.fc-not-start, .fc-rtl .fc-h-event.fc-not-end
@@ -1521,20 +1524,34 @@ ul.board-list-prior{
   width: 100%;
   margin-bottom: 10px;
 }
+.celda-tabla{
+  padding: 2px !important;
+  border-top: none !important;
+}
 
 .boards-list-item-link {
   float: left;
   display: block;
   font-weight: bold;
-  padding: 15px;
+  padding: 5px;
   width: 100%;
-  color: #555;
-  background-color: #ddd
+  color: $celeste;
+  background-color: #eee;
+  margin-bottom: 10px;
+}
+.boards-list-item-link-b {
+  float: left;
+  display: block;
+  font-weight: bold;
+  padding: 5px;
+  width: 100%;
+  color: #595959;
+  background-color: #eee;
+  margin-bottom: 10px;
 }
 
 .boards-list-item-link:hover {
-  border-bottom: 1px solid #E74C3C;
-  color: #E74C3C;
+  color: $azul;
   text-decoration: none;
 }
 
@@ -1711,7 +1728,9 @@ a.btn {
 }
 
 .ollert-header {
-  padding-top: 35px;
+  margin-top: 0px;
+  float: left;
+  color: $azul;
 }
 
 .container.settings {
@@ -1897,9 +1916,10 @@ table.sortable>thead th div.mozilla {
 
 }
 .r-tabs-state-active>a.r-tabs-anchor{
-    background-color: #eee !important;
-    border: 1px solid #ddd;
+    background-color: $celeste !important;
+    border: 1px solid $celeste;
     border-bottom: none;
+    color: #fff;
   }
 .tab-custom{
   height: 100%;
@@ -1916,11 +1936,19 @@ table.sortable>thead th div.mozilla {
 #myTab{
   display: -webkit-inline-box;
   height: 65px;
+  border-bottom: 5px solid $celeste;
 }
 
 .nav-tabs>li>a.tab-custom:hover{
-  border: 1px solid #dddddd !important;
+  border: 1px solid $celeste !important;
+  color: $celeste;
 }
+
+.nav-tabs>li>a.tab-custom.active:hover{
+  border: 1px solid $celeste !important;
+  color: #fff;
+}
+
 .nav-tabs>li>a.tab-custom:active{
   border: 1px solid #dddddd !important;
 }

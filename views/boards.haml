@@ -2,9 +2,11 @@
    
 .container
   .row
+    %h4
+      Gestión de Proyectos >
     %h2.ollert-header
-      .text-center.col-xs-12
-        Etapa de Proyectos
+      .text-center.col-xs-12.no-padding
+        Etapas de Proyectos
 
   .row
     #responsiveTabsDemo
@@ -39,9 +41,18 @@
               %table.table{id: "myTable-#{count}"}
                 %thead
                   %tr
-                    %th Nombre Proyecto
-                    %th Fondo
-                    %th Tipo
+                    %th 
+                      Nombre Proyecto
+                      %a{href: "#"}
+                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                    %th 
+                      Fondo
+                      %a{href: "#"}
+                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                    %th 
+                      Tipo
+                      %a{href: "#"}
+                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
                     %th Zonas
                     %th Estado
                 
@@ -54,30 +65,39 @@
                         - if(state == board["name"].split('|')[1])
                           - @asignados<<board["name"]
                           %tr
-                            %td
+                            %td.celda-tabla
                               %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
                                 #{board["name"].split('|')[0]}
                             - actual_board=Board.find_by(board_id: board["id"])
-                            %td
-                              %a.boards-list-item-link
+                            %td.celda-tabla
+                              %a.boards-list-item-link-b
                                 #{actual_board.fondo.name}
-                            %td
-                              %a.boards-list-item-link
+                            %td.celda-tabla
+                              %a.boards-list-item-link-b
                                 #{actual_board.tipo.name}
-                            %td
-                              %a.boards-list-item-link
+                            %td.celda-tabla
+                              %a.boards-list-item-link-b
                                 #{actual_board.zones.all.pluck(:name)}
-                            %td
-                              %a.boards-list-item-link
+                            %td.celda-tabla
+                              %a.boards-list-item-link-b
                                 #{actual_board.current_state}
         %div{id: "tab-1", class: "tab-pane"}
           .col-md-12.col-sm-12.col-xs-12.no-padding
             %table.table{id: "myTable-1"}
               %thead
                 %tr
-                  %th Nombre Proyecto
-                  %th Fondo
-                  %th Tipo
+                  %th 
+                    Nombre Proyecto
+                    %a{href: "#"}
+                      %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                  %th 
+                    Fondo
+                    %a{href: "#"}
+                      %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                  %th 
+                    Tipo
+                    %a{href: "#"}
+                      %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
                   %th Zonas
                   %th Estado
               %tbody
@@ -89,12 +109,12 @@
                         - #bdbrd=Board.find_or_create_by(board_id: board["id"])
                         - #if(bdbrd!=nil)
                         %tr
-                          %td
+                          %td.celda-tabla
                             %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
                               #{board["name"]}
                           - actual_board=Board.find_by(board_id: board["id"])
-                          %td
-                            %a.boards-list-item-link
+                          %td.celda-tabla
+                            %a.boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.fondo != nil
                                   #{actual_board.fondo.name}
@@ -102,8 +122,8 @@
                                   NO ASIGNADO
                               - else
                                 NO ASIGNADO
-                          %td
-                            %a.boards-list-item-link
+                          %td.celda-tabla
+                            %a.boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.tipo != nil
                                   #{actual_board.tipo.name}
@@ -111,8 +131,8 @@
                                   NO ASIGNADO
                               - else
                                 NO ASIGNADO
-                          %td
-                            %a.boards-list-item-link
+                          %td.celda-tabla
+                            %a.boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.zones != nil
                                   #{actual_board.zones.all.pluck(:name)}
@@ -120,8 +140,8 @@
                                   NO ASIGNADAS
                               - else
                                 NO ASIGNADAS
-                          %td
-                            %a.boards-list-item-link
+                          %td.celda-tabla
+                            %a.boards-list-item-link-b
                               NO ASIGNADO
 
 
