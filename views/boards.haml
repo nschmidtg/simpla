@@ -7,102 +7,123 @@
         Etapa de Proyectos
 
   .row
-    
-  
-    - @asignados = Array.new()
-    - count=0
-    .col-md-4.col-sm-4.col-xs-12.no-padding
-      - @states.each do |state|
-        - count=count+1
-        - if(count<4)
-          .col-md-4.col-sm-4.col-xs-12.no-padding
-            .analysis-block-md
-              #{state}
-              %ul{class: 'boards-list'}
-                - @boards.each do |org_name, boards|
-                  - prioridad_tablero=org_name
-                  - if(@prioridades.include?(prioridad_tablero))
-                    - boards.each do |board|
-                      - if(state == board["name"].split('|')[1])
-                        - @asignados<<board["name"]
-                        %li.boards-list-item
-                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                            #{board["name"].split('|')[0]}
-    - count=0
-    .col-md-4.col-sm-4.col-xs-12.no-padding
-      - @states.each do |state|
-        - count=count+1
-        - if (count>=4 && count <7)
-          .col-md-4.col-sm-4.col-xs-12.no-padding
-            .analysis-block-md
-              #{state}
-              %ul{class: 'boards-list'}
-                - @boards.each do |org_name, boards|
-                  - prioridad_tablero=org_name
-                  - if(@prioridades.include?(prioridad_tablero))
-                    - boards.each do |board|
-                      - if(state == board["name"].split('|')[1])
-                        - @asignados<<board["name"]
-                        %li.boards-list-item
-                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                            #{board["name"].split('|')[0]}
-    - count=0
-    .col-md-4.col-sm-4.col-xs-12.no-padding
-      - @states.each do |state|
-        - count=count+1
-        -if (count>=7 && count <10)
-          .col-md-4.col-sm-4.col-xs-12.no-padding
-            .analysis-block-md
-              #{state}
-              %ul{class: 'boards-list'}
-                - @boards.each do |org_name, boards|
-                  - prioridad_tablero=org_name
-                  - if(@prioridades.include?(prioridad_tablero))
-                    - boards.each do |board|
-                      - if(state == board["name"].split('|')[1])
-                        - @asignados<<board["name"]
-                        %li.boards-list-item
-                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                            #{board["name"].split('|')[0]}
-  .row
-    - count=0
-    .col-md-5.col-sm-5.col-xs-5.no-padding
-      - @states.each do |state|
-        - count=count+1
-        -if (count >=10)
-          .col-md-12.col-sm-12.col-xs-12.no-padding
-            .analysis-block-md{style: "height:200px;"}
-              #{state}
-              %ul{class: 'boards-list'}
-                - @boards.each do |org_name, boards|
-                  - prioridad_tablero=org_name
-                  - if(@prioridades.include?(prioridad_tablero))
-                    - boards.each do |board|
-                      - if(state == board["name"].split('|')[1])
-                        - @asignados<<board["name"]
-                        %li.boards-list-item
-                          %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                            #{board["name"].split('|')[0]}
-    .col-md-7.col-sm-7.col-xs-7.no-padding
-      .analysis-block-md{style: "height:200px;"}
-        NO ASIGNADO
-        %ul{class: 'boards-list'}
-          - @boards.each do |org_name, boards|
-          - prioridad_tablero=org_name
-            - if(@prioridades.include?(prioridad_tablero))
-              - boards.each do |board|
-                - unless  @asignados.include?(board["name"])
-                  - #bdbrd=Board.find_or_create_by(board_id: board["id"])
-                  - #if(bdbrd!=nil)
-                  %li.boards-list-item
-                    %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                      #{board["name"]}
+    #responsiveTabsDemo
+      %ul#myTab.nav.nav-tabs.responsive
+        %li.lindo
+          %a.tab-custom.active{:href => "#tab-1"} NO ASIGNADO
+        %li.lindo
+          %a.tab-custom{:href => "#tab-2"} EN FORMULACIÓN
+        %li.lindo
+          %a.tab-custom{:href => "#tab-3"} INGRESADO
+        %li.lindo
+          %a.tab-custom{:href => "#tab-4"} OBSERVADO
+        %li.lindo
+          %a.tab-custom{:href => "#tab-5"} CON APROBACIÓN TÉCNICA
+        %li.lindo
+          %a.tab-custom{:href => "#tab-6"} CON RECURSOS APROBADOS
+        %li.lindo
+          %a.tab-custom{:href => "#tab-7"} PREPARACIÓN LICITACIÓN
+        %li.lindo
+          %a.tab-custom{:href => "#tab-8"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
+        %li.lindo
+          %a.tab-custom{:href => "#tab-9"} EN EJECUCIÓN
+        %li.lindo
+          %a.tab-custom{:href => "#tab-10"} FINALIZADO
+      .tab-content.responsive
+        - @asignados = Array.new()
+        - count=1
+        - @states.each do |state|
+          - count=count+1
+          %div{id: "tab-#{count}", class: "tab-pane"}
+            .col-md-12.col-sm-12.col-xs-12.no-padding
+              %table.table{id: "myTable-#{count}"}
+                %thead
+                  %tr
+                    %th Nombre Proyecto
+                    %th Fondo
+                    %th Tipo
+                    %th Zonas
+                    %th Estado
+                
 
-  .row
-    %h2.ollert-header
-      .text-center.col-xs-12
-        %br
-        Prioridad de Proyectos
+                %tbody
+                  - @boards.each do |org_name, boards|
+                    - prioridad_tablero=org_name
+                    - if(@prioridades.include?(prioridad_tablero))
+                      - boards.each do |board|
+                        - if(state == board["name"].split('|')[1])
+                          - @asignados<<board["name"]
+                          %tr
+                            %td
+                              %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                                #{board["name"].split('|')[0]}
+                            - actual_board=Board.find_by(board_id: board["id"])
+                            %td
+                              %a.boards-list-item-link
+                                #{actual_board.fondo.name}
+                            %td
+                              %a.boards-list-item-link
+                                #{actual_board.tipo.name}
+                            %td
+                              %a.boards-list-item-link
+                                #{actual_board.zones.all.pluck(:name)}
+                            %td
+                              %a.boards-list-item-link
+                                #{actual_board.current_state}
+        %div{id: "tab-1", class: "tab-pane"}
+          .col-md-12.col-sm-12.col-xs-12.no-padding
+            %table.table{id: "myTable-1"}
+              %thead
+                %tr
+                  %th Nombre Proyecto
+                  %th Fondo
+                  %th Tipo
+                  %th Zonas
+                  %th Estado
+              %tbody
+                - @boards.each do |org_name, boards|
+                - prioridad_tablero=org_name
+                  - if(@prioridades.include?(prioridad_tablero))
+                    - boards.each do |board|
+                      - unless  @asignados.include?(board["name"])
+                        - #bdbrd=Board.find_or_create_by(board_id: board["id"])
+                        - #if(bdbrd!=nil)
+                        %tr
+                          %td
+                            %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                              #{board["name"]}
+                          - actual_board=Board.find_by(board_id: board["id"])
+                          %td
+                            %a.boards-list-item-link
+                              - if actual_board != nil
+                                - if actual_board.fondo != nil
+                                  #{actual_board.fondo.name}
+                                - else
+                                  NO ASIGNADO
+                              - else
+                                NO ASIGNADO
+                          %td
+                            %a.boards-list-item-link
+                              - if actual_board != nil
+                                - if actual_board.tipo != nil
+                                  #{actual_board.tipo.name}
+                                - else
+                                  NO ASIGNADO
+                              - else
+                                NO ASIGNADO
+                          %td
+                            %a.boards-list-item-link
+                              - if actual_board != nil
+                                - if actual_board.zones != nil
+                                  #{actual_board.zones.all.pluck(:name)}
+                                - else
+                                  NO ASIGNADAS
+                              - else
+                                NO ASIGNADAS
+                          %td
+                            %a.boards-list-item-link
+                              NO ASIGNADO
+
 
   .row
     
@@ -207,3 +228,19 @@
       }
     });
 
+:javascript
+  $(document).ready(function(){
+    $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+    });
+    $("#myTable-1").tablesorter(); 
+    $("#myTable-2").tablesorter(); 
+    $("#myTable-3").tablesorter(); 
+    $("#myTable-4").tablesorter(); 
+    $("#myTable-5").tablesorter(); 
+    $("#myTable-6").tablesorter(); 
+    $("#myTable-7").tablesorter(); 
+    $("#myTable-8").tablesorter(); 
+    $("#myTable-9").tablesorter(); 
+    $("#myTable-10").tablesorter(); 
+  })
