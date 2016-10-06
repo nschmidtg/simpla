@@ -2,28 +2,23 @@
    
 .container
   .row
-    %h2.ollert-header
-      .text-center.col-xs-12
-        Fondos de #{@mun.name}
+    %h4
+      Panel de Administración >
+      Fondos
 
   .row
-  - @mun.fondos.order(:etapa => 'asc').each do |fondo|
-    .col-md-3.col-sm-3.col-xs-4.no-padding
-      .analysis-block-md
-        #{fondo.name}
-        %ul{class: 'boards-list'}
-          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}&fondo_id=#{fondo.id}&edit=true"}
-            %span.glyphicon.glyphicon-pencil
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Nombre: #{fondo.name}
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Etapa: #{fondo.etapa}
-          %li.boards-list-item
-            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos/states?mun_id=#{@mun.id}&fondo_id=#{fondo.id}"}
-              Estados: #{@mun.states.count}
-          
+    .col-md-12.col-sm-12.col-xs-12.no-padding
+      - @mun.fondos.order(:etapa => 'asc').each do |fondo|
+        .col-md-2.col-sm-3.col-xs-3
+          %a.btn.fondox{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}&fondo_id=#{fondo.id}&edit=true"}
+            %h1 #{fondo.name}
+            %h4 #{fondo.etapa}
+            / %li.boards-list-item
+            /   %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos/states?mun_id=#{@mun.id}&fondo_id=#{fondo.id}"}
+            /     Estados: #{@mun.states.count}
         
-  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}"}
-    %span.glyphicon.glyphicon-plus
+  - if(@user.role=="secpla" || @user.role=="admin") 
+    .row
+      - @mun=@user.municipio
+      %a.btn.plus{href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}"}
+        Agregar Proyecto

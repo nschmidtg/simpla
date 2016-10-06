@@ -1533,6 +1533,18 @@ ul.board-list-prior{
   padding: 2px !important;
   border-top: none !important;
 }
+.fondox{
+  background-color: #eee;
+  float: right;
+  color: $celeste;
+  width: 100%;
+  margin: 10px;
+
+}
+.fondox:hover{
+  color: #fff;
+  background-color: $celeste
+}
 .plus{
   background-color: $celeste;
   float: right;

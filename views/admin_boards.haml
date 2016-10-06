@@ -2,45 +2,88 @@
    
 .container
   .row
+    %h4
+      Archivo de Proyectos >
     %h2.ollert-header
-      .text-center.col-xs-12
-        Proyectos de #{@mun.name}
+      .text-center.col-xs-12.no-padding
+        Proyectos
 
   .row
-    
-  - @boards.each do |board|
-    .col-md-3.col-sm-3.col-xs-4.no-padding
-      .analysis-block-md
-        #{board.name}
-        - @org=Trello::Board.find(board.board_id).organization
-        %ul{class: 'boards-list'}
-          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{board.board_id}&orgName=#{@org.name}&board_name=#{board.name}&edit=true"}
-            %span.glyphicon.glyphicon-pencil
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Trello ID: #{board.board_id}
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Nombre: #{board.name}
-          %li.boards-list-item
-            %btn.btn-link.boards-list-item-link
-              Monto: #{board.monto}
-          - if(board.tipo!=nil)
-            %li.boards-list-item
-              %btn.btn-link.boards-list-item-link
-                Tipo: #{board.tipo.name}
-          - if(board.fondo!=nil)
-            %li.boards-list-item
-              %btn.btn-link.boards-list-item-link
-                Fondo: #{board.fondo.name}
-          - if(board.zones!=nil)
-            %li.boards-list-item
-              %btn.btn-link.boards-list-item-link
-                - zoness=" | "
-                - board.zones.each do |zone|
-                  - zoness=zoness+zone.name+" | "
-                Zonas: #{zoness}
-            
-  - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
-    %span.glyphicon.glyphicon-plus
+    .col-md-12.col-sm-12.col-xs-12.no-padding
+      %table.table{id: "myTable"}
+        %thead
+          %tr
+            %th 
+              Nombre Proyecto
+              %a{href: "#"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+            %th 
+              Fondo
+              %a{href: "#"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+            %th 
+              Tipo
+              %a{href: "#"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+            %th Zonas
+            %th 
+              Estado
+              %a{href: "#"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+            %th Editar
+        %tbody.cuerpo-tabla
+          - @boards.each do |board|
+            %tr
+              - @org=Trello::Board.find(board.board_id).organization
+              %td.celda-tabla
+                %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board.board_id}"}
+                  #{board.name.split('|')[0]}               
+              %td.celda-tabla
+                .boards-list-item-link-b
+                  - if board != nil
+                    - if board.fondo != nil
+                      #{board.fondo.name}
+                    - else
+                      NO ASIGNADO
+                  - else
+                    NO ASIGNADO
+              %td.celda-tabla
+                .boards-list-item-link-b
+                  - if board != nil
+                    - if board.tipo != nil
+                      #{board.tipo.name}
+                    - else
+                      NO ASIGNADO
+                  - else
+                    NO ASIGNADO
+              %td.celda-tabla
+                .boards-list-item-link-b
+                  - if board != nil
+                    - if board.zones != nil
+                      - zoness=" | "
+                      - board.zones.each do |zone|
+                        - zoness=zoness+zone.name+" | "
+                      #{zoness}
+                    - else
+                      NO ASIGNADAS
+                  - else
+                    NO ASIGNADAS
+              %td.celda-tabla
+                .boards-list-item-link-c
+                  #{board.current_state}
+              %td.celda-tabla
+                
+                - if(@user.role=="secpla" || @user.role=="admin")
+                  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{board.board_id}&orgName=#{@org.name}&board_name=#{board.name}&edit=true"}
+                    %span.glyphicon.glyphicon-pencil
+                    
+  - if(@user.role=="secpla" || @user.role=="admin") 
+    .row
+      - @mun=@user.municipio
+      - @org=@mun.organizations.find_by(name: "3. No Priorizados")
+      %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
+        Agregar Proyecto
+:javascript
+  $(document).ready(function(){
+    $("#myTable").tablesorter(); 
+  })

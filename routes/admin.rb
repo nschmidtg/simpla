@@ -4140,7 +4140,7 @@ class Ollert
     
   end
 
-  get '/admin/municipio/proyecto', :auth => :connected do
+  get '/archivo/municipio/proyecto', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
@@ -4155,7 +4155,7 @@ class Ollert
     end
   end
 
-  get '/admin/municipio/proyectos', :auth => :connected do
+  get '/archivo/municipio/proyectos', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token

@@ -93,7 +93,10 @@
                               .boards-list-item-link-b
                                 - if actual_board != nil
                                   - if actual_board.zones != nil
-                                    #{actual_board.zones.all.pluck(:name)}
+                                    - zoness=" | "
+                                    - actual_board.zones.each do |zone|
+                                      - zoness=zoness+zone.name+" | "
+                                    #{zoness}
                                   - else
                                     NO ASIGNADAS
                                 - else
@@ -168,7 +171,10 @@
                             .boards-list-item-link-b
                               - if actual_board != nil
                                 - if actual_board.zones != nil
-                                  #{actual_board.zones.all.pluck(:name)}
+                                  - zoness=" | "
+                                  - board.zones.each do |zone|
+                                    - zoness=zoness+zone.name+" | "
+                                  #{zoness}
                                 - else
                                   NO ASIGNADAS
                               - else
