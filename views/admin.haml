@@ -31,6 +31,7 @@
             %li.boards-list-item
               %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/launch?mun_id=#{muni.id}"}
                 Enviar invitaciones
-  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
-    %span.glyphicon.glyphicon-plus
+  - if(@user.role=="admin")
+    %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
+      %span.glyphicon.glyphicon-plus
 

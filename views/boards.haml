@@ -101,12 +101,14 @@
                             %td.celda-tabla
                               .boards-list-item-link-c
                                 - if(@states[count-3]!="Descartado")
-                                  %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa anterior"}
-                                    %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
+                                  - if(@user.role=="secpla" || @user.role=="admin") 
+                                    %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa anterior"}
+                                      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                 #{actual_board.current_state}
                                 - if(@states[count-1]!="Descartado")
-                                  %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a siguiente etapa"}
-                                    %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                                  - if(@user.role=="secpla" || @user.role=="admin") 
+                                    %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a siguiente etapa"}
+                                      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                   %script
                     var text=$(document).find("#tab-text-#{count}").text();
                     $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
@@ -174,12 +176,18 @@
                           %td.celda-tabla
                             .boards-list-item-link-c
                               NO ASIGNADO
-                              %a{onclick: "changeState('En formulación','#{board["id"]}')", title: "Pasar a siguiente etapa"}
-                                %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                              - if(@user.role=="secpla" || @user.role=="admin") 
+                                %a{onclick: "changeState('En formulación','#{board["id"]}')", title: "Pasar a siguiente etapa"}
+                                  %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                 %script
                   var text=$(document).find("#tab-text-1").text();
                   $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
-
+  - if(@user.role=="secpla" || @user.role=="admin") 
+    .row
+      - @mun=@user.municipio
+      - @org=@mun.organizations.find_by(name: "3. No Priorizados")
+      %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
+        Agregar Proyecto
   .row
     
   -cuenta=0

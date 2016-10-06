@@ -1296,7 +1296,7 @@ hr {
 .principal{
   padding-left:60px !important;
   min-height: 75vh;
-  margin-top: 50px;
+  margin-top: 80px;
 
 }
 
@@ -1533,7 +1533,14 @@ ul.board-list-prior{
   padding: 2px !important;
   border-top: none !important;
 }
-
+.plus{
+  background-color: $celeste;
+  float: right;
+  color: #fff;
+}
+.plus:hover{
+  color: #fff;
+}
 .boards-list-item-link {
   float: left;
   display: block;

@@ -2264,3 +2264,59 @@
 [2016-10-06 12:27:02 -0300 cpp-VirtualBox (11356)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-10-06 12:27:12 -0300 cpp-VirtualBox (11354)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-10-06 12:27:33 -0300 cpp-VirtualBox (11354)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Starting the New Relic agent in "development" environment.
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Environment: development
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Dispatcher: unicorn
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Application: Gestion Municipal (Development)
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Installing Net instrumentation
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Installing Sinatra instrumentation
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Installing Mongo instrumentation
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Finished instrumentation
+[2016-10-06 12:31:48 -0300 cpp-VirtualBox (12374)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-10-06 12:31:59 -0300 cpp-VirtualBox (12387)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-06 12:32:03 -0300 cpp-VirtualBox (12389)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-06 12:32:03 -0300 cpp-VirtualBox (12384)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-06 12:39:28 -0300 cpp-VirtualBox (12860)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-06 12:39:29 -0300 cpp-VirtualBox (12857)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-06 12:39:29 -0300 cpp-VirtualBox (12863)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13065)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13065)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13065)] INFO : Will re-attempt in 60 seconds
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13062)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13062)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13062)] INFO : Will re-attempt in 60 seconds
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13069)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13069)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:41:51 -0300 cpp-VirtualBox (13069)] INFO : Will re-attempt in 60 seconds
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13065)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13065)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13065)] INFO : Will re-attempt in 120 seconds
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13069)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13069)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13069)] INFO : Will re-attempt in 120 seconds
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13062)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13062)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:42:54 -0300 cpp-VirtualBox (13062)] INFO : Will re-attempt in 120 seconds
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13065)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13065)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13065)] INFO : Will re-attempt in 180 seconds
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13069)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13069)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13069)] INFO : Will re-attempt in 180 seconds
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13062)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13062)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:44:56 -0300 cpp-VirtualBox (13062)] INFO : Will re-attempt in 180 seconds
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13065)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13065)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13065)] INFO : Will re-attempt in 240 seconds
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13069)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13069)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13069)] INFO : Will re-attempt in 240 seconds
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13062)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13062)] ERROR : NewRelic::Agent::ServerConnectionException: Service unavailable (503): Service Unavailable
+[2016-10-06 12:47:59 -0300 cpp-VirtualBox (13062)] INFO : Will re-attempt in 240 seconds
