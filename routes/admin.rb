@@ -4132,8 +4132,8 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:success] = "Estado creado exitosamente"
-          redirect "/admin/municipio/states/tasks?mun_id=#{@mun.id}&state_id=#{@state.id}&fondo_id=#{@fondo.id}"
+          flash[:success] = "Tarea creada exitosamente"
+          redirect "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}&fondo_id=#{@fondo.id}&edit=true"
         end
       end
 

@@ -85,7 +85,8 @@
                       %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
                 .form-group
                   .col-md-12.col-sm-12.col-xs-12
-                    Tareas Predeterminadas
+                    %h3.tareas-header 
+                      > Tareas Predeterminadas
                     #responsiveTabsDemo
                       %ul#myTab.nav.nav-tabs.responsive
                         %li.lindo
@@ -144,7 +145,7 @@
                                             NO ASIGNADAS
                                       %td.celda-tabla
                                         .boards-list-item-link-c
-                                          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
+                                          %a{href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
                                             %span.glyphicon.glyphicon-pencil                                          
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
