@@ -1,14 +1,15 @@
 
    
 .container
-  .container
-    .row
-      %h2.ollert-header
-        .text-center.col-xs-12
-          - if(@fondo!=nil)
-            #{@fondo.name}
-          -else
-            Nuevo Fondo para #{@mun.name}
+  .row
+    %h4
+      Panel de Administración > Fondos
+    %h2.ollert-header
+      .text-center.col-xs-12.no-padding
+        - if(@fondo!=nil)
+          #{@fondo.name}
+        -else
+          Nuevo Fondo para #{@mun.name}
     - if(@fondo!=nil)
       .row
         .col-md-10.col-sm-10.col-xs-10
