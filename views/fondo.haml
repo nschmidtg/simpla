@@ -84,6 +84,69 @@
                     - else
                       %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "password",required: "", type: "hidden"}/
                 .form-group
+                  .col-md-12.col-sm-12.col-xs-12
+                    Tareas Predeterminadas
+                    #responsiveTabsDemo
+                      %ul#myTab.nav.nav-tabs.responsive
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-1",:id => "tab-text-1"} EN FORMULACIÓN
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} INGRESADO
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} OBSERVADO
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-4",:id => "tab-text-4"} CON APROBACIÓN TÉCNICA
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-5",:id => "tab-text-5"} CON RECURSOS APROBADOS
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-6",:id => "tab-text-6"} PREPARACIÓN LICITACIÓN
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-7",:id => "tab-text-7"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-8",:id => "tab-text-8"} EN EJECUCIÓN
+                        %li.lindo
+                          %a.tab-custom{:href => "#tab-9",:id => "tab-text-9"} FINALIZADO
+                      .tab-content.responsive
+                        - count=0
+                        - @mun.states.each do |state|
+                          - count=count+1
+                          %div{id: "tab-#{count}", class: "tab-pane"}
+                            .col-md-12.col-sm-12.col-xs-12.no-padding
+                              %table.table{id: "myTable-#{count}"}
+                                %thead
+                                  %tr
+                                    %th 
+                                      Tarea Predeterminada
+                                      %a{href: "#"}
+                                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                                    %th 
+                                      Checklist
+                                      %a{href: "#"}
+                                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                                    %th Editar
+                                %tbody.cuerpo-tabla
+                                  - state.tasks.where(:fondo_id => @fondo.id).each do |task|
+                                    %tr
+                                      %td.celda-tabla
+                                        .boards-list-item-link-b
+                                          #{task["name"]}
+                                      %td.celda-tabla
+                                        .boards-list-item-link-b
+                                          - if task != nil
+                                            - if task.checklist != nil
+                                              - checklists=" | "
+                                              - task.checklist.split('|').each do |item|
+                                                - checklists=checklists+item+" | "
+                                              #{checklists}
+                                            - else
+                                              NO ASIGNADAS
+                                          - else
+                                            NO ASIGNADAS
+                                      %td.celda-tabla
+                                        .boards-list-item-link-c
+                                          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
+                                            %span.glyphicon.glyphicon-pencil                                          
+                .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@fondo!=nil)
@@ -112,3 +175,19 @@
       $("#confirm").removeClass( "hide");
     });
     };
+:javascript
+  $(document).ready(function(){
+    $('#responsiveTabsDemo').responsiveTabs({
+      startCollapsed: 'accordion'
+    });
+    $("#myTable-1").tablesorter(); 
+    $("#myTable-2").tablesorter(); 
+    $("#myTable-3").tablesorter(); 
+    $("#myTable-4").tablesorter(); 
+    $("#myTable-5").tablesorter(); 
+    $("#myTable-6").tablesorter(); 
+    $("#myTable-7").tablesorter(); 
+    $("#myTable-8").tablesorter(); 
+    $("#myTable-9").tablesorter(); 
+    $("#myTable-10").tablesorter(); 
+  })
