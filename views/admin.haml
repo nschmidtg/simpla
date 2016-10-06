@@ -2,36 +2,41 @@
    
 .container
   .row
-    %h2.ollert-header
-      .text-center.col-xs-12
-        Panel de administración
-
-  .row
-    
-  - @municipios.each do |muni|
-    .col-md-3.col-sm-3.col-xs-4.no-padding
-      .analysis-block-md
-        #{muni.name}
-        %ul{class: 'boards-list'}
+    %h4
+      Panel de Administración >
+    - @municipios.each do |muni|
+      %h2.ollert-header
+        .text-center.col-xs-12.no-padding
+          #{muni.name}
           %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}&edit=true"}
             %span.glyphicon.glyphicon-pencil
-          %li.boards-list-item
+      .row
+        .col-md-12.col-sm-12.col-xs-12.no-padding
+          .col-md-3.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/proyectos?mun_id=#{muni.id}"}
-              Proyectos Abiertos: #{muni.boards.where(closed: "false").count}
-          %li.boards-list-item
+              %img.svg-element#boton{src: "/img/Iconos-23.svg", type:"image/svg+xml"}
+              %h1 #{muni.boards.where(closed: "false").count}
+              %h4 Proyectos Abiertos 
+          .col-md-3.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos?mun_id=#{muni.id}"}
-              Fondos: #{muni.fondos.count}
-          %li.boards-list-item
+              %img.svg-element#boton{src: "/img/Iconos-22.svg", type:"image/svg+xml"}
+              %h1 #{muni.fondos.count}
+              %h4 Fondos
+          .col-md-3.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}"}
-              Usuarios: #{muni.users.count}
-          %li.boards-list-item
+              %img.svg-element#boton{src: "/img/Iconos-28.svg", type:"image/svg+xml"}
+              %h1 #{muni.users.count}
+              %h4 Usuarios
+          .col-md-3.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio?id=#{muni.id}&edit=true"}
-              Zonas: #{muni.zones.count}
+              %img.svg-element#boton{src: "/img/Iconos-25.svg", type:"image/svg+xml"}
+              %h1 #{muni.zones.count}
+              %h4 Zonas
           - if(muni.launched=="false")
             %li.boards-list-item
               %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/launch?mun_id=#{muni.id}"}
                 Enviar invitaciones
-  - if(@user.role=="admin")
-    %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
-      %span.glyphicon.glyphicon-plus
+      - if(@user.role=="admin")
+        %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio"}
+          %span.glyphicon.glyphicon-plus
 
