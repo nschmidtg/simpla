@@ -12,25 +12,25 @@
     #responsiveTabsDemo
       %ul#myTab.nav.nav-tabs.responsive
         %li.lindo
-          %a.tab-custom.active{:href => "#tab-1"} NO ASIGNADO
+          %a.tab-custom.active{:href => "#tab-1",:id => "tab-text-1"} NO ASIGNADO
         %li.lindo
-          %a.tab-custom{:href => "#tab-2"} EN FORMULACIÓN
+          %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} EN FORMULACIÓN
         %li.lindo
-          %a.tab-custom{:href => "#tab-3"} INGRESADO
+          %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} INGRESADO
         %li.lindo
-          %a.tab-custom{:href => "#tab-4"} OBSERVADO
+          %a.tab-custom{:href => "#tab-4",:id => "tab-text-4"} OBSERVADO
         %li.lindo
-          %a.tab-custom{:href => "#tab-5"} CON APROBACIÓN TÉCNICA
+          %a.tab-custom{:href => "#tab-5",:id => "tab-text-5"} CON APROBACIÓN TÉCNICA
         %li.lindo
-          %a.tab-custom{:href => "#tab-6"} CON RECURSOS APROBADOS
+          %a.tab-custom{:href => "#tab-6",:id => "tab-text-6"} CON RECURSOS APROBADOS
         %li.lindo
-          %a.tab-custom{:href => "#tab-7"} PREPARACIÓN LICITACIÓN
+          %a.tab-custom{:href => "#tab-7",:id => "tab-text-7"} PREPARACIÓN LICITACIÓN
         %li.lindo
-          %a.tab-custom{:href => "#tab-8"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
+          %a.tab-custom{:href => "#tab-8",:id => "tab-text-8"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
         %li.lindo
-          %a.tab-custom{:href => "#tab-9"} EN EJECUCIÓN
+          %a.tab-custom{:href => "#tab-9",:id => "tab-text-9"} EN EJECUCIÓN
         %li.lindo
-          %a.tab-custom{:href => "#tab-10"} FINALIZADO
+          %a.tab-custom{:href => "#tab-10",:id => "tab-text-10"} FINALIZADO
       .tab-content.responsive
         - @asignados = Array.new()
         - count=1
@@ -58,12 +58,14 @@
                 
 
                 %tbody.cuerpo-tabla
+                  - cantidad_tableros=0
                   - @boards.each do |org_name, boards|
                     - prioridad_tablero=org_name
                     - if(@prioridades.include?(prioridad_tablero))
                       - boards.each do |board|
                         - if(state == board["name"].split('|')[1])
                           - @asignados<<board["name"]
+                          - cantidad_tableros=cantidad_tableros+1
                           %tr
                             %td.celda-tabla
                               %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
@@ -71,16 +73,43 @@
                             - actual_board=Board.find_by(board_id: board["id"])
                             %td.celda-tabla
                               .boards-list-item-link-b
-                                #{actual_board.fondo.name}
+                                - if actual_board != nil
+                                  - if actual_board.fondo != nil
+                                    #{actual_board.fondo.name}
+                                  - else
+                                    NO ASIGNADO
+                                - else
+                                  NO ASIGNADO
                             %td.celda-tabla
                               .boards-list-item-link-b
-                                #{actual_board.tipo.name}
+                                - if actual_board != nil
+                                  - if actual_board.tipo != nil
+                                    #{actual_board.tipo.name}
+                                  - else
+                                    NO ASIGNADO
+                                - else
+                                  NO ASIGNADO
                             %td.celda-tabla
                               .boards-list-item-link-b
-                                #{actual_board.zones.all.pluck(:name)}
+                                - if actual_board != nil
+                                  - if actual_board.zones != nil
+                                    #{actual_board.zones.all.pluck(:name)}
+                                  - else
+                                    NO ASIGNADAS
+                                - else
+                                  NO ASIGNADAS
                             %td.celda-tabla
-                              .boards-list-item-link-b
+                              .boards-list-item-link-c
+                                - if(@states[count-3]!="Descartado")
+                                  %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa anterior"}
+                                    %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                 #{actual_board.current_state}
+                                - if(@states[count-1]!="Descartado")
+                                  %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a siguiente etapa"}
+                                    %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                  %script
+                    var text=$(document).find("#tab-text-#{count}").text();
+                    $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
         %div{id: "tab-1", class: "tab-pane"}
           .col-md-12.col-sm-12.col-xs-12.no-padding
             %table.table{id: "myTable-1"}
@@ -101,6 +130,7 @@
                   %th Zonas
                   %th Estado
               %tbody.cuerpo-tabla
+                - cantidad_tableros=0
                 - @boards.each do |org_name, boards|
                 - prioridad_tablero=org_name
                   - if(@prioridades.include?(prioridad_tablero))
@@ -108,6 +138,7 @@
                       - unless  @asignados.include?(board["name"])
                         - #bdbrd=Board.find_or_create_by(board_id: board["id"])
                         - #if(bdbrd!=nil)
+                        - cantidad_tableros=cantidad_tableros+1
                         %tr
                           %td.celda-tabla
                             %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
@@ -141,19 +172,23 @@
                               - else
                                 NO ASIGNADAS
                           %td.celda-tabla
-                            .boards-list-item-link-b
+                            .boards-list-item-link-c
                               NO ASIGNADO
-
+                              %a{onclick: "changeState('En formulación','#{board["id"]}')", title: "Pasar a siguiente etapa"}
+                                %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                %script
+                  var text=$(document).find("#tab-text-1").text();
+                  $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
 
   .row
     
-  
+  -cuenta=0
   - @prioridades.each do |prioridad|
-    
+    - cuenta=cuenta+1
     .col-md-4.col-sm-4.col-xs-4.no-padding
       .analysis-block-md
         #{prioridad}
-        %ul{class: 'board-list-prior'}
+        %ul{class: 'board-list-prior', id: "board-list-prior-#{cuenta}"}
           - @boards.each do |org_name, boards|
             - prioridad_tablero=org_name
             - if(prioridad==(prioridad_tablero))
@@ -167,85 +202,88 @@
                   - bdbrd=Board.new
                   - bdbrd.name=board["name"]
                   - bdbrd.board_id=board["id"]
-                  - if(@closed.to_s=="true")
-                    - bdbrd.closed="true"
-                  - else
-                    - bdbrd.closed="false"
+                  / - if(@closed.to_s=="true")
+                  /   - bdbrd.closed="true"
+                  / - else
+                  /   - bdbrd.closed="false"
                   - bdbrd.municipio=@user.municipio
                   - bdbrd.users<<@user
                   - bdbrd.save
                 - else
                   - bdbrd.name=board["name"]
-                  - if(@closed.to_s=="true")
-                    - bdbrd.closed="true"
-                  - else
-                    - bdbrd.closed="false"
+                  / - if(@closed.to_s=="true")
+                  /   - bdbrd.closed="true"
+                  / - else
+                  /   - bdbrd.closed="false"
                   - bdbrd.save
-                %li.boards-list-item
-                  %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                    #{board["name"]}
+                - if(bdbrd.closed=="false")
+                  %li.boards-list-item
+                    %a{href: "/boards/#{board["id"]}"}
+                      #{board["name"]}
 
 - if(@user.role=="secpla" || @user.role=="admin")       
   :javascript
-    $( ".boards-list").sortable({connectWith: ".boards-list",
-      stop: function  (event,ui) {
+    function changeState(boardState,boardId){
+      if(boardState=="Finalizado" || boardState=="Descartado"){
+        confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")
+      }
+      else{
+        if(window.location.href.includes("closed")){
+          confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas al estado.")
+        }
+        else{
+          confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas al estado.")
+        }
+      }
+      $.ajax({
+        url: "/api/v1/change_board_state/" + boardId,
+        data: {
+          token: "#{@token}",
+          state: boardState
+        },
+        success: function(xhr){
+          window.location.reload();
+        },
+        error: function(xhr) {
+          if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.")){window.location.reload();}
+        }
+      });
+    }
+    
+     
+    $(function () {
+      $( "#board-list-prior-1,#board-list-prior-2,#board-list-prior-3").sortable({
+        connectWith: "#board-list-prior-3",
+        stop: function  (event, ui) {
           var $item=ui.item;
-          var palabra=$item.parent().parent().text().split('\n')[1];
-          var boardState=palabra.substring(18,palabra.length);
-          if(boardState=="Finalizado" || boardState=="Descartado"){
-            if(!confirm("¿Está seguro de que quiere marcar el proyecto como finalizado? El proyecto se cerrará")){window.location.reload();}
+          var boardPriority=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
+          
+          if(boardPriority=="2.Priorizados"){
+            boardPriority="2. Priorizados";
           }
-          else{
-            if(window.location.href.includes("closed")){
-              if(!confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas al estado.")){window.location.reload();}
-            }
-            else{
-              if(!confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas al estado.")){window.location.reload();}
-            }
+          else if(boardPriority=="1.Urgentes"){
+            boardPriority="1. Urgentes";
+          }
+          else if(boardPriority=="3.NoPriorizados"){
+            boardPriority="3. No Priorizados";
           }
           var boardId=$item.find('a').attr('href').split('/')[2];
+          
+
+
           $.ajax({
-            url: "/api/v1/change_board_state/" + boardId,
+            url: "/api/v1/change_board_priority/" + boardId,
             data: {
               token: "#{@token}",
-              state: boardState
+              user_id: "#{@user.trello_id}",
+              priority: boardPriority
             },
             error: function(xhr) {
-              if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.")){window.location.reload();}
+              if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
             }
           });
         }
       });
-    $( ".board-list-prior").sortable({connectWith: ".board-list-prior",
-      stop: function  (event, ui) {
-        var $item=ui.item;
-        var boardPriority=$item.parent().parent().text().split('\n')[1].replace(/ /g,'');
-        
-        if(boardPriority=="2.Priorizados"){
-          boardPriority="2. Priorizados";
-        }
-        else if(boardPriority=="1.Urgentes"){
-          boardPriority="1. Urgentes";
-        }
-        else if(boardPriority=="3.NoPriorizados"){
-          boardPriority="3. No Priorizados";
-        }
-        var boardId=$item.find('a').attr('href').split('/')[2];
-        
-
-
-        $.ajax({
-          url: "/api/v1/change_board_priority/" + boardId,
-          data: {
-            token: "#{@token}",
-            user_id: "#{@user.trello_id}",
-            priority: boardPriority
-          },
-          error: function(xhr) {
-            if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
-          }
-        });
-      }
     });
 
 :javascript

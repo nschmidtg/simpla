@@ -99,6 +99,10 @@ class Ollert
     muni_state=brd.municipio.states.find_by(name: state)
     if(muni_state!=nil)
       order=muni_state.order
+      if(brd.state_change_dates==nil)
+        brd.state_change_dates=Array.new(10)
+        brd.save
+      end
       brd.state_change_dates[order.to_i-1]=Time.now.strftime("%d/%m/%Y %H:%M")
     end
     brd.save
