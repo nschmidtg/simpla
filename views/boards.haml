@@ -299,12 +299,12 @@
                                   NO ASIGNADAS
                             %td.celda-tabla
                               .boards-list-item-link-c
-                                - if(@prioridades[count-13]!="3. No Priorizados")
+                                - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
                                       %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                 #{prioridad}
-                                - if(@prioridades[count-11]!="1. Urgentes")
+                                - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
                                       %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
@@ -316,18 +316,26 @@
   :javascript
     function changeState(boardState,boardId){
       if(boardState=="Finalizado" || boardState=="Descartado"){
-        confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")
+        if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")){
+          $body = $("body");
+          $body.addClass("loading");
+        }
       }
       else{
         if(window.location.href.includes("closed")){
-          confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas al estado.")
+          if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas al estado.")){
+            $body = $("body");
+            $body.addClass("loading");
+          }
         }
         else{
-          confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas al estado.")
+          if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas al estado.")){
+            $body = $("body");
+            $body.addClass("loading");
+          }
         }
       }
-      $body = $("body");
-      $body.addClass("loading");
+      
       $.ajax({
         url: "/api/v1/change_board_state/" + boardId,
         data: {
@@ -344,9 +352,10 @@
     }
     
     function changePriority(boardPriority,boardId){
-      confirm("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?")
-      $body = $("body");
-      $body.addClass("loading");
+      if(confirm("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?")){
+        $body = $("body");
+        $body.addClass("loading");
+      }
       $.ajax({
         url: "/api/v1/change_board_priority/" + boardId,
         data: {

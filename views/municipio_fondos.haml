@@ -21,6 +21,5 @@
         
   - if(@user.role=="secpla" || @user.role=="admin") 
     .row
-      - @mun=@user.municipio
       %a.btn.plus{href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}"}
         Agregar Fondo

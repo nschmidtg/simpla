@@ -1,7 +1,7 @@
 development:
   clients:
     default:
-      database: ollert-dev
+      database: heroku_3v1w4728
       hosts:
         - localhost
   options:
@@ -10,7 +10,7 @@ development:
 test:
   clients:
     default:
-      database: ollert-test
+      database: heroku_3v1w4728
       hosts:
         - localhost
   options:
