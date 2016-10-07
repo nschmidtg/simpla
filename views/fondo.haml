@@ -124,9 +124,12 @@
                                       Checklist
                                       %a{href: "#"}
                                         %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                                    %th Predeterminada
                                     %th Editar
                                 %tbody.cuerpo-tabla
+                                  - task_count=0
                                   - state.tasks.where(:fondo_id => @fondo.id).each do |task|
+                                    -task_count = task_count+1
                                     %tr
                                       %td.celda-tabla
                                         .boards-list-item-link-b
@@ -144,13 +147,28 @@
                                           - else
                                             NO ASIGNADAS
                                       %td.celda-tabla
+                                        .boards-list-item-link-b
+                                          - if task != nil
+                                            - if task.checked != nil
+                                              - if task.checked=="true"
+                                                Sí
+                                              - else
+                                                No
+                                            - else
+                                              NO ASIGNADO
+                                          - else
+                                            NO ASIGNADO
+                                      %td.celda-tabla
                                         .boards-list-item-link-c
                                           %a{href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
                                             %span.glyphicon.glyphicon-pencil
                               - if(@user.role=="secpla" || @user.role=="admin") 
                                 .row
                                   %a.btn.plus{href:"/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&fondo_id=#{@fondo.id}&edit=false"}
-                                    Agregar Tarea                                          
+                                    Agregar Tarea  
+                            %script
+                              var text=$(document).find("#tab-text-#{count}").text();
+                              $(document).find("#tab-text-#{count}").text(text+" [#{task_count}]");                                        
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
