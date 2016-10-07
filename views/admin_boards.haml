@@ -36,7 +36,7 @@
             %tr
               - @org=Trello::Board.find(board.board_id).organization
               %td.celda-tabla
-                %a.btn.btn-link.boards-list-item-link{href: "/boards/#{board.board_id}"}
+                %a.btn-link.boards-list-item-link{href: "/boards/#{board.board_id}"}
                   #{board.name.split('|')[0]}               
               %td.celda-tabla
                 .boards-list-item-link-b
