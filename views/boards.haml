@@ -326,6 +326,8 @@
           confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas al estado.")
         }
       }
+      $body = $("body");
+      $body.addClass("loading");
       $.ajax({
         url: "/api/v1/change_board_state/" + boardId,
         data: {
