@@ -172,7 +172,7 @@
                               - if actual_board != nil
                                 - if actual_board.zones != nil
                                   - zoness=" | "
-                                  - board.zones.each do |zone|
+                                  - actual_board.zones.each do |zone|
                                     - zoness=zoness+zone.name+" | "
                                   #{zoness}
                                 - else
@@ -202,13 +202,13 @@
     #responsiveTabsDemo2
       %ul#myTab.nav.nav-tabs.responsive
         %li.lindo
-          %a.tab-custom.active{:href => "#tab-11",:id => "tab-text-11"} Urgentes
+          %a.tab-custom{:href => "#tab-12",:id => "tab-text-12"} Urgentes
         %li.lindo
-          %a.tab-custom{:href => "#tab-12",:id => "tab-text-12"} Priorizados
+          %a.tab-custom{:href => "#tab-13",:id => "tab-text-13"} Priorizados
         %li.lindo
-          %a.tab-custom{:href => "#tab-13",:id => "tab-text-13"} No Priorizados
+          %a.tab-custom{:href => "#tab-14",:id => "tab-text-14"} No Priorizados
       .tab-content.responsive
-        -count=10
+        -count=11
         - @prioridades.each do |prioridad|
           - count=count+1
           %div{id: "tab-#{count}", class: "tab-pane"}
@@ -299,14 +299,14 @@
                                   NO ASIGNADAS
                             %td.celda-tabla
                               .boards-list-item-link-c
-                                - if(@prioridades[count-12]!=nil)
+                                - if(@prioridades[count-13]!="3. No Priorizados")
                                   - if(@user.role=="secpla" || @user.role=="admin") 
-                                    %a{onclick: "changeState('#{@prioridades[count-12]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
+                                    %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
                                       %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                 #{prioridad}
-                                - if(@prioridades[count-10]!=nil)
+                                - if(@prioridades[count-11]!="1. Urgentes")
                                   - if(@user.role=="secpla" || @user.role=="admin") 
-                                    %a{onclick: "changeState('#{@prioridades[count-10]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
+                                    %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
                                       %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                       %script
                         var text=$(document).find("#tab-text-#{count}").text();
@@ -361,11 +361,6 @@
     
           
 
-
-          
-        }
-      });
-    });
 
 :javascript
   $(document).ready(function(){

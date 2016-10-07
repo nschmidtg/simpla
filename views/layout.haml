@@ -183,7 +183,7 @@
                 %a{href: "http://www.sep.com/labs/", alt: "SEP Labs", target: "blank", title: "Danger! Experimental"}
                   %img.footer-item.footer-lab{"src": "/img/labs-logo.png"}
         
-
+    .modal
 
   
 
@@ -226,6 +226,13 @@
             );
           }
         });
+      });
+
+      $body = $("body");
+
+      $(document).on({
+          ajaxStart: function() { $body.addClass("loading");    },
+           ajaxStop: function() { $body.removeClass("loading"); }    
       });
 
     
