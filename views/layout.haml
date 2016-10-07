@@ -92,11 +92,11 @@
                           Cerrar Sesión
 
       #mainContent
-        .col.md-12.col-sm-12.col-xs-12.principal
+        
         - if @user.nil?
             
         - else @user.nil?
-          .no-padding-nav
+          .col.md-12.col-sm-12.col-xs-12.no-padding-nav
             .drawer-contents-nav
               %ul.drawer-nav#config-drawer-board-list.no-padding
                 - if @user.role!="admin"
@@ -142,7 +142,7 @@
                         %h5.h5-lateral
                           Panel Administración
 
-        
+        .col.md-12.col-sm-12.col-xs-12.principal
           - if flash.has? :error
             .row{id: 'flash', class: 'alert alert-danger'}
               .container
