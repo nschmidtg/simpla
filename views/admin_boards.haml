@@ -79,7 +79,7 @@
                     
   - if(@user.role=="secpla" || @user.role=="admin") 
     .row
-      - @mun=@user.municipio
+      - @mun=Municipio.find_by(id: params[:mun_id])
       - @org=@mun.organizations.find_by(name: "3. No Priorizados")
       %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
         Agregar Proyecto

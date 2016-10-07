@@ -316,10 +316,12 @@
 - if(@user.role=="secpla" || @user.role=="admin")       
   :javascript
     function changeState(boardState,boardId){
+      var va=false;
       if(boardState=="Finalizado" || boardState=="Descartado"){
         if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")){
           $body = $("body");
           $body.addClass("loading");
+          va=true;
         }
       }
       else{
@@ -327,50 +329,57 @@
           if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas al estado.")){
             $body = $("body");
             $body.addClass("loading");
+            va=true;
           }
         }
         else{
           if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas al estado.")){
             $body = $("body");
             $body.addClass("loading");
+            va=true;
           }
         }
       }
-      
-      $.ajax({
-        url: "/api/v1/change_board_state/" + boardId,
-        data: {
-          token: "#{@token}",
-          state: boardState
-        },
-        success: function(xhr){
-          window.location.reload();
-        },
-        error: function(xhr) {
-          if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.")){window.location.reload();}
-        }
-      });
+      if(va){
+        $.ajax({
+          url: "/api/v1/change_board_state/" + boardId,
+          data: {
+            token: "#{@token}",
+            state: boardState
+          },
+          success: function(xhr){
+            window.location.reload();
+          },
+          error: function(xhr) {
+            if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de estado no será guardado.")){window.location.reload();}
+          }
+        });
+      }
     }
     
     function changePriority(boardPriority,boardId){
+      var va=false;
       if(confirm("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?")){
         $body = $("body");
         $body.addClass("loading");
+        va=true;
       }
-      $.ajax({
-        url: "/api/v1/change_board_priority/" + boardId,
-        data: {
-          token: "#{@token}",
-          user_id: "#{@user.trello_id}",
-          priority: boardPriority
-        },
-        success: function(xhr){
-          window.location.reload();
-        },
-        error: function(xhr) {
-          if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
-        }
-      });
+      if(va){
+        $.ajax({
+          url: "/api/v1/change_board_priority/" + boardId,
+          data: {
+            token: "#{@token}",
+            user_id: "#{@user.trello_id}",
+            priority: boardPriority
+          },
+          success: function(xhr){
+            window.location.reload();
+          },
+          error: function(xhr) {
+            if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
+          }
+        });
+      }
     }
     
           
