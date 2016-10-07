@@ -107,7 +107,8 @@
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa anterior"}
                                       %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                #{actual_board.current_state}
+                                - if (actual_board!=nil)
+                                  #{actual_board.current_state}
                                 - if(@states[count-1]!="Descartado")
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a siguiente etapa"}

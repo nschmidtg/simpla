@@ -121,10 +121,10 @@
                 
 
 - if(@new_user!=nil)
-  #confirm.modal.hide.fade
-    .modal-body{style: "background: #ce4e41; color: #ffffff"}
+  #confirm.modalx.hide.fade
+    .modal-body
       ¿Estás seguro que deseas eliminar #{@new_user.login_name}?
-    }
+    
     .modal-footer
       %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
       %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar

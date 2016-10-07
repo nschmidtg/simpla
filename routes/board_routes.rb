@@ -145,10 +145,15 @@ class Ollert
         config.developer_public_key = ENV['PUBLIC_KEY']
         config.member_token = @user.member_token
       end
-      JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
-      board=Board.find_by(board_id: board_id)
-      board.destroy
       
+      board=Board.find_by(board_id: board_id)
+      board.closed="true"
+      board.current_state="Descartado"
+      board.state_change_dates[9]=Time.now.strftime("%d/%m/%Y %H:%M")
+      board.name=board.name.split(' |')[0]+" |Descartado|"
+      board.save
+      JSON.parse(client.put("/boards/#{board_id}/name", {value: "#{board.name}"}))
+      JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
 
     rescue Trello::Error => e
       

@@ -1314,7 +1314,7 @@ hr {
 .principal{
   padding-left:60px !important;
   min-height: 75vh;
-  margin-top: 80px;
+  margin-top: 50px;
 
 }
 
@@ -1700,6 +1700,9 @@ ul.left-align li a{
     color: green;
   }
 }
+.modal-body{
+  background: #ce4e41; color: #ffffff; display: -webkit-inline-box
+}
 
 .no-padding {
   padding: 0 !important;
@@ -1708,6 +1711,7 @@ ul.left-align li a{
 .modal-footer {
   padding: 5px;
   margin-top: 0;
+  display: -webkit-inline-box;float: right;border: none;
 }
 
 .modal-header {
@@ -1715,8 +1719,14 @@ ul.left-align li a{
   padding-bottom: 5px;
 }
 
-.modal {
+.modalx {
+  z-index:3000;
   overflow-y: auto;
+  padding-right: 15px;
+    position: absolute;
+    width: 100%;
+    background: #ce4e41;
+    top: 0;
 }
 
 #flash {
