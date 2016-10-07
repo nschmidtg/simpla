@@ -345,6 +345,8 @@
     
     function changePriority(boardPriority,boardId){
       confirm("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?")
+      $body = $("body");
+      $body.addClass("loading");
       $.ajax({
         url: "/api/v1/change_board_priority/" + boardId,
         data: {
