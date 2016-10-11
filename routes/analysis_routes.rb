@@ -80,7 +80,6 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => params['token']
     )
-    puts "gelo"
     body CardsFromMunFetcher.fetch(client, mun_id).to_json
     #body CardsFromMunAnalyzer.analyze(CardsFromMunFetcher.fetch(client, mun_id)).to_json
     status 200
