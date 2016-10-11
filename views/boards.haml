@@ -246,8 +246,9 @@
                         - org.municipio=@user.municipio
                         - org.save
                         - bdbrd=Board.find_by(board_id: board["id"])
-                        - if(bdbrd==nil)
-                          - if(board["closed"]==false)
+                        - if(board["closed"]==false)
+                          - if(bdbrd==nil)
+
                             - bdbrd=Board.new
                             - bdbrd.name=board["name"]
                             - bdbrd.board_id=board["id"]
@@ -258,61 +259,61 @@
                             - bdbrd.municipio=@user.municipio
                             - bdbrd.users<<@user
                             - bdbrd.save
-                        - else
-                          - bdbrd.name=board["name"]
-                          / - if(@closed.to_s=="true")
-                          /   - bdbrd.closed="true"
-                          / - else
-                          /   - bdbrd.closed="false"
-                          - bdbrd.save
-                        - if(bdbrd.closed=="false")
-                          - cantidad_tableros=cantidad_tableros+1
-                          %tr
-                            %td.celda-tabla
-                              %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                                #{board["name"].split('|')[0]}
-                            - actual_board=Board.find_by(board_id: board["id"])
-                            %td.celda-tabla
-                              .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.fondo != nil
-                                    #{actual_board.fondo.name}
+                          - else
+                            - bdbrd.name=board["name"]
+                            / - if(@closed.to_s=="true")
+                            /   - bdbrd.closed="true"
+                            / - else
+                            /   - bdbrd.closed="false"
+                            - bdbrd.save
+                          - if(bdbrd.closed=="false")
+                            - cantidad_tableros=cantidad_tableros+1
+                            %tr
+                              %td.celda-tabla
+                                %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                                  #{board["name"].split('|')[0]}
+                              - actual_board=Board.find_by(board_id: board["id"])
+                              %td.celda-tabla
+                                .boards-list-item-link-b
+                                  - if actual_board != nil
+                                    - if actual_board.fondo != nil
+                                      #{actual_board.fondo.name}
+                                    - else
+                                      NO ASIGNADO
                                   - else
                                     NO ASIGNADO
-                                - else
-                                  NO ASIGNADO
-                            %td.celda-tabla
-                              .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.tipo != nil
-                                    #{actual_board.tipo.name}
+                              %td.celda-tabla
+                                .boards-list-item-link-b
+                                  - if actual_board != nil
+                                    - if actual_board.tipo != nil
+                                      #{actual_board.tipo.name}
+                                    - else
+                                      NO ASIGNADO
                                   - else
                                     NO ASIGNADO
-                                - else
-                                  NO ASIGNADO
-                            %td.celda-tabla
-                              .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.zones != nil
-                                    - zoness=" | "
-                                    - actual_board.zones.each do |zone|
-                                      - zoness=zoness+zone.name+" | "
-                                    #{zoness}
+                              %td.celda-tabla
+                                .boards-list-item-link-b
+                                  - if actual_board != nil
+                                    - if actual_board.zones != nil
+                                      - zoness=" | "
+                                      - actual_board.zones.each do |zone|
+                                        - zoness=zoness+zone.name+" | "
+                                      #{zoness}
+                                    - else
+                                      NO ASIGNADAS
                                   - else
                                     NO ASIGNADAS
-                                - else
-                                  NO ASIGNADAS
-                            %td.celda-tabla
-                              .boards-list-item-link-c
-                                - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
-                                  - if(@user.role=="secpla" || @user.role=="admin") 
-                                    %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
-                                      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                #{prioridad}
-                                - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
-                                  - if(@user.role=="secpla" || @user.role=="admin") 
-                                    %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
-                                      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                              %td.celda-tabla
+                                .boards-list-item-link-c
+                                  - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
+                                    - if(@user.role=="secpla" || @user.role=="admin") 
+                                      %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
+                                        %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
+                                  #{prioridad}
+                                  - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
+                                    - if(@user.role=="secpla" || @user.role=="admin") 
+                                      %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
+                                        %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                       %script
                         var text=$(document).find("#tab-text-#{count}").text();
                         $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
