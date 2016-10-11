@@ -5,17 +5,17 @@ var CalendarFullChartBuilder = (function() {
     var eventos='[';
     var date;
     date=new Date(options[0].due);
-    eventos=eventos+'{"title": "'+options[0].name.replace(/\"/g, "'")+'","start": "'+date+'"}';
+    eventos=eventos+'{"title": "['+options[0].boardName.replace(/\"/g, "'").split(' |')[0]+'] '+options[0].name.replace(/\"/g, "'")+'","start": "'+date+'","description": "'+options[0].boardName.replace(/\"/g, "'").split(' |')[0]+'"}';
     for(i=1;i<options.length;i++){
         date=new Date(options[i].due);
-        eventos=eventos+',{"title": "'+options[i].name.replace(/\"/g, "'")+'","start": "'+date+'"}';
+        eventos=eventos+',{"title": "['+options[i].boardName.replace(/\"/g, "'").split(' |')[0]+'] '+options[i].name.replace(/\"/g, "'")+'","start": "'+date+'","description": "'+options[i].boardName.replace(/\"/g, "'").split(' |')[0]+'"}';
     }
     eventos=eventos+']';
     optionsBuild=eventos;
     $('#calendar-container').fullCalendar({
     events: jQuery.parseJSON(eventos),
     eventRender: function(event, element) {
-          $(element).popover({title: event.title, trigger: 'hover',container: 'body', placement: 'auto', delay: {"show": 100,"hide": 100 }});             
+          $(element).popover({title: event.description, content: event.title.split('] ')[1], trigger: 'hover',container: 'body', placement: 'auto', delay: {"show": 100,"hide": 100 }});             
         }
 });
     $('#calendar-container').height('100%');
