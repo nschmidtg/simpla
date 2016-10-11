@@ -1,0 +1,18 @@
+#board-details
+  .container
+    .row
+      #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
+        Calendario
+      .col-xs-2.text-center.h2.ollert-header
+        %button.btn.btn-default.pull-right{"data-toggle" => "modal", "data-target" =>"#configure-board-modal"}
+          %span.glyphicon.glyphicon-wrench
+    .row
+      .col-md-12.col-sm-12.col-xs-12
+        .analysis-block-md
+          %img#calendar-spinner{src: '/img/spinner.gif'}
+          #calendar-container.med-chart.graph-container
+
+:javascript
+  window.onload = function() {
+    CalendarController.init("#{@mun_id}", "#{@token}");
+  };

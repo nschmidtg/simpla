@@ -75,6 +75,17 @@ class Ollert
     status 200
   end
 
+  get '/api/v1/calendarFull/:mun_id' do |mun_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => params['token']
+    )
+    puts "gelo"
+    body CardsFromMunFetcher.fetch(client, mun_id).to_json
+    #body CardsFromMunAnalyzer.analyze(CardsFromMunFetcher.fetch(client, mun_id)).to_json
+    status 200
+  end
+
   get '/api/v1/change_board_state/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],

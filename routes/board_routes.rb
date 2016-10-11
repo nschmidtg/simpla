@@ -6,9 +6,27 @@ require_relative '../utils/fetchers/member_fetcher'
 require_relative '../utils/analyzers/member_analyzer'
 require_relative '../utils/analyzers/board_details_analyzer'
 require_relative '../utils/fetchers/board_details_fetcher'
+require_relative '../utils/analyzers/cards_from_mun_analyzer'
+require_relative '../utils/fetchers/cards_from_mun_fetcher'
 
 class Ollert
  
+  get '/calendar', :auth => :connected do 
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+  
+
+      @mun=Municipio.find_by(id: params[:mun_id])
+      @mun_id=@mun.id
+      @token=@user.member_token
+    
+
+    respond_to do |format|
+      format.html { haml :calendar }
+    end
+  end
 
   get '/organizations', :auth => :connected do
     client = Trello::Client.new(
