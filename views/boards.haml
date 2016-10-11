@@ -143,51 +143,52 @@
                 - prioridad_tablero=org_name
                   - if(@prioridades.include?(prioridad_tablero))
                     - boards.each do |board|
-                      - unless  @asignados.include?(board["name"])
-                        - #bdbrd=Board.find_or_create_by(board_id: board["id"])
-                        - #if(bdbrd!=nil)
-                        - cantidad_tableros=cantidad_tableros+1
-                        %tr
-                          %td.celda-tabla
-                            %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                              #{board["name"]}
-                          - actual_board=Board.find_by(board_id: board["id"])
-                          %td.celda-tabla
-                            .boards-list-item-link-b
-                              - if actual_board != nil
-                                - if actual_board.fondo != nil
-                                  #{actual_board.fondo.name}
+                      - if(board["closed"]==false
+                        - unless  @asignados.include?(board["name"])
+                          - #bdbrd=Board.find_or_create_by(board_id: board["id"])
+                          - #if(bdbrd!=nil)
+                          - cantidad_tableros=cantidad_tableros+1
+                          %tr
+                            %td.celda-tabla
+                              %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                                #{board["name"]}
+                            - actual_board=Board.find_by(board_id: board["id"])
+                            %td.celda-tabla
+                              .boards-list-item-link-b
+                                - if actual_board != nil
+                                  - if actual_board.fondo != nil
+                                    #{actual_board.fondo.name}
+                                  - else
+                                    NO ASIGNADO
                                 - else
                                   NO ASIGNADO
-                              - else
-                                NO ASIGNADO
-                          %td.celda-tabla
-                            .boards-list-item-link-b
-                              - if actual_board != nil
-                                - if actual_board.tipo != nil
-                                  #{actual_board.tipo.name}
+                            %td.celda-tabla
+                              .boards-list-item-link-b
+                                - if actual_board != nil
+                                  - if actual_board.tipo != nil
+                                    #{actual_board.tipo.name}
+                                  - else
+                                    NO ASIGNADO
                                 - else
                                   NO ASIGNADO
-                              - else
-                                NO ASIGNADO
-                          %td.celda-tabla
-                            .boards-list-item-link-b
-                              - if actual_board != nil
-                                - if actual_board.zones != nil
-                                  - zoness=" | "
-                                  - actual_board.zones.each do |zone|
-                                    - zoness=zoness+zone.name+" | "
-                                  #{zoness}
+                            %td.celda-tabla
+                              .boards-list-item-link-b
+                                - if actual_board != nil
+                                  - if actual_board.zones != nil
+                                    - zoness=" | "
+                                    - actual_board.zones.each do |zone|
+                                      - zoness=zoness+zone.name+" | "
+                                    #{zoness}
+                                  - else
+                                    NO ASIGNADAS
                                 - else
                                   NO ASIGNADAS
-                              - else
-                                NO ASIGNADAS
-                          %td.celda-tabla
-                            .boards-list-item-link-c
-                              NO ASIGNADO
-                              - if(@user.role=="secpla" || @user.role=="admin") 
-                                %a{onclick: "changeState('En formulación','#{board["id"]}')", title: "Pasar a siguiente etapa"}
-                                  %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                            %td.celda-tabla
+                              .boards-list-item-link-c
+                                NO ASIGNADO
+                                - if(@user.role=="secpla" || @user.role=="admin") 
+                                  %a{onclick: "changeState('En formulación','#{board["id"]}')", title: "Pasar a siguiente etapa"}
+                                    %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                 %script
                   var text=$(document).find("#tab-text-1").text();
                   $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
