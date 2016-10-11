@@ -247,16 +247,17 @@
                         - org.save
                         - bdbrd=Board.find_by(board_id: board["id"])
                         - if(bdbrd==nil)
-                          - bdbrd=Board.new
-                          - bdbrd.name=board["name"]
-                          - bdbrd.board_id=board["id"]
-                          / - if(@closed.to_s=="true")
-                          /   - bdbrd.closed="true"
-                          / - else
-                          /   - bdbrd.closed="false"
-                          - bdbrd.municipio=@user.municipio
-                          - bdbrd.users<<@user
-                          - bdbrd.save
+                          - if(board["closed"]==false)
+                            - bdbrd=Board.new
+                            - bdbrd.name=board["name"]
+                            - bdbrd.board_id=board["id"]
+                            / - if(@closed.to_s=="true")
+                            /   - bdbrd.closed="true"
+                            / - else
+                            /   - bdbrd.closed="false"
+                            - bdbrd.municipio=@user.municipio
+                            - bdbrd.users<<@user
+                            - bdbrd.save
                         - else
                           - bdbrd.name=board["name"]
                           / - if(@closed.to_s=="true")
