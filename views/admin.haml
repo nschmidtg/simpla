@@ -3,7 +3,7 @@
 .container
   .row
     %h4
-      Panel de Administración >
+      %a{href: "/admin",style: "color:#808080"}Panel de Administración >
     - @municipios.each do |muni|
       %h2.ollert-header
         .text-center.col-xs-12.no-padding
@@ -11,23 +11,18 @@
           %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}&edit=true"}
             %span.glyphicon.glyphicon-pencil
       .row
-        .col-md-12.col-sm-12.col-xs-12.no-padding
-          .col-md-3.col-sm-12.col-xs-12
-            %a.btn.btn-link.boards-list-item-link{href: "/archivo/municipio/proyectos?mun_id=#{muni.id}"}
-              %img.svg-element#boton{src: "/img/Iconos-23.svg", type:"image/svg+xml"}
-              %h1 #{muni.boards.where(closed: "false").count}
-              %h4 Proyectos Abiertos 
-          .col-md-3.col-sm-12.col-xs-12
+        .col-md-12.col-sm-12.col-xs-12.no-padding 
+          .col-md-4.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos?mun_id=#{muni.id}"}
               %img.svg-element#boton{src: "/img/Iconos-22.svg", type:"image/svg+xml"}
               %h1 #{muni.fondos.count}
               %h4 Fondos
-          .col-md-3.col-sm-12.col-xs-12
+          .col-md-4.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}"}
               %img.svg-element#boton{src: "/img/Iconos-28.svg", type:"image/svg+xml"}
               %h1 #{muni.users.count}
               %h4 Usuarios
-          .col-md-3.col-sm-12.col-xs-12
+          .col-md-4.col-sm-12.col-xs-12
             %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio?id=#{muni.id}&edit=true"}
               %img.svg-element#boton{src: "/img/Iconos-25.svg", type:"image/svg+xml"}
               %h1 #{muni.zones.count}
