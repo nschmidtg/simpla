@@ -64,55 +64,57 @@
                     - if(@prioridades.include?(prioridad_tablero))
                       - boards.each do |board|
                         - if(state == board["name"].split('|')[1])
-                          - @asignados<<board["name"]
-                          - cantidad_tableros=cantidad_tableros+1
-                          %tr
-                            %td.celda-tabla
-                              %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
-                                #{board["name"].split('|')[0]}
-                            - actual_board=Board.find_by(board_id: board["id"])
-                            %td.celda-tabla
-                              .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.fondo != nil
-                                    #{actual_board.fondo.name}
+
+                          - if(board["closed"]==false || state=="Finalizado")
+                            - @asignados<<board["name"]
+                            - cantidad_tableros=cantidad_tableros+1
+                            %tr
+                              %td.celda-tabla
+                                %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                                  #{board["name"].split('|')[0]}
+                              - actual_board=Board.find_by(board_id: board["id"])
+                              %td.celda-tabla
+                                .boards-list-item-link-b
+                                  - if actual_board != nil
+                                    - if actual_board.fondo != nil
+                                      #{actual_board.fondo.name}
+                                    - else
+                                      NO ASIGNADO
                                   - else
                                     NO ASIGNADO
-                                - else
-                                  NO ASIGNADO
-                            %td.celda-tabla
-                              .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.tipo != nil
-                                    #{actual_board.tipo.name}
+                              %td.celda-tabla
+                                .boards-list-item-link-b
+                                  - if actual_board != nil
+                                    - if actual_board.tipo != nil
+                                      #{actual_board.tipo.name}
+                                    - else
+                                      NO ASIGNADO
                                   - else
                                     NO ASIGNADO
-                                - else
-                                  NO ASIGNADO
-                            %td.celda-tabla
-                              .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.zones != nil
-                                    - zoness=" | "
-                                    - actual_board.zones.each do |zone|
-                                      - zoness=zoness+zone.name+" | "
-                                    #{zoness}
+                              %td.celda-tabla
+                                .boards-list-item-link-b
+                                  - if actual_board != nil
+                                    - if actual_board.zones != nil
+                                      - zoness=" | "
+                                      - actual_board.zones.each do |zone|
+                                        - zoness=zoness+zone.name+" | "
+                                      #{zoness}
+                                    - else
+                                      NO ASIGNADAS
                                   - else
                                     NO ASIGNADAS
-                                - else
-                                  NO ASIGNADAS
-                            %td.celda-tabla
-                              .boards-list-item-link-c
-                                - if(@states[count-3]!="Descartado")
-                                  - if(@user.role=="secpla" || @user.role=="admin") 
-                                    %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa anterior"}
-                                      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                - if (actual_board!=nil)
-                                  #{actual_board.current_state}
-                                - if(@states[count-1]!="Descartado")
-                                  - if(@user.role=="secpla" || @user.role=="admin") 
-                                    %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a siguiente etapa"}
-                                      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                              %td.celda-tabla
+                                .boards-list-item-link-c
+                                  - if(@states[count-3]!="Descartado")
+                                    - if(@user.role=="secpla" || @user.role=="admin") 
+                                      %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa anterior"}
+                                        %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
+                                  - if (actual_board!=nil)
+                                    #{actual_board.current_state}
+                                  - if(@states[count-1]!="Descartado")
+                                    - if(@user.role=="secpla" || @user.role=="admin") 
+                                      %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a siguiente etapa"}
+                                        %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                   %script
                     var text=$(document).find("#tab-text-#{count}").text();
                     $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
