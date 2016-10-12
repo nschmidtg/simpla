@@ -438,7 +438,7 @@ class Ollert
             
 
             estado1=State.new
-            estado1.name="En formulación"
+            estado1.name="En Formulación"
             estado1.order=1
             estado1.municipio=mun
             estado1.save
@@ -456,19 +456,19 @@ class Ollert
             estado3.save
 
             estado4=State.new
-            estado4.name="Con aprobación técnica"
+            estado4.name="Con Aprobación Técnica"
             estado4.order=4
             estado4.municipio=mun
             estado4.save
 
             estado5=State.new
-            estado5.name="Con recursos aprobados"
+            estado5.name="Con recursos Aprobados"
             estado5.order=5
             estado5.municipio=mun
             estado5.save
 
             estado6=State.new
-            estado6.name="Preparación de licitación"
+            estado6.name="Preparación de Licitación"
             estado6.order=6
             estado6.municipio=mun
             estado6.save
@@ -480,7 +480,7 @@ class Ollert
             estado7.save
 
             estado8=State.new
-            estado8.name="En ejecución"
+            estado8.name="En Ejecución"
             estado8.order=8
             estado8.municipio=mun
             estado8.save
