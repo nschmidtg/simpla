@@ -195,6 +195,12 @@ ol.example {
   margin-bottom: 10px;
   text-align: center;
 }
+.highcharts-tooltip span {
+    height: 300px;
+    width: auto;
+    overflow:scroll;
+    white-space:normal !important; // add this line...
+}
 .fc-rtl {
   text-align: right;
   .fc-h-event {
