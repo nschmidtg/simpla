@@ -34,6 +34,73 @@
       .col-md-12.col-sm-12.col-xs-12
         #container1
 
+
+
+%script
+  $('#container2').highcharts({
+  chart: {
+  type: 'column'
+  },
+  title: {
+  text: 'Proyectos por zona'
+  },
+  subtitle: {
+  text: ''
+  },
+  xAxis: {
+  type: 'category',
+  labels: {
+  rotation: -45,
+  style: {
+  fontSize: '13px',
+  fontFamily: 'Verdana, sans-serif'
+  }
+  }
+  },
+  yAxis: {
+  min: 0,
+  title: {
+  text: 'Cantidad de proyectos'
+  }
+  },
+  legend: {
+  enabled: false
+  },
+  tooltip: {
+  pointFormat: 'Proyectos en la zona:<b>{point.extra} </b>'
+  },
+  series: [{
+  name: 'Population',
+  data: [
+  - board_names=@mun.zones.first.boards.where(closed: "false").pluck(:name)
+  - extra="<br>"
+  - board_names.each do |bname|
+    - extra=extra+bname+"<br>"
+  {name:'#{@mun.zones.first.name}',y:#{@mun.zones.first.boards.where(closed: "false").count},extra:'#{extra}'},
+  - @mun.zones.each do |zone|
+    - if(zone!=@mun.zones.first)
+      - board_names=zone.boards.where(closed: "false").pluck(:name)
+      - extra="<br>"
+      - board_names.each do |bname|
+        - extra=extra+bname+"<br>"
+      {name:"#{zone.name}",y:#{zone.boards.where(closed: "false").count},extra:'#{extra}'},
+  ],
+  dataLabels: {
+  enabled: true,
+  rotation: -360,
+  color: '#FFFFFF',
+  align: 'right',
+  format: '{point.y}', // one decimal
+  y: 10, // 10 pixels down from the top
+  style: {
+  fontSize: '13px',
+  fontFamily: 'Verdana, sans-serif'
+  }
+  }
+  }]
+  });
+  
+
 %script
   $('#container1').highcharts({
   chart: {
@@ -83,79 +150,12 @@
   name: 'Tipo de proyecto',
   colorByPoint: true,
   data: [
-  {name:'#{@mun.tipos.first.name}',y: #{@mun.tipos.first.boards.count}},
+  {name:'#{@mun.tipos.first.name}',y: #{@mun.tipos.first.boards.where(closed: "false").count}},
   - @mun.tipos.each do |tipo|
     - if(tipo!=@mun.tipos.first)
-      {name:"#{tipo.name}",y: #{tipo.boards.count}},
+      {name:"#{tipo.name}",y: #{tipo.boards.where(closed: "false").count}},
   ]
   }]
   
   });
-    
-
-%script
-  $('#container2').highcharts({
-  chart: {
-  type: 'column'
-  },
-  title: {
-  text: 'Proyectos por zona'
-  },
-  subtitle: {
-  text: ''
-  },
-  xAxis: {
-  type: 'category',
-  labels: {
-  rotation: -45,
-  style: {
-  fontSize: '13px',
-  fontFamily: 'Verdana, sans-serif'
-  }
-  }
-  },
-  yAxis: {
-  min: 0,
-  title: {
-  text: 'Cantidad de proyectos'
-  }
-  },
-  legend: {
-  enabled: false
-  },
-  tooltip: {
-  pointFormat: 'Proyectos en la zona:<b>{point.extra} </b>'
-  },
-  series: [{
-  name: 'Population',
-  data: [
-  - board_names=@mun.zones.first.boards.pluck(:name)
-  - extra="<br>"
-  - board_names.each do |bname|
-    - extra=extra+bname+"<br>"
-  {name:'#{@mun.zones.first.name}',y:#{@mun.zones.first.boards.count},extra:'#{extra}'},
-  - @mun.zones.each do |zone|
-    - if(zone!=@mun.zones.first)
-      - board_names=zone.boards.pluck(:name)
-      - extra="<br>"
-      - board_names.each do |bname|
-        - extra=extra+bname+"<br>"
-      {name:"#{zone.name}",y:#{zone.boards.count},extra:'#{extra}'},
-  ],
-  dataLabels: {
-  enabled: true,
-  rotation: -360,
-  color: '#FFFFFF',
-  align: 'right',
-  format: '{point.y}', // one decimal
-  y: 10, // 10 pixels down from the top
-  style: {
-  fontSize: '13px',
-  fontFamily: 'Verdana, sans-serif'
-  }
-  }
-  }]
-  });
-  
-
     

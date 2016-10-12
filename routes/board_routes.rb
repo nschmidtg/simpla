@@ -20,7 +20,7 @@ class Ollert
 
       @mun=Municipio.find_by(id: params[:mun_id])
       @mun_id=@mun.id
-      @boards=@mun.boards.where(:current_state.nin => ["Descartado"])
+      @boards=@mun.boards.where(closed:"false")
     
 
     respond_to do |format|
