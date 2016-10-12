@@ -10,6 +10,23 @@ require_relative '../utils/analyzers/cards_from_mun_analyzer'
 require_relative '../utils/fetchers/cards_from_mun_fetcher'
 
 class Ollert
+
+  get '/dashboard', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+  
+
+      @mun=Municipio.find_by(id: params[:mun_id])
+      @mun_id=@mun.id
+      @boards=@mun.boards.where(:current_state.nin => ["Descartado"])
+    
+
+    respond_to do |format|
+      format.html { haml :dashboard }
+    end
+  end
  
   get '/calendar', :auth => :connected do 
     client = Trello::Client.new(

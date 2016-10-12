@@ -58,6 +58,7 @@ $font_2: monospace;
   vertical-align: top;
 }
 
+
 //original selectors
 //.fc-row .fc-content-skeleton td, .fc-row .fc-helper-skeleton td
 %extend_4 {
@@ -181,6 +182,18 @@ ol.example {
       margin-left: 0;
     }
   }
+}
+.boards-list-item-link-blue{
+  float: left;
+  display: block;
+  font-weight: bold;
+  padding: 5px;
+  width: 100%;
+  color: #eee;
+  background-color: #4D97C1;
+  border-radius: 100%;
+  margin-bottom: 10px;
+  text-align: center;
 }
 .fc-rtl {
   text-align: right;
