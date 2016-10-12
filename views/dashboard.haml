@@ -31,7 +31,7 @@
     .row
       .col-md-12.col-sm-12.col-xs-12.no-padding
         #container1
-      .col-md-6.col-sm-12.col-xs-12
+      .col-md-12.col-sm-12.col-xs-12
         #container2
       .col-md-12.col-sm-12.col-xs-12
         #container3
@@ -95,128 +95,68 @@
   });
     
 
-:javascript  
+%script
   $('#container2').highcharts({
-      chart: {
-          plotBackgroundColor: null,
-          plotBorderWidth: null,
-          plotShadow: false,
-          type: 'pie'
-      },
-      title: {
-          text: 'Browser market shares January, 2015 to May, 2015'
-      },
-      tooltip: {
-          pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-      },
-      plotOptions: {
-          pie: {
-              allowPointSelect: true,
-              cursor: 'pointer',
-              dataLabels: {
-                  enabled: true,
-                  format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                  style: {
-                      color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                  }
-              }
-          }
-      },
-      series: [{
-          name: 'Brands',
-          colorByPoint: true,
-          data: [{
-              name: 'Microsoft Internet Explorer',
-              y: 56.33
-          }, {
-              name: 'Chrome',
-              y: 24.03,
-              sliced: true,
-              selected: true
-          }, {
-              name: 'Firefox',
-              y: 10.38
-          }, {
-              name: 'Safari',
-              y: 4.77
-          }, {
-              name: 'Opera',
-              y: 0.91
-          }, {
-              name: 'Proprietary or Undetectable',
-              y: 0.2
-          }]
-      }]
-  });
-  $('#container3').highcharts({
-      chart: {
-          type: 'column'
-      },
-      title: {
-          text: 'World\'s largest cities per 2014'
-      },
-      subtitle: {
-          text: 'Source: <a href="http://en.wikipedia.org/wiki/List_of_cities_proper_by_population">Wikipedia</a>'
-      },
-      xAxis: {
-          type: 'category',
-          labels: {
-              rotation: -45,
-              style: {
-                  fontSize: '13px',
-                  fontFamily: 'Verdana, sans-serif'
-              }
-          }
-      },
-      yAxis: {
-          min: 0,
-          title: {
-              text: 'Population (millions)'
-          }
-      },
-      legend: {
-          enabled: false
-      },
-      tooltip: {
-          pointFormat: 'Population in 2008: <b>{point.y:.1f} millions</b>'
-      },
-      series: [{
-          name: 'Population',
-          data: [
-              ['Shanghai', 23.7],
-              ['Lagos', 16.1],
-              ['Istanbul', 14.2],
-              ['Karachi', 14.0],
-              ['Mumbai', 12.5],
-              ['Moscow', 12.1],
-              ['São Paulo', 11.8],
-              ['Beijing', 11.7],
-              ['Guangzhou', 11.1],
-              ['Delhi', 11.1],
-              ['Shenzhen', 10.5],
-              ['Seoul', 10.4],
-              ['Jakarta', 10.0],
-              ['Kinshasa', 9.3],
-              ['Tianjin', 9.3],
-              ['Tokyo', 9.0],
-              ['Cairo', 8.9],
-              ['Dhaka', 8.9],
-              ['Mexico City', 8.9],
-              ['Lima', 8.9]
-          ],
-          dataLabels: {
-              enabled: true,
-              rotation: -90,
-              color: '#FFFFFF',
-              align: 'right',
-              format: '{point.y:.1f}', // one decimal
-              y: 10, // 10 pixels down from the top
-              style: {
-                  fontSize: '13px',
-                  fontFamily: 'Verdana, sans-serif'
-              }
-          }
-      }]
+  chart: {
+  type: 'column'
+  },
+  title: {
+  text: 'Proyectos por zona'
+  },
+  subtitle: {
+  text: ''
+  },
+  xAxis: {
+  type: 'category',
+  labels: {
+  rotation: -45,
+  style: {
+  fontSize: '13px',
+  fontFamily: 'Verdana, sans-serif'
+  }
+  }
+  },
+  yAxis: {
+  min: 0,
+  title: {
+  text: 'Cantidad de proyectos'
+  }
+  },
+  legend: {
+  enabled: false
+  },
+  tooltip: {
+  pointFormat: 'Proyectos en la zona:<b>{point.extra} </b>'
+  },
+  series: [{
+  name: 'Population',
+  data: [
+  - board_names=@mun.zones.first.boards.pluck(:name)
+  - extra="<br>"
+  - board_names.each do |bname|
+    - extra=extra+bname+"<br>"
+  {name:'#{@mun.zones.first.name}',y:#{@mun.zones.first.boards.count},extra:'#{extra}'},
+  - @mun.zones.each do |zone|
+    - if(zone!=@mun.zones.first)
+      - board_names=zone.boards.pluck(:name)
+      - extra="<br>"
+      - board_names.each do |bname|
+        - extra=extra+bname+"<br>"
+      {name:"#{zone.name}",y:#{zone.boards.count},extra:'#{extra}'},
+  ],
+  dataLabels: {
+  enabled: true,
+  rotation: -360,
+  color: '#FFFFFF',
+  align: 'right',
+  format: '{point.y}', // one decimal
+  y: 10, // 10 pixels down from the top
+  style: {
+  fontSize: '13px',
+  fontFamily: 'Verdana, sans-serif'
+  }
+  }
+  }]
   });
   
 
