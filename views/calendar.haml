@@ -1,14 +1,16 @@
-#board-details
-  .container
-    .row
-      #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
+
+.container
+  .row
+    %h2.ollert-header
+      .text-center.col-xs-12{style:"margin-top:30px;"}
         Calendario
       
-    .row
-      .col-md-12.col-sm-12.col-xs-12
-        .analysis-block-md
-          %img#calendar-spinner{src: '/img/spinner.gif'}
-          #calendar-container.med-chart.graph-container
+      
+  .row
+    .col-md-12.col-sm-12.col-xs-12
+      .analysis-block-md
+        %img#calendar-spinner{src: '/img/spinner.gif'}
+        #calendar-container.med-chart.graph-container
 
 :javascript
   window.onload = function() {
