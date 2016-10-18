@@ -343,15 +343,33 @@
                                     NO ASIGNADAS
                               %td.celda-tabla
                                 .boards-list-item-link-c
-                                  - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
-                                    - if(@user.role=="secpla" || @user.role=="admin") 
-                                      %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
-                                        %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                  #{prioridad}
-                                  - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
-                                    - if(@user.role=="secpla" || @user.role=="admin") 
-                                      %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
-                                        %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                                  %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: auto;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
+                                    - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
+                                      - if(@user.role=="secpla" || @user.role=="admin")
+                                        %option{:value => "#{@prioridades[count-14]}"} #{@prioridades[count-14]}
+                                    - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
+                                      - if(@user.role=="secpla" || @user.role=="admin")
+                                        %option{:value => "#{@prioridades[count-13]}"} #{@prioridades[count-13]}
+                                    %option{:value => "#{prioridad}",selected:""} #{prioridad}
+                                    - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
+                                      - if(@user.role=="secpla" || @user.role=="admin")
+                                        %option{:value => "#{@prioridades[count-11]}"} #{@prioridades[count-11]}
+                                    - if(@prioridades[count-10]=="3. No Priorizados" && @prioridades[count-10]!=nil)
+                                      - if(@user.role=="secpla" || @user.role=="admin")
+                                        %option{:value => "#{@prioridades[count-10]}"} #{@prioridades[count-10]}
+
+                                    
+                                 
+
+                                  //- if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
+                                  //  - if(@user.role=="secpla" || @user.role=="admin") 
+                                  //    %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
+                                  //      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
+                                  //#{prioridad}
+                                  //- if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
+                                  //  - if(@user.role=="secpla" || @user.role=="admin") 
+                                  //    %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
+                                  //      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                       %script
                         var text=$(document).find("#tab-text-#{count}").text();
                         $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
