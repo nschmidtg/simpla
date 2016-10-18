@@ -202,9 +202,11 @@ ol.example {
   text-align: center;
 }
 .highcharts-tooltip span {
-    height: 300px;
-    width: 400px;
-    overflow:scroll;
+    min-width: 400px;
+    max-height: 300px;
+    top:0;
+    z-index:4000;
+    overflow: auto;
     white-space:normal !important; // add this line...
 }
 .fc-rtl {
@@ -1611,7 +1613,6 @@ ul.board-list-prior{
 .boards-list-item-link-b {
   float: left;
   display: block;
-  font-weight: bold;
   padding: 5px;
   width: 100%;
   color: #595959;
@@ -1621,7 +1622,6 @@ ul.board-list-prior{
 .boards-list-item-link-c {
   text-align: center;
   display: block;
-  font-weight: bold;
   padding: 5px;
   width: 100%;
   color: #595959;

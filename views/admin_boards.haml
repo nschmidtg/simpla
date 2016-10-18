@@ -35,8 +35,8 @@
           - @boards.each do |board|
             %tr
               - @org=Trello::Board.find(board.board_id).organization
-              %td.celda-tabla
-                %a.btn-link.boards-list-item-link{href: "/boards/#{board.board_id}"}
+              %td.celda-tabla{style:"max-width:350px;"}
+                %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split('|')[0]} "}
                   #{board.name.split('|')[0]}               
               %td.celda-tabla
                 .boards-list-item-link-b
@@ -65,7 +65,7 @@
                         - board.zones.each do |zone|
                           - zoness=zoness+zone.name+" | "
                         -if(board.zones.count>3)
-                          %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias
+                          %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
                         -else
                           #{zoness}
                       -else
@@ -76,7 +76,10 @@
                     NO ASIGNADAS
               %td.celda-tabla
                 .boards-list-item-link-c
-                  #{board.current_state}
+                  - if(board.current_state!=nil)
+                    #{board.current_state}
+                  - else
+                    NO ASIGNADO
               %td.celda-tabla
                 
                 - if(@user.role=="secpla" || @user.role=="admin")
