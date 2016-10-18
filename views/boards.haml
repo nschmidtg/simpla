@@ -105,7 +105,7 @@
                                         - actual_board.zones.each do |zone|
                                           - zoness=zoness+zone.name+" | "
                                         -if(actual_board.zones.count>3)
-                                          %p{title: "#{zoness}"} Varias Zonas
+                                          %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
                                         -else
                                           #{zoness}
                                       -else
@@ -193,7 +193,7 @@
                                       - actual_board.zones.each do |zone|
                                         - zoness=zoness+zone.name+" | "
                                       -if(actual_board.zones.count>3)
-                                        %p{title: "#{zoness}"} Varias Zonas
+                                        %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
                                       -else
                                         #{zoness}
                                     -else
@@ -316,22 +316,22 @@
                                     NO ASIGNADO
                               %td.celda-tabla
                                 .boards-list-item-link-b
-                                - if actual_board != nil
-                                  - if actual_board.zones != nil
-                                    - zoness=" | "
-                                    - if(actual_board.zones.count != 0)
-                                      - actual_board.zones.each do |zone|
-                                        - zoness=zoness+zone.name+" | "
-                                      -if(actual_board.zones.count>3)
-                                        %p{title: "#{zoness}"} Varias Zonas
+                                  - if actual_board != nil
+                                    - if actual_board.zones != nil
+                                      - zoness=" | "
+                                      - if(actual_board.zones.count != 0)
+                                        - actual_board.zones.each do |zone|
+                                          - zoness=zoness+zone.name+" | "
+                                        -if(actual_board.zones.count>3)
+                                          %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
+                                        -else
+                                          #{zoness}
                                       -else
-                                        #{zoness}
-                                    -else
+                                        NO ASIGNADAS
+                                    - else
                                       NO ASIGNADAS
                                   - else
                                     NO ASIGNADAS
-                                - else
-                                  NO ASIGNADAS
                               %td.celda-tabla
                                 .boards-list-item-link-c
                                   - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)

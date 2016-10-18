@@ -65,7 +65,7 @@
                         - board.zones.each do |zone|
                           - zoness=zoness+zone.name+" | "
                         -if(board.zones.count>3)
-                          %p{title: "#{zoness}"} Varias
+                          %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias
                         -else
                           #{zoness}
                       -else
