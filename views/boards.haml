@@ -293,7 +293,7 @@
                             - cantidad_tableros=cantidad_tableros+1
                             %tr
                               %td.celda-tabla{style: "max-width:350px;"}
-                                %a.btn-link.boards-list-item-link{href: "/boards/#{board["id"]}"}
+                                %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}"}
                                   #{board["name"].split('|')[0]}
                               - actual_board=Board.find_by(board_id: board["id"])
                               %td.celda-tabla
