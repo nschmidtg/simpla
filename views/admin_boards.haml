@@ -30,7 +30,8 @@
               Estado
               %a{href: "#"}
                 %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th Editar
+            - if(@user.role=="secpla" || @user.role=="admin")
+              %th Editar
         %tbody.cuerpo-tabla
           - @boards.each do |board|
             %tr
@@ -80,11 +81,11 @@
                     #{board.current_state}
                   - else
                     NO ASIGNADO
-              %td.celda-tabla
-                
-                - if(@user.role=="secpla" || @user.role=="admin")
-                  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{board.board_id}&orgName=#{@org.name}&board_name=#{board.name}&edit=true"}
-                    %span.glyphicon.glyphicon-pencil
+              - if(@user.role=="secpla" || @user.role=="admin")
+                %td.celda-tabla
+                  .boards-list-item-link-c
+                    %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{board.board_id}&orgName=#{@org.name}&board_name=#{board.name}&edit=true"}
+                      %span.glyphicon.glyphicon-pencil
                     
   - if(@user.role=="secpla" || @user.role=="admin") 
     .row

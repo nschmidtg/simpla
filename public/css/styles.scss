@@ -1342,6 +1342,7 @@ hr {
   padding-left:60px !important;
   min-height: 75vh;
   margin-top: 50px;
+  margin-bottom: 50px;
 
 }
 
@@ -1621,7 +1622,7 @@ ul.board-list-prior{
 }
 .boards-list-item-link-c {
   text-align: center;
-  display: block;
+  display: -webkit-inline-box;
   padding: 5px;
   width: 100%;
   color: #595959;

@@ -58,7 +58,8 @@
                         %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
                     %th Zonas
                     %th Estado
-                    %th Editar
+                    - if(@user.role=="secpla" || @user.role=="admin")
+                      %th Editar
                 
 
                 %tbody.cuerpo-tabla
@@ -127,10 +128,11 @@
                                     - if(@user.role=="secpla" || @user.role=="admin") 
                                       %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
                                         %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
-                              %td.celda-tabla
-                                - if(@user.role=="secpla" || @user.role=="admin")
-                                  %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{actual_board.board_id}&orgName=#{@org.name}&board_name=#{actual_board.name}&edit=true"}
-                                    %span.glyphicon.glyphicon-pencil
+                              - if(@user.role=="secpla" || @user.role=="admin")
+                                %td.celda-tabla
+                                  .boards-list-item-link-c
+                                    %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{actual_board.board_id}&orgName=#{@org.name}&board_name=#{actual_board.name}&edit=true"}
+                                      %span.glyphicon.glyphicon-pencil
                   %script
                     var text=$(document).find("#tab-text-#{count}").text();
                     $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
@@ -153,7 +155,8 @@
                       %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
                   %th Zonas
                   %th Estado
-                  %th Editar
+                  - if(@user.role=="secpla" || @user.role=="admin")
+                    %th Editar
               %tbody.cuerpo-tabla
                 - cantidad_tableros=0
                 - @boards.each do |org_name, boards|
@@ -213,10 +216,11 @@
                                 - if(@user.role=="secpla" || @user.role=="admin") 
                                   %a{onclick: "changeState('En Formulación','#{board["id"]}')", title: "Pasar a la etapa 'En Formulación'"}
                                     %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
-                            %td.celda-tabla
-                              - if(@user.role=="secpla" || @user.role=="admin")
-                                %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{actual_board.board_id}&orgName=#{@org.name}&board_name=#{actual_board.name}&edit=true"}
-                                  %span.glyphicon.glyphicon-pencil
+                            - if(@user.role=="secpla" || @user.role=="admin")
+                              %td.celda-tabla
+                                .boards-list-item-link-c
+                                  %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{actual_board.board_id}&orgName=#{@org.name}&board_name=#{actual_board.name}&edit=true"}
+                                    %span.glyphicon.glyphicon-pencil
                 %script
                   var text=$(document).find("#tab-text-1").text();
                   $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
