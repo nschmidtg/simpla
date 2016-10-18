@@ -379,7 +379,7 @@ class Ollert
       else
         flash[:success] = "Proyecto editado exitosamente."
       end
-      redirect "/archivo/municipio/proyectos?mun_id=#{board_settings.municipio.id}"
+      redirect "/boards"
       
     end
   end

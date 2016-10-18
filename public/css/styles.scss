@@ -183,6 +183,12 @@ ol.example {
     }
   }
 }
+
+.overflow{
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 .boards-list-item-link-blue{
   float: left;
   display: block;

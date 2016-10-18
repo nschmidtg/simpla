@@ -16,20 +16,20 @@
             %th 
               Nombre Proyecto
               %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
             %th 
               Fondo
               %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
             %th 
               Tipo
               %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
             %th Zonas
             %th 
               Estado
               %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"float:right;"}
+                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
             %th Editar
         %tbody.cuerpo-tabla
           - @boards.each do |board|
@@ -61,9 +61,15 @@
                   - if board != nil
                     - if board.zones != nil
                       - zoness=" | "
-                      - board.zones.each do |zone|
-                        - zoness=zoness+zone.name+" | "
-                      #{zoness}
+                      - if(board.zones.count != 0)
+                        - board.zones.each do |zone|
+                          - zoness=zoness+zone.name+" | "
+                        -if(board.zones.count>3)
+                          %p{title: "#{zoness}"} Varias
+                        -else
+                          #{zoness}
+                      -else
+                        NO ASIGNADAS
                     - else
                       NO ASIGNADAS
                   - else
