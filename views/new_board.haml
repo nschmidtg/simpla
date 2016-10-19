@@ -185,7 +185,7 @@
                       
                         Marcar Todas
                     - if(params[:org_id]!="nil")
-                      - Organization.find_by(org_id: params[:org_id]).municipio.zones.each do |zona|
+                      - @municipio.zones.each do |zona|
                         .checkbox
                           %label
                             - if(params[:edit]=="true")

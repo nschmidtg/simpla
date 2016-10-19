@@ -398,9 +398,9 @@ class Ollert
           config.developer_public_key = ENV['PUBLIC_KEY']
           config.member_token = @user.member_token
         end
-        if params[:org_id]=='nil'
+        if params[:org_id]==nil
           @org_id=Trello::Board.find(params[:last_board_id]).organization_id
-          
+          @municipio=Organization.find_by(org_id: @org_id).municipio
           if @org_id == nil
             @org_id=""
           end
@@ -410,6 +410,7 @@ class Ollert
           puts @municipio.id
           
         end
+        @orgName=Organization.find_by(org_id: @org_id).name
         if(params[:edit]=="true")
           @board=Board.find_by board_id: params[:last_board_id]
           @municipio=@board.municipio

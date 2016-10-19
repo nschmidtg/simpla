@@ -35,7 +35,6 @@
         %tbody.cuerpo-tabla
           - @boards.each do |board|
             %tr
-              - @org=Trello::Board.find(board.board_id).organization
               %td.celda-tabla{style:"max-width:350px;"}
                 %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split('|')[0]} "}
                   #{board.name.split('|')[0]}               
@@ -84,7 +83,7 @@
               - if(@user.role=="secpla" || @user.role=="admin")
                 %td.celda-tabla
                   .boards-list-item-link-c
-                    %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&org_id=#{@org.id}&last_board_id=#{board.board_id}&orgName=#{@org.name}&board_name=#{board.name}&edit=true"}
+                    %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{board.board_id}&board_name=#{board.name}&edit=true"}
                       %span.glyphicon.glyphicon-pencil
                     
   - if(@user.role=="secpla" || @user.role=="admin") 
