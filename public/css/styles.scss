@@ -1355,7 +1355,8 @@ hr {
   .navbar-header {
     float: left !important;
     height:50px;
-    width:20vw;
+    width:255px;
+    margin-left:-1px;
     border-style:none;
     background-color: #e2882d;
     .navbar-brand {
