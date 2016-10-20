@@ -64,7 +64,7 @@ class Ollert
 
       url="http://gestion-municipal.herokuapp.com/restore?hash=#{string}"
       Mail.deliver do
-        from     'nschmidtg@gmail.com'
+        from     'sistema.gestion.cpp@gmail.com'
         to       user.login_mail
         subject  'Restablecer Contraseña'
         body     "Estimado, para reestablecer su contraseña ingrese al siguiente link: #{url}"
