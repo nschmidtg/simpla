@@ -62,7 +62,8 @@
                     - if board.zones != nil
                       - zoness=" | "
                       - if(board.zones.count != 0)
-                        - board.zones.each do |zone|
+                        - zones=board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                        - zones.each do |zone|
                           - zoness=zoness+zone.name+" | "
                         -if(board.zones.count>3)
                           %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas

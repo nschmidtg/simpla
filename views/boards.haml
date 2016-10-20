@@ -103,7 +103,8 @@
                                     - if actual_board.zones != nil
                                       - zoness=" | "
                                       - if(actual_board.zones.count != 0)
-                                        - actual_board.zones.each do |zone|
+                                        - zones=actual_board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                                        - zones.each do |zone|
                                           - zoness=zoness+zone.name+" | "
                                         -if(actual_board.zones.count>3)
                                           %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
@@ -197,7 +198,8 @@
                                   - if actual_board.zones != nil
                                     - zoness=" | "
                                     - if(actual_board.zones.count != 0)
-                                      - actual_board.zones.each do |zone|
+                                      - zones=actual_board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                                      - zones.each do |zone|
                                         - zoness=zoness+zone.name+" | "
                                       -if(actual_board.zones.count>3)
                                         %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
@@ -328,7 +330,8 @@
                                     - if actual_board.zones != nil
                                       - zoness=" | "
                                       - if(actual_board.zones.count != 0)
-                                        - actual_board.zones.each do |zone|
+                                        - zones=actual_board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                                        - zones.each do |zone|
                                           - zoness=zoness+zone.name+" | "
                                         -if(actual_board.zones.count>3)
                                           %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
@@ -360,15 +363,6 @@
                                     
                                  
 
-                                  //- if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
-                                  //  - if(@user.role=="secpla" || @user.role=="admin") 
-                                  //    %a{onclick: "changePriority('#{@prioridades[count-13]}','#{board["id"]}')", title: "Pasar a la prioridad anterior"}
-                                  //      %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                  //#{prioridad}
-                                  //- if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
-                                  //  - if(@user.role=="secpla" || @user.role=="admin") 
-                                  //    %a{onclick: "changePriority('#{@prioridades[count-11]}','#{board["id"]}')", title: "Pasar a siguiente prioridad"}
-                                  //      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                       %script
                         var text=$(document).find("#tab-text-#{count}").text();
                         $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
