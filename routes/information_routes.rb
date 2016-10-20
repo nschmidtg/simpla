@@ -29,7 +29,7 @@ class Ollert
     hash=params[:hash]
     user=User.find_by(restore_pass: hash)
     if(user!=nil)
-      if(Time.now-user.restore_pass_generated.to_time<300)
+      if((Time.now-(user.restore_pass_generated.to_time))<300)
         flash[:success] = "Lo logramos!"
         redirect '/restore'
       else
