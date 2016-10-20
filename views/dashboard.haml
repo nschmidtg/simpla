@@ -74,14 +74,15 @@
   series: [{
   name: 'Proyectos',
   data: [
-  - board_names=@mun.zones.first.boards.where(closed: "false").pluck(:name)
+  - zones=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+  - board_names=zones.first.boards.where(closed: "false").pluck(:name)
   - extra="<br>"
   - board_names.each do |bname|
     - bname=bname.gsub('"','\'')
     - extra=extra+"- "+bname+"<br>"
-  {name:"#{@mun.zones.first.name}",y:#{@mun.zones.first.boards.where(closed: "false").count},extra:"#{extra}"},
-  - @mun.zones.each do |zone|
-    - if(zone!=@mun.zones.first)
+  {name:"#{zones.first.name}",y:#{zones.first.boards.where(closed: "false").count},extra:"#{extra}"},
+  - zones.each do |zone|
+    - if(zone!=zones.first)
       - board_names=zone.boards.where(closed: "false").pluck(:name)
       - extra="<br>"
       - board_names.each do |bname|

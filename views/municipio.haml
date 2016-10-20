@@ -65,7 +65,8 @@
                     .input_fields_wrap
                       %button.add_field_button Añadir más zonas
                       - if(@municipio!=nil)
-                        - @municipio.zones.each do |zone|
+                        - zones=@municipio.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                        - zones.each do |zone|
                           %div
                             %input.form-control.input-md{:name => "zonas[#{zone.id}]", :value => "#{zone.name}",:type => "text",required: "", placeholder: "Nombre de la zona"}/
                             - if(@municipio.zones.first!=zone)
