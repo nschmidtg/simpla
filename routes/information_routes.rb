@@ -62,7 +62,7 @@ class Ollert
       user.restore_pass_generated=Time.now;
       user.save
 
-      url="http://gestion-municipal.herokuapp.com/restore?hash=#{string}"
+      url="https://gestion-municipal.herokuapp.com/restore?hash=#{string}"
       Mail.deliver do
         from     'sistema.gestion.cpp@gmail.com'
         to       user.login_mail
