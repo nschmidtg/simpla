@@ -10,7 +10,7 @@
     
 
     .row
-      %form#components.form-horizontal{role: "form", :action=>"/authorize", :method=>"post"}
+      %form#components.form-horizontal{role: "form", :action=>"/forgot_mail", :method=>"post"}
         %fieldset
           .tab-content
             / Tabs of snippets go here
@@ -20,17 +20,13 @@
                 .form-group{style:"margin-left:0px;margin-right:0px;"} 
                   .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
                     %input#textinput.form-control.input-md{name: "mail", placeholder: "Correo Electrónico", style: "cursor: auto;", type: "email" ,required: ""}/
-                .form-group{style:"margin-left:0px;margin-right:0px;"} 
-                  .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
-                    %input#textinput.form-control.input-md{name: "password", placeholder: "Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
-                
                 
                 .form-group
-                  .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
-                    .col-md-6.col-sm-6.col-xs-12{style:"padding-top:5px;"}
-                      %a{style:"color:#fff;",href:"/forgot"} Olvidé mi clave
-                    .col-md-6.col-sm-6.col-xs-12.text-center
-                      %input.btn.plus{:type => "submit", :value => "Iniciar Sesión",:style => "background-color:#b3b3b3;margin-top:0px;"}     
+                  .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12.text-center
+
+                    .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12.text-center
+                      %input.btn.plus{:type => "submit", :value => "Recuperar contraseña",:style => "background-color:#b3b3b3;margin-top:0px;"}   
+                        
 
 .landing-contact.landing-section{style:"height:20vh;"}
   .container

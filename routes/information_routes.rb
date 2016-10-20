@@ -1,5 +1,6 @@
 class Ollert
   require 'socket'
+  require 'mail'
   get '/', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
       redirect '/boards'
@@ -11,6 +12,64 @@ class Ollert
   not_found do
     flash[:error] = "The page requested could not be found."
     redirect '/'
+  end
+
+  get '/forgot', :auth => :none do
+    respond_to do |format|
+      format.html { haml :forgot }
+    end
+  end
+
+  get '/restore', :auth => :none do
+    hash=params[:hash]
+    user=User.find_by(restore_pass: hash)
+    if(user!=nil)
+      if(Time.now-user.restore_pass_generated.to_time<300)
+        flash[:success] = "Lo logramos!"
+        redirect '/'
+      else
+        flash[:error] = "paso mucho tiempo"
+        redirect '/'
+      end
+    else
+      flash[:error] = "mentira"
+      redirect '/'
+    end
+  end
+
+  post '/forgot_mail', :auth => :none do
+    user=User.find_by(login_mail: params[:mail])
+    if(user!=nil)
+      options = { :address              => "smtp.gmail.com",
+            :port                 => 587,
+            :domain               => 'gestion-municipal.herokuapp.com',
+            :user_name            => 'sistema.gestion.cpp@gmail.com',
+            :password             => 'subdipro2016',
+            :authentication       => 'plain',
+            :enable_starttls_auto => true  }
+      Mail.defaults do
+        delivery_method :smtp, options
+      end
+
+      o = [('a'..'z'), ('A'..'Z')].map { |i| i.to_a }.flatten
+      string = (0...50).map { o[rand(o.length)] }.join
+      user.restore_pass=string
+      user.restore_pass_generated=Time.now;
+      user.save
+
+      url="http://gestion-municipal.herokuapp.com/restore?hash=#{string}"
+      Mail.deliver do
+        from     'nschmidtg@gmail.com'
+        to       user.login_mail
+        subject  'Restablecer Contraseña'
+        body     "Estimado, para reestablecer su contraseña ingrese al siguiente link: #{url}"
+      end
+      flash[:success] = "Se ha enviado un correo a #{user.login_mail} con las instrucciones para reestablecer la contraseña."
+      redirect '/'
+    else
+      flash[:error] = "El correo electrónico indicado no se encuentra registrado."
+      redirect '/forgot'
+    end
   end
 
   post '/authorize', :auth => :none do

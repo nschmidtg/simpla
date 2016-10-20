@@ -15,6 +15,8 @@ class User
   field :login_name, type: String
   field :login_last_name, type: String
   field :role, type: String
+  field :restore_pass, type: String
+  field :restore_pass_generated, type: String
 
   belongs_to :municipio
 

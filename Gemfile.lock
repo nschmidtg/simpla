@@ -57,6 +57,8 @@ GEM
     kgio (2.10.0)
     launchy (2.4.3)
       addressable (~> 2.3)
+    mail (2.6.4)
+      mime-types (>= 1.16, < 4)
     method_source (0.8.2)
     mime-types (2.6.2)
     mini_portile (0.6.2)
@@ -172,6 +174,7 @@ DEPENDENCIES
   foreman
   haml
   launchy
+  mail
   mongoid
   newrelic_rpm
   page_navigation

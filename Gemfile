@@ -18,6 +18,7 @@ gem 'ruby-trello'
 gem 'business_time'
 gem 'require_all'
 gem 'newrelic_rpm'
+gem 'mail'
 
 
 group :development do
