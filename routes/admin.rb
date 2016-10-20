@@ -3208,6 +3208,16 @@ class Ollert
         if(new_user.role!=params[:role] && new_user.trello_id!=nil)
           #Estoy editando el rol de un usuario que ya tenia cuenta en Ollert
           if(new_user.municipio.launched=="true")
+            if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
+              respond_to do |format|
+                format.html do
+                  flash[:error] = "Un municipio debe tener al menos un Secpla."
+                  redirect '/admin'
+                end
+
+                format.json { status 400 }
+              end
+            end
             new_user.role=params[:role]
             if(new_user.role=="admin" || new_user.role=="secpla")
               new_user.municipio.organizations.each do |org|
@@ -3225,7 +3235,7 @@ class Ollert
                 end
               end
             elsif(new_user.role=="funcionario")
-              puta "hola"
+              puts "hola"
               new_user.municipio.organizations.each do |org|
                 begin
                   JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
@@ -3265,6 +3275,16 @@ class Ollert
           end
         else
           puts "aca 2"+params[:role]
+          if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
+              respond_to do |format|
+                format.html do
+                  flash[:error] = "Un municipio debe tener al menos un Secpla."
+                  redirect '/admin'
+                end
+
+                format.json { status 400 }
+              end
+            end
           new_user.role=params[:role]
           if(new_user.role=="alcalde"|| new_user.role=="concejal")
             #sacar a este loco de los tableros

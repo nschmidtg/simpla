@@ -67,7 +67,7 @@
   enabled: false
   },
   tooltip: {
-  pointFormat: 'Proyectos en la zona:<b>{point.extra} </b>',
+  pointFormat: 'Proyectos en la zona:{point.extra}',
   style: {"max-height":"100px","z-index":"8000","overflow":"scroll","height":"100px !important"},
   useHTML: true
   },
@@ -77,15 +77,17 @@
   - board_names=@mun.zones.first.boards.where(closed: "false").pluck(:name)
   - extra="<br>"
   - board_names.each do |bname|
+    - bname=bname.gsub('"','\'')
     - extra=extra+"- "+bname+"<br>"
-  {name:'#{@mun.zones.first.name}',y:#{@mun.zones.first.boards.where(closed: "false").count},extra:'#{extra}'},
+  {name:"#{@mun.zones.first.name}",y:#{@mun.zones.first.boards.where(closed: "false").count},extra:"#{extra}"},
   - @mun.zones.each do |zone|
     - if(zone!=@mun.zones.first)
       - board_names=zone.boards.where(closed: "false").pluck(:name)
       - extra="<br>"
       - board_names.each do |bname|
+        - bname=bname.gsub('"','\'')
         - extra=extra+"- "+bname+"<br>"
-      {name:"#{zone.name}",y:#{zone.boards.where(closed: "false").count},extra:'#{extra}'},
+      {name:"#{zone.name}",y:#{zone.boards.where(closed: "false").count},extra:"#{extra}"},
   ],
   dataLabels: {
   enabled: true,
