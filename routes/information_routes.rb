@@ -31,7 +31,7 @@ class Ollert
     if(user!=nil)
       if((Time.now-(user.restore_pass_generated.to_time))<300)
         flash[:success] = "Lo logramos!"
-        redirect '/restore'
+        redirect '/'
       else
         flash[:error] = "paso mucho tiempo"
         redirect '/'
