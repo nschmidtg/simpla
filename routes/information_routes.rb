@@ -14,6 +14,11 @@ class Ollert
     redirect '/'
   end
 
+  post '/change_pass', :auth => :none do
+    haml :restore
+  end
+  
+
   get '/forgot', :auth => :none do
     respond_to do |format|
       format.html { haml :forgot }
@@ -26,7 +31,7 @@ class Ollert
     if(user!=nil)
       if(Time.now-user.restore_pass_generated.to_time<300)
         flash[:success] = "Lo logramos!"
-        redirect '/'
+        redirect '/restore'
       else
         flash[:error] = "paso mucho tiempo"
         redirect '/'

@@ -1,0 +1,45 @@
+.landing-connect{style:"height:80vh;padding-top:180px;"}
+  .container{style:"width: 50%;    margin: 0 auto;"}
+    .row
+      .col-sm-offset-3.col-sm-6.col-md-offset-3.col-md-6.text-center
+        %img{src: '/img/logo.png', width: '100%', style: "background-color:#e2882d;padding-left: 17px;padding-right: 17px;"}
+    
+    .row
+      .text-center.small{style:"margin-top: 50px;"}
+        
+    
+
+    .row
+      %form#components.form-horizontal{role: "form", :action=>"/change_pass", :method=>"post"}
+        %fieldset
+          .tab-content
+            / Tabs of snippets go here
+            #input.tab-pane.active
+              .component
+                / Text input
+                .form-group{style:"margin-left:0px;margin-right:0px;"} 
+                  .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
+                    %input#textinput.form-control.input-md{name: "password1", placeholder: "Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
+                / .form-group{style:"margin-left:0px;margin-right:0px;"} 
+                /   .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
+                /     %input#textinput.form-control.input-md{name: "password2", placeholder: "Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
+                
+                
+                .form-group
+                  .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
+                    .col-md-6.col-sm-6.col-xs-12{style:"padding-top:5px;"}
+                      %a{style:"color:#fff;",href:"/forgot"} Olvidé mi clave
+                    .col-md-6.col-sm-6.col-xs-12.text-center
+                      %input.btn.plus{:type => "submit", :value => "Iniciar Sesión",:style => "background-color:#b3b3b3;margin-top:0px;"}     
+
+.landing-contact.landing-section{style:"height:20vh;"}
+  .container
+    .row.text-center
+      .col-xs-12.h4
+        %img{src: "/img/icon_github.png", alt: "Github"}
+        Código Fuente en <a href="https://github.com/sep/ollert" target="blank">Github</a>.
+
+:javascript
+  $(".navbar").remove();
+  $(".principal").css("margin-top","0px");
+  $(".principal").css("margin-bottom","0px");
