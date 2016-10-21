@@ -11,6 +11,42 @@ require_relative '../utils/fetchers/cards_from_mun_fetcher'
 
 class Ollert
 
+  get '/archivar', :auth => :connected do
+    if(@user.role=="secpla" || @user.role=="admin")
+      if(@user.municipio.id.to_s==params[:mun_id])
+        board=Board.find_by(board_id: params[:board_id])
+        board.archivado="true"
+        board.save
+        respond_to do |format|
+          format.html do
+            flash[:success] = "Proyecto archivado exitosamente"
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Usted no pertenece a este municipio"
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    else
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Usted no tiene los permisos de administrador para archivar el proyecto"
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+  end
+
   get '/dashboard', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -174,25 +210,40 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    if(@user.role=="secpla" || @user.role=="admin")
+      begin
+        Trello.configure do |config|
+          config.developer_public_key = ENV['PUBLIC_KEY']
+          config.member_token = @user.member_token
+        end
+        
+        board=Board.find_by(board_id: board_id)
+        board.closed="true"
+        board.current_state="Descartado"
+        board.state_change_dates[9]=Time.now.strftime("%d/%m/%Y %H:%M")
+        board.name=board.name.split(' |')[0]+" |Descartado|"
+        board.save
+        JSON.parse(client.put("/boards/#{board_id}/name", {value: "#{board.name}"}))
+        JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
 
-    begin
-      Trello.configure do |config|
-        config.developer_public_key = ENV['PUBLIC_KEY']
-        config.member_token = @user.member_token
+      rescue Trello::Error => e
+        
+
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
       end
-      
-      board=Board.find_by(board_id: board_id)
-      board.closed="true"
-      board.current_state="Descartado"
-      board.state_change_dates[9]=Time.now.strftime("%d/%m/%Y %H:%M")
-      board.name=board.name.split(' |')[0]+" |Descartado|"
-      board.save
-      JSON.parse(client.put("/boards/#{board_id}/name", {value: "#{board.name}"}))
-      JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
 
-    rescue Trello::Error => e
-      
-
+      respond_to do |format|
+        flash[:success] = "Proyecto eliminado."
+        redirect '/boards'
+      end
+    else
       respond_to do |format|
         format.html do
           flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
@@ -201,11 +252,6 @@ class Ollert
 
         format.json { status 400 }
       end
-    end
-
-    respond_to do |format|
-      flash[:success] = "Proyecto eliminado."
-      redirect '/boards'
     end
   end
 

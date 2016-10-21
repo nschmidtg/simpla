@@ -59,7 +59,10 @@
                     %th Zonas
                     %th Estado
                     - if(@user.role=="secpla" || @user.role=="admin")
-                      %th Editar
+                      - if(state=="Finalizado")
+                        %th Archivar
+                      - else
+                        %th Editar
                 
 
                 %tbody.cuerpo-tabla
@@ -71,68 +74,74 @@
                         - if(state == board["name"].split('|')[1])
 
                           - if(board["closed"]==false || state=="Finalizado")
-                            - @asignados<<board["name"]
-                            - cantidad_tableros=cantidad_tableros+1
+                            - actual_board=Board.find_by(board_id: board["id"])
+                            - if(actual_board.archivado!="true")
+                              - @asignados<<board["name"]
+                              - cantidad_tableros=cantidad_tableros+1
 
-                            %tr
-                              %td.celda-tabla{style: "max-width:350px;"}
-                                %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
-                                  #{board["name"].split('|')[0]}
-                              - actual_board=Board.find_by(board_id: board["id"])
-                              %td.celda-tabla
-                                .boards-list-item-link-b
-                                  - if actual_board != nil
-                                    - if actual_board.fondo != nil
-                                      #{actual_board.fondo.name}
+                              %tr
+                                %td.celda-tabla{style: "max-width:350px;"}
+                                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
+                                    #{board["name"].split('|')[0]}
+                                
+                                %td.celda-tabla
+                                  .boards-list-item-link-b
+                                    - if actual_board != nil
+                                      - if actual_board.fondo != nil
+                                        #{actual_board.fondo.name}
+                                      - else
+                                        NO ASIGNADO
                                     - else
                                       NO ASIGNADO
-                                  - else
-                                    NO ASIGNADO
-                              %td.celda-tabla
-                                .boards-list-item-link-b
-                                  - if actual_board != nil
-                                    - if actual_board.tipo != nil
-                                      #{actual_board.tipo.name}
+                                %td.celda-tabla
+                                  .boards-list-item-link-b
+                                    - if actual_board != nil
+                                      - if actual_board.tipo != nil
+                                        #{actual_board.tipo.name}
+                                      - else
+                                        NO ASIGNADO
                                     - else
                                       NO ASIGNADO
-                                  - else
-                                    NO ASIGNADO
-                              %td.celda-tabla
-                                .boards-list-item-link-b
-                                  - if actual_board != nil
-                                    - if actual_board.zones != nil
-                                      - zoness=" | "
-                                      - if(actual_board.zones.count != 0)
-                                        - zones=actual_board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
-                                        - zones.each do |zone|
-                                          - zoness=zoness+zone.name+" | "
-                                        -if(actual_board.zones.count>3)
-                                          %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
+                                %td.celda-tabla
+                                  .boards-list-item-link-b
+                                    - if actual_board != nil
+                                      - if actual_board.zones != nil
+                                        - zoness=" | "
+                                        - if(actual_board.zones.count != 0)
+                                          - zones=actual_board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                                          - zones.each do |zone|
+                                            - zoness=zoness+zone.name+" | "
+                                          -if(actual_board.zones.count>3)
+                                            %p{title: "#{zoness}", style:"margin:0 0 0;"} Varias Zonas
+                                          -else
+                                            #{zoness}
                                         -else
-                                          #{zoness}
-                                      -else
+                                          NO ASIGNADAS
+                                      - else
                                         NO ASIGNADAS
                                     - else
                                       NO ASIGNADAS
-                                  - else
-                                    NO ASIGNADAS
-                              %td.celda-tabla
-                                .boards-list-item-link-c
-                                  - if(@states[count-3]!="Descartado")
-                                    - if(@user.role=="secpla" || @user.role=="admin") 
-                                      %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'"}
-                                        %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                  - if (actual_board!=nil)
-                                    #{actual_board.current_state}
-                                  - if(@states[count-1]!="Descartado")
-                                    - if(@user.role=="secpla" || @user.role=="admin") 
-                                      %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
-                                        %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
-                              - if(@user.role=="secpla" || @user.role=="admin")
                                 %td.celda-tabla
                                   .boards-list-item-link-c
-                                    %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
-                                      %span.glyphicon.glyphicon-pencil
+                                    - if(@states[count-3]!="Descartado")
+                                      - if(@user.role=="secpla" || @user.role=="admin") 
+                                        %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'"}
+                                          %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
+                                    - if (actual_board!=nil)
+                                      #{actual_board.current_state}
+                                    - if(@states[count-1]!="Descartado")
+                                      - if(@user.role=="secpla" || @user.role=="admin") 
+                                        %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
+                                          %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                                - if(@user.role=="secpla" || @user.role=="admin")
+                                  %td.celda-tabla
+                                    .boards-list-item-link-c
+                                      - if(state=="Finalizado")
+                                        %a{style: 'display: inline-block;', href: "/archivar?mun_id=#{@mun.id}&board_id=#{actual_board.board_id}",onclick:"return confirm('¿Está seguro de que quiere archivar el proyecto?')"}
+                                          %span.glyphicon.glyphicon-inbox
+                                      - else
+                                        %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
+                                          %span.glyphicon.glyphicon-pencil
                   %script
                     var text=$(document).find("#tab-text-#{count}").text();
                     $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
@@ -435,7 +444,7 @@
         });
       }
     }
-    
+
           
 
 
