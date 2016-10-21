@@ -4184,16 +4184,8 @@ class Ollert
       config.developer_public_key = ENV['PUBLIC_KEY']
       config.member_token =  @user.member_token
     end
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/admin'
-        end
-      end
-    end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+      if(params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s)
         @mun=Municipio.find_by(id: params[:mun_id])
         @boards=@mun.boards
 
@@ -4201,7 +4193,7 @@ class Ollert
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            flash[:error] = "Este no es su municipio."
             redirect '/admin'
           end
 
