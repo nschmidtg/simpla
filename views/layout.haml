@@ -74,7 +74,7 @@
                   %li
                     - if(@user.gravatar_hash=="default")
                       %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
-                        %img{src: "/img/Iconos-blancos-28.svg", alt: "Profile Avatar", style: "width: 45px;"}
+                        %img{src: "/img/Iconos-blancos-28.png", alt: "Profile Avatar", style: "width: 45px;"}
                         %b.caret
                     -else
                       %a.settings-link{href: 'javascript:void(0)', data: { toggle: 'dropdown' } }
@@ -99,7 +99,7 @@
                     %li.icon-element
                       .col.md.izq-menu
                         %a.icon-link{href:"/dashboard?mun_id=#{@user.municipio.id}"}
-                          %img.svg-element#boton{src: "/img/Iconos-blancos-26.svg", type:"image/svg+xml"}
+                          %img.svg-element#boton{src: "/img/Iconos-blancos-26.png", type:"image/svg+xml"}
                       .col#header-lateral
                         %h5.h5-lateral
                           Indicadores Globales
@@ -107,7 +107,7 @@
                     %li.icon-element
                       .col.md.izq-menu
                         %a.icon-link{href:"/boards"}
-                          %img.svg-element#boton{src: "/img/Iconos-blancos-23.svg", type:"image/svg+xml"}
+                          %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml"}
                       .col#header-lateral
                         %h5.h5-lateral
                           Gestión Proyectos
@@ -115,7 +115,7 @@
                     %li.icon-element
                       .col.md.izq-menu
                         %a.icon-link{href:"/calendar?mun_id=#{@user.municipio.id}"}
-                          %img.svg-element#boton{src: "/img/Iconos-blancos-27.svg", type:"image/svg+xml"}
+                          %img.svg-element#boton{src: "/img/Iconos-blancos-27.png", type:"image/svg+xml"}
                       .col#header-lateral
                         %h5.h5-lateral
                           Calendario General
@@ -123,7 +123,7 @@
                     %li.icon-element
                       .col.md.izq-menu
                         %a.icon-link{href: "/archivo/municipio/proyectos?mun_id=#{@user.municipio.id}"}
-                          %img.svg-element#boton{src: "/img/Iconos-blancos-24.svg", type:"image/svg+xml"}
+                          %img.svg-element#boton{src: "/img/Iconos-blancos-24.png", type:"image/svg+xml"}
                       .col#header-lateral
                         %h5.h5-lateral
                           Archivo de Proyectos
@@ -132,7 +132,7 @@
                     %li.icon-element
                       .col.md.izq-menu
                         %a.icon-link{href:"/admin"}
-                          %img.svg-element#boton{src: "/img/Iconos-blancos-21.svg", type:"image/svg+xml"}
+                          %img.svg-element#boton{src: "/img/Iconos-blancos-21.png", type:"image/svg+xml"}
                       .col#header-lateral
                         %h5.h5-lateral
                           Panel Administración
