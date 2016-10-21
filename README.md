@@ -1,8 +1,12 @@
-### Ollert
+### Simpla
 
-[![Build Status](https://travis-ci.org/sep/ollert.svg?branch=master)](https://travis-ci.org/sep/ollert)
+* Author: Nicolás Schmidt <nschmidtg@gmail.com>
+* Company: Centro de Políticas Públicas de la Pontificia Universidad Católica de Chile
+* Website: [gestion-municipal.herokuapp.com](https://gestion-municipal.herokuapp.com)
+* License: [GNU Affero GPL v3.0](LICENSE)
 
 
+Basado en el código fuente de Ollert App:
 * Author: Larry Price <larry@larry-price.com>
 * Company: Software Engineering Professionals, Inc.
 * Website: [ollertapp.com](https://ollertapp.com)
