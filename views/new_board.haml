@@ -34,7 +34,7 @@
         
 
     .row
-      %form#components.form-horizontal{role: "form", :action=>"/create_project", :method=>"post"}
+      %form#components.form-horizontal{role: "form", :action=>"/create_project", :method=>"post",onsubmit:"return checkboxes()"}
         %fieldset
           .tab-content
             / Tabs of snippets go here
@@ -176,7 +176,7 @@
                           %optgroup{:label=>"Otros"}
                           - @otros.each do |f|
                             %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Otro)
-                .form-group
+                .form-group#zones
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zona*
                   .col-md-6.col-sm-6.col-xs-12
                     .checkbox
@@ -319,5 +319,16 @@
 
     
   };
+:javascript
+  function checkboxes(){
+    if(jQuery('#zones input[type=checkbox]:checked').length>0){
+      return true;
+    }
+    else{
+      alert("Debe seleccionar al menos una zona.");
+      return false;
+    }
+
+  }
 
   
