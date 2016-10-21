@@ -3,7 +3,11 @@ class Ollert
   require 'mail'
   get '/', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
-      redirect '/boards'
+      if(@user.role=="concejal" || @user.role=="alcalde")
+        redirect '/dashboard?mun_id=@user.municipio.id'
+      else
+        redirect '/boards'
+      end
     end
     
     haml :landing
