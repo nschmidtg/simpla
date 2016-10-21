@@ -19,11 +19,17 @@
                 / Text input
                 .form-group{style:"margin-left:0px;margin-right:0px;"} 
                   .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
-                    %input#textinput.form-control.input-md{name: "password1", placeholder: "Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
+                    %input#txtNewPassword.form-control.input-md{name: "pass1", placeholder: "Nueva Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
                 .form-group{style:"margin-left:0px;margin-right:0px;"} 
                   .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
-                    %input#textinput.form-control.input-md{name: "password2", placeholder: "Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
-                
+                    %input#txtConfirmPassword.form-control.input-md{name: "pass2", placeholder: "Repetir Contraseña",style: "cursor: auto;", type: "password" ,required: ""}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label
+                  .col-md-6.col-sm-6.col-xs-12
+                    #divCheckPasswordMatch
+                .form-group{style:"margin-left:0px;margin-right:0px;"} 
+                  .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12
+                    %input#textinput.form-control.input-md{name: "hash", type: "hidden" ,value: "#{@hash}"}/
                 
                 .form-group
                   .col-sm-offset-3.col-md-offset-3.col-md-6.col-sm-6.col-xs-12.text-center
@@ -42,3 +48,44 @@
   $(".navbar").remove();
   $(".principal").css("margin-top","0px");
   $(".principal").css("margin-bottom","0px");
+
+:javascript
+  function checkPasswordMatch() {
+    var password = $("#txtNewPassword").val();
+    var confirmPassword = $("#txtConfirmPassword").val();
+
+    if (password != confirmPassword){
+      $("#divCheckPasswordMatch").html("Las contraseñas no coinciden!");
+      return false;
+    }
+    else{
+      $("#divCheckPasswordMatch").html("Perfecto!");
+      return true;
+    }
+  }
+  $(document).ready(function () {
+    $("#txtNewPassword").keyup(checkPasswordMatch);
+    $("#txtConfirmPassword").keyup(checkPasswordMatch);
+  });
+  $(function() {
+    $('#components').submit(function() {
+      if(checkPasswordMatch())
+        return true; 
+      else
+        shake();
+        return false;
+    });
+  });
+  function shake(){
+    $('#divCheckPasswordMatch').animate({
+      'margin-left': '-=5px',
+      'margin-right': '+=5px'
+    }, 100, function() {
+      $('#divCheckPasswordMatch').animate({
+          'margin-left': '+=5px',
+          'margin-right': '-=5px'
+      }, 100, function() {
+          //and so on...
+      });
+    });
+  }

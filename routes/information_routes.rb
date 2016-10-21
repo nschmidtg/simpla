@@ -15,7 +15,21 @@ class Ollert
   end
 
   post '/change_pass', :auth => :none do
-    haml :restore
+    user=User.find_by(restore_pass: params[:hash])
+    if(user!=nil && params[:pass1]==params[:pass2])
+      if((Time.now-(user.restore_pass_generated.to_time))<300)
+        user.login_pass=Digest::SHA256.base64digest(params[:pass1])
+        user.save
+        flash[:success] = "Contraseña cambiada exitosamente."
+        redirect '/'
+      else
+        flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
+        redirect '/forgot'
+      end
+    else
+      flash[:error] = "El usuario no existe o las contraseñas no coinciden."
+      redirect '/'
+    end
   end
   
 
@@ -26,18 +40,20 @@ class Ollert
   end
 
   get '/restore', :auth => :none do
-    hash=params[:hash]
-    user=User.find_by(restore_pass: hash)
+    @hash=params[:hash]
+
+    user=User.find_by(restore_pass: @hash)
     if(user!=nil)
       if((Time.now-(user.restore_pass_generated.to_time))<300)
-        flash[:success] = "Lo logramos!"
-        redirect '/'
+        respond_to do |format|
+        format.html { haml :restore }
+      end
       else
-        flash[:error] = "paso mucho tiempo"
+        flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
         redirect '/'
       end
     else
-      flash[:error] = "mentira"
+      flash[:error] = "El usuario no existe."
       redirect '/'
     end
   end
