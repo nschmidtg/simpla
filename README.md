@@ -1,7 +1,7 @@
 ### Simpla
 
 * Author: Nicolás Schmidt <nschmidtg@gmail.com>
-* Company: Centro de Políticas Públicas de la Pontificia Universidad Católica de Chile
+* Company: [Centro de Políticas Públicas de la Pontificia Universidad Católica de Chile](http://politicaspublicas.uc.cl)
 * Website: [gestion-municipal.herokuapp.com](https://gestion-municipal.herokuapp.com)
 * License: [GNU Affero GPL v3.0](LICENSE)
 
