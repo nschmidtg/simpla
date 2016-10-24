@@ -459,7 +459,7 @@ class Ollert
         @orgName=Organization.find_by(org_id: @org_id).name
         if(params[:edit]=="true")
           @board=Board.find_by board_id: params[:last_board_id]
-          @municipio=@board.municipio
+          @municipio=Municipio.find_by(id: params[:mun_id])
         end
         
       else
