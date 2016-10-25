@@ -14,6 +14,8 @@ var CalendarFullChartBuilder = (function() {
     optionsBuild=eventos;
     $('#calendar-container').fullCalendar({
     events: jQuery.parseJSON(eventos),
+    firstDay: 1,
+    lang: 'es',
     eventRender: function(event, element) {
           $(element).popover({html: true, title: "<b>"+event.description+"</b>", content: event.title, trigger: 'hover',container: 'body', placement: 'auto', delay: {"show": 100,"hide": 100 }});             
         }
