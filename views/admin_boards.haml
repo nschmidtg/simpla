@@ -100,13 +100,13 @@
     $("#myTable").tablesorter(); 
   })
   $('#save_image_locally').click(function(){
-    html2canvas($('#myTable'), 
-    {
+    html2canvas($('html'), 
+    {background :'#FFFFFF',
       onrendered: function (canvas) {
         var a = document.createElement('a');
         // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
-        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
-        a.download = 'somefilename.jpg';
+        a.href = canvas.toDataURL("image/png");
+        a.download = 'somefilename.png';
         a.click();
       }
     });

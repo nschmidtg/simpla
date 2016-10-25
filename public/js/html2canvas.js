@@ -415,7 +415,7 @@ _html2canvas.Util.Children = function( elem ) {
 };
 
 _html2canvas.Util.isTransparent = function(backgroundColor) {
-  return (backgroundColor === "transparent" || backgroundColor === "rgba(0, 0, 0, 0)");
+  return (backgroundColor === "transparent" || backgroundColor === "rgba(0, 0, 0, 0)" || backgroundColor === undefined);
 };
 _html2canvas.Util.Font = (function () {
 
