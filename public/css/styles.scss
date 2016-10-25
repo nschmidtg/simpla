@@ -1953,7 +1953,7 @@ a.btn {
 .nav-tabs>li>a.tab-custom:active{
   border: 1px solid #dddddd !important;
 }
-@media only screen and (max-width: 768px) {
+@media(max-width: 768px) {
   .r-tabs {
     .r-tabs-nav {
       display: none !important;
