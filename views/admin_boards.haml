@@ -102,7 +102,7 @@
     $("#myTable").tablesorter(); 
   })
   $('#save_image_locally').click(function(){
-    html2canvas($('html'), 
+    html2canvas($('#myTable'), 
     {background :'#FFFFFF',
       onrendered: function (canvas) {
         var a = document.createElement('a');
