@@ -1956,10 +1956,21 @@ a.btn {
 @media only screen and (max-width: 768px) {
   .r-tabs {
     .r-tabs-nav {
-      display: none;
+      display: none !important;
     }
     .r-tabs-accordion-title {
       display: block;
+      padding: 10px;
+      background-color: #fff;
+      color: #fff;
+      font-weight: bold;
+      text-decoration: none;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+    }
+    .r-tabs-accordion-title.r-tabs-state-active{
+      background-color: #background-color: #fff;;
     }
   }
 }
