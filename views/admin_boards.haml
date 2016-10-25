@@ -86,14 +86,28 @@
                   .boards-list-item-link-c
                     %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{board.board_id}&board_name=#{board.name}&edit=true"}
                       %span.glyphicon.glyphicon-pencil
-                    
+  %a.btn.plus#save_image_locally
+    Imprimir
   - if(@user.role=="secpla" || @user.role=="admin") 
     .row
       - @mun=Municipio.find_by(id: params[:mun_id])
       - @org=@mun.organizations.find_by(name: "3. No Priorizados")
       %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
         Agregar Proyecto
+
 :javascript
   $(document).ready(function(){
     $("#myTable").tablesorter(); 
   })
+  $('#save_image_locally').click(function(){
+    html2canvas($('#table'), 
+    {
+      onrendered: function (canvas) {
+        var a = document.createElement('a');
+        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+        a.href = canvas.toDataURL("image/jpeg").replace("image/jpeg", "image/octet-stream");
+        a.download = 'somefilename.jpg';
+        a.click();
+      }
+    });
+  });
