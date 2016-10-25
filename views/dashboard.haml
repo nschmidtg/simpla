@@ -28,7 +28,7 @@
             %img.svg-element#boton{src: "/img/Iconos-blancos-25.png", type:"image/svg+xml", style:"width:65%;"}
             %h1 #{@mun.zones.count}
             %h4 Zonas
-    .row
+    .row#graficos
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container2
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
@@ -169,7 +169,7 @@
 
 :javascript
   $('#save_image_locally').click(function(){
-  var svgElements= $("#container2").find('svg');
+  var svgElements= $("#graficos").find('svg');
 
   //replace all svgs with a temp canvas
   svgElements.each(function () {
@@ -190,7 +190,7 @@
     this.className = "tempHide";
     $(this).hide();
   });
-  html2canvas($('#container2'), 
+  html2canvas($('#graficos'), 
     {background :'#FFFFFF',
       onrendered: function (canvas) {
         var a = document.createElement('a');
