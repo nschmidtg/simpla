@@ -1,13 +1,12 @@
 .container
-  .row
+  %div
     %h4
       %a{href: "/dashboard",style: "color:#808080"}Indicadores del Municipio >
-  
     %h2.ollert-header
-      .text-center.col-xs-12.no-padding
+      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
         Resumen #{@mun.name}
     .row
-      .col-md-12.col-sm-12.col-xs-12.no-padding
+      .col-md-12.col-sm-12.col-xs-12
         .col-md-3.col-sm-12.col-xs-12
           .boards-list-item-link-blue
             %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml", style:"width:65%;"}
