@@ -74,7 +74,7 @@
                               - cantidad_tableros=cantidad_tableros+1
 
                               %tr
-                                %td.celda-tabla{style: "min-width: 180px;width: 100%;"}
+                                %td.celda-tabla{style: "min-width: 180px;width: 100%;max-width: 0px;"}
                                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
                                     #{board["name"].split('|')[0]}
                                 
