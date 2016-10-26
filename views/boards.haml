@@ -78,7 +78,7 @@
                                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
                                     #{board["name"].split('|')[0]}
                                 
-                                %td.celda-tabla{style: "min-width:0px;"}
+                                %td.celda-tabla
                                   .boards-list-item-link-b.overflow
                                     - if actual_board != nil
                                       - if actual_board.fondo != nil
