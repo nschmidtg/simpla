@@ -42,7 +42,7 @@
               %table.table{id: "myTable-#{count}"}
                 %thead
                   %tr
-                    %th 
+                    %th{style:"min-width:250px;"}
                       Nombre Proyecto
                       %a{href: "#"}
                         %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
@@ -74,7 +74,7 @@
                               - cantidad_tableros=cantidad_tableros+1
 
                               %tr
-                                %td.celda-tabla{style: "min-width: 320px;width: 100%;max-width: 0px;"}
+                                %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
                                     #{board["name"].split('|')[0]}
                                 
