@@ -101,9 +101,9 @@
                                         %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
                                           %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                                 - if(@user.role=="secpla" || @user.role=="admin")
-                                  %td.celda-tabla
+                                  %td.celda-tabla{style: "width: 100%;"}
                                     - if actual_board != nil
-                                      .boards-list-item-link-c
+                                      .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                                         - if(state=="Finalizado")
                                           %a{style: 'display: inline-block;', href: "/archivar?mun_id=#{@mun.id}&board_id=#{actual_board.board_id}",onclick:"return confirm('¿Está seguro de que quiere archivar el proyecto?')"}
                                             %span.glyphicon.glyphicon-inbox
@@ -118,7 +118,7 @@
             %table.table{id: "myTable-1"}
               %thead
                 %tr
-                  %th 
+                  %th{style:"min-width:250px;"}
                     Nombre Proyecto
                     %a{href: "#"}
                       %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
@@ -142,13 +142,13 @@
                           - #if(bdbrd!=nil)
                           - cantidad_tableros=cantidad_tableros+1
                           %tr
-                            %td.celda-tabla{style: "max-width:350px;"}
+                            %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                               %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"]}"}
                                 #{board["name"]}
                             
                             - actual_board=Board.find_by(board_id: board["id"])
-                            %td.celda-tabla
-                              .boards-list-item-link-b
+                            %td.celda-tabla{style: "width: 100%;"}
+                              .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                                 - if actual_board != nil
                                   - if actual_board.fondo != nil
                                     #{actual_board.fondo.name}
@@ -157,16 +157,16 @@
                                 - else
                                   NO ASIGNADO
                             
-                            %td.celda-tabla
-                              .boards-list-item-link-c
+                            %td.celda-tabla{style: "width: 100%;"}
+                              .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                                 NO ASIGNADO
                                 - if(@user.role=="secpla" || @user.role=="admin") 
                                   %a{onclick: "changeState('En Formulación','#{board["id"]}')", title: "Pasar a la etapa 'En Formulación'"}
                                     %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                             - if(@user.role=="secpla" || @user.role=="admin")
-                              %td.celda-tabla
+                              %td.celda-tabla{style: "width: 100%;"}
                                 - if actual_board != nil
-                                  .boards-list-item-link-c
+                                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                                     %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
                                       %span.glyphicon.glyphicon-pencil
                 %script
@@ -200,7 +200,7 @@
               %table.table{id: "myTable-#{count}"}
                 %thead
                   %tr
-                    %th 
+                    %th{style:"min-width:250px;"}
                       Nombre Proyecto
                       %a{href: "#"}
                         %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
@@ -245,12 +245,12 @@
                           - if(bdbrd.closed=="false")
                             - cantidad_tableros=cantidad_tableros+1
                             %tr
-                              %td.celda-tabla{style: "max-width:350px;"}
+                              %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                                 %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
                                   #{board["name"].split('|')[0]}
                               - actual_board=Board.find_by(board_id: board["id"])
-                              %td.celda-tabla
-                                .boards-list-item-link-b
+                              %td.celda-tabla{style: "width: 100%;"}
+                                .boards-list-item-link-b.overflow{style:"max-width:100%"}
                                   - if actual_board != nil
                                     - if actual_board.fondo != nil
                                       #{actual_board.fondo.name}
@@ -259,8 +259,8 @@
                                   - else
                                     NO ASIGNADO
                               
-                              %td.celda-tabla
-                                .boards-list-item-link-c
+                              %td.celda-tabla{style: "width: 100%;"}
+                                .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                                   %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: auto;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
                                     - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
                                       - if(@user.role=="secpla" || @user.role=="admin")
