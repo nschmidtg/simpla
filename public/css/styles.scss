@@ -1884,3 +1884,8 @@ select.form-control{
   padding:0px;
   width: initial;
 }
+.fc-scroller{
+  overflow-x: inherit;
+  overflow-y: inherit;
+  height: inherit;
+}
