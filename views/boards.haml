@@ -1,14 +1,14 @@
 
    
 .container
-  .row
+  %div
     %h4
       %a{href: "/boards",style: "color:#808080"}Gestión de Proyectos >
     %h2.ollert-header
       .text-center.col-xs-12.no-padding
         Etapas de Proyectos
 
-  .row
+  %div
     - @mun=@user.municipio
     #responsiveTabsDemo
       %ul#myTab.nav.nav-tabs.responsive
