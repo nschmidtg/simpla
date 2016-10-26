@@ -13,20 +13,21 @@
       %table.table{id: "myTable"}
         %thead
           %tr
-            %th 
+            %th{style:"min-width:250px;"}
               Nombre Proyecto
               %a{href: "#"}
                 %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th 
+            %th{style:"min-width:100px;"}
               Fondo
               %a{href: "#"}
                 %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th 
+            %th{style:"min-width:100px;"}
               Tipo
               %a{href: "#"}
                 %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th Zonas
-            %th 
+            %th{style:"min-width:100px;"} 
+              Zonas
+            %th{style:"min-width:100px;"}
               Estado
               %a{href: "#"}
                 %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
@@ -35,11 +36,11 @@
         %tbody.cuerpo-tabla
           - @boards.each do |board|
             %tr
-              %td.celda-tabla{style:"max-width:350px;"}
+              %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                 %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split('|')[0]} "}
                   #{board.name.split('|')[0]}               
-              %td.celda-tabla
-                .boards-list-item-link-b
+              %td.celda-tabla{style: "width: 100%;"}
+                .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                   - if board != nil
                     - if board.fondo != nil
                       #{board.fondo.name}
@@ -47,8 +48,8 @@
                       NO ASIGNADO
                   - else
                     NO ASIGNADO
-              %td.celda-tabla
-                .boards-list-item-link-b
+              %td.celda-tabla{style: "width: 100%;"}
+                .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                   - if board != nil
                     - if board.tipo != nil
                       #{board.tipo.name}
@@ -56,8 +57,8 @@
                       NO ASIGNADO
                   - else
                     NO ASIGNADO
-              %td.celda-tabla
-                .boards-list-item-link-b
+              %td.celda-tabla{style: "width: 100%;"}
+                .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                   - if board != nil
                     - if board.zones != nil
                       - zoness=" | "
@@ -75,15 +76,15 @@
                       NO ASIGNADAS
                   - else
                     NO ASIGNADAS
-              %td.celda-tabla
-                .boards-list-item-link-c
+              %td.celda-tabla{style: "width: 100%;"}
+                .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                   - if(board.current_state!=nil)
                     #{board.current_state}
                   - else
                     NO ASIGNADO
               - if(@user.role=="secpla" || @user.role=="admin")
-                %td.celda-tabla
-                  .boards-list-item-link-c
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                     %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{board.board_id}&board_name=#{board.name}&edit=true"}
                       %span.glyphicon.glyphicon-pencil
   .row
