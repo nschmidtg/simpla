@@ -1,14 +1,14 @@
 
    
 .container
-  .row
+  %div
     %h4
       %a{href: "/archivo/municipio/proyectos?mun_id=#{@mun.id}",style: "color:#808080"}Archivo de Proyectos >
     %h2.ollert-header
-      .text-center.col-xs-12.no-padding
+      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
         Proyectos
 
-  .row
+  %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
     .col-md-12.col-sm-12.col-xs-12.no-padding
       %table.table{id: "myTable"}
         %thead
