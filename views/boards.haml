@@ -376,4 +376,10 @@
     $("#myTable-11").tablesorter(); 
     $("#myTable-12").tablesorter(); 
     $("#myTable-13").tablesorter(); 
+
+    $(".r-tabs-anchor").click(function() {
+      $('html, body').animate({
+          scrollTop: $(this).offset().top-62
+      }, 750);
+    });
   })
