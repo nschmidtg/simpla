@@ -1792,6 +1792,15 @@ a.btn {
   border: 1px solid #4D97C1;
   border-bottom: none;
   color: #fff;
+  width: 100%;
+  text-align: -webkit-center;
+  display: -webkit-box;
+}
+
+.r-tabs-state-default > a.r-tabs-anchor {
+  width: 100%;
+  text-align: -webkit-center;
+  display: -webkit-box;
 }
 
 .tab-custom {
