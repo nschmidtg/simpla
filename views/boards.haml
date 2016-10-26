@@ -178,11 +178,11 @@
       - @org=@mun.organizations.find_by(name: "3. No Priorizados")
       %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
         Agregar Proyecto
-  .row
+  %div
     %h2.ollert-header
-      .text-center.col-xs-12.no-padding
+      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
         Prioridad de Proyectos
-  .row
+  %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
     #responsiveTabsDemo2
       %ul#myTab.nav.nav-tabs.responsive
         %li.lindo
