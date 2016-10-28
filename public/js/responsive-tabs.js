@@ -550,7 +550,7 @@
             maxHeight = Math.max(maxHeight, tab.panel.css('minHeight', '').height());
             return tab.panel;
         }), function() {
-            this.css('minHeight', maxHeight);
+            //this.css('minHeight', maxHeight);
         });
     };
 

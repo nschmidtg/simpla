@@ -1785,6 +1785,7 @@ a.btn {
   }
   .r-tabs-panel {
     display: none;
+    min-height: 0px !important;
   }
   .r-tabs-accordion-title {
     display: none;
@@ -1792,6 +1793,9 @@ a.btn {
   .r-tabs-panel.r-tabs-state-active {
     display: block;
   }
+}
+.tab-pane{
+  min-height: 0px !important;
 }
 
 .r-tabs-state-active > a.r-tabs-anchor {
