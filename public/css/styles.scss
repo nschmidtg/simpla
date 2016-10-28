@@ -1915,3 +1915,9 @@ select.form-control{
   border: none;
   box-shadow: none;
 }
+.form-group{
+  display: -webkit-box;
+}
+.description{
+  height: inherit;
+}

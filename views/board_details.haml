@@ -1,0 +1,169 @@
+
+:javascript
+  function initMap(){
+    $("#map").height("200px");
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: #{if(@board.coords!=nil && @board.coords!="") \n @board.coords.split(' ')[0] \n else @municipio.coords.split(' ')[0] \n end}, lng: #{if(@board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else @municipio.coords.split(' ')[1] \n end}},
+      zoom: 14,
+    });
+    marker = new google.maps.Marker({
+      map: map,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      position: {lat: #{if(@board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[0] \n else @municipio.coords.split(' ')[0] \n end}, lng: #{if(@board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else @municipio.coords.split(' ')[1] \n end}}
+    });
+  }
+.container
+  .row
+    #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
+      #{@board_name}
+
+
+  .row
+    .form-group 
+      .col-md-9.col-sm-12.col-xs-12
+
+
+        - @municipio=@board.municipio
+        #textinput.form-control.input-md 
+          %b
+            Nombre: 
+          #{@board.name.split(' |')[0]}
+     
+
+      .col-md-6.col-sm-6.col-xs-12
+        %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "hidden", disabled: "true"}
+    .form-group
+      .col-md-9.col-sm-12.col-xs-12
+        .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+          #textinput.form-control.input-md.inpSelect
+            %b
+              Tipo: 
+            #{@board.tipo.name}
+            
+           
+        .col-md-6.col-sm-6.col-xs-12.no-padding
+
+          #textinput.form-control.input-md.inpSelect
+            %b
+              Fondo: 
+            #{@board.fondo.name} #{@board.fondo.etapa}
+            
+    .form-group
+      .col-md-9.col-sm-12.col-xs-12
+        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+          .form-control.input-md
+            %b
+              Fecha tentativa de inicio: 
+            - if((@board.start_date!=nil&&@board.start_date!=""))
+              #{@board.start_date}
+            - else
+              NO ASIGNADA
+        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+          .form-control.input-md
+            %b
+              Fecha tentativa de fin: 
+            - if((@board.end_date!=nil&&@board.end_date!=""))
+              #{@board.end_date}
+            - else
+              NO ASIGNADA
+        .col-md-4.col-sm-12.col-xs-12.no-padding
+
+          #monto.form-control.input-md
+            %b
+              Monto:
+            #{@board.monto}
+
+    .form-group
+      .col-md-9.col-sm-12.col-xs-12
+        .col-md-12.col-sm-12.col-xs-12.no-padding
+          #textinput.form-control.input-md.description
+            %b
+              Descripción:
+              %br
+            - if((@board.desc!=nil&&@board.desc!=""))
+              #{@board.desc}
+            - else
+              NO ASIGNADA
+        
+    
+  .form-group
+    .col-md-9.col-sm-12.col-xs-12
+      .col-md-3.col-sm-12.col-xs-12#zones{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+      
+        %b
+          Zonas:
+          %br
+        - zones=@board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+        - zones.each do |zona|
+          #{zona.name}
+          %br
+
+      
+      .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
+        .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+          %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
+          - if(params[:edit]=="true" && @board.coords!="")
+            %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
+          - else
+            %input#always{:type => "checkbox", :name =>"coords"}>/
+          #map
+          - if(params[:edit]=="true")
+            - if(@board.coords != nil)
+              %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
+            - else
+              %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.085 -70.930", style: "cursor: auto;", type: "hidden"}/
+          - else
+            %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
+      
+    .form-group
+      - if(params[:edit]=="true")
+        %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", type: "hidden"}/
+      - else
+        %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "hidden"}/
+    .form-group
+      %input#textinput.form-control.input-md{name: "last_board_id", value: "#{params[:last_board_id]}", style: "cursor: auto;", type: "hidden"}/
+    - if(params[:admin]=="true")
+      .form-group
+        %input#textinput.form-control.input-md{name: "admin", value: "true", style: "cursor: auto;", type: "hidden"}/
+
+    .form-group
+      
+      .col-md-3.col-sm-3.col-xs-12
+        %input#textinput.form-control.input-md{name: "org_id", value: "#{@org_id}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "hidden"}/
+    .form-group
+     
+      .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
+      
+        %a#delete.btn.plus
+          Editar Proyecto 
+
+
+  .row
+    .col-md-12.col-sm-12.col-xs-12.no-padding
+      .analysis-block-md
+        %img#calendar-spinner{src: '/img/spinner.gif'}
+        #calendar-container.med-chart.graph-container
+ 
+  .row
+
+    .col-md-6.col-sm-6.col-xs-12.no-padding
+      .analysis-block-sm
+        .stat-title
+          %h4 Tarea más antigua (en días)
+        #oldest-card-age.stat-value
+          %img.stats-spinner{src: '/img/spinner.gif'}
+        #oldest-card-name.stat-subtitle
+
+    .col-md-6.col-sm-6.col-xs-12.no-padding
+      .analysis-block-sm
+        .stat-title
+          %h4 Tarea más nueva (en días)
+        #newest-card-age.stat-value
+          %img.stats-spinner{src: '/img/spinner.gif'}
+        #newest-card-name.stat-subtitle
+
+:javascript
+  window.onload = function() {
+    AnalysisController.init("#{@board_id}", #{@board_lists}, "#{@starting_list}", "#{@ending_list}", "#{@token}");
+  };

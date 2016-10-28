@@ -537,9 +537,10 @@ class Ollert
     end
 
     @board_id = board_id
-
+    @board=Board.find_by(board_id: board_id)
+    @municipio=@board.municipio
     @title = @board_name
-    haml :analysis
+    haml :board_details
   end
 
   put '/boards/:board_id', :auth => :connected do |board_id|
