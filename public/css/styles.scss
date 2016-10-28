@@ -143,9 +143,10 @@ ol.example li.placeholder {
   float: left;
   display: block;
   font-weight: bold;
-  padding: 5px;
+  padding: 7px;
   width: 100%;
   color: #eee;
+  height: 34px;
   background-color: #4D97C1;
   border-radius: 100%;
   margin-bottom: 10px;
@@ -499,6 +500,7 @@ ol.example li.placeholder {
   }
   #map {
     height: 100px;
+    width: 100%;
   }
   .fc-resizer {
     position: absolute;
@@ -1497,8 +1499,9 @@ ul {
   float: left;
   display: block;
   font-weight: bold;
-  padding: 5px;
+  padding: 7px;
   width: 100%;
+  height: 34px;
   color: #4D97C1;
   background-color: #eee;
   margin-bottom: 10px;
@@ -1507,7 +1510,8 @@ ul {
 .boards-list-item-link-b {
   float: left;
   display: block;
-  padding: 5px;
+  padding: 7px;
+  height: 34px;
   width: 100%;
   color: #595959;
   background-color: #eee;
@@ -1517,8 +1521,9 @@ ul {
 .boards-list-item-link-c {
   text-align: center;
   display: -webkit-inline-box;
-  padding: 5px;
+  padding: 7px;
   width: 100%;
+  height: 34px;
   color: #595959;
   background-color: #eee;
   margin-bottom: 10px;
@@ -1527,6 +1532,7 @@ ul {
 .boards-list-item-link:hover {
   color: #0167A3;
   text-decoration: none;
+  height: 34px;
 }
 
 #board-details {
@@ -1617,7 +1623,7 @@ ul.left-align li a {
 }
 
 .modal-body {
-  background: #ce4e41;
+  background: #eb5a46;
   color: #ffffff;
   display: -webkit-inline-box;
 }
@@ -1627,7 +1633,8 @@ ul.left-align li a {
 }
 
 .modal-footer {
-  padding: 5px;
+  height: 50px;
+  padding: 8px;
   margin-top: 0;
   display: -webkit-inline-box;
   float: right;
@@ -1645,8 +1652,9 @@ ul.left-align li a {
   padding-right: 15px;
   position: absolute;
   width: 100%;
-  background: #ce4e41;
-  top: 0;
+  background: #eb5a46;
+  top: -1px;
+  right: 0px;
 }
 
 #flash {
@@ -1879,13 +1887,27 @@ a.btn {
   width: 100%;
   display: inline-table;
 }
-select.form-control{
-  height: 20px;
-  padding:0px;
-  width: initial;
-}
+
 .fc-scroller{
   overflow-x: inherit !important;
   overflow-y: inherit !important;
   height: inherit !important;
+}
+select.inpSelect {
+  //Remove original arrows
+  -webkit-appearance: none; 
+  //Use png at assets/selectArrow.png for the arrow on the right
+  //Set the background color to a BadAss Green color 
+  background: url(/img/arrow-down.png) no-repeat right #eee;
+  width:100% !important;
+}
+select.form-control{
+  max-width:100%;   
+  width: initial;
+
+}
+.form-control{
+  background-color: #eee;
+  border: none;
+  box-shadow: none;
 }

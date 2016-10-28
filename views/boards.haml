@@ -263,7 +263,7 @@
                                     NO ASIGNADO
                               
                               %td.celda-tabla{style: "width: 100%;"}
-                                .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
                                   - if(@user.role=="admin"||@user.role=="secpla")
                                     %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: auto;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
                                       - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)

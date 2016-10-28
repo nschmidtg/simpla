@@ -4014,4 +4014,31 @@
 [2016-10-26 12:03:40 -0300 nico-VirtualBox (4699)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-10-26 12:04:12 -0300 nico-VirtualBox (4729)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-10-26 12:04:42 -0300 nico-VirtualBox (4732)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
-[2016-10-26 12:04:42 -0300 nico-VirtualBox (4735)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-26 12:04:42 -0300 nico-VirtualBox (4735)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : Starting the New Relic agent in "development" environment.
+[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : Environment: development
+[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : Dispatcher: unicorn
+[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : Application: Gestion Municipal (Development)
+[2016-10-28 10:12:40 -0300 cpp-VirtualBox (5924)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-10-28 10:12:44 -0300 cpp-VirtualBox (5924)] INFO : Installing Net instrumentation
+[2016-10-28 10:12:44 -0300 cpp-VirtualBox (5924)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-10-28 10:12:44 -0300 cpp-VirtualBox (5924)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-10-28 10:12:44 -0300 cpp-VirtualBox (5924)] INFO : Installing Sinatra instrumentation
+[2016-10-28 10:12:44 -0300 cpp-VirtualBox (5924)] INFO : Installing Mongo instrumentation
+[2016-10-28 10:12:44 -0300 cpp-VirtualBox (5924)] INFO : Finished instrumentation
+[2016-10-28 10:13:01 -0300 cpp-VirtualBox (5924)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-10-28 10:13:14 -0300 cpp-VirtualBox (5976)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 10:13:14 -0300 cpp-VirtualBox (5978)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 10:13:17 -0300 cpp-VirtualBox (5981)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 10:16:22 -0300 cpp-VirtualBox (6168)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 10:20:12 -0300 cpp-VirtualBox (5981)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 10:32:47 -0300 cpp-VirtualBox (7095)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 10:32:48 -0300 cpp-VirtualBox (7092)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 10:32:48 -0300 cpp-VirtualBox (7098)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 11:10:16 -0300 cpp-VirtualBox (7092)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 11:10:16 -0300 cpp-VirtualBox (7098)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 11:10:16 -0300 cpp-VirtualBox (7095)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 11:11:43 -0300 cpp-VirtualBox (9416)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 11:11:45 -0300 cpp-VirtualBox (9413)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 11:11:45 -0300 cpp-VirtualBox (9382)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
