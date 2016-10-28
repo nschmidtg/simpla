@@ -4203,3 +4203,29 @@
 [2016-10-28 14:23:31 -0300 cpp-VirtualBox (19110)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-10-28 14:23:31 -0300 cpp-VirtualBox (19107)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-10-28 14:24:07 -0300 cpp-VirtualBox (19105)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Starting the New Relic agent in "development" environment.
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Environment: development
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Dispatcher: unicorn
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Application: Gestion Municipal (Development)
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Installing Net instrumentation
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Installing Sinatra instrumentation
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Installing Mongo instrumentation
+[2016-10-28 14:43:19 -0300 cpp-VirtualBox (20497)] INFO : Finished instrumentation
+[2016-10-28 14:43:20 -0300 cpp-VirtualBox (20497)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-10-28 14:43:27 -0300 cpp-VirtualBox (20550)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 14:43:27 -0300 cpp-VirtualBox (20555)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 14:43:27 -0300 cpp-VirtualBox (20552)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-10-28 14:43:28 -0300 cpp-VirtualBox (20552)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:43:28 -0300 cpp-VirtualBox (20550)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:43:28 -0300 cpp-VirtualBox (20555)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:46:23 -0300 cpp-VirtualBox (20550)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:46:23 -0300 cpp-VirtualBox (20552)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:46:23 -0300 cpp-VirtualBox (20555)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:48:45 -0300 cpp-VirtualBox (20555)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:48:46 -0300 cpp-VirtualBox (20552)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-10-28 14:48:46 -0300 cpp-VirtualBox (20550)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.

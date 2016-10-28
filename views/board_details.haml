@@ -36,7 +36,7 @@
     .form-group
       .col-md-9.col-sm-12.col-xs-12
         .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
-          #textinput.form-control.input-md.inpSelect
+          #textinput.form-control.input-md.description
             %b
               Tipo: 
             #{@board.tipo.name}
@@ -44,7 +44,7 @@
            
         .col-md-6.col-sm-6.col-xs-12.no-padding
 
-          #textinput.form-control.input-md.inpSelect
+          #textinput.form-control.input-md.description
             %b
               Fondo: 
             #{@board.fondo.name} #{@board.fondo.etapa}
@@ -52,7 +52,7 @@
     .form-group
       .col-md-9.col-sm-12.col-xs-12
         .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
-          .form-control.input-md
+          .form-control.input-md.description
             %b
               Fecha tentativa de inicio: 
             - if((@board.start_date!=nil&&@board.start_date!=""))
@@ -60,7 +60,7 @@
             - else
               NO ASIGNADA
         .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
-          .form-control.input-md
+          .form-control.input-md.description
             %b
               Fecha tentativa de fin: 
             - if((@board.end_date!=nil&&@board.end_date!=""))
@@ -69,7 +69,7 @@
               NO ASIGNADA
         .col-md-4.col-sm-12.col-xs-12.no-padding
 
-          #monto.form-control.input-md
+          #monto.form-control.input-md.description
             %b
               Monto:
             #{@board.monto}
@@ -99,44 +99,18 @@
           #{zona.name}
           %br
 
-      
-      .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
-        .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-          %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
-          - if(params[:edit]=="true" && @board.coords!="")
-            %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
-          - else
-            %input#always{:type => "checkbox", :name =>"coords"}>/
-          #map
-          - if(params[:edit]=="true")
-            - if(@board.coords != nil)
-              %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
-            - else
-              %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.085 -70.930", style: "cursor: auto;", type: "hidden"}/
-          - else
-            %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
-      
-    .form-group
-      - if(params[:edit]=="true")
-        %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", type: "hidden"}/
-      - else
-        %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", type: "hidden"}/
-    .form-group
-      %input#textinput.form-control.input-md{name: "last_board_id", value: "#{params[:last_board_id]}", style: "cursor: auto;", type: "hidden"}/
-    - if(params[:admin]=="true")
-      .form-group
-        %input#textinput.form-control.input-md{name: "admin", value: "true", style: "cursor: auto;", type: "hidden"}/
+      - if(@board.coords!=nil&&@board.coords!="")
+        .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
+          .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+            %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
+            #map
 
-    .form-group
-      
-      .col-md-3.col-sm-3.col-xs-12
-        %input#textinput.form-control.input-md{name: "org_id", value: "#{@org_id}", placeholder: "Nombre del proyecto", style: "cursor: auto;", type: "hidden"}/
-    .form-group
-     
+
+    .form-group     
       .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
-      
-        %a#delete.btn.plus
+        %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
           Editar Proyecto 
+        
 
 
   .row
