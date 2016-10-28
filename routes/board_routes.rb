@@ -399,7 +399,7 @@ class Ollert
             respond_to do |format|
               format.html do
                 flash[:error] = "No tienes permisos de administrador sobre este tablero, por lo que no puedes editarlo. Pídele a la persona que creó este tablero desde Trello que te nombre Administrador."
-                redirect '/admin'
+                redirect '/boards'
               end
               format.json { status 400 }
             end
@@ -459,7 +459,7 @@ class Ollert
         @orgName=Organization.find_by(org_id: @org_id).name
         if(params[:edit]=="true")
           @board=Board.find_by board_id: params[:last_board_id]
-          @municipio=@board.municipio
+          @municipio=Municipio.find_by(id: params[:mun_id])
         end
         
       else

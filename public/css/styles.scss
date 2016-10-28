@@ -1,126 +1,77 @@
-//colors
-$color_alto_approx: #ddd;
-$white: #fff;
-$color_gallery_approx: #eee;
-$color_storm_dust_approx: #666;
-$color_solitaire_approx: #fcf8e3;
-$color_charlotte_approx: #bce8f1;
-$color_feijoa_approx: rgb(143, 223, 130);
-$color_iron_approx: #d7d7d7;
-$color_wild_sand_approx: #f5f5f5;
-$color_mercury_approx: #e6e6e6;
-$color_silver_approx: #bfbfbf;
-$black_10: rgba(0, 0, 0, 0.1);
-$black_25: rgba(0, 0, 0, 0.25);
-$color_mine_shaft_approx: #333;
-$white_75: rgba(255, 255, 255, 0.75);
-$white_20: rgba(255, 255, 255, 0.2);
-$black_5: rgba(0, 0, 0, 0.05);
-$color_celeste_approx: #cccccc;
-$negro: #595959;
-$black_15: rgba(0, 0, 0, 0.15);
-$color_boston_blue_approx: #3a87ad;
-$black_20: rgba(0, 0, 0, 0.2);
-$black_30: rgba(0, 0, 0, 0.3);
-$black: #000;
-$red:  red;
-
-//fonts
-$font_0: Courier New;
-$font_1: Courier;
-$font_2: monospace;
-
-//@extend-elements
-//original selectors
-//.fc-state-down, .fc-state-active
-%extend_1 {
-  background-color: $color_celeste_approx;
+.fc-state-down, .fc-state-active {
+  background-color: #ccc;
   background-image: none;
-  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-  box-shadow: inset 0 2px 4px $black_15, 0 1px 2px $black_5;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
-//original selectors
-//.fc-bg, .fc-bgevent-skeleton, .fc-highlight-skeleton, .fc-helper-skeleton
-%extend_2 {
+.fc-bg, .fc-bgevent-skeleton, .fc-highlight-skeleton, .fc-helper-skeleton {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
 }
 
-//original selectors
-//.fc th, .fc td
-%extend_3 {
-  border-style: solid;
-  border-width: 1px;
-  padding: 0;
-  vertical-align: top;
+.fc {
+  th, td {
+    border-style: solid;
+    border-width: 1px;
+    padding: 0;
+    vertical-align: top;
+  }
 }
 
-.fc-time{
-   display : none;
+.fc-time {
+  display: none;
 }
 
-//original selectors
-//.fc-row .fc-content-skeleton td, .fc-row .fc-helper-skeleton td
-%extend_4 {
-  background: none;
-  border-color: transparent;
-  border-bottom: 0;
+.fc-row {
+  .fc-content-skeleton td, .fc-helper-skeleton td {
+    background: none;
+    border-color: transparent;
+    border-bottom: 0;
+  }
 }
+
 body.dragging {
   cursor: move !important;
   * {
     cursor: move !important;
   }
 }
+
 .dragged {
   position: absolute;
   opacity: 0.5;
   z-index: 2000;
 }
-ol.example {
-  li.placeholder {
-    position: relative;
-    &:before {
-      position: absolute;
-    }
+
+ol.example li.placeholder {
+  position: relative;
+  &:before {
+    position: absolute;
   }
 }
 
-
-
-//original selectors
-//.fc-ltr .fc-h-event.fc-not-start, .fc-rtl .fc-h-event.fc-not-end
-%extend_5 {
+.fc-rtl .fc-h-event.fc-not-end, .fc-ltr .fc-h-event.fc-not-start {
   margin-left: 0;
   border-left-width: 0;
   padding-left: 1px;
-  //Instead of the line below you could use @include border-top-left-radius($radius)
   border-top-left-radius: 0;
-  //Instead of the line below you could use @include border-bottom-left-radius($radius)
   border-bottom-left-radius: 0;
 }
 
-//original selectors
-//.fc-ltr .fc-h-event.fc-not-end, .fc-rtl .fc-h-event.fc-not-start
-%extend_6 {
+.fc-rtl .fc-h-event.fc-not-start, .fc-ltr .fc-h-event.fc-not-end {
   margin-right: 0;
   border-right-width: 0;
   padding-right: 1px;
-  //Instead of the line below you could use @include border-top-right-radius($radius)
   border-top-right-radius: 0;
-  //Instead of the line below you could use @include border-bottom-right-radius($radius)
   border-bottom-right-radius: 0;
 }
-
 
 .fc {
   direction: ltr;
   text-align: left;
   button {
-    //Instead of the line below you could use @include box-sizing($bs)
     box-sizing: border-box;
     margin: 0;
     height: 2.1em;
@@ -134,23 +85,22 @@ ol.example {
       margin: 0 .2em;
       vertical-align: middle;
     }
+    &::-moz-focus-inner {
+      margin: 0;
+      padding: 0;
+    }
   }
-  button::-moz-focus-inner {
-    margin: 0;
-    padding: 0;
-  }
-  .fc-button-group {
-    > * {
+  .fc-button-group > {
+    * {
       float: left;
       margin: 0 0 0 -1px;
     }
-    > :first-child {
+    :first-child {
       margin-left: 0;
     }
   }
   table {
     width: 100%;
-    //Instead of the line below you could use @include box-sizing($bs)
     box-sizing: border-box;
     table-layout: fixed;
     border-collapse: collapse;
@@ -159,13 +109,9 @@ ol.example {
   }
   th {
     text-align: center;
-    @extend %extend_3;
   }
-  td {
-    @extend %extend_3;
-    &.fc-today {
-      border-style: double;
-    }
+  td.fc-today {
+    border-style: double;
   }
   .fc-row {
     border-style: solid;
@@ -176,23 +122,24 @@ ol.example {
     padding: 0 4px;
     white-space: nowrap;
   }
-  .fc-toolbar > * {
-    > * {
+  .fc-toolbar > * > {
+    * {
       float: left;
       margin-left: .75em;
     }
-    > :first-child {
+    :first-child {
       margin-left: 0;
     }
   }
 }
 
-.overflow{
+.overflow {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
-.boards-list-item-link-blue{
+
+.boards-list-item-link-blue {
   float: left;
   display: block;
   font-weight: bold;
@@ -204,23 +151,19 @@ ol.example {
   margin-bottom: 10px;
   text-align: center;
 }
+
 .highcharts-tooltip span {
-    min-width: 400px;
-    max-height: 300px;
-    top:0;
-    z-index:4000;
-    overflow: auto;
-    white-space:normal !important; // add this line...
+  min-width: 400px;
+  max-height: 300px;
+  top: 0;
+  z-index: 4000;
+  overflow: auto;
+  white-space: normal !important;
 }
+
 .fc-rtl {
   text-align: right;
   .fc-h-event {
-    &.fc-not-end {
-      @extend %extend_5;
-    }
-    &.fc-not-start {
-      @extend %extend_6;
-    }
     .fc-end-resizer {
       cursor: w-resize;
       left: -1px;
@@ -272,60 +215,53 @@ ol.example {
     text-align: left;
   }
 }
+
 .fc-unthemed {
-  th {
-    border-color: $color_alto_approx;
-  }
-  td {
-    border-color: $color_alto_approx;
-  }
-  thead {
-    border-color: $color_alto_approx;
-  }
-  tbody {
-    border-color: $color_alto_approx;
+  th, td, thead, tbody {
+    border-color: #ddd;
   }
   .fc-divider {
-    border-color: $color_alto_approx;
-    background: $color_gallery_approx;
+    border-color: #ddd;
+    background: #eee;
   }
-  .fc-row {
-    border-color: $color_alto_approx;
-  }
-  .fc-content {
-    border-color: $color_alto_approx;
+  .fc-row, .fc-content {
+    border-color: #ddd;
   }
   .fc-popover {
-    border-color: $color_alto_approx;
-    background-color: $white;
+    border-color: #ddd;
+    background-color: #fff;
     border-width: 1px;
     border-style: solid;
     .fc-header {
-      background: $color_gallery_approx;
+      background: #eee;
       .fc-close {
-        color: $color_storm_dust_approx;
+        color: #666;
         font-size: .9em;
         margin-top: 2px;
       }
     }
   }
   .fc-today {
-    background: $color_solitaire_approx;
+    background: #fcf8e3;
   }
 }
+
 .fc-highlight {
-  background: $color_charlotte_approx;
+  background: #bce8f1;
   opacity: .3;
-  filter: alpha(opacity=30);
+  filter: alpha(opacity = 30);
 }
+
 .fc-bgevent {
-  background: $color_feijoa_approx;
+  background: #8fdf82;
   opacity: .3;
-  filter: alpha(opacity=30);
+  filter: alpha(opacity = 30);
 }
+
 .fc-nonbusiness {
-  background: $color_iron_approx;
+  background: #d7d7d7;
 }
+
 .fc-icon {
   display: inline-block;
   height: 1em;
@@ -333,74 +269,64 @@ ol.example {
   font-size: 1em;
   text-align: center;
   overflow: hidden;
-  font-family: $font_0, $font_1, $font_2;
-  //Instead of the line below you could use @include user-select($select)
+  font-family: Courier New,Courier,monospace;
   user-select: none;
   &:after {
     position: relative;
   }
 }
+
 .fc-state-default {
   border: 1px solid;
-  background-color: $color_wild_sand_approx;
-  background-image: linear-gradient(to bottom, $white, $color_mercury_approx);
+  background-color: #f5f5f5;
+  background-image: linear-gradient(to bottom, #fff, #e6e6e6);
   background-repeat: repeat-x;
-  border-color: $color_mercury_approx $color_mercury_approx $color_silver_approx;
-  border-color: $black_10 $black_10 $black_25;
-  color: $color_mine_shaft_approx;
-  //Instead of the line below you could use @include text-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-  text-shadow: 0 1px 1px $white_75;
-  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-  box-shadow: inset 0 1px 0 $white_20, 0 1px 2px $black_5;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  color: #333;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   &.fc-corner-left {
-    //Instead of the line below you could use @include border-top-left-radius($radius)
     border-top-left-radius: 4px;
-    //Instead of the line below you could use @include border-bottom-left-radius($radius)
     border-bottom-left-radius: 4px;
   }
   &.fc-corner-right {
-    //Instead of the line below you could use @include border-top-right-radius($radius)
     border-top-right-radius: 4px;
-    //Instead of the line below you could use @include border-bottom-right-radius($radius)
     border-bottom-right-radius: 4px;
   }
 }
+
 .fc-state-hover {
-  color: $color_mine_shaft_approx;
-  background-color: $color_mercury_approx;
-  color: $color_mine_shaft_approx;
+  color: #333;
+  background-color: #e6e6e6;
+  color: #333;
   text-decoration: none;
   background-position: 0 -15px;
-  //Instead of the line below you could use @include transition($transition-1, $transition-2, $transition-3, $transition-4, $transition-5, $transition-6, $transition-7, $transition-8, $transition-9, $transition-10)
   transition: background-position 0.1s linear;
 }
-.fc-state-down {
-  color: $color_mine_shaft_approx;
-  background-color: $color_mercury_approx;
-  @extend %extend_1;
+
+.fc-state-down, .fc-state-active {
+  color: #333;
+  background-color: #e6e6e6;
 }
-.fc-state-active {
-  color: $color_mine_shaft_approx;
-  background-color: $color_mercury_approx;
-  @extend %extend_1;
-}
+
 .fc-state-disabled {
-  color: $color_mine_shaft_approx;
-  background-color: $color_mercury_approx;
+  color: #333;
+  background-color: #e6e6e6;
   cursor: default;
   background-image: none;
   opacity: 0.65;
-  filter: alpha(opacity=65);
-  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
+  filter: alpha(opacity = 65);
   box-shadow: none;
 }
+
 .fc-button-group {
   display: inline-block;
 }
+
 .fc-popover {
   position: absolute;
-  //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-  box-shadow: 0 2px 6px $black_15;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   .fc-header {
     padding: 2px 4px;
     .fc-title {
@@ -414,14 +340,9 @@ ol.example {
     border-top: 0;
   }
 }
+
 .fc-ltr {
   .fc-h-event {
-    &.fc-not-start {
-      @extend %extend_5;
-    }
-    &.fc-not-end {
-      @extend %extend_6;
-    }
     .fc-start-resizer {
       cursor: w-resize;
       left: -1px;
@@ -473,29 +394,23 @@ ol.example {
     text-align: right;
   }
 }
+
 .fc-divider {
   border-style: solid;
   border-width: 1px;
 }
+
 .fc-clear {
   clear: both;
 }
+
 .fc-bg {
-  @extend %extend_2;
   bottom: 0;
   table {
     height: 100%;
   }
 }
-.fc-bgevent-skeleton {
-  @extend %extend_2;
-}
-.fc-highlight-skeleton {
-  @extend %extend_2;
-}
-.fc-helper-skeleton {
-  @extend %extend_2;
-}
+
 .fc-row {
   position: relative;
   table {
@@ -530,18 +445,12 @@ ol.example {
     position: relative;
     z-index: 4;
     padding-bottom: 2px;
-    td {
-      @extend %extend_4;
-    }
     tbody td {
       border-top: 0;
     }
   }
   .fc-helper-skeleton {
     z-index: 5;
-    td {
-      @extend %extend_4;
-    }
     tbody td {
       border-top: 0;
     }
@@ -559,20 +468,20 @@ ol.example {
     border-top: 0 hidden transparent;
   }
 }
+
 .fc-event {
   position: relative;
   display: block;
   font-size: .85em;
   line-height: 1.3;
-  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
   border-radius: 3px;
-  border: 1px solid $color_boston_blue_approx;
-  background-color: $color_boston_blue_approx;
+  border: 1px solid #3a87ad;
+  background-color: #3a87ad;
   font-weight: normal;
-  color: $white;
+  color: #fff;
   text-decoration: none;
   &:hover {
-    color: $white;
+    color: #fff;
     text-decoration: none;
   }
   &.fc-draggable {
@@ -580,20 +489,17 @@ ol.example {
   }
   .fc-bg {
     z-index: 1;
-    background: $white;
+    background: #fff;
     opacity: .25;
-    filter: alpha(opacity=25);
+    filter: alpha(opacity = 25);
   }
   .fc-content {
     position: relative;
     z-index: 2;
   }
-  
   #map {
     height: 100px;
   }
-
-
   .fc-resizer {
     position: absolute;
     z-index: 4;
@@ -601,8 +507,7 @@ ol.example {
   }
   &.fc-selected {
     z-index: 9999 !important;
-    //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-    box-shadow: 0 2px 5px $black_20;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     .fc-resizer {
       display: block;
       &:before {
@@ -618,32 +523,35 @@ ol.example {
       }
     }
     &.fc-dragging {
-      //Instead of the line below you could use @include box-shadow($shadow-1, $shadow-2, $shadow-3, $shadow-4, $shadow-5, $shadow-6, $shadow-7, $shadow-8, $shadow-9, $shadow-10)
-      box-shadow: 0 2px 7px $black_30;
+      box-shadow: 0 2px 7px rgba(0, 0, 0, 0.3);
     }
   }
   &.fc-allow-mouse-resize .fc-resizer {
     display: block;
   }
 }
+
 .ui-widget {
   .fc-event {
-    color: $white;
+    color: #fff;
     text-decoration: none;
   }
   td.fc-axis {
     font-weight: normal;
   }
 }
+
 .fc-event[href] {
   cursor: pointer;
 }
+
 .fc-not-allowed {
   cursor: not-allowed;
   .fc-event {
     cursor: not-allowed;
   }
 }
+
 .fc-h-event {
   &.fc-selected {
     &:before {
@@ -656,14 +564,13 @@ ol.example {
       right: 0;
     }
     .fc-resizer {
-      //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
       border-radius: 4px;
       border-width: 1px;
       width: 6px;
       height: 6px;
       border-style: solid;
       border-color: inherit;
-      background: $white;
+      background: #fff;
       top: 50%;
       margin-top: -4px;
     }
@@ -674,6 +581,7 @@ ol.example {
     bottom: -1px;
   }
 }
+
 .fc-day-grid-event {
   margin: 1px 2px 0;
   padding: 0 1px;
@@ -692,14 +600,16 @@ ol.example {
     right: -1px;
     bottom: -1px;
     left: -1px;
-    background: $black;
+    background: #000;
     opacity: .25;
-    filter: alpha(opacity=25);
+    filter: alpha(opacity = 25);
   }
 }
+
 .fc-limited {
   display: none;
 }
+
 .fc-more-popover {
   z-index: 2;
   width: 220px;
@@ -707,14 +617,16 @@ ol.example {
     padding: 10px;
   }
 }
+
 .fc-now-indicator {
   position: absolute;
-  border: 0 solid $red;
+  border: 0 solid red;
 }
+
 .fc-unselectable {
-  //Instead of the line below you could use @include user-select($select)
   user-select: none;
 }
+
 .fc-toolbar {
   text-align: center;
   margin-bottom: 1em;
@@ -736,22 +648,17 @@ ol.example {
       z-index: 5;
     }
   }
-  .fc-state-hover {
-    z-index: 2;
-  }
-  .ui-state-hover {
+  .fc-state-hover, .ui-state-hover {
     z-index: 2;
   }
   .fc-state-down {
     z-index: 3;
   }
-  .fc-state-active {
-    z-index: 4;
-  }
-  .ui-state-active {
+  .fc-state-active, .ui-state-active {
     z-index: 4;
   }
 }
+
 .fc-view {
   position: relative;
   z-index: 1;
@@ -760,6 +667,7 @@ ol.example {
     z-index: 1;
   }
 }
+
 .fc-basic-view {
   .fc-week-number {
     padding: 0 2px;
@@ -773,11 +681,7 @@ ol.example {
     padding: 0 2px;
   }
   td {
-    &.fc-day-number {
-      padding-top: 2px;
-      padding-bottom: 2px;
-    }
-    &.fc-week-number span {
+    &.fc-day-number, &.fc-week-number span {
       padding-top: 2px;
       padding-bottom: 2px;
     }
@@ -786,10 +690,12 @@ ol.example {
     min-height: 4em;
   }
 }
+
 .fc-time-grid-container {
   position: relative;
   z-index: 1;
 }
+
 .fc-time-grid {
   position: relative;
   z-index: 1;
@@ -873,24 +779,22 @@ ol.example {
     z-index: 1;
   }
 }
+
 .fc-v-event {
   &.fc-not-start {
     border-top-width: 0;
     padding-top: 1px;
-    //Instead of the line below you could use @include border-top-left-radius($radius)
     border-top-left-radius: 0;
-    //Instead of the line below you could use @include border-top-right-radius($radius)
     border-top-right-radius: 0;
   }
   &.fc-not-end {
     border-bottom-width: 0;
     padding-bottom: 1px;
-    //Instead of the line below you could use @include border-bottom-left-radius($radius)
     border-bottom-left-radius: 0;
-    //Instead of the line below you could use @include border-bottom-right-radius($radius)
     border-bottom-right-radius: 0;
   }
 }
+
 .fc-time-grid-event {
   overflow: hidden;
   &.fc-selected {
@@ -899,14 +803,13 @@ ol.example {
       display: none;
     }
     .fc-resizer {
-      //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
       border-radius: 5px;
       border-width: 1px;
       width: 8px;
       height: 8px;
       border-style: solid;
       border-color: inherit;
-      background: $white;
+      background: #fff;
       left: 50%;
       margin-left: -5px;
       bottom: -5px;
@@ -955,7 +858,7 @@ ol.example {
     overflow: hidden;
     line-height: 8px;
     font-size: 11px;
-    font-family: $font_2;
+    font-family: monospace;
     text-align: center;
     cursor: s-resize;
     &:after {
@@ -963,70 +866,79 @@ ol.example {
     }
   }
 }
+
 body .fc {
   font-size: 1em;
 }
-.icon-element{
-  display:-webkit-inline-box;
+
+.icon-element {
+  display: -webkit-inline-box;
 }
+
 .fc-icon-left-single-arrow:after {
   content: "\02039";
   font-weight: bold;
   font-size: 200%;
   top: -7%;
 }
+
 .fc-icon-right-single-arrow:after {
   content: "\0203A";
   font-weight: bold;
   font-size: 200%;
   top: -7%;
 }
+
 .fc-icon-left-double-arrow:after {
   content: "\000AB";
   font-size: 160%;
   top: -7%;
 }
+
 .fc-icon-right-double-arrow:after {
   content: "\000BB";
   font-size: 160%;
   top: -7%;
 }
+
 .fc-icon-left-triangle:after {
   content: "\25C4";
   font-size: 125%;
   top: 3%;
 }
+
 .fc-icon-right-triangle:after {
   content: "\25BA";
   font-size: 125%;
   top: 3%;
 }
+
 .fc-icon-down-triangle:after {
   content: "\25BC";
   font-size: 125%;
   top: 2%;
 }
+
 .fc-icon-x:after {
   content: "\000D7";
   font-size: 200%;
   top: 6%;
 }
+
 hr.fc-divider {
   height: 0;
   margin: 0;
   padding: 0 0 2px;
   border-width: 1px 0;
 }
+
 .fc-scroller > {
-  .fc-day-grid {
-    position: relative;
-    width: 100%;
-  }
-  .fc-time-grid {
+  .fc-day-grid, .fc-time-grid {
     position: relative;
     width: 100%;
   }
 }
+
 a.fc-more {
   margin: 1px 3px;
   font-size: .85em;
@@ -1036,33 +948,28 @@ a.fc-more {
     text-decoration: underline;
   }
 }
+
 .fc-day-grid .fc-row {
   z-index: 1;
 }
+
 .fc-view-container * {
-  //Instead of the line below you could use @include box-sizing($bs)
   box-sizing: content-box;
-  &:before {
-    //Instead of the line below you could use @include box-sizing($bs)
-    box-sizing: content-box;
-  }
-  &:after {
-    //Instead of the line below you could use @include box-sizing($bs)
+  &:before, &:after {
     box-sizing: content-box;
   }
 }
-.fc-basicWeek-view .fc-content-skeleton {
+
+.fc-basicWeek-view .fc-content-skeleton, .fc-basicDay-view .fc-content-skeleton {
   padding-top: 1px;
   padding-bottom: 1em;
 }
-.fc-basicDay-view .fc-content-skeleton {
-  padding-top: 1px;
-  padding-bottom: 1em;
-}
+
 .fc-day-number.fc-other-month {
   opacity: 0.3;
-  filter: alpha(opacity=30);
+  filter: alpha(opacity = 30);
 }
+
 .fc-agenda-view .fc-day-grid {
   position: relative;
   z-index: 2;
@@ -1074,61 +981,39 @@ a.fc-more {
     }
   }
 }
+
 .modal {
-  display:    none;
-  position:   fixed;
-  z-index:    1000;
-  top:        0;
-  left:       0;
-  height:     100%;
-  width:      100%;
-  background: rgba( 255, 255, 255, .5 ) 
-              url('/img/ajax-loader.gif') 
-              50% 50% 
-              no-repeat;
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.5) url("/img/ajax-loader.gif") 50% 50% no-repeat;
 }
+
 body.loading {
-    overflow: hidden;   
-}
-body.loading .modal {
+  overflow: hidden;
+  .modal {
     display: block;
+  }
 }
-
-$dark: #1A1A1A;
-$medium: #404040;
-$medium-light: #A0A0A0;
-$light: #CCCCCC;
-$light-light: #F2F2F2;
-
-$rojo: #EB5A46;
-$azul: #0167A3;
-$azulino: #0079BF;
-$celeste: #4D97C1;
-$gris_oscurito: #999999;
-$gris_clarito: #E2E4E6;
-$blanco: #FFFFFF;
-
-$bgDefault      : $azul;
-$bgHighlight    : #a4251c;
-$colDefault     : #ecf0f1;
-$colHover       : #ffbbbc;
-
-
 
 @font-face {
   font-family: 'Muli';
   font-style: normal;
   font-weight: 400;
-  src: local('Muli'), url(fonts/facit-regular.otf) format('woff');
+  src: local("Muli"), url(fonts/facit-regular.otf) format("woff");
 }
+
 
 @font-face {
-    font-family: 'Facit';
-    font-style: normal;
-    src: url(fonts/facit-bold.otf);
+  font-family: 'Facit';
+  font-style: normal;
+  src: url(fonts/facit-bold.otf);
 }
 
-//  begin sticky footer
 
 html {
   position: relative;
@@ -1139,16 +1024,18 @@ body {
   font-family: 'Muli', sans-serif;
   margin-bottom: 190px;
 }
-.izq-menu{
+
+.izq-menu {
   display: table-caption;
-  width:60px;
-  height:57px;
-}
-.general{
-  height:57px;
+  width: 60px;
+  height: 57px;
 }
 
-#header-lateral{
+.general {
+  height: 57px;
+}
+
+#header-lateral {
   width: 180px !important;
   height: 57px;
   display: inline-block;
@@ -1157,10 +1044,10 @@ body {
   display: none;
 }
 
-.h5-lateral{
-  margin-top:22px;
-  padding-left:15px;
-  color:#ffffff;
+.h5-lateral {
+  margin-top: 22px;
+  padding-left: 15px;
+  color: #ffffff;
 }
 
 #footer {
@@ -1170,25 +1057,20 @@ body {
   height: 190px;
   width: 100%;
   height: 25vh;
-
   .container {
     padding: 15px;
     padding-bottom: 0;
   }
 }
 
-// end sticky footer
-
-// drawer customizations
-
-
-#form-container{
-  width:960px;
-  margin:0 auto;
+#form-container {
+  width: 960px;
+  margin: 0 auto;
   box-shadow: 0 0 12px black;
-  padding:20px 0;
+  padding: 20px 0;
 }
-.drawer{
+
+.drawer {
   display: block;
   background-color: #f8f8f8;
   color: #333;
@@ -1199,8 +1081,8 @@ body {
   left: 0;
   position: fixed;
   z-index: 1035;
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.05);
-  box-shadow: 0 1px 1px rgba(0,0,0,0.05);
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 #config-drawer {
@@ -1215,7 +1097,6 @@ body {
       animation-iteration-count: 3;
       animation-timing-function: linear;
       transform-origin: 50% 50%;
-
       -webkit-animation-name: shake;
       -webkit-animation-duration: 2000ms;
       -webkit-animation-iteration-count: 3;
@@ -1223,14 +1104,14 @@ body {
     }
   }
   .drawer-contents {
-    background-color: $celeste;
+    background-color: #4D97C1;
     z-index: 1;
     width: 60px;
   }
 }
 
 .drawer-contents-nav {
-  background-color: $celeste !important;
+  background-color: #4D97C1 !important;
   z-index: 1;
   width: 60px;
   height: 100vh;
@@ -1238,44 +1119,60 @@ body {
 }
 
 @keyframes shake {
-  0% { transform: scale(1); }
-  50% {transform: scale(2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
+
 
 @-webkit-keyframes shake {
-  0% { transform: scale(1); }
-  50% {transform: scale(2); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
-// end drawer customizations
 
 .topbar {
-  background: $light-light;
+  background: #F2F2F2;
 }
 
 .stat-title {
-  color: $medium;
+  color: #404040;
   font-size: 12pt;
   text-align: center;
   min-height: 2.3em;
 }
 
 .stat-subtitle {
-  color: $medium;
+  color: #404040;
   font-size: 16pt;
   text-align: center;
 }
 
 .stat-value {
-  color:  $medium-light;
+  color: #A0A0A0;
   text-align: center;
   font-size: 60pt;
 }
 
 .stat-unit {
-  color: $medium;
+  color: #404040;
   font-size: 12pt;
   text-align: center;
 }
@@ -1284,87 +1181,84 @@ body {
   padding: 10px 15px 0 15px;
   background: #3E434A;
   color: #ADB3BA;
-    bottom:0;
+  bottom: 0;
   border: none;
   font-size: 1.3em;
   z-index: 1040;
   a {
     color: #ADB3BA;
-
     &:hover {
       color: #FFF;
     }
   }
 }
 
-.svg-element{
+.svg-element {
   width: 100%;
   pointer-events: none;
 }
 
-#config-drawer-board-list{
+#config-drawer-board-list {
   padding-left: 0px;
   margin-top: 50px;
   height: 100%;
 }
 
-.avatar-right{
-  display: table;  
+.avatar-right {
+  display: table;
   overflow: hidden;
   float: right;
 }
 
-.avatar-right-center{
-  display: table-cell; 
+.avatar-right-center {
+  display: table-cell;
   vertical-align: middle;
-
 }
 
-.nombre-usuario{
+.nombre-usuario {
   display: -webkit-inline-box;
-  margin-top:16px;
+  margin-top: 16px;
   color: white;
 }
 
-
 hr {
-  border-top: 1px solid $light;
+  border-top: 1px solid #ccc;
 }
-.header-naranjo{
-  padding-left: 0px;  
-}
-.no-padding-nav{
-  padding:0;
-  float:left;
-  position:relative;
-  min-height:1px;
-  display:block;
 
+.header-naranjo {
+  padding-left: 0px;
 }
-.principal{
-  padding-left:60px !important;
+
+.no-padding-nav {
+  padding: 0;
+  float: left;
+  position: relative;
+  min-height: 1px;
+  display: block;
+}
+
+.principal {
+  padding-left: 60px !important;
   min-height: 75vh;
   margin-top: 50px;
   margin-bottom: 50px;
-
 }
 
 .navbar-default {
-  background-color: $bgDefault;
+  background-color: #0167A3;
   position: fixed;
   width: 100%;
   border: none;
-  border-color: $bgDefault;
+  border-color: #0167A3;
   .navbar-header {
     float: left !important;
-    height:50px;
-    width:255px;
-    margin-left:-1px;
-    border-style:none;
+    height: 50px;
+    width: 255px;
+    margin-left: -1px;
+    border-style: none;
     background-color: #e2882d;
     .navbar-brand {
-      color: $colDefault;
-      //background: url(/img/logo.png) no-repeat;
+      color: #ecf0f1;
       height: 35px;
       width: 101px;
       text-indent: -99999px;
@@ -1372,7 +1266,7 @@ hr {
       margin-top: 0.7em;
       margin-left: 15px;
       &:hover, &:focus {
-        color: $colHover;
+        color: #ffbbbc;
       }
     }
   }
@@ -1381,74 +1275,70 @@ hr {
     max-height: 50px;
   }
   .navbar-nav {
-    color: $colDefault;
+    color: #ecf0f1;
     &.navbar-right {
       float: right !important;
       margin-top: 0;
       margin-bottom: 0;
     }
-    > li {
-      > a:not(.btn-default) {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        color: $colDefault;
-        &:hover, &:focus {
-            color: $celeste;
-        }
-
-        &.settings-link {
-          padding-top: 5px;
-          padding-bottom: 3px;
-        }
+    > li > a:not(.btn-default) {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      color: #ecf0f1;
+      &:hover, &:focus {
+        color: #4D97C1;
       }
-
-      .dropdown-menu > li > a {
-        @media(max-width: 768px) {
-          color: whitesmoke !important;
-        }
+      &.settings-link {
+        padding-top: 5px;
+        padding-bottom: 3px;
       }
     }
-    .active {
-      > a, > a:hover, > a:focus {
-        color: $colHover;
-        background-color: $bgHighlight;
+    .active > a {
+      color: #ffbbbc;
+      background-color: #a4251c;
+      &:hover, &:focus {
+        color: #ffbbbc;
+        background-color: #a4251c;
       }
     }
-    .open {
-      > a, > a:hover, > a:focus {
-        color: $celeste;
-        background-color: $azul;
-        .caret {
-          border-top-color: $celeste;
-          border-bottom-color: $celeste;
-        }
+    .open > a {
+      color: #4D97C1;
+      background-color: #0167A3;
+      &:hover, &:focus {
+        color: #4D97C1;
+        background-color: #0167A3;
+      }
+      .caret, &:hover .caret, &:focus .caret {
+        border-top-color: #4D97C1;
+        border-bottom-color: #4D97C1;
       }
     }
   }
 }
 
+@media (max-width: 768px) {
+  .navbar-default .navbar-nav > li .dropdown-menu > li > a {
+    color: whitesmoke !important;
+  }
+}
+
 .landing-connect {
-  background: $bgDefault;
+  background: #0167A3;
   padding-top: 20px;
   color: whitesmoke;
-
   a.btn {
     margin-top: 20px;
   }
-
   .small {
     margin-top: 5px;
     font-size: 75%;
-
     a {
       color: paleturquoise;
-
       &:hover {
         color: #FFF;
       }
     }
   }
-
   .row:last-child {
     padding-bottom: 57px;
   }
@@ -1457,33 +1347,29 @@ hr {
 .landing-section {
   padding-bottom: 70px;
   padding-top: 60px;
-
   .row {
     padding-bottom: 10px;
   }
 }
 
 .landing-info {
-  background: $light-light;
+  background: #F2F2F2;
 }
 
 .landing-victory {
-  background: $light;
-
+  background: #ccc;
   img {
     width: 100%;
   }
 }
 
 .landing-hook {
-  background: $light-light;
+  background: #F2F2F2;
   padding-bottom: 60px;
-
   .row {
     &:first-child {
       padding-bottom: 0;
     }
-
     &:nth-child(2) {
       margin-top: 0;
     }
@@ -1496,21 +1382,20 @@ hr {
 }
 
 .spinner {
-  background-image: url('/img/spinner.gif');
+  background-image: url("/img/spinner.gif");
   width: 35px;
   height: 45px;
   text-align: center;
 }
 
 #login-box {
-  border: 1px solid $light;
+  border: 1px solid #ccc;
   padding: 10px;
   margin-top: 30px;
   margin-bottom: 30px;
-}
-
-#login-box form {
-  margin: 20px 15px 5px !important;
+  form {
+    margin: 20px 15px 5px !important;
+  }
 }
 
 .tooltip-inner {
@@ -1525,11 +1410,7 @@ hr {
   color: #fff;
   background-color: #596a8d;
   border-color: #64759a;
-
-  &:hover,
-  &:focus,
-  &:active,
-  &.active {
+  &:hover, &:focus, &:active, &.active {
     color: #fff;
     background-color: #536488;
     border-color: #4e5f82;
@@ -1544,7 +1425,7 @@ hr {
 
 .signup-login-group {
   li {
-    margin-left:10px;
+    margin-left: 10px;
   }
   .btn {
     margin-top: 7.5px;
@@ -1552,28 +1433,32 @@ hr {
   }
 }
 
-ul.boards-list {
-  float:left;
-  list-style: none outside none;
-  margin-left: 0px;
-  min-height: 80%;
-  min-width: 100%;
-  padding-left: 0 !important;
-  width: 100%;
+ul {
+  &.boards-list {
+    float: left;
+    list-style: none outside none;
+    margin-left: 0px;
+    min-height: 80%;
+    min-width: 100%;
+    padding-left: 0 !important;
+    width: 100%;
+  }
+  > li > ul > li {
+    float: none;
+  }
+  &.board-list-prior {
+    margin-left: 0px;
+    min-height: 80%;
+    min-width: 100%;
+    padding-left: 0 !important;
+    width: 100%;
+  }
 }
 
-ul > li > ul > li {float:none;}
+.tareas-header {
+  color: #4D97C1;
+}
 
-ul.board-list-prior{
-  margin-left: 0px;
-  min-height: 80%;
-  min-width: 100%;
-  padding-left: 0 !important;
-  width: 100%;
-}
-.tareas-header{
-  color: $celeste;
-}
 .boards-list-item {
   overflow-wrap: break-word;
   background-color: #F9F9F9;
@@ -1581,40 +1466,44 @@ ul.board-list-prior{
   width: 100%;
   margin-bottom: 10px;
 }
-.celda-tabla{
+
+.celda-tabla {
   padding: 2px !important;
   border-top: none !important;
 }
-.fondox{
+
+.fondox {
   background-color: #eee;
   float: right;
-  color: $celeste;
+  color: #4D97C1;
   width: 100%;
   margin: 10px;
+  &:hover {
+    color: #fff;
+    background-color: #4D97C1;
+  }
+}
 
-}
-.fondox:hover{
-  color: #fff;
-  background-color: $celeste
-}
-.plus{
-  background-color: $celeste;
+.plus {
+  background-color: #4D97C1;
   float: right;
   color: #fff;
+  &:hover {
+    color: #fff;
+  }
 }
-.plus:hover{
-  color: #fff;
-}
+
 .boards-list-item-link {
   float: left;
   display: block;
   font-weight: bold;
   padding: 5px;
   width: 100%;
-  color: $celeste;
+  color: #4D97C1;
   background-color: #eee;
   margin-bottom: 10px;
 }
+
 .boards-list-item-link-b {
   float: left;
   display: block;
@@ -1624,6 +1513,7 @@ ul.board-list-prior{
   background-color: #eee;
   margin-bottom: 10px;
 }
+
 .boards-list-item-link-c {
   text-align: center;
   display: -webkit-inline-box;
@@ -1635,7 +1525,7 @@ ul.board-list-prior{
 }
 
 .boards-list-item-link:hover {
-  color: $azul;
+  color: #0167A3;
   text-decoration: none;
 }
 
@@ -1678,32 +1568,30 @@ ul.board-list-prior{
 }
 
 .highcharts-container svg {
-  font-family: 'Muli', sans-serif !important; // override any inline font declarations in SVG
+  font-family: 'Muli', sans-serif !important;
 }
 
 .dropdown-menu {
   overflow-y: auto;
   position: inherit !important;
   max-height: 26em;
-
-  .divider-section{
-     overflow: visible;
-     white-space: nowrap;
-     font-weight: bold;
-     background-color: #F3F3F3;
-     border-bottom-width: 1px;
-     border-bottom-style: solid;
-     border-bottom-color: #CBCBCB;
-     height: 2.75em !important;
-     padding: 8px;
-     color: #777777;
-     margin: 0;
-  }
-
   padding: 0;
+  .divider-section {
+    overflow: visible;
+    white-space: nowrap;
+    font-weight: bold;
+    background-color: #F3F3F3;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: #CBCBCB;
+    height: 2.75em !important;
+    padding: 8px;
+    color: #777777;
+    margin: 0;
+  }
 }
 
-ul.left-align li a{
+ul.left-align li a {
   text-align: left;
 }
 
@@ -1717,21 +1605,21 @@ ul.left-align li a{
 
 .loading-indicator {
   margin-left: 15px;
-
   img {
     margin-right: 15px;
   }
-
   &.loading-error {
     color: red;
   }
-
   &.loading-success {
     color: green;
   }
 }
-.modal-body{
-  background: #ce4e41; color: #ffffff; display: -webkit-inline-box
+
+.modal-body {
+  background: #ce4e41;
+  color: #ffffff;
+  display: -webkit-inline-box;
 }
 
 .no-padding {
@@ -1741,7 +1629,9 @@ ul.left-align li a{
 .modal-footer {
   padding: 5px;
   margin-top: 0;
-  display: -webkit-inline-box;float: right;border: none;
+  display: -webkit-inline-box;
+  float: right;
+  border: none;
 }
 
 .modal-header {
@@ -1750,13 +1640,13 @@ ul.left-align li a{
 }
 
 .modalx {
-  z-index:3000;
+  z-index: 3000;
   overflow-y: auto;
   padding-right: 15px;
-    position: absolute;
-    width: 100%;
-    background: #ce4e41;
-    top: 0;
+  position: absolute;
+  width: 100%;
+  background: #ce4e41;
+  top: 0;
 }
 
 #flash {
@@ -1777,7 +1667,7 @@ a.btn {
 }
 
 .lbl-config {
-  color:  $medium-light;
+  color: #A0A0A0;
 }
 
 .no-padding {
@@ -1795,12 +1685,12 @@ a.btn {
 }
 
 .footer-links {
-   margin-top: 38px;
+  margin-top: 38px;
 }
 
 .footer-lab {
-   height: 60px;
-   margin-top: 53px;
+  height: 60px;
+  margin-top: 53px;
 }
 
 .img-full {
@@ -1824,25 +1714,20 @@ a.btn {
 .ollert-header {
   margin-top: 0px;
   float: left;
-  color: $azul;
+  color: #0167A3;
   margin-bottom: 30px;
 }
 
 .container.settings {
   padding-bottom: 50px;
-
   a.btn-link {
     color: black;
   }
-
   .popover {
     width: 300px;
   }
-
-  #update-email {
-    .form-group:last-child {
-      margin-bottom: 0;
-    }
+  #update-email .form-group:last-child {
+    margin-bottom: 0;
   }
 }
 
@@ -1850,15 +1735,11 @@ a.btn {
   margin-bottom: 10px;
 }
 
-
-
 .landing-contact {
-  background: $light;
-
+  background: #ccc;
   .row {
     padding-bottom: 0;
   }
-
   img {
     margin-right: 1em;
   }
@@ -1868,7 +1749,6 @@ a.btn {
   padding: 0;
   margin: 0;
   text-align: left;
-
   ul {
     padding: 0;
     margin: 0;
@@ -1881,11 +1761,10 @@ a.btn {
   }
 }
 
-.graph-container{
-  height: inherit
+.graph-container {
+  height: inherit;
 }
 
-/* Accordion responsive breakpoint */
 .r-tabs {
   .r-tabs-nav {
     margin: 0;
@@ -1896,9 +1775,7 @@ a.btn {
     margin: 0;
     list-style: none;
   }
-  
   .r-tabs-panel {
-    padding: 15px;
     display: none;
   }
   .r-tabs-accordion-title {
@@ -1906,52 +1783,68 @@ a.btn {
   }
   .r-tabs-panel.r-tabs-state-active {
     display: block;
-    
   }
-
 }
-.r-tabs-state-active>a.r-tabs-anchor{
-    background-color: $celeste !important;
-    border: 1px solid $celeste;
-    border-bottom: none;
-    color: #fff;
-  }
-.tab-custom{
+
+.r-tabs-state-active > a.r-tabs-anchor {
+  background-color: #4D97C1 !important;
+  border: 1px solid #4D97C1;
+  border-bottom: none;
+  color: #fff;
+  width: 100%;
+  text-align: -webkit-center;
+  display: -webkit-box;
+}
+
+.r-tabs-state-default > a.r-tabs-anchor {
+  width: 100%;
+  text-align: -webkit-center;
+  display: -webkit-box;
+}
+.r-tabs-accordion-title> a.r-tabs-anchor {
+  width: 100%;
+  text-align: -webkit-center;
+  display: -webkit-box;
+}
+
+.tab-custom {
   height: 100%;
   font-size: 12px;
   padding: 10px 5px !important;
   text-align: center;
 }
-.lindo{
+
+.lindo {
   width: 10%;
   height: 100%;
-  display: -webkit-inline-box
+  display: -webkit-inline-box;
 }
-.cuerpo-tabla{
-  border-top-color: $azul;
+
+.cuerpo-tabla {
+  border-top-color: #0167A3;
   border-top-style: solid;
 }
 
-#myTab{
-  display: -webkit-inline-box;
+#myTab {
   height: 65px;
   width: 100%;
-  border-bottom: 5px solid $celeste;
+  border-bottom: 5px solid #4D97C1;
 }
 
-.nav-tabs>li>a.tab-custom:hover{
-  border: 1px solid $celeste !important;
-  color: $celeste;
+.nav-tabs > li {
+  > a.tab-custom:hover {
+    border: 1px solid #4D97C1 !important;
+    color: #4D97C1;
+  }
+  &.r-tabs-state-active > a.tab-custom:hover {
+    border: 1px solid #4D97C1 !important;
+    color: #fff;
+  }
+  > a.tab-custom:active {
+    border: 1px solid #dddddd !important;
+  }
 }
 
-.nav-tabs>li.r-tabs-state-active>a.tab-custom:hover{
-  border: 1px solid $celeste !important;
-  color: #fff;
-}
-
-.nav-tabs>li>a.tab-custom:active{
-  border: 1px solid #dddddd !important;
-}
 @media only screen and (max-width: 768px) {
   .r-tabs {
     .r-tabs-nav {
@@ -1959,7 +1852,40 @@ a.btn {
     }
     .r-tabs-accordion-title {
       display: block;
+      border-style: solid;
+      padding: 10px;
+      background-color: #fff;
+      color: #fff;
+      border-color: #F3F3F3;
+      text-decoration: none;
+      text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+      border-top-right-radius: 4px;
+      border-top-left-radius: 4px;
+      border-width: 1px;
     }
+  }
+  .r-tabs-accordion-title.r-tabs-state-active {
+    background-color: #4D97C1;
+  }
+  .r-tabs{
+    width:102vw;
+  }
+  .nombre-usuario{
+    display:none;
   }
 }
 
+.tab-content{
+  width: 100%;
+  display: inline-table;
+}
+select.form-control{
+  height: 20px;
+  padding:0px;
+  width: initial;
+}
+.fc-scroller{
+  overflow-x: inherit !important;
+  overflow-y: inherit !important;
+  height: inherit !important;
+}

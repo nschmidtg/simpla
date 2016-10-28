@@ -3,7 +3,7 @@
 .container
   .row
     %h4
-      %a{href: "/admin",style: "color:#808080"}Panel de Administración > 
+      %a{href: "/admin",style: "color:#808080"}Configuración > 
       %a{href: "/admin/municipio/fondos?mun_id=#{@mun.id}",style: "color:#808080"}Fondos
     %h2.ollert-header
       .text-center.col-xs-12.no-padding
@@ -177,7 +177,7 @@
                 %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                 .col-md-6.col-sm-6.col-xs-12
                   - if(@fondo!=nil)
-                    %input{:type => "submit", :value => "Actualizar", :class => "button"} 
+                    %input{:type => "submit", :value => "Guardar Cambios", :class => "button"} 
                   - else
                     %input{:type => "submit", :value => "Crear", :class => "button"}
               

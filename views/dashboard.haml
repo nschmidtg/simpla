@@ -1,13 +1,12 @@
 .container
-  .row
+  %div
     %h4
       %a{href: "/dashboard",style: "color:#808080"}Indicadores del Municipio >
-  
     %h2.ollert-header
-      .text-center.col-xs-12.no-padding
+      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
         Resumen #{@mun.name}
     .row
-      .col-md-12.col-sm-12.col-xs-12.no-padding
+      .col-md-12.col-sm-12.col-xs-12
         .col-md-3.col-sm-12.col-xs-12
           .boards-list-item-link-blue
             %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml", style:"width:65%;"}
@@ -28,11 +27,14 @@
             %img.svg-element#boton{src: "/img/Iconos-blancos-25.png", type:"image/svg+xml", style:"width:65%;"}
             %h1 #{@mun.zones.count}
             %h4 Zonas
-    .row
+    .row#graficos
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container2
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container1
+    .row
+      %a.btn.plus#save_image_locally
+        Imprimir
 
 
 
@@ -162,5 +164,40 @@
   ]
   }]
   
+  });
+
+:javascript
+  $('#save_image_locally').click(function(){
+  var svgElements= $("#graficos").find('svg');
+
+  //replace all svgs with a temp canvas
+  svgElements.each(function () {
+    var canvas, xml;
+
+    canvas = document.createElement("canvas");
+    canvas.className = "screenShotTempCanvas";
+    //convert SVG into a XML string
+    xml = (new XMLSerializer()).serializeToString(this);
+
+    // Removing the name space as IE throws an error
+    xml = xml.replace(/xmlns=\"http:\/\/www\.w3\.org\/2000\/svg\"/, '');
+
+    //draw the SVG onto a canvas
+    canvg(canvas, xml);
+    $(canvas).insertAfter(this);
+    //hide the SVG element
+    this.className = "tempHide";
+    $(this).hide();
+  });
+  html2canvas($('#graficos'), 
+    {background :'#FFFFFF',
+      onrendered: function (canvas) {
+        var a = document.createElement('a');
+        // toDataURL defaults to png, so we need to request a jpeg, then convert for file download.
+        a.href = canvas.toDataURL("image/png");
+        a.download = 'archivo-proyectos.png';
+        a.click();
+      }
+    });
   });
     

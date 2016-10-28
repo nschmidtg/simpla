@@ -3,13 +3,12 @@
 .container
   .row
     %h4
-      %a{href: "/admin",style: "color:#808080"}Panel de Administración >
+      %a{href: "/admin",style: "color:#808080"}Configuración >
     - @municipios.each do |muni|
       %h2.ollert-header
         .text-center.col-xs-12.no-padding
           #{muni.name}
-          %a{style: 'display: inline-block;float: right;padding: 5px !important;', href: "/admin/municipio?id=#{muni.id}&edit=true"}
-            %span.glyphicon.glyphicon-pencil
+          
       .row
         .col-md-12.col-sm-12.col-xs-12.no-padding 
           .col-md-4.col-sm-12.col-xs-12
