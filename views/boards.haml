@@ -231,10 +231,8 @@
                             - bdbrd=Board.new
                             - bdbrd.name=board["name"]
                             - bdbrd.board_id=board["id"]
-                            / - if(@closed.to_s=="true")
-                            /   - bdbrd.closed="true"
-                            / - else
-                            /   - bdbrd.closed="false"
+                            - bdbrd.closed="false"
+                            - bdbrd.state_change_dates=Array.new(10)
                             - bdbrd.municipio=@user.municipio
                             - bdbrd.users<<@user
                             - bdbrd.save
