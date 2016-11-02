@@ -4691,3 +4691,9 @@
 [2016-11-02 16:16:32 -0300 cpp-VirtualBox (18958)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-02 16:16:32 -0300 cpp-VirtualBox (18964)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-02 16:16:32 -0300 cpp-VirtualBox (18961)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-02 17:31:48 -0300 cpp-VirtualBox (18961)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-02 17:32:07 -0300 cpp-VirtualBox (18964)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-02 17:32:08 -0300 cpp-VirtualBox (18958)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-02 17:32:41 -0300 cpp-VirtualBox (18961)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-02 17:32:41 -0300 cpp-VirtualBox (18964)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-02 17:32:41 -0300 cpp-VirtualBox (18958)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.

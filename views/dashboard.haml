@@ -8,25 +8,12 @@
     .row
       .col-md-12.col-sm-12.col-xs-12
         .col-md-3.col-sm-12.col-xs-12
-          .boards-list-item-link-blue
+          .boards-list-item-link-blue{style:"height:250px;"}
             %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml", style:"width:65%;"}
-            %h1 #{@boards.count}
-            %h4 Proyectos Abiertos
-        .col-md-3.col-sm-12.col-xs-12
-          .boards-list-item-link-blue
-            %img.svg-element#boton{src: "/img/Iconos-blancos-22.png", type:"image/svg+xml", style:"width:65%;"}
-            %h1 #{@mun.fondos.count}
-            %h4 Fondos
-        .col-md-3.col-sm-12.col-xs-12
-          .boards-list-item-link-blue
-            %img.svg-element#boton{src: "/img/Iconos-blancos-28.png", type:"image/svg+xml", style:"width:65%;"}
-            %h1 #{@mun.users.count}
-            %h4 Usuarios
-        .col-md-3.col-sm-12.col-xs-12
-          .boards-list-item-link-blue
-            %img.svg-element#boton{src: "/img/Iconos-blancos-25.png", type:"image/svg+xml", style:"width:65%;"}
-            %h1 #{@mun.zones.count}
-            %h4 Zonas
+            %h1{style:"margin-top:0px;margin-bottom:0px;"} 
+              #{@boards.count}
+            %h4{style:"margin:5px;"} 
+              Proyectos Abiertos
     .row#graficos
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container2
