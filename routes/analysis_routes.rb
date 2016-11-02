@@ -114,6 +114,10 @@ class Ollert
         brd.save
       end
       brd.state_change_dates[order.to_i-1]=Time.now.strftime("%d/%m/%Y %H:%M")
+      for i in order.to_i..9
+        brd.state_change_dates[i]=nil
+      end
+
     end
     brd.save
     board.save

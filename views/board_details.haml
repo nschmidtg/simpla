@@ -13,6 +13,7 @@
       position: {lat: #{if(@board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[0] \n else @municipio.coords.split(' ')[0] \n end}, lng: #{if(@board.coords!=nil  && @board.coords!="") \n @board.coords.split(' ')[1] \n else @municipio.coords.split(' ')[1] \n end}}
     });
   }
+%script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCfYWTKUU4QL_d1WLpJVLfjcTAJTwYVl3w&callback=initMap"}
 .container
   .row
     #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
@@ -22,27 +23,27 @@
   .row
     .form-group 
       .col-md-9.col-sm-12.col-xs-12
+        .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
 
-
-        - @municipio=@board.municipio
-        #textinput.form-control.input-md 
-          %b
-            Nombre: 
-          #{@board.name.split(' |')[0]}
-     
+          - @municipio=@board.municipio
+          #textinput.form-control.input-md 
+            %b
+              Nombre: 
+            #{@board.name.split(' |')[0]}
+       
 
       .col-md-6.col-sm-6.col-xs-12
         %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "hidden", disabled: "true"}
     .form-group
       .col-md-9.col-sm-12.col-xs-12
-        .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+        .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
           #textinput.form-control.input-md.description
             %b
               Tipo: 
             #{@board.tipo.name}
             
            
-        .col-md-6.col-sm-6.col-xs-12.no-padding
+        .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
 
           #textinput.form-control.input-md.description
             %b
@@ -51,7 +52,7 @@
             
     .form-group
       .col-md-9.col-sm-12.col-xs-12
-        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
           .form-control.input-md.description
             %b
               Fecha tentativa de inicio: 
@@ -59,7 +60,7 @@
               #{@board.start_date}
             - else
               NO ASIGNADA
-        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
           .form-control.input-md.description
             %b
               Fecha tentativa de fin: 
@@ -67,7 +68,7 @@
               #{@board.end_date}
             - else
               NO ASIGNADA
-        .col-md-4.col-sm-12.col-xs-12.no-padding
+        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
 
           #monto.form-control.input-md.description
             %b
@@ -76,7 +77,7 @@
 
     .form-group
       .col-md-9.col-sm-12.col-xs-12
-        .col-md-12.col-sm-12.col-xs-12.no-padding
+        .col-md-12.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
           #textinput.form-control.input-md.description
             %b
               Descripción:
@@ -88,8 +89,8 @@
         
     
   .form-group
-    .col-md-9.col-sm-12.col-xs-12
-      .col-md-3.col-sm-12.col-xs-12#zones{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+    .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
+      .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
       
         %b
           Zonas:
@@ -117,27 +118,211 @@
     .col-md-12.col-sm-12.col-xs-12.no-padding
       .analysis-block-md
         %img#calendar-spinner{src: '/img/spinner.gif'}
-        #calendar-container.med-chart.graph-container
+        #timeline-container.med-chart.graph-container
  
-  .row
-
-    .col-md-6.col-sm-6.col-xs-12.no-padding
-      .analysis-block-sm
-        .stat-title
-          %h4 Tarea más antigua (en días)
-        #oldest-card-age.stat-value
-          %img.stats-spinner{src: '/img/spinner.gif'}
-        #oldest-card-name.stat-subtitle
-
-    .col-md-6.col-sm-6.col-xs-12.no-padding
-      .analysis-block-sm
-        .stat-title
-          %h4 Tarea más nueva (en días)
-        #newest-card-age.stat-value
-          %img.stats-spinner{src: '/img/spinner.gif'}
-        #newest-card-name.stat-subtitle
+  
 
 :javascript
   window.onload = function() {
     AnalysisController.init("#{@board_id}", #{@board_lists}, "#{@starting_list}", "#{@ending_list}", "#{@token}");
   };
+:javascript
+  function cantidad_de_dias(nombre,value,locale,now,extra){
+    if(nombre=="En Formulación"){
+      return ((value+locale*3600*1000-now+extra*3600*1000*24)/(3600*24*1000));
+    }
+    else{
+      return value/(3600*1000*24);
+    }
+  }
+%script
+  var now = new Date();
+  var locale = parseInt(now.toString().split("-")[1].split(" (")[0])/100;
+  var utc_now = new Date(now.getFullYear(), now.getMonth(), now.getDate(),0,0,0,0); 
+  var now=utc_now.getTime();
+  - if(@board.state_change_dates[8]!=nil)
+    - fin = @board.state_change_dates[8].split('/')
+    var fin = new Date(#{fin[2]},#{fin[1]},#{fin[0]},0,0,0,0);
+    now=fin.getTime();
+  - if(@board.state_change_dates[9]!=nil)
+    - fin = @board.state_change_dates[9].split('/')
+    var fin = new Date(#{fin[2].split(' ')[0]},#{fin[1]},#{fin[0]},0,0,0,0);
+    now=fin.getTime();
+  $('#timeline-container').highcharts({
+  chart: {
+  type: 'bar'
+  },
+  title: {
+  text: 'Días en cada estado'
+  },
+  xAxis: {
+  categories: ["#{@board.name.split('|')[0]}"],
+  labels: {
+  rotation: -45
+  },
+  },
+  legend: {
+  reversed: true
+  },
+  tooltip: {
+  formatter: function() {
+  return '<b>'+ this.series.name + ': ' + cantidad_de_dias(this.series.name,this.y,locale,now,this.series.options.extra) + '</b> días.';
+  }
+  },
+  plotOptions: {
+  series: {
+  stacking: 'normal'
+  }
+  },
+  series: [
+  - count=0
+  - if(@board.state_change_dates[8]!=nil && @board.state_change_dates[7]!=nil)
+    {
+    //Proyecto finalizado
+    - value=(@board.state_change_dates[8].to_date-@board.state_change_dates[7].to_date).to_i
+    - count=count+value
+    name: 'En Ejecución',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[8]==nil && @board.state_change_dates[7]!=nil && @board.state_change_dates[9]==nil)
+    {
+    //Proyecto En Ejecución
+    - value=(DateTime.now-@board.state_change_dates[7].to_date).to_i
+    - count=count+value
+    name: 'En Ejecución',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[8]==nil && @board.state_change_dates[7]!=nil && @board.state_change_dates[9]!=nil)
+    {
+    //Proyecto Descartado
+    - value=(@board.state_change_dates[9].to_date-@board.state_change_dates[7].to_date).to_i
+    - count=count+value
+    name: 'En Ejecución',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[7]!=nil && @board.state_change_dates[6]!=nil)
+    {
+    - value=(@board.state_change_dates[7].to_date-@board.state_change_dates[6].to_date).to_i
+    - count=count+value
+    name: 'Evaluación y adjudicación de propuestas',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[7]==nil && @board.state_change_dates[6]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[6].to_date).to_i
+    - count=count+value
+    name: 'Evaluación y adjudicación de propuestas',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[6]!=nil && @board.state_change_dates[5]!=nil)
+    {
+    - value=(@board.state_change_dates[6].to_date-@board.state_change_dates[5].to_date).to_i
+    - count=count+value
+    name: 'Preparación Licitación',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[6]==nil && @board.state_change_dates[5]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[5].to_date).to_i
+    - count=count+value
+    name: 'Preparación Licitación',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[5]!=nil && @board.state_change_dates[4]!=nil)
+    {
+    - value=(@board.state_change_dates[5].to_date-@board.state_change_dates[4].to_date).to_i
+    - count=count+value
+    name: 'Con recursos aprobados',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[5]==nil && @board.state_change_dates[4]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[4].to_date).to_i
+    - count=count+value
+    name: 'Con recursos aprobados',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[4]!=nil && @board.state_change_dates[3]!=nil)
+    {
+    - value=(@board.state_change_dates[4].to_date-@board.state_change_dates[3].to_date).to_i
+    - count=count+value
+    name: 'Con aprobación técnica',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[4]==nil && @board.state_change_dates[3]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[3].to_date).to_i
+    - count=count+value
+    name: 'Con aprobación técnica',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[3]!=nil && @board.state_change_dates[2]!=nil)
+    {
+    - value=(@board.state_change_dates[3].to_date-@board.state_change_dates[2].to_date).to_i
+    - count=count+value
+    name: 'Observado',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[3]==nil && @board.state_change_dates[2]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[2].to_date).to_i
+    - count=count+value
+    name: 'Observado',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[2]!=nil && @board.state_change_dates[1]!=nil)
+    {
+    - value=(@board.state_change_dates[2].to_date-@board.state_change_dates[1].to_date).to_i
+    - count=count+value
+    name: 'Ingresado',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - elsif(@board.state_change_dates[2]==nil && @board.state_change_dates[1]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[1].to_date).to_i
+    - count=count+value
+    name: 'Ingresado',
+    extra: #{count},
+    data: [#{value}*3600*1000*24]
+    },
+  - if(@board.state_change_dates[1]!=nil && @board.state_change_dates[0]!=nil)
+    {
+    - value=(@board.state_change_dates[1].to_date-@board.state_change_dates[0].to_date).to_i
+    - count=count+value
+    name: 'En Formulación',
+    extra: #{count},
+    data: [#{value}*3600*1000*24+now-locale*3600*1000-#{count*1000*24*3600}]
+    }
+  - elsif(@board.state_change_dates[1]==nil && @board.state_change_dates[0]!=nil)
+    {
+    - value=(DateTime.now-@board.state_change_dates[0].to_date).to_i
+    - count=count+value
+    name: 'En Formulación',
+    extra: #{count},
+    data: [#{value}*3600*1000*24+now-locale*3600*1000-#{count*1000*24*3600}]
+    }
+  ],
+  yAxis: {
+  type: 'datetime',
+  tickInterval: 3600 * 1000*24,
+  minTickInterval: moment.duration(1, 'month').asMilliseconds(),
+  min: now-#{count*1000*24*3600},
+  title: {
+  text: ' '
+  }
+  }
+  });
