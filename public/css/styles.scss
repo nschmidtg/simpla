@@ -1621,6 +1621,11 @@ ul.left-align li a {
     color: green;
   }
 }
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 70%;
+    margin: auto;
+}
 
 .modal-body {
   background: #eb5a46;

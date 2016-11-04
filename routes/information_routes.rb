@@ -3,10 +3,14 @@ class Ollert
   require 'mail'
   get '/', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
-      if(@user.role=="concejal" || @user.role=="alcalde")
-        redirect "/dashboard?mun_id=#{@user.municipio.id}"
+      if(@user.first_time=="true")
+        redirect '/takeawalk'
       else
-        redirect '/boards'
+        if(@user.role=="concejal" || @user.role=="alcalde")
+          redirect "/dashboard?mun_id=#{@user.municipio.id}"
+        else
+          redirect '/boards'
+        end
       end
     end
     
@@ -16,6 +20,10 @@ class Ollert
   not_found do
     flash[:error] = "The page requested could not be found."
     redirect '/'
+  end
+
+  get '/takeawalk', :auth => :connected do
+
   end
 
   post '/change_pass', :auth => :none do
