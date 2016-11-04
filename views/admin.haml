@@ -12,17 +12,17 @@
       .row
         .col-md-12.col-sm-12.col-xs-12.no-padding 
           .col-md-4.col-sm-12.col-xs-12
-            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos?mun_id=#{muni.id}"}
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos?mun_id=#{muni.id}",style:"height:100%;"}
               %img.svg-element#boton{src: "/img/Iconos-22.png", type:"image/png", style:"width:40%;"}
               %h1 #{muni.fondos.count}
               %h3 Fondos
           .col-md-4.col-sm-12.col-xs-12
-            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}"}
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/users?mun_id=#{muni.id}",style:"height:100%;"}
               %img.svg-element#boton{src: "/img/Iconos-28.png", type:"image/png", style:"width:40%;"}
               %h1 #{muni.users.count}
               %h3 Usuarios
           .col-md-4.col-sm-12.col-xs-12
-            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio?id=#{muni.id}&edit=true"}
+            %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio?id=#{muni.id}&edit=true",style:"height:100%;"}
               %img.svg-element#boton{src: "/img/Iconos-25.png", type:"image/png", style:"width:40%;"}
               %h1 #{muni.zones.count}
               %h3 Zonas

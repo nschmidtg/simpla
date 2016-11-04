@@ -4817,3 +4817,10 @@
 [2016-11-04 16:06:55 -0300 cpp-VirtualBox (13603)] INFO : Installing Mongo instrumentation
 [2016-11-04 16:06:55 -0300 cpp-VirtualBox (13603)] INFO : Finished instrumentation
 [2016-11-04 16:06:56 -0300 cpp-VirtualBox (13603)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-04 17:36:15 -0300 cpp-VirtualBox (13627)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-04 17:36:15 -0300 cpp-VirtualBox (13624)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-04 17:36:15 -0300 cpp-VirtualBox (13621)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-04 17:37:01 -0300 cpp-VirtualBox (13621)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-04 17:47:03 -0300 cpp-VirtualBox (17920)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-04 17:48:55 -0300 cpp-VirtualBox (17949)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-04 17:48:55 -0300 cpp-VirtualBox (17952)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039

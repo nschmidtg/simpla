@@ -19,6 +19,9 @@
     vertical-align: top;
   }
 }
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
+  background-color:#999999 !important;
+}
 
 .fc-time {
   display: none;
