@@ -1841,6 +1841,17 @@ a.btn {
   border-top-color: #0167A3;
   border-top-style: solid;
 }
+.carousel-control.left{
+  background-image: none;
+  margin-top: 20px;
+}
+.carousel-control.right{
+  background-image: none;
+  margin-top: 20px;
+}
+.fade2{
+  background: transparent !important;
+}
 
 #myTab {
   height: 65px;

@@ -23,7 +23,13 @@ class Ollert
   end
 
   get '/takeawalk', :auth => :connected do
-
+    @user.first_time="false"
+    @user.save
+    respond_to do |format|
+      format.html { 
+        haml :takeawalk 
+      }
+    end
   end
 
   post '/change_pass', :auth => :none do
