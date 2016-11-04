@@ -17,6 +17,8 @@ class User
   field :role, type: String
   field :restore_pass, type: String
   field :restore_pass_generated, type: String
+  field :last_login, type: String
+  field :first_time, type: String
 
   belongs_to :municipio
 

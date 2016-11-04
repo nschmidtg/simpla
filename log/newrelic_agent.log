@@ -4697,3 +4697,4 @@
 [2016-11-02 17:32:41 -0300 cpp-VirtualBox (18961)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-02 17:32:41 -0300 cpp-VirtualBox (18964)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-02 17:32:41 -0300 cpp-VirtualBox (18958)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-04 10:04:27 -0300 cpp-VirtualBox (18958)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
