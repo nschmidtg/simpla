@@ -111,14 +111,22 @@
       .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
         %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
           Editar Proyecto 
-        
-
+    
+  .row
+    .form-group 
+      .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
+        .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
+          #textinput.form-control.input-md 
+            %b
+              Fecha de la última actividad del proyecto: 
+            #{@last_activity.strftime("%d/%m/%Y")}     
 
   .row
     .col-md-12.col-sm-12.col-xs-12.no-padding
       .analysis-block-md
         %img#calendar-spinner{src: '/img/spinner.gif'}
         #timeline-container.med-chart.graph-container
+
  
   
 

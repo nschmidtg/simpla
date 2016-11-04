@@ -540,6 +540,7 @@ class Ollert
     @board=Board.find_by(board_id: board_id)
     @municipio=@board.municipio
     @title = @board_name
+    @last_activity = JSON.parse(client.get("/boards/#{board_id}/actions?limit=1"))[0]["date"].to_date
     haml :board_details
   end
 
