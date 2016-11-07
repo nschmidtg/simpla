@@ -443,7 +443,9 @@ class Ollert
       :member_token => @user.member_token
     )
     begin
+      @title="Archivo de Proyectos"
       if(@user.role=="secpla" || @user.role=="admin")
+
         @orgName=params[:orgName]
         Trello.configure do |config|
           config.developer_public_key = ENV['PUBLIC_KEY']
@@ -544,7 +546,7 @@ class Ollert
     @board_id = board_id
     @board=Board.find_by(board_id: board_id)
     @municipio=@board.municipio
-    @title = @board_name
+    @title = "Archivo de Proyectos"
     @last_activity = JSON.parse(client.get("/boards/#{board_id}/actions?limit=1"))[0]["date"].to_date
     haml :board_details
   end

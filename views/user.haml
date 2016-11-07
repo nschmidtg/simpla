@@ -3,10 +3,12 @@
 .container
   .fondo-blanco
     .row{style:"margin:0px;"}
+      %h4
+        %a{href: "/admin/municipio/users?mun_id=#{@mun.id}",style: "color:#808080"}Usuarios >
       %h2.ollert-header
         .text-center.col-xs-12
           - if(@new_user!=nil)
-            #{@new_user.login_name}
+            #{@new_user.login_name} #{@new_user.login_last_name}
           -else
             Nuevo Usuario para #{@mun.name}
     

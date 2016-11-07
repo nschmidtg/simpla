@@ -15,119 +15,129 @@
   }
 %script{:async => "", :defer => "", :src => "https://maps.googleapis.com/maps/api/js?key=AIzaSyCfYWTKUU4QL_d1WLpJVLfjcTAJTwYVl3w&callback=initMap"}
 .container
-  .row
-    #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
-      #{@board_name}
-
-
-  .row
-    .form-group 
-      .col-md-9.col-sm-12.col-xs-12
-        .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
-
-          - @municipio=@board.municipio
-          #textinput.form-control.input-md 
-            %b
-              Nombre: 
-            #{@board.name.split(' |')[0]}
-       
-
-      .col-md-6.col-sm-6.col-xs-12
-        %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "hidden", disabled: "true"}
-    .form-group
-      .col-md-9.col-sm-12.col-xs-12
-        .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
-          #textinput.form-control.input-md.description
-            %b
-              Tipo: 
-            #{@board.tipo.name}
-            
-           
-        .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
-
-          #textinput.form-control.input-md.description
-            %b
-              Fondo: 
-            #{@board.fondo.name} #{@board.fondo.etapa}
-            
-    .form-group
-      .col-md-9.col-sm-12.col-xs-12
-        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
-          .form-control.input-md.description
-            %b
-              Fecha tentativa de inicio: 
-            - if((@board.start_date!=nil&&@board.start_date!=""))
-              #{@board.start_date}
-            - else
-              NO ASIGNADA
-        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
-          .form-control.input-md.description
-            %b
-              Fecha tentativa de fin: 
-            - if((@board.end_date!=nil&&@board.end_date!=""))
-              #{@board.end_date}
-            - else
-              NO ASIGNADA
-        .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
-
-          #monto.form-control.input-md.description
-            %b
-              Monto:
-            #{@board.monto}
-
-    .form-group
-      .col-md-9.col-sm-12.col-xs-12
-        .col-md-12.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
-          #textinput.form-control.input-md.description
-            %b
-              Descripción:
-              %br
-            - if((@board.desc!=nil&&@board.desc!=""))
-              #{@board.desc}
-            - else
-              NO ASIGNADA
-        
+  .fondo-blanco
+    .row{style:"margin:0px;"}
+      #board-name.col-xs-8.col-xs-offset-2.text-center.h2.ollert-header
+        #{@board_name}
     
-  .form-group
-    .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
-      .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+
+
+    .row
+      .form-group 
+        .col-md-9.col-sm-12.col-xs-12
+          .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
+
+            - @municipio=@board.municipio
+            #textinput.form-control.input-md 
+              %b
+                Nombre: 
+              #{@board.name.split(' |')[0]}
+         
+
+        .col-md-6.col-sm-6.col-xs-12
+          %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "hidden", disabled: "true"}
+
+      .form-group
+        .col-md-9.col-sm-12.col-xs-12
+          .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+            #textinput.form-control.input-md.description
+              %b
+                Tipo: 
+              -if(@board.tipo!=nil)
+                #{@board.tipo.name}
+              -else
+                NO ASIGNADO
+              
+            
+          .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+
+            #textinput.form-control.input-md.description
+              %b
+                Fondo:
+              -if(@board.fondo!=nil) 
+                #{@board.fondo.name} #{@board.fondo.etapa}
+              -else
+                NO ASIGNADO
+              
+      .form-group
+        .col-md-9.col-sm-12.col-xs-12
+          .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+            .form-control.input-md.description
+              %b
+                Fecha tentativa de inicio: 
+              - if((@board.start_date!=nil&&@board.start_date!=""))
+                #{@board.start_date}
+              - else
+                NO ASIGNADA
+          .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+            .form-control.input-md.description
+              %b
+                Fecha tentativa de fin: 
+              - if((@board.end_date!=nil&&@board.end_date!=""))
+                #{@board.end_date}
+              - else
+                NO ASIGNADA
+          .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+
+            #monto.form-control.input-md.description
+              %b
+                Monto:
+              #{@board.monto}
+
+      .form-group
+        .col-md-9.col-sm-12.col-xs-12
+          .col-md-12.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+            #textinput.form-control.input-md.description
+              %b
+                Descripción:
+                %br
+              - if((@board.desc!=nil&&@board.desc!=""))
+                #{@board.desc}
+              - else
+                NO ASIGNADA
+          
       
-        %b
-          Zonas:
-          %br
-        - zones=@board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
-        - zones.each do |zona|
-          #{zona.name}
-          %br
-
-      - if(@board.coords!=nil&&@board.coords!="")
-        .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
-          .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-            %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
-            #map
-
-
-    .form-group     
-      .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
-        %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
-          Editar Proyecto 
-    
-  .row
-    .form-group 
+    .form-group
       .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
-        .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
-          #textinput.form-control.input-md 
-            %b
-              Fecha de la última actividad del proyecto: 
-            #{@last_activity.strftime("%d/%m/%Y")}     
+        .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+        
+          %b
+            Zonas:
+            %br
+          - zones=@board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+          - zones.each do |zona|
+            #{zona.name}
+            %br
 
-  .row
-    .col-md-12.col-sm-12.col-xs-12.no-padding
-      .analysis-block-md
-        %img#calendar-spinner{src: '/img/spinner.gif'}
-        #timeline-container.med-chart.graph-container
+        - if(@board.coords!=nil&&@board.coords!="")
+          .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
+            .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+              %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
+              #map
 
- 
+
+    .form-group    
+      .col-md-9.col-sm-12.col-xs-12
+        .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
+          %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
+            Editar Proyecto 
+      
+    .row
+      .form-group 
+        .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
+          .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
+            #textinput.form-control.input-md 
+              %b
+                Fecha de la última actividad del proyecto: 
+              #{@last_activity.strftime("%d/%m/%Y")}     
+
+    .row
+      .col-md-12.col-sm-12.col-xs-12.no-padding
+        .analysis-block-md
+          %img#calendar-spinner{src: '/img/spinner.gif'}
+          #timeline-container.med-chart.graph-container
+
+   
   
 
 :javascript

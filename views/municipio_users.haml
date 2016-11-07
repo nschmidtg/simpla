@@ -11,26 +11,27 @@
         %table.table{id: "myTable"}
           %thead
             %tr
-              %th 
+              %th{style:"min-width:250px;"}
                 Nombre
                 %a{href: "#"}
                   %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-              %th 
+              %th{style:"min-width:100px;"}
                 Email
                 %a{href: "#"}
                   %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-              %th 
+              %th{style:"min-width:100px;"}
                 Rol
                 %a{href: "#"}
                   %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-              %th Invitación Pendiente
+              %th{style:"min-width:100px;"} 
+                Invitación Pendiente
               - if(@user.role=="secpla" || @user.role=="admin")
                 %th Editar
           %tbody.cuerpo-tabla
             - @mun.users.each do |user|
               %tr              
-                %td.celda-tabla
-                  .boards-list-item-link-b
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-b.overflow
                     - if user != nil
                       - if user.login_name != nil
                         #{user.login_name} #{user.login_last_name}
@@ -38,8 +39,8 @@
                         NO ASIGNADO
                     - else
                       NO ASIGNADO
-                %td.celda-tabla
-                  .boards-list-item-link-b
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if user != nil
                       - if user.login_mail != nil
                         #{user.login_mail}
@@ -47,8 +48,8 @@
                         NO ASIGNADO
                     - else
                       NO ASIGNADO
-                %td.celda-tabla
-                  .boards-list-item-link-b
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if user != nil
                       - if user.role != nil
                         #{user.role}
@@ -56,8 +57,8 @@
                         NO ASIGNADO
                     - else
                       NO ASIGNADO
-                %td.celda-tabla
-                  .boards-list-item-link-b
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if user != nil
                       - if user.trello_id == nil
                         Sí
@@ -66,9 +67,10 @@
                     - else
                       No
                 - if(@user.role=="secpla" || @user.role=="admin")
-                  %td.celda-tabla                
-                    %a{style: 'display: inline-block;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
-                      %span.glyphicon.glyphicon-pencil
+                  %td.celda-tabla{style: "width: 100%;"}   
+                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}           
+                      %a{style: 'display: inline-block;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
+                        %span.glyphicon.glyphicon-pencil
       - if(@user.role=="secpla" || @user.role=="admin") 
         .row{style:"margin:0px;"}
           - @org=@mun.organizations.find_by(name: "3. No Priorizados")

@@ -58,6 +58,7 @@ class Ollert
       end
     end
     begin
+      @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:id]==@user.municipio.id.to_s))
         @municipio = Municipio.find_by(id: params[:id])
       else
