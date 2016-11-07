@@ -3191,6 +3191,7 @@ class Ollert
           new_user=User.new
         end
         new_user.login_name=params[:name].gsub(" ","")
+        new_user.first_time="true"
         new_user.login_last_name=params[:last_name].gsub(" ","")
         new_user.login_mail=params[:mail].downcase
         if(edit=="false")
@@ -3333,6 +3334,7 @@ class Ollert
             end
           end
         end
+        new_user.first_time="true"
         new_user.save
         if(edit=="false")
           @mun.launched="false"
