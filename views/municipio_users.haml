@@ -1,81 +1,80 @@
 
    
 .container
-  .row
-    %h4
-      %a{href: "/admin",style: "color:#808080"}Configuración > 
-    %h2.ollert-header
-      .text-center.col-xs-12.no-padding Usuarios
+  .fondo-blanco
+    .row{style:"margin:0px;"}
+      %h2.ollert-header
+        .text-center.col-xs-12.no-padding Usuarios
 
-  .row
-    .col-md-12.col-sm-12.col-xs-12.no-padding
-      %table.table{id: "myTable"}
-        %thead
-          %tr
-            %th 
-              Nombre
-              %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th 
-              Email
-              %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th 
-              Rol
-              %a{href: "#"}
-                %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-            %th Invitación Pendiente
-            - if(@user.role=="secpla" || @user.role=="admin")
-              %th Editar
-        %tbody.cuerpo-tabla
-          - @mun.users.each do |user|
-            %tr              
-              %td.celda-tabla
-                .boards-list-item-link-b
-                  - if user != nil
-                    - if user.login_name != nil
-                      #{user.login_name} #{user.login_last_name}
+    .row{style:"margin:0px;"}
+      .col-md-12.col-sm-12.col-xs-12.no-padding
+        %table.table{id: "myTable"}
+          %thead
+            %tr
+              %th 
+                Nombre
+                %a{href: "#"}
+                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+              %th 
+                Email
+                %a{href: "#"}
+                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+              %th 
+                Rol
+                %a{href: "#"}
+                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+              %th Invitación Pendiente
+              - if(@user.role=="secpla" || @user.role=="admin")
+                %th Editar
+          %tbody.cuerpo-tabla
+            - @mun.users.each do |user|
+              %tr              
+                %td.celda-tabla
+                  .boards-list-item-link-b
+                    - if user != nil
+                      - if user.login_name != nil
+                        #{user.login_name} #{user.login_last_name}
+                      - else
+                        NO ASIGNADO
                     - else
                       NO ASIGNADO
-                  - else
-                    NO ASIGNADO
-              %td.celda-tabla
-                .boards-list-item-link-b
-                  - if user != nil
-                    - if user.login_mail != nil
-                      #{user.login_mail}
+                %td.celda-tabla
+                  .boards-list-item-link-b
+                    - if user != nil
+                      - if user.login_mail != nil
+                        #{user.login_mail}
+                      - else
+                        NO ASIGNADO
                     - else
                       NO ASIGNADO
-                  - else
-                    NO ASIGNADO
-              %td.celda-tabla
-                .boards-list-item-link-b
-                  - if user != nil
-                    - if user.role != nil
-                      #{user.role}
+                %td.celda-tabla
+                  .boards-list-item-link-b
+                    - if user != nil
+                      - if user.role != nil
+                        #{user.role}
+                      - else
+                        NO ASIGNADO
                     - else
                       NO ASIGNADO
-                  - else
-                    NO ASIGNADO
-              %td.celda-tabla
-                .boards-list-item-link-b
-                  - if user != nil
-                    - if user.trello_id == nil
-                      Sí
+                %td.celda-tabla
+                  .boards-list-item-link-b
+                    - if user != nil
+                      - if user.trello_id == nil
+                        Sí
+                      - else
+                        No
                     - else
                       No
-                  - else
-                    No
-              - if(@user.role=="secpla" || @user.role=="admin")
-                %td.celda-tabla                
-                  %a{style: 'display: inline-block;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
-                    %span.glyphicon.glyphicon-pencil
-    - if(@user.role=="secpla" || @user.role=="admin") 
-      .row
-        - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-        %a.btn.plus{href:"/admin/municipio/users/user?mun_id=#{@mun.id}"}
-          Agregar Usuario
-        - if(@mun.launched=="false")
-          %a.btn.plus{href: "/admin/municipio/launch?mun_id=#{@mun.id}", style: "margin-right: 10px;"}
-            Enviar invitaciones
+                - if(@user.role=="secpla" || @user.role=="admin")
+                  %td.celda-tabla                
+                    %a{style: 'display: inline-block;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
+                      %span.glyphicon.glyphicon-pencil
+      - if(@user.role=="secpla" || @user.role=="admin") 
+        .row{style:"margin:0px;"}
+          - @org=@mun.organizations.find_by(name: "3. No Priorizados")
+          %a.btn.plus{href:"/admin/municipio/users/user?mun_id=#{@mun.id}"}
+            Agregar Usuario
+          - if(@mun.launched=="false")
+            %a.btn.plus{href: "/admin/municipio/launch?mun_id=#{@mun.id}", style: "margin-right: 10px;"}
+              Enviar invitaciones
 

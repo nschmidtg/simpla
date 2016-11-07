@@ -1,20 +1,19 @@
 
    
 .container
-  .container
-    .row
+  .fondo-blanco
+    .row{style:"margin:0px;"}
+      %h4
+        %a{href: "/admin/municipio/fondos?mun_id=#{@mun.id}",style: "color:#808080"}Fondos >
+        %a{href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}&fondo_id=#{@fondo.id}&edit=true",style: "color:#808080"}#{@fondo.name}
       %h2.ollert-header
         .text-center.col-xs-12
           - if(@task!=nil)
             #{@task.name}
           -else
             Nueva Tarea para el estado #{@state.name}
-    - if(@task!=nil)
-      .row
-        .col-md-10.col-sm-10.col-xs-10
-          %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
-            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :style => ""}
-        
+    
+    
 
     .row
       %form#components.form-horizontal{role: "form", :action=>"/admin/create_task?mun_id=#{@mun.id}&state_id=#{@state.id}&fondo_id=#{@fondo.id}", :method=>"post"}
@@ -71,9 +70,12 @@
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
-                      %input{:type => "submit", :value => "Guardar Cambios", :class => "button"} 
+                      %input{:type => "submit", :value => "Guardar Cambios", :class => "btn plus"} 
                     - else
-                      %input{:type => "submit", :value => "Crear", :class => "button"}
+                      %input{:type => "submit", :value => "Crear", :class => "btn plus"}
+                    - if( @task!=nil)
+                      %a#delete.btn.plus{style:"background-color:#eb5a46;margin-right:10px;"}
+                        Eliminar Tarea
                 
 
 - if(@task!=nil)

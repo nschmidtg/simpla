@@ -1,186 +1,186 @@
 
    
 .container
-  .row
-    %h4
-      %a{href: "/admin",style: "color:#808080"}Configuración > 
-      %a{href: "/admin/municipio/fondos?mun_id=#{@mun.id}",style: "color:#808080"}Fondos
-    %h2.ollert-header
-      .text-center.col-xs-12.no-padding
-        - if(@fondo!=nil)
-          #{@fondo.name}
-        -else
-          Nuevo Fondo para #{@mun.name}
-    - if(@fondo!=nil)
-      .row
-        .col-md-10.col-sm-10.col-xs-10
-          %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
-            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :style => ""}
-        
+  .fondo-blanco
+    .row{style:"margin:0px;"}
+      %h4
+        %a{href: "/admin/municipio/fondos?mun_id=#{@mun.id}",style: "color:#808080"}Fondos
+      %h2.ollert-header
+        .text-center.col-xs-12.no-padding
+          - if(@fondo!=nil)
+            #{@fondo.name}
+          -else
+            Nuevo Fondo para #{@mun.name}
 
-  .row
-    %form#components.form-horizontal{role: "form", :action=>"/admin/create_fondo?mun_id=#{@mun.id}", :method=>"post"}
-      %fieldset
-        .tab-content
-          / Tabs of snippets go here
-          #input.tab-pane.active
-            .component
-              / Text input
-              .form-group
-                %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
-                .col-md-6.col-sm-6.col-xs-12
-                  - if(@fondo!=nil)
-                    %input#textinput.form-control.input-md{name: "name", value: "#{@fondo.name}", style: "cursor: auto;", type: "text" ,required: ""}/
-                  - else
-                    %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del fondo", style: "cursor: auto;", type: "text",required: ""}/
-              .form-group
-                %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Etapa
-                .col-md-6.col-sm-6.col-xs-12
-                  - if(params[:edit]=="true" && @fondo.etapa!=nil)
-                    %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;", disabled: "true"}
-                      - @etapa=@fondo.etapa
-                      - if(@etapa=="diseno")
+
+
+    .row{style:"margin:0px;"}
+      %form#components.form-horizontal{role: "form", :action=>"/admin/create_fondo?mun_id=#{@mun.id}", :method=>"post"}
+        %fieldset
+          .tab-content
+            / Tabs of snippets go here
+            #input.tab-pane.active
+              .component
+                / Text input
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@fondo!=nil)
+                      %input#textinput.form-control.input-md{name: "name", value: "#{@fondo.name}", style: "cursor: auto;", type: "text" ,required: ""}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del fondo", style: "cursor: auto;", type: "text",required: ""}/
+                .form-group
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Etapa
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(params[:edit]=="true" && @fondo.etapa!=nil)
+                      %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;", disabled: "true"}
+                        - @etapa=@fondo.etapa
+                        - if(@etapa=="diseno")
+                          %option{:value => "diseno", :selected => ""} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios"} Estudios
+                          %option{:value => "otros"} Otros
+                        - elsif (@etapa == "ejecucion")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion", :selected => ""} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios"} Estudios
+                          %option{:value => "otros"} Otros
+                        - elsif (@etapa == "adquisicion")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion", :selected => ""} Adquisición
+                          %option{:value => "estudios"} Estudios
+                          %option{:value => "otros"} Otros
+                        - elsif (@etapa == "estudios")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios", :selected => ""} Estudios
+                          %option{:value => "otros"} Otros
+                        - elsif (@etapa == "estudios")
+                          %option{:value => "diseno"} Diseño
+                          %option{:value => "ejecucion"} Ejecución
+                          %option{:value => "adquisicion"} Adquisición
+                          %option{:value => "estudios"} Estudios
+                          %option{:value => "otros", :selected => ""} Otros
+                    - else
+                      %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
+                        %option{:disabled => "", :selected => ""} Seleccione
                         %option{:value => "diseno", :selected => ""} Diseño
                         %option{:value => "ejecucion"} Ejecución
                         %option{:value => "adquisicion"} Adquisición
                         %option{:value => "estudios"} Estudios
                         %option{:value => "otros"} Otros
-                      - elsif (@etapa == "ejecucion")
-                        %option{:value => "diseno"} Diseño
-                        %option{:value => "ejecucion", :selected => ""} Ejecución
-                        %option{:value => "adquisicion"} Adquisición
-                        %option{:value => "estudios"} Estudios
-                        %option{:value => "otros"} Otros
-                      - elsif (@etapa == "adquisicion")
-                        %option{:value => "diseno"} Diseño
-                        %option{:value => "ejecucion"} Ejecución
-                        %option{:value => "adquisicion", :selected => ""} Adquisición
-                        %option{:value => "estudios"} Estudios
-                        %option{:value => "otros"} Otros
-                      - elsif (@etapa == "estudios")
-                        %option{:value => "diseno"} Diseño
-                        %option{:value => "ejecucion"} Ejecución
-                        %option{:value => "adquisicion"} Adquisición
-                        %option{:value => "estudios", :selected => ""} Estudios
-                        %option{:value => "otros"} Otros
-                      - elsif (@etapa == "estudios")
-                        %option{:value => "diseno"} Diseño
-                        %option{:value => "ejecucion"} Ejecución
-                        %option{:value => "adquisicion"} Adquisición
-                        %option{:value => "estudios"} Estudios
-                        %option{:value => "otros", :selected => ""} Otros
-                  - else
-                    %select#textinput.form-control.input-md{name: "etapa", style: "cursor: auto;"}
-                      %option{:disabled => "", :selected => ""} Seleccione
-                      %option{:value => "diseno", :selected => ""} Diseño
-                      %option{:value => "ejecucion"} Ejecución
-                      %option{:value => "adquisicion"} Adquisición
-                      %option{:value => "estudios"} Estudios
-                      %option{:value => "otros"} Otros
-              .form-group
-                .col-md-6.col-sm-6.col-xs-12
-                  - if(@fondo!=nil)
-                    %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;",required: "", type: "hidden"}/
-                    %input#textinput.form-control.input-md{name: "id", value: "#{@fondo.id}", style: "cursor: auto;",required: "", type: "hidden"}/
-                  - else
-                    %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;",required: "", type: "hidden"}/
-              - if(@fondo != nil)
                 .form-group
-                  .col-md-12.col-sm-12.col-xs-12
-                    %h3.tareas-header 
-                      > Tareas Predeterminadas
-                    #responsiveTabsDemo
-                      %ul#myTab.nav.nav-tabs.responsive
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-1",:id => "tab-text-1"} EN FORMULACIÓN
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} INGRESADO
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} OBSERVADO
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-4",:id => "tab-text-4"} CON APROBACIÓN TÉCNICA
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-5",:id => "tab-text-5"} CON RECURSOS APROBADOS
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-6",:id => "tab-text-6"} PREPARACIÓN LICITACIÓN
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-7",:id => "tab-text-7"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-8",:id => "tab-text-8"} EN EJECUCIÓN
-                        %li.lindo
-                          %a.tab-custom{:href => "#tab-9",:id => "tab-text-9"} FINALIZADO
-                      .tab-content.responsive
-                        - count=0
-                        - @mun.states.each do |state|
-                          - count=count+1
-                          %div{id: "tab-#{count}", class: "tab-pane"}
-                            .col-md-12.col-sm-12.col-xs-12.no-padding
-                              %table.table{id: "myTable-#{count}"}
-                                %thead
-                                  %tr
-                                    %th 
-                                      Tarea Predeterminada
-                                      %a{href: "#"}
-                                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                                    %th 
-                                      Checklist
-                                      %a{href: "#"}
-                                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                                    %th Predeterminada
-                                    %th Editar
-                                %tbody.cuerpo-tabla
-                                  - task_count=0
-                                  - if(@fondo != nil)
-                                    - state.tasks.where(:fondo_id => @fondo.id).each do |task|
-                                      - task_count = task_count+1
-                                      %tr
-                                        %td.celda-tabla
-                                          .boards-list-item-link-b
-                                            #{task["name"]}
-                                        %td.celda-tabla
-                                          .boards-list-item-link-b
-                                            - if task != nil
-                                              - if task.checklist != nil
-                                                - checklists=" | "
-                                                - task.checklist.split('|').each do |item|
-                                                  - checklists=checklists+item+" | "
-                                                #{checklists}
+                  .col-md-6.col-sm-6.col-xs-12
+                    - if(@fondo!=nil)
+                      %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;",required: "", type: "hidden"}/
+                      %input#textinput.form-control.input-md{name: "id", value: "#{@fondo.id}", style: "cursor: auto;",required: "", type: "hidden"}/
+                    - else
+                      %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;",required: "", type: "hidden"}/
+                - if(@fondo != nil)
+                  .form-group
+                    .col-md-12.col-sm-12.col-xs-12
+                      %h3.tareas-header 
+                        > Tareas Predeterminadas
+                      #responsiveTabsDemo
+                        %ul#myTab.nav.nav-tabs.responsive
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-1",:id => "tab-text-1"} EN FORMULACIÓN
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} INGRESADO
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} OBSERVADO
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-4",:id => "tab-text-4"} CON APROBACIÓN TÉCNICA
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-5",:id => "tab-text-5"} CON RECURSOS APROBADOS
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-6",:id => "tab-text-6"} PREPARACIÓN LICITACIÓN
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-7",:id => "tab-text-7"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-8",:id => "tab-text-8"} EN EJECUCIÓN
+                          %li.lindo
+                            %a.tab-custom{:href => "#tab-9",:id => "tab-text-9"} FINALIZADO
+                        .tab-content.responsive
+                          - count=0
+                          - @mun.states.each do |state|
+                            - count=count+1
+                            %div{id: "tab-#{count}", class: "tab-pane"}
+                              .col-md-12.col-sm-12.col-xs-12.no-padding
+                                %table.table{id: "myTable-#{count}"}
+                                  %thead
+                                    %tr
+                                      %th 
+                                        Tarea Predeterminada
+                                        %a{href: "#"}
+                                          %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                                      %th 
+                                        Checklist
+                                        %a{href: "#"}
+                                          %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                                      %th Predeterminada
+                                      %th Editar
+                                  %tbody.cuerpo-tabla
+                                    - task_count=0
+                                    - if(@fondo != nil)
+                                      - state.tasks.where(:fondo_id => @fondo.id).each do |task|
+                                        - task_count = task_count+1
+                                        %tr
+                                          %td.celda-tabla
+                                            .boards-list-item-link-b
+                                              #{task["name"]}
+                                          %td.celda-tabla
+                                            .boards-list-item-link-b
+                                              - if task != nil
+                                                - if task.checklist != nil
+                                                  - checklists=" | "
+                                                  - task.checklist.split('|').each do |item|
+                                                    - checklists=checklists+item+" | "
+                                                  #{checklists}
+                                                - else
+                                                  NO ASIGNADAS
                                               - else
                                                 NO ASIGNADAS
-                                            - else
-                                              NO ASIGNADAS
-                                        %td.celda-tabla
-                                          .boards-list-item-link-b
-                                            - if task != nil
-                                              - if task.checked != nil
-                                                - if task.checked=="true"
-                                                  Sí
+                                          %td.celda-tabla
+                                            .boards-list-item-link-b
+                                              - if task != nil
+                                                - if task.checked != nil
+                                                  - if task.checked=="true"
+                                                    Sí
+                                                  - else
+                                                    No
                                                 - else
-                                                  No
+                                                  NO ASIGNADO
                                               - else
                                                 NO ASIGNADO
-                                            - else
-                                              NO ASIGNADO
-                                        %td.celda-tabla
-                                          .boards-list-item-link-c
-                                            %a{href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
-                                              %span.glyphicon.glyphicon-pencil
-                              - if(@user.role=="secpla" || @user.role=="admin") 
-                                - if(@fondo != nil)
-                                  .row
-                                    %a.btn.plus{href:"/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&fondo_id=#{@fondo.id}&edit=false"}
-                                      Agregar Tarea  
-                            %script
-                              var text=$(document).find("#tab-text-#{count}").text();
-                              $(document).find("#tab-text-#{count}").text(text+" [#{task_count}]");                                        
-              .form-group
-                %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
-                .col-md-6.col-sm-6.col-xs-12
-                  - if(@fondo!=nil)
-                    %input{:type => "submit", :value => "Guardar Cambios", :class => "button"} 
-                  - else
-                    %input{:type => "submit", :value => "Crear", :class => "button"}
-              
+                                          %td.celda-tabla
+                                            .boards-list-item-link-c
+                                              %a{href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
+                                                %span.glyphicon.glyphicon-pencil
+                                - if(@user.role=="secpla" || @user.role=="admin") 
+                                  - if(@fondo != nil)
+                                    .row{style:"margin:0px;"}
+                                      %a.btn.plus{href:"/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&fondo_id=#{@fondo.id}&edit=false"}
+                                        Agregar Tarea  
+                                    
+                              %script
+                                var text=$(document).find("#tab-text-#{count}").text();
+                                $(document).find("#tab-text-#{count}").text(text+" [#{task_count}]"); 
+                                                                       
+                .form-group
+                  .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
+                    - if(@fondo!=nil)
+                      %input{:type => "submit", :value => "Guardar Cambios", :class => "btn plus"} 
+                    - else
+                      %input{:type => "submit", :value => "Crear", :class => "btn plus"}
+                    - if(params[:edit]=="true" && @fondo!=nil)
+                      %a#delete.btn.plus{style:"background-color:#eb5a46;margin-right:10px;"}
+                        Eliminar Fondo 
+                
 
 - if(@fondo!=nil)
   #confirm.modalx.hide.fade

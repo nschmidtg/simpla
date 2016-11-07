@@ -1,20 +1,16 @@
 
    
 .container
-  .container
-    .row
+  .fondo-blanco
+    .row{style:"margin:0px;"}
       %h2.ollert-header
         .text-center.col-xs-12
           - if(@new_user!=nil)
             #{@new_user.login_name}
           -else
             Nuevo Usuario para #{@mun.name}
-    - if(@new_user!=nil && @new_user.id!=@user.id)
-      .row
-        .col-md-10.col-sm-10.col-xs-10
-          %a#delete{:style => "display: inline-block;float: right;padding: 5px !important;"}
-            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true", :style => ""}
-        
+    
+    
 
     .row
       %form#components.form-horizontal{role: "form", :action=>"/admin/create_user?mun_id=#{@mun.id}", :method=>"post"}
@@ -115,9 +111,12 @@
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@new_user!=nil)
-                      %input{:type => "submit", :value => "Guardar Cambios", :class => "button"} 
+                      %input{:type => "submit", :value => "Guardar Cambios", :class => "btn plus"} 
                     - else
-                      %input{:type => "submit", :value => "Crear", :class => "button"}
+                      %input{:type => "submit", :value => "Crear", :class => "btn plus"}
+                    - if(@new_user!=nil && @new_user.id!=@user.id)
+                      %a#delete.btn.plus{style:"background-color:#eb5a46;margin-right:10px;"}
+                        Eliminar Usuario
                 
 
 - if(@new_user!=nil)

@@ -2808,6 +2808,7 @@ class Ollert
       end
     end
     begin
+      @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
       else
@@ -2912,6 +2913,7 @@ class Ollert
       end
     end
     begin
+      @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
         @state=State.find_by(id: params[:state_id])
@@ -2966,6 +2968,7 @@ class Ollert
       end
     end
     begin
+      @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
         @fondo=Fondo.find_by(id: params[:fondo_id])
@@ -4239,6 +4242,7 @@ class Ollert
       end
     end
     begin
+      @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
         @new_user=User.find_by(id: params[:user_id])
