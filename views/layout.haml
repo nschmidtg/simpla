@@ -63,13 +63,18 @@
     %div
       %nav{class: 'navbar navbar-default navbar-static-top', role: 'navigation'}
         .container-fluid.header-naranjo
-          .navbar-header
+          .navbar-header{style:"position:fixed;"}
             %a.navbar-brand{href: '/',style:"margin:0;"}
               %img{src:"/img/logo-head.png",style:"max-height:50px;"}
+          
+          .title-header
+            %h3{style:"margin-top:14px;"}
+              #{@title}
+            
           - if @user.nil?
             
           - else @user.nil?
-            .avatar-right
+            .avatar-right{style:"position:fixed;top:0px;right:10px;"}
               .avatar-right-center
                 .h5.nombre-usuario
                   #{@user.login_name} #{@user.login_last_name}
@@ -90,6 +95,7 @@
                         %a{href: "/logout", alt: "Log out"}
                           %span.glyphicon.glyphicon-off
                           Cerrar Sesión
+            
 
       #mainContent
         
@@ -115,7 +121,10 @@
                           %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml"}
                       .col#header-lateral
                         %h5.h5-lateral
-                          Gestión Proyectos
+                          - if @user.role=="admin" || @user.role=="secpla"
+                            Gestión Proyectos
+                          - else
+                            Proyectos
                   .col.md.general
                     %li.icon-element
                       .col.md.izq-menu
@@ -162,26 +171,7 @@
 
           = yield
 
-        / .col.md-12.col-sm-12.col-xs-12.no-padding{style:"margin-top: 0px;"}
-        /   .container#footer
-        /     .row
-        /       .col-sm-6.col-xs-12
-        /         %ul.footer-item.footer-links
-        /           %li
-        /             %a{href: "https://github.com/sep/ollert", title: "Source Code", alt: "Link to our Github page"}
-        /               Código Fuente
-        /           %li
-        /             %a{href: "/privacy", title: "Privacy Policy", alt: "Link to privacy policy"}
-        /               Política de Privacidad
-        /           %li
-        /             %a{href: "/terms", title: "Terms and Conditions", alt: "Link to Terms of Service"}
-        /               Términos y Condiciones
-        /           %li
-        /             %a{href: "mailto:connect@ollertapp.com", title: "Contact Us", alt: "Email us at connect@ollertapp.com"}
-        /               Contáctenos
-        /       .col-md-3.col-md-offset-3.col-sm-4.col-sm-offset-2.hidden-xs.no-padding
-        /         %a{href: "http://www.sep.com/labs/", alt: "SEP Labs", target: "blank", title: "Danger! Experimental"}
-        /           %img.footer-item.footer-lab{"src": "/img/labs-logo.png"}
+       
         
     .modal
 

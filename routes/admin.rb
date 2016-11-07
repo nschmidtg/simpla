@@ -14,6 +14,8 @@ class Ollert
       end
     end
     begin
+      
+      @title="Configuración"
       if(@user.role=="secpla")
         @municipios = Municipio.where(id: @user.municipio.id)
       else
@@ -4188,7 +4190,7 @@ class Ollert
       if(params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s)
         @mun=Municipio.find_by(id: params[:mun_id])
         @boards=@mun.boards
-
+        @title="Archivo de Proyectos"
         
       else
         respond_to do |format|
@@ -4431,6 +4433,7 @@ class Ollert
       end
     end
     begin
+      @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
 

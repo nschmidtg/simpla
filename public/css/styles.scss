@@ -11,6 +11,19 @@
   right: 0;
 }
 
+.fondo-blanco{
+  background-color:#fff;
+  padding: 15px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.title-header{
+  color:#fff;
+  text-align:center;
+  
+  
+}
+
 .fc {
   th, td {
     border-style: solid;
@@ -21,6 +34,9 @@
 }
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control{
   background-color:#999999 !important;
+}
+.principal{
+  background-color:#efefef;
 }
 
 .fc-time {
@@ -1234,6 +1250,10 @@ hr {
   padding-left: 0px;
 }
 
+body{
+  background-color: #efefef;
+}
+
 .no-padding-nav {
   padding: 0;
   float: left;
@@ -1246,7 +1266,7 @@ hr {
   padding-left: 60px !important;
   min-height: 75vh;
   margin-top: 50px;
-  margin-bottom: 50px;
+  padding-right: 0px;
 }
 
 .navbar-default {

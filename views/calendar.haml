@@ -1,19 +1,17 @@
 
 .container
-  .row
-    %h2.ollert-header
-      .text-center.col-xs-12{style:"margin-top:30px;"}
-        Calendario
+  .fondo-blanco
       
       
-  .row
-    .col-md-offset-2.col-md-8.col-sm-12.col-xs-12
-      .analysis-block-md
-        %img#calendar-spinner{src: '/img/spinner.gif'}
-        #calendar-container.med-chart.graph-container
-  .row  
-    %a.btn.plus#save_image_locally
-      Imprimir
+    .row
+      .col-md-offset-2.col-md-8.col-sm-12.col-xs-12
+        .analysis-block-md
+          %img#calendar-spinner{src: '/img/spinner.gif'}
+          #calendar-container.med-chart.graph-container
+    .row{style:"margin:0px;"}
+      %a.btn.plus#save_image_locally
+        Imprimir
+    
 
   :javascript
     $('#save_image_locally').click(function(){

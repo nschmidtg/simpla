@@ -57,7 +57,7 @@ class Ollert
       @mun=Municipio.find_by(id: params[:mun_id])
       @mun_id=@mun.id
       @boards=@mun.boards.where(closed:"false")
-    
+      @title="Indicadores Globales"
 
     respond_to do |format|
       format.html { haml :dashboard }
@@ -74,7 +74,7 @@ class Ollert
       @mun=Municipio.find_by(id: params[:mun_id])
       @mun_id=@mun.id
       @token=@user.member_token
-    
+      @title="Calendario"
 
     respond_to do |format|
       format.html { haml :calendar }
@@ -178,6 +178,11 @@ class Ollert
       @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch(client, @user.trello_name),@user)
       @statesd=@user.municipio.states.order(:order => 'asc')
       @states=@statesd.pluck(:name)
+      if(@user.role=="admin"||@user.role=="secpla")
+        @title="Gestión de Proyectos"
+      else
+        @title="Proyectos"
+      end
       @prioridades=["1. Urgentes","2. Priorizados","3. No Priorizados"]
       @token=@user.member_token
 

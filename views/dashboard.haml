@@ -1,27 +1,30 @@
 .container
   %div
-    %h4
-      %a{href: "/dashboard",style: "color:#808080"}Indicadores del Municipio >
-    %h2.ollert-header
-      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
-        Resumen #{@mun.name}
-    .row
-      .col-md-12.col-sm-12.col-xs-12
-        .col-md-3.col-sm-12.col-xs-12
-          .boards-list-item-link-blue{style:"height:250px;"}
-            %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml", style:"width:65%;"}
-            %h1{style:"margin-top:0px;margin-bottom:0px;"} 
-              #{@boards.count}
-            %h4{style:"margin:5px;"} 
-              Proyectos Abiertos
+    /%h4
+    /  %a{href: "/dashboard",style: "color:#808080"}Indicadores del Municipio >
+    /%h2.ollert-header
+    /  .text-center.col-xs-12.no-padding{style:"text-align:left;"}
+    /    Resumen #{@mun.name}
+    .fondo-blanco
+      .row
+        .col-md-12.col-sm-12.col-xs-12
+          .col-md-3.col-sm-12.col-xs-12
+            .boards-list-item-link-blue{style:"height:250px;"}
+              %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml", style:"width:65%;"}
+              %h1{style:"margin-top:0px;margin-bottom:0px;"} 
+                #{@boards.count}
+              %h4{style:"margin:5px;"} 
+                Proyectos Abiertos
     .row#graficos
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container2
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container1
-    .row
-      %a.btn.plus#save_image_locally
-        Imprimir
+    .fondo-blanco
+      .row{style:"margin:0px;"}
+        %a.btn.plus#save_image_locally
+          Imprimir
+      
 
 
 

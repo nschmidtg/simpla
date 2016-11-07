@@ -1,206 +1,124 @@
 
    
 .container
-  %div
-    %h4
-      %a{href: "/boards",style: "color:#808080"}Gestión de Proyectos >
-    %h2.ollert-header
-      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
-        Etapas de Proyectos
+  .fondo-blanco
+    %div
+      %h4
+        %a{href: "/boards",style: "color:#808080"}Gestión de Proyectos >
+      %h2.ollert-header
+        .text-center.col-xs-12.no-padding{style:"text-align:left;"}
+          Etapas de Proyectos
 
-  %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
-    - @mun=@user.municipio
-    #responsiveTabsDemo
-      %ul#myTab.nav.nav-tabs.responsive
-        %li.lindo
-          %a.tab-custom.active{:href => "#tab-1",:id => "tab-text-1"} NO ASIGNADO
-        %li.lindo
-          %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} EN FORMULACIÓN
-        %li.lindo
-          %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} INGRESADO
-        %li.lindo
-          %a.tab-custom{:href => "#tab-4",:id => "tab-text-4"} OBSERVADO
-        %li.lindo
-          %a.tab-custom{:href => "#tab-5",:id => "tab-text-5"} CON APROBACIÓN TÉCNICA
-        %li.lindo
-          %a.tab-custom{:href => "#tab-6",:id => "tab-text-6"} CON RECURSOS APROBADOS
-        %li.lindo
-          %a.tab-custom{:href => "#tab-7",:id => "tab-text-7"} PREPARACIÓN LICITACIÓN
-        %li.lindo
-          %a.tab-custom{:href => "#tab-8",:id => "tab-text-8"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
-        %li.lindo
-          %a.tab-custom{:href => "#tab-9",:id => "tab-text-9"} EN EJECUCIÓN
-        %li.lindo
-          %a.tab-custom{:href => "#tab-10",:id => "tab-text-10"} FINALIZADO
-      .tab-content.responsive
-        - @asignados = Array.new()
-        - count=1
-        - @states.each do |state|
-          - count=count+1
-          %div{id: "tab-#{count}", class: "tab-pane"}
-            .col-md-12.col-sm-12.col-xs-12.no-padding
-              %table.table{id: "myTable-#{count}"}
-                %thead
-                  %tr
-                    %th{style:"min-width:250px;"}
-                      Nombre Proyecto
-                      %a{href: "#"}
-                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                    %th{style:"min-width:100px;"}
-                       
-                      Fondo
-                      %a{href: "#"}
-                        %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                    %th Estado
-                    - if(@user.role=="secpla" || @user.role=="admin")
-                      - if(state=="Finalizado")
-                        %th Archivar
-                      - else
-                        %th Editar
-                
+    %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
+      - @mun=@user.municipio
+      #responsiveTabsDemo
+        %ul#myTab.nav.nav-tabs.responsive
+          %li.lindo
+            %a.tab-custom.active{:href => "#tab-1",:id => "tab-text-1"} NO ASIGNADO
+          %li.lindo
+            %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} EN FORMULACIÓN
+          %li.lindo
+            %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} INGRESADO
+          %li.lindo
+            %a.tab-custom{:href => "#tab-4",:id => "tab-text-4"} OBSERVADO
+          %li.lindo
+            %a.tab-custom{:href => "#tab-5",:id => "tab-text-5"} CON APROBACIÓN TÉCNICA
+          %li.lindo
+            %a.tab-custom{:href => "#tab-6",:id => "tab-text-6"} CON RECURSOS APROBADOS
+          %li.lindo
+            %a.tab-custom{:href => "#tab-7",:id => "tab-text-7"} PREPARACIÓN LICITACIÓN
+          %li.lindo
+            %a.tab-custom{:href => "#tab-8",:id => "tab-text-8"} EVALUACIÓN Y ADJUDICACIÓN DE PROPUESTAS
+          %li.lindo
+            %a.tab-custom{:href => "#tab-9",:id => "tab-text-9"} EN EJECUCIÓN
+          %li.lindo
+            %a.tab-custom{:href => "#tab-10",:id => "tab-text-10"} FINALIZADO
+        .tab-content.responsive
+          - @asignados = Array.new()
+          - count=1
+          - @states.each do |state|
+            - count=count+1
+            %div{id: "tab-#{count}", class: "tab-pane"}
+              .col-md-12.col-sm-12.col-xs-12.no-padding
+                %table.table{id: "myTable-#{count}"}
+                  %thead
+                    %tr
+                      %th{style:"min-width:250px;"}
+                        Nombre Proyecto
+                        %a{href: "#"}
+                          %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                      %th{style:"min-width:100px;"}
+                         
+                        Fondo
+                        %a{href: "#"}
+                          %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                      %th Estado
+                      - if(@user.role=="secpla" || @user.role=="admin")
+                        - if(state=="Finalizado")
+                          %th Archivar
+                        - else
+                          %th Editar
+                  
 
-                %tbody.cuerpo-tabla
-                  - cantidad_tableros=0
-                  - @boards.each do |org_name, boards|
-                    - prioridad_tablero=org_name
-                    - if(@prioridades.include?(prioridad_tablero))
-                      - boards.each do |board|
-                        - if(state == board["name"].split('|')[1])
+                  %tbody.cuerpo-tabla
+                    - cantidad_tableros=0
+                    - @boards.each do |org_name, boards|
+                      - prioridad_tablero=org_name
+                      - if(@prioridades.include?(prioridad_tablero))
+                        - boards.each do |board|
+                          - if(state == board["name"].split('|')[1])
 
-                          - if(board["closed"]==false || state=="Finalizado")
-                            - actual_board=Board.find_by(board_id: board["id"])
-                            - if(actual_board.archivado!="true")
-                              - @asignados<<board["name"]
-                              - cantidad_tableros=cantidad_tableros+1
+                            - if(board["closed"]==false || state=="Finalizado")
+                              - actual_board=Board.find_by(board_id: board["id"])
+                              - if(actual_board.archivado!="true")
+                                - @asignados<<board["name"]
+                                - cantidad_tableros=cantidad_tableros+1
 
-                              %tr
-                                %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
-                                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
-                                    #{board["name"].split('|')[0]}
-                                
-                                %td.celda-tabla{style: "width: 100%;"}
-                                  .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
-                                    - if actual_board != nil
-                                      - if actual_board.fondo != nil
-                                        #{actual_board.fondo.name}
+                                %tr
+                                  %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
+                                    %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
+                                      #{board["name"].split('|')[0]}
+                                  
+                                  %td.celda-tabla{style: "width: 100%;"}
+                                    .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
+                                      - if actual_board != nil
+                                        - if actual_board.fondo != nil
+                                          #{actual_board.fondo.name}
+                                        - else
+                                          NO ASIGNADO
                                       - else
                                         NO ASIGNADO
-                                    - else
-                                      NO ASIGNADO
-                                
-                                %td.celda-tabla{style: "width: 100%;"}
-                                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                                    - if(@states[count-3]!="Descartado")
-                                      - if(@user.role=="secpla" || @user.role=="admin")
-                                        %div 
-                                          %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'"}
-                                            %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
-                                    - if (actual_board!=nil)
-                                      #{actual_board.current_state}
-                                    - if(@states[count-1]!="Descartado")
-                                      - if(@user.role=="secpla" || @user.role=="admin") 
-                                        %div
-                                          %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
-                                            %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
-                                - if(@user.role=="secpla" || @user.role=="admin")
+                                  
                                   %td.celda-tabla{style: "width: 100%;"}
-                                    - if actual_board != nil
-                                      .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                                        - if(state=="Finalizado")
-                                          %a{style: 'display: inline-block;', href: "/archivar?mun_id=#{@mun.id}&board_id=#{actual_board.board_id}",onclick:"return confirm('¿Está seguro de que quiere archivar el proyecto?')"}
-                                            %span.glyphicon.glyphicon-inbox
-                                        - else
-                                          %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
-                                            %span.glyphicon.glyphicon-pencil
-                  %script
-                    var text=$(document).find("#tab-text-#{count}").text();
-                    $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
-        %div{id: "tab-1", class: "tab-pane"}
-          .col-md-12.col-sm-12.col-xs-12.no-padding
-            %table.table{id: "myTable-1"}
-              %thead
-                %tr
-                  %th{style:"min-width:250px;"}
-                    Nombre Proyecto
-                    %a{href: "#"}
-                      %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                  %th{style:"min-width:100px;"}
-                    Fondo
-                    %a{href: "#"}
-                      %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                  
-                  %th Estado
-                  - if(@user.role=="secpla" || @user.role=="admin")
-                    %th Editar
-              %tbody.cuerpo-tabla
-                - cantidad_tableros=0
-                - @boards.each do |org_name, boards|
-                - prioridad_tablero=org_name
-                  - if(@prioridades.include?(prioridad_tablero))
-                    - boards.each do |board|
-                      - if(board["closed"]==false)
-                        - unless  @asignados.include?(board["name"])
-                          - #bdbrd=Board.find_or_create_by(board_id: board["id"])
-                          - #if(bdbrd!=nil)
-                          - cantidad_tableros=cantidad_tableros+1
-                          %tr
-                            %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
-                              %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"]}"}
-                                #{board["name"]}
-                            
-                            - actual_board=Board.find_by(board_id: board["id"])
-                            %td.celda-tabla{style: "width: 100%;"}
-                              .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
-                                - if actual_board != nil
-                                  - if actual_board.fondo != nil
-                                    #{actual_board.fondo.name}
-                                  - else
-                                    NO ASIGNADO
-                                - else
-                                  NO ASIGNADO
-                            
-                            %td.celda-tabla{style: "width: 100%;"}
-                              .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                                NO ASIGNADO
-                                - if(@user.role=="secpla" || @user.role=="admin") 
-                                  %div
-                                    %a{onclick: "changeState('En Formulación','#{board["id"]}')", title: "Pasar a la etapa 'En Formulación'"}
-                                      %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
-                            - if(@user.role=="secpla" || @user.role=="admin")
-                              %td.celda-tabla{style: "width: 100%;"}
-                                - if actual_board != nil
-                                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                                    %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
-                                      %span.glyphicon.glyphicon-pencil
-                %script
-                  var text=$(document).find("#tab-text-1").text();
-                  $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
-  - if(@user.role=="secpla" || @user.role=="admin") 
-    .row
-      
-      - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-      %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
-        Agregar Proyecto
-  %div{style:"display: -webkit-inline-box;"}
-    %h2.ollert-header
-      .text-center.col-xs-12.no-padding{style:"text-align:left;"}
-        Prioridad de Proyectos
-  %div{style:"margin-top:50px;"}
-    #responsiveTabsDemo2
-      %ul#myTab.nav.nav-tabs.responsive
-        %li.lindo
-          %a.tab-custom{:href => "#tab-12",:id => "tab-text-12"} Urgentes
-        %li.lindo
-          %a.tab-custom{:href => "#tab-13",:id => "tab-text-13"} Priorizados
-        %li.lindo
-          %a.tab-custom{:href => "#tab-14",:id => "tab-text-14"} No Priorizados
-      .tab-content.responsive
-        -count=11
-        - @prioridades.each do |prioridad|
-          - count=count+1
-          %div{id: "tab-#{count}", class: "tab-pane"}
+                                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                      - if(@states[count-3]!="Descartado")
+                                        - if(@user.role=="secpla" || @user.role=="admin")
+                                          %div 
+                                            %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'"}
+                                              %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
+                                      - if (actual_board!=nil)
+                                        #{actual_board.current_state}
+                                      - if(@states[count-1]!="Descartado")
+                                        - if(@user.role=="secpla" || @user.role=="admin") 
+                                          %div
+                                            %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
+                                              %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                                  - if(@user.role=="secpla" || @user.role=="admin")
+                                    %td.celda-tabla{style: "width: 100%;"}
+                                      - if actual_board != nil
+                                        .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                          - if(state=="Finalizado")
+                                            %a{style: 'display: inline-block;', href: "/archivar?mun_id=#{@mun.id}&board_id=#{actual_board.board_id}",onclick:"return confirm('¿Está seguro de que quiere archivar el proyecto?')"}
+                                              %span.glyphicon.glyphicon-inbox
+                                          - else
+                                            %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
+                                              %span.glyphicon.glyphicon-pencil
+                    %script
+                      var text=$(document).find("#tab-text-#{count}").text();
+                      $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
+          %div{id: "tab-1", class: "tab-pane"}
             .col-md-12.col-sm-12.col-xs-12.no-padding
-              %table.table{id: "myTable-#{count}"}
+              %table.table{id: "myTable-1"}
                 %thead
                   %tr
                     %th{style:"min-width:250px;"}
@@ -212,46 +130,28 @@
                       %a{href: "#"}
                         %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
                     
-                    %th Prioridad
+                    %th Estado
+                    - if(@user.role=="secpla" || @user.role=="admin")
+                      %th Editar
                 %tbody.cuerpo-tabla
+                  - cantidad_tableros=0
                   - @boards.each do |org_name, boards|
-                    - cantidad_tableros=0
-                    - prioridad_tablero=org_name
-                    - if(prioridad==(prioridad_tablero))
+                  - prioridad_tablero=org_name
+                    - if(@prioridades.include?(prioridad_tablero))
                       - boards.each do |board|
-                        
-                        - org=Organization.find_or_initialize_by(org_id: board["org_id"])
-                        - org.name=prioridad
-                        - org.municipio=@user.municipio
-                        - org.save
-                        - bdbrd=Board.find_by(board_id: board["id"])
                         - if(board["closed"]==false)
-                          - if(bdbrd==nil)
-
-                            - bdbrd=Board.new
-                            - bdbrd.name=board["name"]
-                            - bdbrd.board_id=board["id"]
-                            - bdbrd.closed="false"
-                            - bdbrd.state_change_dates=Array.new(10)
-                            - bdbrd.municipio=@user.municipio
-                            - bdbrd.users<<@user
-                            - bdbrd.save
-                          - else
-                            - bdbrd.name=board["name"]
-                            / - if(@closed.to_s=="true")
-                            /   - bdbrd.closed="true"
-                            / - else
-                            /   - bdbrd.closed="false"
-                            - bdbrd.save
-                          - if(bdbrd.closed=="false")
+                          - unless  @asignados.include?(board["name"])
+                            - #bdbrd=Board.find_or_create_by(board_id: board["id"])
+                            - #if(bdbrd!=nil)
                             - cantidad_tableros=cantidad_tableros+1
                             %tr
                               %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
-                                %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
-                                  #{board["name"].split('|')[0]}
+                                %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"]}"}
+                                  #{board["name"]}
+                              
                               - actual_board=Board.find_by(board_id: board["id"])
                               %td.celda-tabla{style: "width: 100%;"}
-                                .boards-list-item-link-b.overflow{style:"max-width:100%"}
+                                .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                                   - if actual_board != nil
                                     - if actual_board.fondo != nil
                                       #{actual_board.fondo.name}
@@ -261,32 +161,135 @@
                                     NO ASIGNADO
                               
                               %td.celda-tabla{style: "width: 100%;"}
-                                .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
-                                  - if(@user.role=="admin"||@user.role=="secpla")
-                                    %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: auto;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
-                                      - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
-                                        - if(@user.role=="secpla" || @user.role=="admin")
-                                          %option{:value => "#{@prioridades[count-14]}"} #{@prioridades[count-14]}
-                                      - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
-                                        - if(@user.role=="secpla" || @user.role=="admin")
-                                          %option{:value => "#{@prioridades[count-13]}"} #{@prioridades[count-13]}
-                                      %option{:value => "#{prioridad}",selected:""} #{prioridad}
-                                      - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
-                                        - if(@user.role=="secpla" || @user.role=="admin")
-                                          %option{:value => "#{@prioridades[count-11]}"} #{@prioridades[count-11]}
-                                      - if(@prioridades[count-10]=="3. No Priorizados" && @prioridades[count-10]!=nil)
-                                        - if(@user.role=="secpla" || @user.role=="admin")
-                                          %option{:value => "#{@prioridades[count-10]}"} #{@prioridades[count-10]}
-                                  - else
-                                    #{prioridad}
+                                .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                  NO ASIGNADO
+                                  - if(@user.role=="secpla" || @user.role=="admin") 
+                                    %div
+                                      %a{onclick: "changeState('En Formulación','#{board["id"]}')", title: "Pasar a la etapa 'En Formulación'"}
+                                        %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
+                              - if(@user.role=="secpla" || @user.role=="admin")
+                                %td.celda-tabla{style: "width: 100%;"}
+                                  - if actual_board != nil
+                                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                      %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
+                                        %span.glyphicon.glyphicon-pencil
+                  %script
+                    var text=$(document).find("#tab-text-1").text();
+                    $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
+    - if(@user.role=="secpla" || @user.role=="admin") 
+      .row{style:"margin:0px;"}
+        
+        - @org=@mun.organizations.find_by(name: "3. No Priorizados")
+        %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
+          Agregar Proyecto
+
+  .fondo-blanco
+    %div{style:"display: -webkit-inline-box;"}
+      %h2.ollert-header
+        .text-center.col-xs-12.no-padding{style:"text-align:left;"}
+          Prioridad de Proyectos
+    %div{style:"margin-top:50px;"}
+      #responsiveTabsDemo2
+        %ul#myTab.nav.nav-tabs.responsive
+          %li.lindo
+            %a.tab-custom{:href => "#tab-12",:id => "tab-text-12"} Urgentes
+          %li.lindo
+            %a.tab-custom{:href => "#tab-13",:id => "tab-text-13"} Priorizados
+          %li.lindo
+            %a.tab-custom{:href => "#tab-14",:id => "tab-text-14"} No Priorizados
+        .tab-content.responsive
+          -count=11
+          - @prioridades.each do |prioridad|
+            - count=count+1
+            %div{id: "tab-#{count}", class: "tab-pane"}
+              .col-md-12.col-sm-12.col-xs-12.no-padding
+                %table.table{id: "myTable-#{count}"}
+                  %thead
+                    %tr
+                      %th{style:"min-width:250px;"}
+                        Nombre Proyecto
+                        %a{href: "#"}
+                          %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                      %th{style:"min-width:100px;"}
+                        Fondo
+                        %a{href: "#"}
+                          %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                      
+                      %th Prioridad
+                  %tbody.cuerpo-tabla
+                    - @boards.each do |org_name, boards|
+                      - cantidad_tableros=0
+                      - prioridad_tablero=org_name
+                      - if(prioridad==(prioridad_tablero))
+                        - boards.each do |board|
+                          
+                          - org=Organization.find_or_initialize_by(org_id: board["org_id"])
+                          - org.name=prioridad
+                          - org.municipio=@user.municipio
+                          - org.save
+                          - bdbrd=Board.find_by(board_id: board["id"])
+                          - if(board["closed"]==false)
+                            - if(bdbrd==nil)
+
+                              - bdbrd=Board.new
+                              - bdbrd.name=board["name"]
+                              - bdbrd.board_id=board["id"]
+                              - bdbrd.closed="false"
+                              - bdbrd.state_change_dates=Array.new(10)
+                              - bdbrd.municipio=@user.municipio
+                              - bdbrd.users<<@user
+                              - bdbrd.save
+                            - else
+                              - bdbrd.name=board["name"]
+                              / - if(@closed.to_s=="true")
+                              /   - bdbrd.closed="true"
+                              / - else
+                              /   - bdbrd.closed="false"
+                              - bdbrd.save
+                            - if(bdbrd.closed=="false")
+                              - cantidad_tableros=cantidad_tableros+1
+                              %tr
+                                %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
+                                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board["id"]}",title:"#{board["name"].split('|')[0]}"}
+                                    #{board["name"].split('|')[0]}
+                                - actual_board=Board.find_by(board_id: board["id"])
+                                %td.celda-tabla{style: "width: 100%;"}
+                                  .boards-list-item-link-b.overflow{style:"max-width:100%"}
+                                    - if actual_board != nil
+                                      - if actual_board.fondo != nil
+                                        #{actual_board.fondo.name}
+                                      - else
+                                        NO ASIGNADO
+                                    - else
+                                      NO ASIGNADO
+                                
+                                %td.celda-tabla{style: "width: 100%;"}
+                                  .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
+                                    - if(@user.role=="admin"||@user.role=="secpla")
+                                      %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: auto;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
+                                        - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
+                                          - if(@user.role=="secpla" || @user.role=="admin")
+                                            %option{:value => "#{@prioridades[count-14]}"} #{@prioridades[count-14]}
+                                        - if(@prioridades[count-13]!="3. No Priorizados" && @prioridades[count-13]!=nil)
+                                          - if(@user.role=="secpla" || @user.role=="admin")
+                                            %option{:value => "#{@prioridades[count-13]}"} #{@prioridades[count-13]}
+                                        %option{:value => "#{prioridad}",selected:""} #{prioridad}
+                                        - if(@prioridades[count-11]!="1. Urgentes" && @prioridades[count-11]!=nil)
+                                          - if(@user.role=="secpla" || @user.role=="admin")
+                                            %option{:value => "#{@prioridades[count-11]}"} #{@prioridades[count-11]}
+                                        - if(@prioridades[count-10]=="3. No Priorizados" && @prioridades[count-10]!=nil)
+                                          - if(@user.role=="secpla" || @user.role=="admin")
+                                            %option{:value => "#{@prioridades[count-10]}"} #{@prioridades[count-10]}
+                                    - else
+                                      #{prioridad}
 
 
-                                    
-                                 
+                                      
+                                   
 
-                      %script
-                        var text=$(document).find("#tab-text-#{count}").text();
-                        $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
+                        %script
+                          var text=$(document).find("#tab-text-#{count}").text();
+                          $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
 
 - if(@user.role=="secpla" || @user.role=="admin")       
   :javascript
