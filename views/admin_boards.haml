@@ -29,8 +29,8 @@
                   - @names.each do |name|
                     %option #{name}
               %th{style:"min-width:100px;"}
-                Estado
                 %select#assigned-state-filter.form-control
+                  %option{:disabled => "", :selected => ""} Estado
                   %option Todos
                   %option NO ASIGNADO
                   %option En Formulación
