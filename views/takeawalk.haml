@@ -32,12 +32,13 @@
         %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true",style:"color: #4D97C1;"}
         %span.sr-only Next
 :javascript
+  var b=$(".btn.plus").parent().width()/2;
+  var a=$(".btn.plus").width()/2;
+  $(".btn.plus").css({left: b-a});
+:javascript
   $(document).ready(function(){
     $('#confirm').modal({ backdrop: 'static', keyboard: false })
     $("#confirm").removeClass( "hide");
-    var b=$(".btn.plus").parent().width()/2;
-    var a=$(".btn.plus").width()/2;
-    $(".btn.plus").css({left: b-a});
   });
   $('.carousel').carousel({
       interval: false,
