@@ -12,11 +12,11 @@
                 Nombre Proyecto
                 %a{href: "#"}
                   %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
-                  %select#assigned-user-filter.form-control
-                    %option None
-                    - @names=@boards.map{|t| t.name}.uniq 
-                    - @names.each do |name|
-                      %option #{name}
+                %select#assigned-user-filter.form-control
+                  %option None
+                  - @names=@boards.map{|t| t.name}.uniq 
+                  - @names.each do |name|
+                    %option #{name}
               %th{style:"min-width:100px;"}
                 Fondo
                 %a{href: "#"}
