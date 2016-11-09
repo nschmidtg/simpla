@@ -14,7 +14,8 @@
                 Fondo
                 %select#assigned-fondo-filter.form-control
                   %option Todos
-                  - @names=@boards.map{|t| t.fondo.name}.uniq 
+                  - @not_nil=@boards.map{|t| t.fondo}.compact 
+                  - @names=@not_nil.map{|t| t.fondo.name}.uniq 
                   - @names.each do |name|
                     %option #{name}
               %th{style:"min-width:100px;"}
