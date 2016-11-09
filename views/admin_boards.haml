@@ -48,7 +48,7 @@
                   %option{:disabled => "", :selected => ""} Zonas
                   %option Todas
                   - @zonesx=@user.municipio.zones.map{|t| t.name}.uniq 
-                  - @zones= zonesx.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                  - @zones= @zonesx.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
                   - @zones.each do |z|  
                     %option #{z}
                     
