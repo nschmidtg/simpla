@@ -11,8 +11,8 @@
               %th{style:"min-width:250px;"}
                 Nombre Proyecto
               %th{style:"min-width:100px;"}
-                Fondo
                 %select#assigned-fondo-filter.form-control
+                  %option{:disabled => "", :selected => ""} Fondo
                   %option Todos
                   %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.fondo}.compact 
@@ -20,8 +20,8 @@
                   - @names.each do |name|
                     %option #{name}
               %th{style:"min-width:100px;"}
-                Tipo
                 %select#assigned-tipo-filter.form-control
+                  %option{:disabled => "", :selected => ""} Tipo
                   %option Todos
                   %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.tipo}.compact 
