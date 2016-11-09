@@ -35,10 +35,10 @@
                 %th Editar
           %tbody.cuerpo-tabla
             - @boards.each do |board|
-              %tr.task-list-row{"data-assigned-user"=>"#{board.name.split('|')[0]}"}
+              %tr.task-list-row{"data-assigned-user"=>"#{board.name.split(' |')[0]}"}
                 %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
-                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split('|')[0]} "}
-                    #{board.name.split('|')[0]}               
+                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split(' |')[0]} "}
+                    #{board.name.split(' |')[0]}               
                 %td.celda-tabla{style: "width: 100%;"}
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
