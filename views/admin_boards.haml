@@ -21,8 +21,13 @@
                     %option #{name}
               %th{style:"min-width:100px;"}
                 Tipo
-                %a{href: "#"}
-                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                %select#assigned-tipo-filter.form-control
+                  %option Todos
+                  %option NO ASIGNADO
+                  - @not_nil=@boards.map{|t| t.tipo}.compact 
+                  - @names=@not_nil.map{|t| t.name}.uniq 
+                  - @names.each do |name|
+                    %option #{name}
               %th{style:"min-width:100px;"} 
                 Zonas
               %th{style:"min-width:100px;"}
@@ -37,7 +42,11 @@
                 - fondox=board.fondo.name
               - else
                 - fondox="NO ASIGNADO"
-              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}"}
+              - if(board.tipo!=nil)
+                - tipox=board.tipo.name
+              - else
+                - tipox="NO ASIGNADO"
+              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}","data-assigned-tipo"=>"#{tipox}"}
                 %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split(' |')[0]} "}
                     #{board.name.split(' |')[0]}               
@@ -123,6 +132,20 @@
     }else{
       $('.task-list-row').hide().filter(function() {
         return $(this).data('assigned-fondo') == assignedUser;
+      }).show();   
+    }
+  });
+
+  $('#assigned-tipo-filter').on('change', function() {
+    var assignedUser = this.value;
+    
+    if(assignedUser === 'Todos'){
+      $('.task-list-row').hide().filter(function() {
+        return $(this).data('assigned-tipo') != assignedUser;
+      }).show();
+    }else{
+      $('.task-list-row').hide().filter(function() {
+        return $(this).data('assigned-tipo') == assignedUser;
       }).show();   
     }
   });
