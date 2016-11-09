@@ -44,7 +44,14 @@
                   %option Finalizado
                   %option Descartado
               %th{style:"min-width:100px;"} 
-                Zonas
+                %select#assigned-zone-filter.form-control
+                  %option{:disabled => "", :selected => ""} Zonas
+                  %option Todas
+                  - @zones=@user.municipio.zones.map{|t| t.name}.uniq 
+                  - @zones.each do |z|  
+                    %option #{z}
+                    
+                
               - if(@user.role=="secpla" || @user.role=="admin")
                 %th Editar
           %tbody.cuerpo-tabla
@@ -61,7 +68,14 @@
                 - statex=board.name.split('|')[1]
               - else
                 - statex="NO ASIGNADO"
-              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}","data-assigned-tipo"=>"#{tipox}","data-assigned-state"=>"#{statex}"}
+              - zoness=" | "
+              - if(board.zones.count != 0)
+                - zones=board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                - zones.each do |zone|
+                  - zoness=zoness+zone.name+" | "
+              -else
+                - zoness="NO ASIGNADAS"
+              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}","data-assigned-tipo"=>"#{tipox}","data-assigned-state"=>"#{statex}","data-assigned-zone"=>"#{zoness}"}
                 %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split(' |')[0]} "}
                     #{board.name.split(' |')[0]}               
@@ -134,7 +148,7 @@
 
 
   var
-  tipoFilter, stateFilter, fondoFilter;
+  tipoFilter, stateFilter, fondoFilter, zoneFilter;
 
   function updateFilters() {
     $('.task-list-row').hide().filter(function() {
@@ -150,6 +164,9 @@
       }
       if (stateFilter && (stateFilter != 'Todos')) {
         result = result && stateFilter === self.data('assigned-state');
+      }
+      if (zoneFilter && (zoneFilter != 'Todas')) {
+        result = result && zoneFilter === self.data('assigned-zone');
       }
       
       
@@ -172,6 +189,12 @@
   // Task Status Dropdown Filter
   $('#assigned-state-filter').on('change', function() {
     stateFilter = this.value;
+    updateFilters();
+  });
+
+  // Task Status Dropdown Filter
+  $('#assigned-zone-filter').on('change', function() {
+    zoneFilter = this.value;
     updateFilters();
   });
 
