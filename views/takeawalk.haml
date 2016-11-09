@@ -41,6 +41,7 @@
       wrap: false
     });
     $('.carousel').on('slide',function(e){
+      delay(200);
       var b=$(".btn.plus").parent().width()/2;
       var a=$(".btn.plus").width()/2;
       $(".btn.plus").css({left: b-a-12});
