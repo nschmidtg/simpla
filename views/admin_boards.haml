@@ -8,7 +8,7 @@
         %table.table{id: "myTable"}
           %thead
             %tr
-              %th{style:"min-width:250px;"}
+              %th{style:"min-width:198px;"}
                 Nombre Proyecto
               %th{style:"min-width:100px;"}
                 %select#assigned-fondo-filter.form-control
@@ -114,14 +114,7 @@
                       %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{board.board_id}&board_name=#{board.name}&edit=true"}
                         %span.glyphicon.glyphicon-pencil
     .row{style:"margin:0px;"}
-      
-      - if(@user.role=="secpla" || @user.role=="admin") 
-        
-        - @mun=Municipio.find_by(id: params[:mun_id])
-        - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-        %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
-          Agregar Proyecto
-      %a.btn.plus#save_image_locally{style:"margin-right:20px;"}
+      %a.btn.plus#save_image_locally
         Imprimir
 
 :javascript
