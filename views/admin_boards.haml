@@ -32,7 +32,7 @@
                 Zonas
               %th{style:"min-width:100px;"}
                 Estado
-                %select#assigned-fondo-filter.form-control
+                %select#assigned-state-filter.form-control
                   %option Todos
                   %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.name.split('|')[1]}.compact 
