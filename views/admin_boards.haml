@@ -12,6 +12,11 @@
                 Nombre Proyecto
                 %a{href: "#"}
                   %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                  %select#assigned-user-filter.form-control
+                    %option None
+                    - @names=@boards.map{|t| t.name}.uniq 
+                    - @names.each do |name|
+                      %option #{name}
               %th{style:"min-width:100px;"}
                 Fondo
                 %a{href: "#"}
@@ -30,7 +35,7 @@
                 %th Editar
           %tbody.cuerpo-tabla
             - @boards.each do |board|
-              %tr
+              %tr.task-list-row{"data-assigned-user"=>"#{board.name.split('|')[0]}"}
                 %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split('|')[0]} "}
                     #{board.name.split('|')[0]}               
@@ -108,4 +113,17 @@
         a.click();
       }
     });
+  });
+  $('#assigned-user-filter').on('change', function() {
+    var assignedUser = this.value;
+    
+    if(assignedUser === 'None'){
+      $('.task-list-row').hide().filter(function() {
+        return $(this).data('assigned-user') != assignedUser;
+      }).show();
+    }else{
+      $('.task-list-row').hide().filter(function() {
+        return $(this).data('assigned-user') == assignedUser;
+      }).show();   
+    }
   });
