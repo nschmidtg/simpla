@@ -28,7 +28,7 @@
       %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
         %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true",style:"color: #4D97C1;"}
         %span.sr-only Previous
-      %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel", :role => "button"}
+      %a.right.carousel-control{"data-slide" => "next", :href => "#myCarousel", :role => "button",:onClick=>"setsize"}
         %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true",style:"color: #4D97C1;"}
         %span.sr-only Next
 :javascript
@@ -36,14 +36,18 @@
     interval: false,
     wrap: false
   });
+:javascript
+  function setsize(){
+    var b=$(".btn.plus").parent().width()/2;
+    var a=$(".btn.plus").width()/2;
+    $(".btn.plus").css({left: b-a-12});
+  }
   
 :javascript
   $(document).ready(function(){
     $('#confirm').modal({ backdrop: 'static', keyboard: false })
     $("#confirm").removeClass( "hide");
-    var b=$(".btn.plus").parent().width()/2;
-    var a=$(".btn.plus").width()/2;
-    $(".btn.plus").css({left: b-a});
   });
+
   
   
