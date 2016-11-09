@@ -14,6 +14,7 @@
                 Fondo
                 %select#assigned-fondo-filter.form-control
                   %option Todos
+                  %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.fondo}.compact 
                   - @names=@not_nil.map{|t| t.name}.uniq 
                   - @names.each do |name|
