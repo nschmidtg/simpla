@@ -232,12 +232,17 @@
                             - if(bdbrd==nil)
                               - bdbrd=Board.new
                               - bdbrd.state_change_dates=Array.new(10)
+                              - bdbrd.name=board["name"]
+                              - bdbrd.board_id=board["id"]
+                              - bdbrd.closed="false"
+                              - bdbrd.coords=@user.municipio.coords
+                              - bdbrd.municipio=@user.municipio
+                              - bdbrd.users<<@user
                               - bdbrd.save
                             - else
                               - bdbrd.name=board["name"]
                               - bdbrd.board_id=board["id"]
                               - bdbrd.closed="false"
-                              - bdbrd.coords=@user.municipio.coords
                               - bdbrd.municipio=@user.municipio
                               - bdbrd.users<<@user
                               - bdbrd.save
