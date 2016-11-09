@@ -122,30 +122,67 @@
       }
     });
   });
-  $('#assigned-fondo-filter').on('change', function() {
-    var assignedUser = this.value;
+
+
+  / $('#assigned-fondo-filter').on('change', function() {
+  /   var assignedUser = this.value;
     
-    if(assignedUser === 'Todos'){
-      $('.task-list-row').hide().filter(function() {
-        return $(this).data('assigned-fondo') != assignedUser;
-      }).show();
-    }else{
-      $('.task-list-row').hide().filter(function() {
-        return $(this).data('assigned-fondo') == assignedUser;
-      }).show();   
-    }
+  /   if(assignedUser === 'Todos'){
+  /     $('.task-list-row').hide().filter(function() {
+  /       return $(this).data('assigned-fondo') != assignedUser;
+  /     }).show();
+  /   }else{
+  /     $('.task-list-row').hide().filter(function() {
+  /       return $(this).data('assigned-fondo') == assignedUser;
+  /     }).show();   
+  /   }
+  / });
+
+  / $('#assigned-tipo-filter').on('change', function() {
+  /   var assignedUser = this.value;
+    
+  /   if(assignedUser === 'Todos'){
+  /     $('.task-list-row').hide().filter(function() {
+  /       return $(this).data('assigned-tipo') != assignedUser;
+  /     }).show();
+  /   }else{
+  /     $('.task-list-row').hide().filter(function() {
+  /       return $(this).data('assigned-tipo') == assignedUser;
+  /     }).show();   
+  /   }
+  / });
+
+  var
+  tipoFilter, fondoFilter;
+
+  function updateFilters() {
+    $('.task-list-row').hide().filter(function() {
+      var
+        self = $(this),
+        result = true; // not guilty until proven guilty
+
+      if (tipoFilter && (tipoFilter != 'None')) {
+        result = result && tipoFilter === self.data('assigned-tipo');
+      }
+      if (fondoFilter && (fondoFilter != 'Any')) {
+        result = result && fondoFilter === self.data('assigned-fondo');
+      }
+      
+      
+      return result;
+    }).show();
+  }
+
+  // Assigned User Dropdown Filter
+  $('#assigned-tipo-filter').on('change', function() {
+    tipoFilter = this.value;
+    updateFilters();
   });
 
-  $('#assigned-tipo-filter').on('change', function() {
-    var assignedUser = this.value;
-    
-    if(assignedUser === 'Todos'){
-      $('.task-list-row').hide().filter(function() {
-        return $(this).data('assigned-tipo') != assignedUser;
-      }).show();
-    }else{
-      $('.task-list-row').hide().filter(function() {
-        return $(this).data('assigned-tipo') == assignedUser;
-      }).show();   
-    }
+  // Task Status Dropdown Filter
+  $('#assigned-fondo-filter').on('change', function() {
+    fondoFilter = this.value;
+    updateFilters();
   });
+
+ 
