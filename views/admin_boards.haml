@@ -47,7 +47,8 @@
                 %select#assigned-zone-filter.form-control 
                   %option{:disabled => "", :selected => ""} Zonas
                   %option Todas
-                  - @zones=@user.municipio.zones.map{|t| t.name}.uniq 
+                  - @zonesx=@user.municipio.zones.map{|t| t.name}.uniq 
+                  - @zones= zonesx.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
                   - @zones.each do |z|  
                     %option #{z}
                     
@@ -166,7 +167,7 @@
         result = result && stateFilter === self.data('assigned-state');
       }
       if (zoneFilter && (zoneFilter != 'Todas')) {
-        result = result && zoneFilter === self.data('assigned-zone');
+        result = result && self.data('assigned-zone').split(" | ").indexOf(zoneFilter) != -1;
       }
       
       
