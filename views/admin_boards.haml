@@ -28,8 +28,6 @@
                   - @names=@not_nil.map{|t| t.name}.uniq 
                   - @names.each do |name|
                     %option #{name}
-              %th{style:"min-width:100px;"} 
-                Zonas
               %th{style:"min-width:100px;"}
                 Estado
                 %select#assigned-state-filter.form-control
@@ -45,6 +43,8 @@
                   %option En Ejecución
                   %option Finalizado
                   %option Descartado
+              %th{style:"min-width:100px;"} 
+                Zonas
               - if(@user.role=="secpla" || @user.role=="admin")
                 %th Editar
           %tbody.cuerpo-tabla
@@ -84,6 +84,12 @@
                     - else
                       NO ASIGNADO
                 %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                    - if(board.current_state!=nil)
+                      #{board.current_state}
+                    - else
+                      NO ASIGNADO
+                %td.celda-tabla{style: "width: 100%;"}
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
                       - if board.zones != nil
@@ -102,12 +108,6 @@
                         NO ASIGNADAS
                     - else
                       NO ASIGNADAS
-                %td.celda-tabla{style: "width: 100%;"}
-                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                    - if(board.current_state!=nil)
-                      #{board.current_state}
-                    - else
-                      NO ASIGNADO
                 - if(@user.role=="secpla" || @user.role=="admin")
                   %td.celda-tabla{style: "width: 100%;"}
                     .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
