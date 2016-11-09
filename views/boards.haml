@@ -240,6 +240,10 @@
                               - bdbrd.users<<@user
                               - bdbrd.save
                             - else
+                              - if(bdbrd.coords==nil)
+                                - bdbrd.coords=@user.municipio.coords
+                              - if(bdbrd.state_change_dates==nil)
+                                - bdbrd.state_change_dates=Array.new(10)
                               - bdbrd.name=board["name"]
                               - bdbrd.board_id=board["id"]
                               - bdbrd.closed="false"
