@@ -35,10 +35,16 @@
                 %select#assigned-state-filter.form-control
                   %option Todos
                   %option NO ASIGNADO
-                  - @not_nil=@boards.map{|t| t.name.split('|')[1]}.compact 
-                  - @names=@not_nil.uniq 
-                  - @names.each do |name|
-                    %option #{name}
+                  %option En Formulación
+                  %option Ingresado
+                  %option Observado
+                  %option Con Aprobación Técnica
+                  %option Con recursos Aprobados
+                  %option Preparación de Licitación
+                  %option Evaluación y adjudicación de propuestas
+                  %option En Ejecución
+                  %option Finalizado
+                  %option Descartado
               - if(@user.role=="secpla" || @user.role=="admin")
                 %th Editar
           %tbody.cuerpo-tabla
