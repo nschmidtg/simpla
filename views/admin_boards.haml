@@ -44,7 +44,7 @@
                   %option Finalizado
                   %option Descartado
               %th{style:"min-width:100px;"} 
-                %select#assigned-zone-filter.form-control
+                %select#assigned-zone-filter.form-control 
                   %option{:disabled => "", :selected => ""} Zonas
                   %option Todas
                   - @zones=@user.municipio.zones.map{|t| t.name}.uniq 
