@@ -134,10 +134,10 @@
         self = $(this),
         result = true; // not guilty until proven guilty
 
-      if (tipoFilter && (tipoFilter != 'None')) {
+      if (tipoFilter && (tipoFilter != 'Todos')) {
         result = result && tipoFilter === self.data('assigned-tipo');
       }
-      if (fondoFilter && (fondoFilter != 'Any')) {
+      if (fondoFilter && (fondoFilter != 'Todos')) {
         result = result && fondoFilter === self.data('assigned-fondo');
       }
       
