@@ -4898,3 +4898,85 @@
 [2016-11-08 10:09:22 -0300 cpp-VirtualBox (9261)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-08 10:09:22 -0300 cpp-VirtualBox (9263)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-08 10:09:22 -0300 cpp-VirtualBox (9266)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-08 10:17:43 -0300 cpp-VirtualBox (10094)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:17:43 -0300 cpp-VirtualBox (10094)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:17:43 -0300 cpp-VirtualBox (10094)] INFO : Will re-attempt in 60 seconds
+[2016-11-08 10:17:43 -0300 cpp-VirtualBox (10097)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:17:43 -0300 cpp-VirtualBox (10097)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:17:43 -0300 cpp-VirtualBox (10097)] INFO : Will re-attempt in 60 seconds
+[2016-11-08 10:18:04 -0300 cpp-VirtualBox (10100)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:18:04 -0300 cpp-VirtualBox (10100)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:18:04 -0300 cpp-VirtualBox (10100)] INFO : Will re-attempt in 60 seconds
+[2016-11-08 10:19:24 -0300 cpp-VirtualBox (10094)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:19:24 -0300 cpp-VirtualBox (10094)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:19:24 -0300 cpp-VirtualBox (10094)] INFO : Will re-attempt in 120 seconds
+[2016-11-08 10:19:24 -0300 cpp-VirtualBox (10097)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:19:24 -0300 cpp-VirtualBox (10097)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:19:24 -0300 cpp-VirtualBox (10097)] INFO : Will re-attempt in 120 seconds
+[2016-11-08 10:19:45 -0300 cpp-VirtualBox (10100)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:19:45 -0300 cpp-VirtualBox (10100)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:19:45 -0300 cpp-VirtualBox (10100)] INFO : Will re-attempt in 120 seconds
+[2016-11-08 10:22:05 -0300 cpp-VirtualBox (10094)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:22:05 -0300 cpp-VirtualBox (10094)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:22:05 -0300 cpp-VirtualBox (10094)] INFO : Will re-attempt in 180 seconds
+[2016-11-08 10:22:05 -0300 cpp-VirtualBox (10097)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:22:05 -0300 cpp-VirtualBox (10097)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:22:05 -0300 cpp-VirtualBox (10097)] INFO : Will re-attempt in 180 seconds
+[2016-11-08 10:22:26 -0300 cpp-VirtualBox (10100)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:22:26 -0300 cpp-VirtualBox (10100)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:22:26 -0300 cpp-VirtualBox (10100)] INFO : Will re-attempt in 180 seconds
+[2016-11-08 10:25:46 -0300 cpp-VirtualBox (10094)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:25:46 -0300 cpp-VirtualBox (10094)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:25:46 -0300 cpp-VirtualBox (10094)] INFO : Will re-attempt in 240 seconds
+[2016-11-08 10:25:46 -0300 cpp-VirtualBox (10097)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:25:46 -0300 cpp-VirtualBox (10097)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:25:46 -0300 cpp-VirtualBox (10097)] INFO : Will re-attempt in 240 seconds
+[2016-11-08 10:26:07 -0300 cpp-VirtualBox (10100)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:26:07 -0300 cpp-VirtualBox (10100)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:26:07 -0300 cpp-VirtualBox (10100)] INFO : Will re-attempt in 240 seconds
+[2016-11-08 10:30:22 -0300 cpp-VirtualBox (10094)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:30:22 -0300 cpp-VirtualBox (10094)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:30:22 -0300 cpp-VirtualBox (10094)] INFO : Will re-attempt in 300 seconds
+[2016-11-08 10:30:22 -0300 cpp-VirtualBox (10097)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:30:22 -0300 cpp-VirtualBox (10097)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:30:22 -0300 cpp-VirtualBox (10097)] INFO : Will re-attempt in 300 seconds
+[2016-11-08 10:30:23 -0300 cpp-VirtualBox (10100)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-08 10:30:23 -0300 cpp-VirtualBox (10100)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-08 10:30:23 -0300 cpp-VirtualBox (10100)] INFO : Will re-attempt in 300 seconds
+[2016-11-10 10:12:01 -0300 cpp-VirtualBox (10097)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 10:12:01 -0300 cpp-VirtualBox (10094)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 10:12:02 -0300 cpp-VirtualBox (10100)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Environment: development
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Dispatcher: unicorn
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Installing Net instrumentation
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Installing Sinatra instrumentation
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Installing Mongo instrumentation
+[2016-11-10 10:48:33 -0300 cpp-VirtualBox (13960)] INFO : Finished instrumentation
+[2016-11-10 10:48:34 -0300 cpp-VirtualBox (13960)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 10:52:12 -0300 cpp-VirtualBox (13975)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 10:52:12 -0300 cpp-VirtualBox (13978)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 10:52:18 -0300 cpp-VirtualBox (13973)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Environment: development
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Dispatcher: unicorn
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Installing Net instrumentation
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:06:42 -0300 cpp-VirtualBox (15409)] INFO : Finished instrumentation
+[2016-11-10 11:06:43 -0300 cpp-VirtualBox (15409)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:06:51 -0300 cpp-VirtualBox (15433)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:06:52 -0300 cpp-VirtualBox (15436)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:06:52 -0300 cpp-VirtualBox (15430)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039

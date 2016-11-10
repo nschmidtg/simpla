@@ -115,12 +115,12 @@
               %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
               #map
 
-
-    .form-group    
-      .col-md-9.col-sm-12.col-xs-12
-        .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
-          %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
-            Editar Proyecto 
+    - if(@user.role=="admin" || @user.role=="secpla")
+      .form-group    
+        .col-md-9.col-sm-12.col-xs-12
+          .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
+            %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
+              Editar Proyecto 
       
     .row
       .form-group 
@@ -174,7 +174,7 @@
   text: 'Días en cada estado'
   },
   xAxis: {
-  categories: ["#{@board.name.split('|')[0]}"],
+  categories: [" "],
   labels: {
   rotation: -45
   },
