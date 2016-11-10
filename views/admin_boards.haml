@@ -8,32 +8,78 @@
         %table.table{id: "myTable"}
           %thead
             %tr
-              %th{style:"min-width:250px;"}
+              %th{style:"min-width:125px;"}
                 Nombre Proyecto
-                %a{href: "#"}
-                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
               %th{style:"min-width:100px;"}
-                Fondo
-                %a{href: "#"}
-                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                %select#assigned-fondo-filter.form-control
+                  %option{:disabled => "", :selected => ""} Fondo
+                  %option Todos
+                  %option NO ASIGNADO
+                  - @not_nil=@boards.map{|t| t.fondo}.compact 
+                  - @names=@not_nil.map{|t| t.name}.uniq 
+                  - @names.each do |name|
+                    %option #{name}
               %th{style:"min-width:100px;"}
-                Tipo
-                %a{href: "#"}
-                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                %select#assigned-tipo-filter.form-control
+                  %option{:disabled => "", :selected => ""} Tipo
+                  %option Todos
+                  %option NO ASIGNADO
+                  - @not_nil=@boards.map{|t| t.tipo}.compact 
+                  - @names=@not_nil.map{|t| t.name}.uniq 
+                  - @names.each do |name|
+                    %option #{name}
+              %th{style:"min-width:100px;"}
+                %select#assigned-state-filter.form-control
+                  %option{:disabled => "", :selected => ""} Estado
+                  %option Todos
+                  %option NO ASIGNADO
+                  %option En Formulación
+                  %option Ingresado
+                  %option Observado
+                  %option Con Aprobación Técnica
+                  %option Con recursos Aprobados
+                  %option Preparación de Licitación
+                  %option Evaluación y adjudicación de propuestas
+                  %option En Ejecución
+                  %option Finalizado
+                  %option Descartado
               %th{style:"min-width:100px;"} 
-                Zonas
-              %th{style:"min-width:100px;"}
-                Estado
-                %a{href: "#"}
-                  %span.glyphicon.glyphicon-sort{"aria-hidden" => "true", "style"=>"margin-left:10px;"}
+                %select#assigned-zone-filter.form-control 
+                  %option{:disabled => "", :selected => ""} Zonas
+                  %option Todas
+                  - @zonesx=@user.municipio.zones.map{|t| t.name}.uniq 
+                  - @zones= @zonesx.sort{|a,b| a.delete("^0-9").to_i <=> b.delete("^0-9").to_i}
+                  - @zones.each do |z|  
+                    %option #{z}
+                    
+                
               - if(@user.role=="secpla" || @user.role=="admin")
                 %th Editar
           %tbody.cuerpo-tabla
             - @boards.each do |board|
-              %tr
+              - if(board.fondo!=nil)
+                - fondox=board.fondo.name
+              - else
+                - fondox="NO ASIGNADO"
+              - if(board.tipo!=nil)
+                - tipox=board.tipo.name
+              - else
+                - tipox="NO ASIGNADO"
+              - if(board.name.split('|')[1]!=nil)
+                - statex=board.name.split('|')[1]
+              - else
+                - statex="NO ASIGNADO"
+              - zoness=" | "
+              - if(board.zones.count != 0)
+                - zones=board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+                - zones.each do |zone|
+                  - zoness=zoness+zone.name+" | "
+              -else
+                - zoness="NO ASIGNADAS"
+              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}","data-assigned-tipo"=>"#{tipox}","data-assigned-state"=>"#{statex}","data-assigned-zone"=>"#{zoness}"}
                 %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
-                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split('|')[0]} "}
-                    #{board.name.split('|')[0]}               
+                  %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split(' |')[0]} "}
+                    #{board.name.split(' |')[0]}               
                 %td.celda-tabla{style: "width: 100%;"}
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
@@ -50,6 +96,12 @@
                         #{board.tipo.name}
                       - else
                         NO ASIGNADO
+                    - else
+                      NO ASIGNADO
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                    - if(board.current_state!=nil)
+                      #{board.current_state}
                     - else
                       NO ASIGNADO
                 %td.celda-tabla{style: "width: 100%;"}
@@ -71,32 +123,16 @@
                         NO ASIGNADAS
                     - else
                       NO ASIGNADAS
-                %td.celda-tabla{style: "width: 100%;"}
-                  .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                    - if(board.current_state!=nil)
-                      #{board.current_state}
-                    - else
-                      NO ASIGNADO
                 - if(@user.role=="secpla" || @user.role=="admin")
                   %td.celda-tabla{style: "width: 100%;"}
                     .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                       %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{board.board_id}&board_name=#{board.name}&edit=true"}
                         %span.glyphicon.glyphicon-pencil
     .row{style:"margin:0px;"}
-      
-      - if(@user.role=="secpla" || @user.role=="admin") 
-        
-        - @mun=Municipio.find_by(id: params[:mun_id])
-        - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-        %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
-          Agregar Proyecto
-      %a.btn.plus#save_image_locally{style:"margin-right:20px;"}
-        Descargar
+      %a.btn.plus#save_image_locally
+        Imprimir
 
 :javascript
-  $(document).ready(function(){
-    $("#myTable").tablesorter(); 
-  })
   $('#save_image_locally').click(function(){
     html2canvas($('#myTable'), 
     {background :'#FFFFFF',
@@ -109,3 +145,58 @@
       }
     });
   });
+
+
+
+  var
+  tipoFilter, stateFilter, fondoFilter, zoneFilter;
+
+  function updateFilters() {
+    $('.task-list-row').hide().filter(function() {
+      var
+        self = $(this),
+        result = true; // not guilty until proven guilty
+
+      if (tipoFilter && (tipoFilter != 'Todos')) {
+        result = result && tipoFilter === self.data('assigned-tipo');
+      }
+      if (fondoFilter && (fondoFilter != 'Todos')) {
+        result = result && fondoFilter === self.data('assigned-fondo');
+      }
+      if (stateFilter && (stateFilter != 'Todos')) {
+        result = result && stateFilter === self.data('assigned-state');
+      }
+      if (zoneFilter && (zoneFilter != 'Todas')) {
+        result = result && self.data('assigned-zone').split(" | ").indexOf(zoneFilter) != -1;
+      }
+      
+      
+      return result;
+    }).show();
+  }
+
+  // Assigned User Dropdown Filter
+  $('#assigned-tipo-filter').on('change', function() {
+    tipoFilter = this.value;
+    updateFilters();
+  });
+
+  // Task Status Dropdown Filter
+  $('#assigned-fondo-filter').on('change', function() {
+    fondoFilter = this.value;
+    updateFilters();
+  });
+
+  // Task Status Dropdown Filter
+  $('#assigned-state-filter').on('change', function() {
+    stateFilter = this.value;
+    updateFilters();
+  });
+
+  // Task Status Dropdown Filter
+  $('#assigned-zone-filter').on('change', function() {
+    zoneFilter = this.value;
+    updateFilters();
+  });
+
+ 

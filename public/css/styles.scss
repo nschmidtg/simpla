@@ -1862,6 +1862,7 @@ a.btn {
   display: -webkit-inline-box;
 }
 
+
 .cuerpo-tabla {
   border-top-color: #0167A3;
   border-top-style: solid;
@@ -1896,6 +1897,14 @@ a.btn {
   > a.tab-custom:active {
     border: 1px solid #dddddd !important;
   }
+}
+@media only screen and (max-width: 1200px) {
+  #myTab{
+    height: 100px:
+  }
+}
+.carousel-indicators {
+  display:none;
 }
 
 @media only screen and (max-width: 768px) {

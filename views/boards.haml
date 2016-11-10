@@ -230,22 +230,25 @@
                           - bdbrd=Board.find_by(board_id: board["id"])
                           - if(board["closed"]==false)
                             - if(bdbrd==nil)
-
                               - bdbrd=Board.new
+                              - bdbrd.state_change_dates=Array.new(10)
                               - bdbrd.name=board["name"]
                               - bdbrd.board_id=board["id"]
                               - bdbrd.closed="false"
                               - bdbrd.coords=@user.municipio.coords
-                              - bdbrd.state_change_dates=Array.new(10)
                               - bdbrd.municipio=@user.municipio
                               - bdbrd.users<<@user
                               - bdbrd.save
                             - else
+                              - if(bdbrd.coords==nil)
+                                - bdbrd.coords=@user.municipio.coords
+                              - if(bdbrd.state_change_dates==nil)
+                                - bdbrd.state_change_dates=Array.new(10)
                               - bdbrd.name=board["name"]
-                              / - if(@closed.to_s=="true")
-                              /   - bdbrd.closed="true"
-                              / - else
-                              /   - bdbrd.closed="false"
+                              - bdbrd.board_id=board["id"]
+                              - bdbrd.closed="false"
+                              - bdbrd.municipio=@user.municipio
+                              - bdbrd.users<<@user
                               - bdbrd.save
                             - if(bdbrd.closed=="false")
                               - cantidad_tableros=cantidad_tableros+1

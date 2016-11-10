@@ -1,9 +1,9 @@
 
 
 
-#confirm.modalx.hide.fade2
+#confirm.modalx.hide.fade2{style:"padding-right;0px;"}
 
-  .container
+  .container{style:"margin-left:50px;"}
     %br/
     #myCarousel.carousel.slide{"data-ride" => "carousel"}
       / Indicators
@@ -20,9 +20,10 @@
           %img{:alt => "Chania", :height => "500", :src => "/img/OLLERT-17.png", :width => "700"}/   
         .item
           %img{:alt => "Flower", :height => "500", :src => "/img/OLLERT-18.png", :width => "700"}/
-        .item
-          %a.right{"data-slide" => "prev", :href => "/", :role => "button",style:"float: right;z-index: 500000;display: -webkit-inline-box;color:#0167A3"}
-            %span.glyphicon.glyphicon-remove{"aria-hidden" => "true",style:"float:right;display:-webkit-inline-box"}
+        .item{style:"text-align:center"}
+          %div{style:"position:fixed;bottom:2;text-align:center;width:100%;"}
+            %a.btn.plus{href:"/",style:"float: inherit;;"}
+              Entendido 
           %img{:alt => "Chania", :height => "500", :src => "/img/OLLERT-19.png", :width => "700"}/   
       / Left and right controls
       %a.left.carousel-control{"data-slide" => "prev", :href => "#myCarousel", :role => "button"}
@@ -32,12 +33,20 @@
         %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true",style:"color: #4D97C1;"}
         %span.sr-only Next
 :javascript
+  $('.carousel').carousel({
+    interval: false,
+    wrap: false
+  });
+  $('.carousel').on('slide',function(e){
+    var b=$(".btn.plus").parent().width()/2;
+    var a=$(".btn.plus").width()/2;
+    $(".btn.plus").css({left: b-a});
+  });
+:javascript
   $(document).ready(function(){
     $('#confirm').modal({ backdrop: 'static', keyboard: false })
     $("#confirm").removeClass( "hide");
   });
-  $('.carousel').carousel({
-      interval: false,
-      wrap: false
-  });
+
+  
   
