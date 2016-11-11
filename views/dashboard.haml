@@ -316,10 +316,9 @@
   "type":"bar",
   "background-color":"#fff",
   "title":{
-  "text":"TOP 5 ACTIVE TWITTER MOMENTS",
-  "font-size":"20px",
+  "text":"Proyectos por tipo",
   "font-weight":"bold",
-  "font-color":"#000",
+  "font-color":"#0469a4",
   "background-color":"#fff"
   },
   "plot":{
@@ -333,7 +332,7 @@
   "visible":true,
   "text":"%kl<br><span style='color:%color'>%t: </span>%v<br>",
   "backgroundColor":"white",
-  "borderColor":"#000",
+  "borderColor":"#0469a4",
   "borderWidth":2,
   "borderRadius":"5px",
   "bold":true,
@@ -350,22 +349,11 @@
   "plotarea":{
   "margin":"10% 10%"
   },
-  "labels":[
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-repeat":"no-repeat",
-  "background-position":"0 50%",
-  "width":"26%",
-  "height":"10%",
-  "x":"70%",
-  "y":"14%",
-  "text":" = 1000 tweets<br> per second"
-  }
-  ],
   "scale-x":{
-  "line-color":"#000",
+  "line-color":"#0469a4",
+  "angle":45,
   "guide":{
-  "visible":"false"
+  "visible":"true"
   },
   "values":[
   "#{@mun.tipos.first.name}"
@@ -374,45 +362,47 @@
       ,"#{tipo.name}"
   ],
   "item":{
-  "font-color":"#000"
+  "font-color":"#0469a4",
+  "font-angle":-20,
+  "max-chars":15 
   },
   "tick":{
-  "line-color":"#000"
+  "line-color":"#0469a4"
   }
   },
   "scale-y":{
-  "line-color":"#000",
+  "line-color":"#0469a4",
   "label":{
   "item":{
   "offset-y":"10px"
   },
-  "text":"TWEETS PER SECOND",
+  "text":"Cantidad de Proyectos",
   "font-size":"10px",
   "font-weight":"bold",
-  "font-color":"#000"
+  "font-color":"#0469a4"
   },
   "guide":{
   "visible":"false"
   },
   "values":"0:20:1",
   "item":{
-  "font-color":"#000"
+  "font-color":"#0469a4"
   },
   "tick":{
-  "line-color":"#000"
+  "line-color":"#0469a4"
   }
   },
   "series":[
   {
   "values":[
-  "#{@mun.tipos.first.boards.where(closed: "false").count}"
+  #{@mun.tipos.first.boards.where(closed: "false").count}
   - @mun.tipos.each do |tipo|
     - if(tipo!=@mun.tipos.first)
-      ,"#{tipo.boards.where(closed: "false").count}"
+      ,#{tipo.boards.where(closed: "false").count}
   ],
   "styles":[
   {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-image":"/img/Indicadores-02.png",
   "background-repeat":"repeat-y",
   "background-fit":"x",
   "background-color":"white"
@@ -420,9 +410,9 @@
   - @mun.tipos.each do |tipo|
     - if(tipo!=@mun.tipos.first)
       ,{
-      "background-image":"//www.zingchart.com/images/chartTwitter.png",
+      "background-image":"/img/Indicadores-02.png",
       "background-repeat":"repeat-y",
-      "background-fit":"x",
+      "background-size":"cover",
       "background-color":"white"
       }
   ]
@@ -432,9 +422,7 @@
 
   zingchart.render({ 
   id : 'container4', 
-  data : myConfig, 
-  height: 500, 
-  width: 725 
+  data : myConfig
   });
 
 

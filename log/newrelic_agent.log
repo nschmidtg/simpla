@@ -458,3 +458,9 @@
 [2016-11-11 15:37:58 -0300 cpp-VirtualBox (31463)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016256322 seconds: getaddrinfo: Temporary failure in name resolution
 [2016-11-11 15:38:15 -0300 cpp-VirtualBox (31465)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
 [2016-11-11 15:38:15 -0300 cpp-VirtualBox (31465)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016362473 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 16:02:19 -0300 cpp-VirtualBox (31463)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 16:02:19 -0300 cpp-VirtualBox (31465)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 16:02:19 -0300 cpp-VirtualBox (31461)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 16:04:04 -0300 cpp-VirtualBox (31463)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 16:04:04 -0300 cpp-VirtualBox (31465)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 16:04:09 -0300 cpp-VirtualBox (31461)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
