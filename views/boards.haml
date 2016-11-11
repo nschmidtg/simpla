@@ -180,8 +180,9 @@
       .row{style:"margin:0px;"}
         
         - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-        %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
-          Agregar Proyecto
+        - if(@org!=nil)
+          %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
+            Agregar Proyecto
 
   .fondo-blanco
     %div{style:"display: -webkit-inline-box;"}
