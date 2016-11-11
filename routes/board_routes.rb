@@ -58,7 +58,32 @@ class Ollert
       @mun_id=@mun.id
       @boards=@mun.boards.where(closed:"false")
       @title="Indicadores Globales"
+      @valores=Array.new()
+      @sizes=Array.new()
+      @fondos=Array.new()
+      @zones=Array.new()
+      i=0
+      @mun.fondos.each do |fondo|
+        @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
+          @valores[i]=0
+          @sizes[i]=0
+          @boards.each do |board|
+            if(board.fondo!=nil)
+              if(board.zones.map{|t| t.id}.include?(zone.id)&&board.fondo==fondo)
+                @valores[i]+=1
+                @sizes[i]+=10
+              end
+            end
+          end
+          @zones<<zone.name
+          @fondos<<fondo.name+" ("+fondo.etapa+")"
+          i=i+1
+        end
+      end
 
+      puts @valores.to_s
+      puts @fondos.to_s
+      puts @zones.to_s
     respond_to do |format|
       format.html { haml :dashboard }
     end

@@ -1,0 +1,368 @@
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Environment: development
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Dispatcher: unicorn
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Installing Net instrumentation
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Finished instrumentation
+[2016-11-10 11:12:13 -0300 cpp-VirtualBox (15905)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:13:04 -0300 cpp-VirtualBox (15915)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:13:04 -0300 cpp-VirtualBox (15917)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:13:05 -0300 cpp-VirtualBox (15920)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Environment: development
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Dispatcher: unicorn
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Installing Net instrumentation
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Finished instrumentation
+[2016-11-10 11:30:39 -0300 cpp-VirtualBox (17068)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:30:49 -0300 cpp-VirtualBox (17089)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:30:49 -0300 cpp-VirtualBox (17095)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:30:49 -0300 cpp-VirtualBox (17092)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Environment: development
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Dispatcher: unicorn
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Installing Net instrumentation
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Finished instrumentation
+[2016-11-10 11:32:53 -0300 cpp-VirtualBox (17279)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:33:02 -0300 cpp-VirtualBox (17302)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:33:03 -0300 cpp-VirtualBox (17297)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:33:03 -0300 cpp-VirtualBox (17299)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Environment: development
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Dispatcher: unicorn
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Installing Net instrumentation
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:35:40 -0300 cpp-VirtualBox (17577)] INFO : Finished instrumentation
+[2016-11-10 11:35:41 -0300 cpp-VirtualBox (17577)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:35:46 -0300 cpp-VirtualBox (17597)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:35:47 -0300 cpp-VirtualBox (17594)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:35:47 -0300 cpp-VirtualBox (17600)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Environment: development
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Dispatcher: unicorn
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Installing Net instrumentation
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Finished instrumentation
+[2016-11-10 11:37:02 -0300 cpp-VirtualBox (17729)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:37:09 -0300 cpp-VirtualBox (17745)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:37:10 -0300 cpp-VirtualBox (17742)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:37:10 -0300 cpp-VirtualBox (17739)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Environment: development
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Dispatcher: unicorn
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Installing Net instrumentation
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:38:30 -0300 cpp-VirtualBox (17910)] INFO : Finished instrumentation
+[2016-11-10 11:38:31 -0300 cpp-VirtualBox (17910)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:39:38 -0300 cpp-VirtualBox (17920)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:39:39 -0300 cpp-VirtualBox (17926)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:39:40 -0300 cpp-VirtualBox (17922)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Environment: development
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Dispatcher: unicorn
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Installing Net instrumentation
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Finished instrumentation
+[2016-11-10 11:53:24 -0300 cpp-VirtualBox (18876)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:53:40 -0300 cpp-VirtualBox (18888)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:53:40 -0300 cpp-VirtualBox (18893)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:53:41 -0300 cpp-VirtualBox (18890)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : Environment: development
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : Dispatcher: unicorn
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:56:53 -0300 cpp-VirtualBox (2791)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:56:54 -0300 cpp-VirtualBox (2791)] INFO : Installing Net instrumentation
+[2016-11-10 11:56:54 -0300 cpp-VirtualBox (2791)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:56:54 -0300 cpp-VirtualBox (2791)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:56:54 -0300 cpp-VirtualBox (2791)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:56:54 -0300 cpp-VirtualBox (2791)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:56:54 -0300 cpp-VirtualBox (2791)] INFO : Finished instrumentation
+[2016-11-10 11:56:55 -0300 cpp-VirtualBox (2791)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Environment: development
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Dispatcher: unicorn
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Installing Net instrumentation
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Installing Sinatra instrumentation
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Installing Mongo instrumentation
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Finished instrumentation
+[2016-11-10 11:57:15 -0300 cpp-VirtualBox (2974)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 11:57:26 -0300 cpp-VirtualBox (2981)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:57:26 -0300 cpp-VirtualBox (2978)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 11:57:28 -0300 cpp-VirtualBox (2984)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Environment: development
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Dispatcher: unicorn
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Installing Net instrumentation
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Installing Sinatra instrumentation
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Installing Mongo instrumentation
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Finished instrumentation
+[2016-11-10 12:29:52 -0300 cpp-VirtualBox (19014)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 12:29:57 -0300 cpp-VirtualBox (19031)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:29:58 -0300 cpp-VirtualBox (19036)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:29:58 -0300 cpp-VirtualBox (19033)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:39:00 -0300 cpp-VirtualBox (19657)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Environment: development
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Dispatcher: unicorn
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Installing Net instrumentation
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Installing Sinatra instrumentation
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Installing Mongo instrumentation
+[2016-11-10 12:47:52 -0300 cpp-VirtualBox (20501)] INFO : Finished instrumentation
+[2016-11-10 12:47:53 -0300 cpp-VirtualBox (20501)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 12:47:57 -0300 cpp-VirtualBox (20511)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:47:57 -0300 cpp-VirtualBox (20513)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 12:47:58 -0300 cpp-VirtualBox (20516)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Environment: development
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Dispatcher: unicorn
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Installing Net instrumentation
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Installing Sinatra instrumentation
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Installing Mongo instrumentation
+[2016-11-10 14:03:18 -0300 cpp-VirtualBox (23322)] INFO : Finished instrumentation
+[2016-11-10 14:03:19 -0300 cpp-VirtualBox (23322)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 14:03:39 -0300 cpp-VirtualBox (23351)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:03:50 -0300 cpp-VirtualBox (23356)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:03:51 -0300 cpp-VirtualBox (23354)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Environment: development
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Dispatcher: unicorn
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Installing Net instrumentation
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Installing Sinatra instrumentation
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Installing Mongo instrumentation
+[2016-11-10 14:07:38 -0300 cpp-VirtualBox (23722)] INFO : Finished instrumentation
+[2016-11-10 14:07:39 -0300 cpp-VirtualBox (23722)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 14:07:46 -0300 cpp-VirtualBox (23739)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:07:47 -0300 cpp-VirtualBox (23741)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:07:47 -0300 cpp-VirtualBox (23744)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Environment: development
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Dispatcher: unicorn
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Application: Gestion Municipal (Development)
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Installing Net instrumentation
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Installing Sinatra instrumentation
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Installing Mongo instrumentation
+[2016-11-10 14:17:25 -0300 cpp-VirtualBox (24256)] INFO : Finished instrumentation
+[2016-11-10 14:17:27 -0300 cpp-VirtualBox (24256)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-10 14:17:40 -0300 cpp-VirtualBox (24278)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:17:41 -0300 cpp-VirtualBox (24274)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:17:41 -0300 cpp-VirtualBox (24276)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-10 14:38:18 -0300 cpp-VirtualBox (25572)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-11 11:33:21 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:33:21 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.019953783 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:33:21 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:33:21 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016773322 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:33:22 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:33:22 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014355534 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:33:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:33:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.010312499 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:33:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:33:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.018754546 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:33:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:33:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.011078881 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:34:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:34:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.021694558 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:34:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:34:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016319365 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:34:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:34:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014949886 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:34:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:34:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.02008218 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:34:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:34:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016813358 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:34:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:34:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015486478 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:35:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:35:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.013648269 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:35:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:35:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.019999245 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:35:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:35:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016839463 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:35:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:35:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.010078579 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:35:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:35:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016348985 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:35:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:35:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.006920999 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:36:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:36:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01678431 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:36:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:36:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015019603 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:36:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:36:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.019568214 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:36:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:36:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.018483814 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:36:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:36:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.019169014 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:36:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:36:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.011115842 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:37:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:37:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.017290236 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:37:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:37:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.020078811 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:37:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:37:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.012216552 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:37:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:37:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015259754 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:37:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:37:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.008502215 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:37:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:37:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.017418458 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:38:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:38:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015330335 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:38:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:38:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01737393 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:38:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:38:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015436485 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:38:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:38:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.018354737 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:38:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:38:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015292367 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:38:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:38:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.022727986 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:39:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:39:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.013002881 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:39:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:39:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01682026 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:39:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:39:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.023256542 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:39:52 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:39:52 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01875403 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:39:52 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:39:52 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.024040114 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:39:53 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 11:39:53 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.009624941 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:40:12 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:40:12 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016027468 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:40:12 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:40:12 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.021726064 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:40:13 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 11:40:13 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014396926 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 11:45:18 -0300 cpp-VirtualBox (25572)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 11:45:39 -0300 cpp-VirtualBox (24278)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 11:45:39 -0300 cpp-VirtualBox (24276)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 11:45:39 -0300 cpp-VirtualBox (25572)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 11:46:41 -0300 cpp-VirtualBox (25572)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-11 12:28:17 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:28:17 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.020174067 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:28:23 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:28:23 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016796293 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:28:24 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:28:24 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016526504 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:28:54 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:28:54 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.011712107 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:28:55 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:28:55 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.021940531 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:28:56 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:28:56 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016674277 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:29:14 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:29:14 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.025664287 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:29:15 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:29:15 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016902935 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:29:16 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:29:16 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01886567 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:29:54 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:29:54 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.011907924 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:29:55 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:29:55 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.022524041 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:29:56 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:29:56 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.013756853 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:30:14 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:30:14 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.019270321 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:30:15 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:30:15 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01457576 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:30:16 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-11 12:30:16 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016276531 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:30:54 -0300 cpp-VirtualBox (25572)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:30:54 -0300 cpp-VirtualBox (25572)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01982653 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:30:55 -0300 cpp-VirtualBox (24278)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:30:55 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014660699 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 12:30:56 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-11 12:30:56 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.008436848 seconds: getaddrinfo: Temporary failure in name resolution
