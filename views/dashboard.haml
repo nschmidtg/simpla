@@ -19,205 +19,17 @@
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container2
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
-        #container1
+        #container4
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container3
         %div{id:"hoverinfo",style:"margin-left:80px;"}
-      .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
-        #container4
+      
     .fondo-blanco
       .row{style:"margin:0px;"}
         %a.btn.plus#save_image_locally
           Descargar
-%script
-  $('#container1').highcharts({
-  chart: {
-  type: 'column'
-  },
-  title: {
-  text: 'Proyectos por tipo'
-  },
-  subtitle: {
-  text: ''
-  },
-  xAxis: {
-  type: 'category',
-  labels: {
-  rotation: -45,
-  style: {
-  fontSize: '13px',
-  fontFamily: 'Verdana, sans-serif'
-  }
-  }
-  },
-  yAxis: {
-  title: {
-  text: 'Total de proyectos'
-  }
 
-  },
-  legend: {
-  enabled: false
-  },
-  plotOptions: {
-  series: {
-  borderWidth: 0,
-  dataLabels: {
-  enabled: true,
-  format: '{point.y}'
-  }
-  }
-  },
 
-  tooltip: {
-  headerFormat: '<span style="font-size:11px">{series.name}:</span><br>',
-  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> proyectos.<br/>'
-  },
-
-  series: [{
-  name: 'Tipo de proyecto',
-  colorByPoint: true,
-  data: [
-  {name:'#{@mun.tipos.first.name}',y: #{@mun.tipos.first.boards.where(closed: "false").count}},
-  - @mun.tipos.each do |tipo|
-    - if(tipo!=@mun.tipos.first)
-      {name:"#{tipo.name}",y: #{tipo.boards.where(closed: "false").count}},
-  ]
-  }]
-  
-  });
-
-%script
-  var myConfig = {
-  "type":"bar",
-  "background-color":"#fff",
-  "title":{
-  "text":"TOP 5 ACTIVE TWITTER MOMENTS",
-  "font-size":"20px",
-  "font-weight":"bold",
-  "font-color":"#000",
-  "background-color":"#fff"
-  },
-  "plot":{
-  "bar-width":"37px",
-  "offset-x":-1,
-  "hover-state":{
-  "visible":false
-  }
-  },
-  "tooltip":{
-  "visible":true,
-  "text":"%kl<br><span style='color:%color'>%t: </span>%v<br>",
-  "backgroundColor":"white",
-  "borderColor":"#000",
-  "borderWidth":2,
-  "borderRadius":"5px",
-  "bold":true,
-  "fontSize":"12px",
-  "fontColor":"#2f2f2f",
-  "textAlign":"left",
-  "padding":"15px",
-  "shadow":true,
-  "shadowAlpha":0.2,
-  "shadowBlur":5,
-  "shadowDistance":4,
-  "shadowColor":"#a1a1a1"
-  },
-  "plotarea":{
-  "margin":"10% 10%"
-  },
-  "labels":[
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-repeat":"no-repeat",
-  "background-position":"0 50%",
-  "width":"26%",
-  "height":"10%",
-  "x":"70%",
-  "y":"14%",
-  "text":" = 1000 tweets<br> per second"
-  }
-  ],
-  "scale-x":{
-  "line-color":"#000",
-  "guide":{
-  "visible":"false"
-  },
-  "values":["Women's<br>WC Final","New Year's Eve<br>2010 in Japan","Japanese<br>Tsunami","Osama Bin<br>Laden's Death","Super Bowl<br>2011"],
-  "item":{
-  "font-color":"#000"
-  },
-  "tick":{
-  "line-color":"#000"
-  }
-  },
-  "scale-y":{
-  "line-color":"#000",
-  "label":{
-  "item":{
-  "offset-y":"10px"
-  },
-  "text":"TWEETS PER SECOND",
-  "font-size":"10px",
-  "font-weight":"bold",
-  "font-color":"#000"
-  },
-  "guide":{
-  "visible":"false"
-  },
-  "values":"0:8000:1000",
-  "item":{
-  "font-color":"#000"
-  },
-  "tick":{
-  "line-color":"#000"
-  }
-  },
-  "series":[
-  {
-  "values":[7100,6900,5500,5250,4100],
-  "styles":[
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-repeat":"repeat-y",
-  "background-fit":"x",
-  "background-color":"white"
-  },
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-repeat":"repeat-y",
-  "background-fit":"x",
-  "background-color":"white"
-  },
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-color":"white",
-  "background-fit":"x",
-  "background-repeat":"repeat-y"
-  },
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-color":"white",
-  "background-fit":"x",
-  "background-repeat":"repeat-y"
-  },
-  {
-  "background-image":"//www.zingchart.com/images/chartTwitter.png",
-  "background-repeat":"repeat-y",
-  "background-fit":"x",
-  "background-color":"white"
-  }
-  ]
-  }
-  ]
-  };
-
-  zingchart.render({ 
-  id : 'container4  ', 
-  data : myConfig, 
-  height: 500, 
-  width: 725 
-  });
 
 %script
   var myPlot = document.getElementById('container3'),hoverInfo = document.getElementById('hoverinfo');
@@ -242,73 +54,121 @@
   Plotly.newPlot('container3', data, layout);
   
 
+
+
 %script
-  $('#container2').highcharts({
-  chart: {
-  type: 'column'
+  var myConfig = {
+  "type":"bar",
+  "background-color":"#fff",
+  "title":{
+  "text":"Proyectos por zona",
+  "font-weight":"bold",
+  "font-color":"#0469a4",
+  "background-color":"#fff"
   },
-  title: {
-  text: 'Proyectos por zona'
-  },
-  subtitle: {
-  text: ''
-  },
-  xAxis: {
-  type: 'category',
-  labels: {
-  rotation: -45,
-  style: {
-  fontSize: '11px',
-  fontFamily: 'Verdana, sans-serif'
-  }
+  "plot":{
+  "bar-width":"37px",
+  "offset-x":-1,
+  "hover-state":{
+  "visible":false
   }
   },
-  yAxis: {
-  min: 0,
-  title: {
-  text: 'Cantidad de proyectos'
-  }
+  "tooltip":{
+  "visible":true,
+  "text":"%kl<br><span style='color:%color'>%t: </span>%v<br>",
+  "backgroundColor":"white",
+  "borderColor":"#0469a4",
+  "borderWidth":2,
+  "borderRadius":"5px",
+  "bold":true,
+  "fontSize":"12px",
+  "fontColor":"#2f2f2f",
+  "textAlign":"left",
+  "padding":"15px",
+  "shadow":true,
+  "shadowAlpha":0.2,
+  "shadowBlur":5,
+  "shadowDistance":4,
+  "shadowColor":"#a1a1a1"
   },
-  legend: {
-  enabled: false
+  "plotarea":{
+  "margin":"10% 10%"
   },
-  tooltip: {
-  pointFormat: 'Proyectos en la zona:{point.extra}',
-  style: {"max-height":"100px","z-index":"8000","overflow":"scroll","height":"100px !important"},
-  useHTML: true
+  "scale-x":{
+  "line-color":"#0469a4",
+  "angle":45,
+  "guide":{
+  "visible":"true"
   },
-  series: [{
-  name: 'Proyectos',
-  data: [
-  - zones=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
-  - board_names=zones.first.boards.where(closed: "false").pluck(:name)
-  - extra="<br>"
-  - board_names.each do |bname|
-    - bname=bname.gsub('"','\'')
-    - extra=extra+"- "+bname+"<br>"
-  {name:"#{zones.first.name}",y:#{zones.first.boards.where(closed: "false").count},extra:"#{extra}"},
-  - zones.each do |zone|
-    - if(zone!=zones.first)
-      - board_names=zone.boards.where(closed: "false").pluck(:name)
-      - extra="<br>"
-      - board_names.each do |bname|
-        - bname=bname.gsub('"','\'')
-        - extra=extra+"- "+bname+"<br>"
-      {name:"#{zone.name}",y:#{zone.boards.where(closed: "false").count},extra:"#{extra}"},
+  "values":[
+  - zonesss=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+  "#{zonesss.first.name}"
+  - zonesss.each do |zone|
+    - if(zone!=zonesss.first)
+      ,"#{zone.name}"
   ],
-  dataLabels: {
-  enabled: true,
-  rotation: -360,
-  color: '#FFFFFF',
-  align: 'right',
-  format: '{point.y}', // one decimal
-  y: 10, // 10 pixels down from the top
-  style: {
-  fontSize: '13px',
-  fontFamily: 'Verdana, sans-serif'
+  "item":{
+  "font-color":"#0469a4",
+  "font-angle":-20,
+  "max-chars":15 
+  },
+  "tick":{
+  "line-color":"#0469a4"
   }
+  },
+  "scale-y":{
+  "line-color":"#0469a4",
+  "label":{
+  "item":{
+  "offset-y":"10px"
+  },
+  "text":"Cantidad de Proyectos",
+  "font-size":"10px",
+  "font-weight":"bold",
+  "font-color":"#0469a4"
+  },
+  "guide":{
+  "visible":"false"
+  },
+  "item":{
+  "font-color":"#0469a4"
+  },
+  "tick":{
+  "line-color":"#0469a4"
   }
-  }]
+  },
+  "series":[
+  {
+  "values":[
+  - zonesss=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+  #{zonesss.first.boards.where(closed: "false").count}
+  - zonesss.each do |zone|
+    - if(zone!=zonesss.first)
+      ,#{zone.boards.where(closed: "false").count}
+  ],
+  "styles":[
+  {
+  "background-image":"/img/Indicadores-02.png",
+  "background-repeat":"repeat-y",
+  "background-fit":"x",
+  "background-color":"white"
+  }
+  - zonesss.each do |tipo|
+    - if(tipo!=zonesss.first)
+      ,{
+      "background-image":"/img/Indicadores-02.png",
+      "background-repeat":"repeat-y",
+      "background-size":"cover",
+      "background-color":"white"
+      }
+  ]
+  }
+  ]
+  };
+
+  zingchart.render({ 
+  id : 'container2', 
+  data : myConfig
   });
 
 %script
@@ -384,7 +244,6 @@
   "guide":{
   "visible":"false"
   },
-  "values":"0:20:1",
   "item":{
   "font-color":"#0469a4"
   },
