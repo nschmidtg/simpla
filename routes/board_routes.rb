@@ -67,8 +67,8 @@ class Ollert
         @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
           @valores[i]=0
           @sizes[i]=0
-          @boards=@boards.where(fondo: fondo)
-          @boards.each do |board|
+          @boardsx=@boards.where(fondo: fondo)
+          @boardsx.each do |board|
             if(board.fondo!=nil)
               if(board.zones.include?(zone))
                 @valores[i]+=1
