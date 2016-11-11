@@ -366,3 +366,20 @@
 [2016-11-11 12:30:55 -0300 cpp-VirtualBox (24278)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014660699 seconds: getaddrinfo: Temporary failure in name resolution
 [2016-11-11 12:30:56 -0300 cpp-VirtualBox (24276)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
 [2016-11-11 12:30:56 -0300 cpp-VirtualBox (24276)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.008436848 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : Environment: development
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : Dispatcher: unicorn
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : Application: Gestion Municipal (Development)
+[2016-11-11 14:21:56 -0300 cpp-VirtualBox (31059)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-11 14:21:57 -0300 cpp-VirtualBox (31059)] INFO : Installing Net instrumentation
+[2016-11-11 14:21:57 -0300 cpp-VirtualBox (31059)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-11 14:21:57 -0300 cpp-VirtualBox (31059)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-11 14:21:57 -0300 cpp-VirtualBox (31059)] INFO : Installing Sinatra instrumentation
+[2016-11-11 14:21:57 -0300 cpp-VirtualBox (31059)] INFO : Installing Mongo instrumentation
+[2016-11-11 14:21:57 -0300 cpp-VirtualBox (31059)] INFO : Finished instrumentation
+[2016-11-11 14:21:58 -0300 cpp-VirtualBox (31059)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-11 14:22:07 -0300 cpp-VirtualBox (31078)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-11 14:22:07 -0300 cpp-VirtualBox (31081)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-11 14:22:22 -0300 cpp-VirtualBox (31084)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
