@@ -23,11 +23,201 @@
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container3
         %div{id:"hoverinfo",style:"margin-left:80px;"}
+      .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
+        #container4
     .fondo-blanco
       .row{style:"margin:0px;"}
         %a.btn.plus#save_image_locally
           Descargar
-      
+%script
+  $('#container1').highcharts({
+  chart: {
+  type: 'column'
+  },
+  title: {
+  text: 'Proyectos por tipo'
+  },
+  subtitle: {
+  text: ''
+  },
+  xAxis: {
+  type: 'category',
+  labels: {
+  rotation: -45,
+  style: {
+  fontSize: '13px',
+  fontFamily: 'Verdana, sans-serif'
+  }
+  }
+  },
+  yAxis: {
+  title: {
+  text: 'Total de proyectos'
+  }
+
+  },
+  legend: {
+  enabled: false
+  },
+  plotOptions: {
+  series: {
+  borderWidth: 0,
+  dataLabels: {
+  enabled: true,
+  format: '{point.y}'
+  }
+  }
+  },
+
+  tooltip: {
+  headerFormat: '<span style="font-size:11px">{series.name}:</span><br>',
+  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> proyectos.<br/>'
+  },
+
+  series: [{
+  name: 'Tipo de proyecto',
+  colorByPoint: true,
+  data: [
+  {name:'#{@mun.tipos.first.name}',y: #{@mun.tipos.first.boards.where(closed: "false").count}},
+  - @mun.tipos.each do |tipo|
+    - if(tipo!=@mun.tipos.first)
+      {name:"#{tipo.name}",y: #{tipo.boards.where(closed: "false").count}},
+  ]
+  }]
+  
+  });
+
+%script
+  var myConfig = {
+  "type":"bar",
+  "background-color":"#fff",
+  "title":{
+  "text":"TOP 5 ACTIVE TWITTER MOMENTS",
+  "font-size":"20px",
+  "font-weight":"bold",
+  "font-color":"#000",
+  "background-color":"#fff"
+  },
+  "plot":{
+  "bar-width":"37px",
+  "offset-x":-1,
+  "hover-state":{
+  "visible":false
+  }
+  },
+  "tooltip":{
+  "visible":true,
+  "text":"%kl<br><span style='color:%color'>%t: </span>%v<br>",
+  "backgroundColor":"white",
+  "borderColor":"#000",
+  "borderWidth":2,
+  "borderRadius":"5px",
+  "bold":true,
+  "fontSize":"12px",
+  "fontColor":"#2f2f2f",
+  "textAlign":"left",
+  "padding":"15px",
+  "shadow":true,
+  "shadowAlpha":0.2,
+  "shadowBlur":5,
+  "shadowDistance":4,
+  "shadowColor":"#a1a1a1"
+  },
+  "plotarea":{
+  "margin":"10% 10%"
+  },
+  "labels":[
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-repeat":"no-repeat",
+  "background-position":"0 50%",
+  "width":"26%",
+  "height":"10%",
+  "x":"70%",
+  "y":"14%",
+  "text":" = 1000 tweets<br> per second"
+  }
+  ],
+  "scale-x":{
+  "line-color":"#000",
+  "guide":{
+  "visible":"false"
+  },
+  "values":["Women's<br>WC Final","New Year's Eve<br>2010 in Japan","Japanese<br>Tsunami","Osama Bin<br>Laden's Death","Super Bowl<br>2011"],
+  "item":{
+  "font-color":"#000"
+  },
+  "tick":{
+  "line-color":"#000"
+  }
+  },
+  "scale-y":{
+  "line-color":"#000",
+  "label":{
+  "item":{
+  "offset-y":"10px"
+  },
+  "text":"TWEETS PER SECOND",
+  "font-size":"10px",
+  "font-weight":"bold",
+  "font-color":"#000"
+  },
+  "guide":{
+  "visible":"false"
+  },
+  "values":"0:8000:1000",
+  "item":{
+  "font-color":"#000"
+  },
+  "tick":{
+  "line-color":"#000"
+  }
+  },
+  "series":[
+  {
+  "values":[7100,6900,5500,5250,4100],
+  "styles":[
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-repeat":"repeat-y",
+  "background-fit":"x",
+  "background-color":"white"
+  },
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-repeat":"repeat-y",
+  "background-fit":"x",
+  "background-color":"white"
+  },
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-color":"white",
+  "background-fit":"x",
+  "background-repeat":"repeat-y"
+  },
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-color":"white",
+  "background-fit":"x",
+  "background-repeat":"repeat-y"
+  },
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-repeat":"repeat-y",
+  "background-fit":"x",
+  "background-color":"white"
+  }
+  ]
+  }
+  ]
+  };
+
+  zingchart.render({ 
+  id : 'container4  ', 
+  data : myConfig, 
+  height: 500, 
+  width: 725 
+  });
 
 %script
   var myPlot = document.getElementById('container3'),hoverInfo = document.getElementById('hoverinfo');
@@ -120,65 +310,134 @@
   }
   }]
   });
-  
 
 %script
-  $('#container1').highcharts({
-  chart: {
-  type: 'column'
+  var myConfig = {
+  "type":"bar",
+  "background-color":"#fff",
+  "title":{
+  "text":"TOP 5 ACTIVE TWITTER MOMENTS",
+  "font-size":"20px",
+  "font-weight":"bold",
+  "font-color":"#000",
+  "background-color":"#fff"
   },
-  title: {
-  text: 'Proyectos por tipo'
-  },
-  subtitle: {
-  text: ''
-  },
-  xAxis: {
-  type: 'category',
-  labels: {
-  rotation: -45,
-  style: {
-  fontSize: '13px',
-  fontFamily: 'Verdana, sans-serif'
-  }
+  "plot":{
+  "bar-width":"37px",
+  "offset-x":-1,
+  "hover-state":{
+  "visible":false
   }
   },
-  yAxis: {
-  title: {
-  text: 'Total de proyectos'
+  "tooltip":{
+  "visible":true,
+  "text":"%kl<br><span style='color:%color'>%t: </span>%v<br>",
+  "backgroundColor":"white",
+  "borderColor":"#000",
+  "borderWidth":2,
+  "borderRadius":"5px",
+  "bold":true,
+  "fontSize":"12px",
+  "fontColor":"#2f2f2f",
+  "textAlign":"left",
+  "padding":"15px",
+  "shadow":true,
+  "shadowAlpha":0.2,
+  "shadowBlur":5,
+  "shadowDistance":4,
+  "shadowColor":"#a1a1a1"
+  },
+  "plotarea":{
+  "margin":"10% 10%"
+  },
+  "labels":[
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-repeat":"no-repeat",
+  "background-position":"0 50%",
+  "width":"26%",
+  "height":"10%",
+  "x":"70%",
+  "y":"14%",
+  "text":" = 1000 tweets<br> per second"
   }
-
+  ],
+  "scale-x":{
+  "line-color":"#000",
+  "guide":{
+  "visible":"false"
   },
-  legend: {
-  enabled: false
-  },
-  plotOptions: {
-  series: {
-  borderWidth: 0,
-  dataLabels: {
-  enabled: true,
-  format: '{point.y}'
-  }
-  }
-  },
-
-  tooltip: {
-  headerFormat: '<span style="font-size:11px">{series.name}:</span><br>',
-  pointFormat: '<span style="color:{point.color}">{point.name}</span>: <b>{point.y}</b> proyectos.<br/>'
-  },
-
-  series: [{
-  name: 'Tipo de proyecto',
-  colorByPoint: true,
-  data: [
-  {name:'#{@mun.tipos.first.name}',y: #{@mun.tipos.first.boards.where(closed: "false").count}},
+  "values":[
+  "#{@mun.tipos.first.name}"
   - @mun.tipos.each do |tipo|
     - if(tipo!=@mun.tipos.first)
-      {name:"#{tipo.name}",y: #{tipo.boards.where(closed: "false").count}},
+      ,"#{tipo.name}"
+  ],
+  "item":{
+  "font-color":"#000"
+  },
+  "tick":{
+  "line-color":"#000"
+  }
+  },
+  "scale-y":{
+  "line-color":"#000",
+  "label":{
+  "item":{
+  "offset-y":"10px"
+  },
+  "text":"TWEETS PER SECOND",
+  "font-size":"10px",
+  "font-weight":"bold",
+  "font-color":"#000"
+  },
+  "guide":{
+  "visible":"false"
+  },
+  "values":"0:20:1",
+  "item":{
+  "font-color":"#000"
+  },
+  "tick":{
+  "line-color":"#000"
+  }
+  },
+  "series":[
+  {
+  "values":[
+  "#{@mun.tipos.first.boards.where(closed: "false").count}"
+  - @mun.tipos.each do |tipo|
+    - if(tipo!=@mun.tipos.first)
+      ,"#{tipo.boards.where(closed: "false").count}"
+  ],
+  "styles":[
+  {
+  "background-image":"//www.zingchart.com/images/chartTwitter.png",
+  "background-repeat":"repeat-y",
+  "background-fit":"x",
+  "background-color":"white"
+  }
+  - @mun.tipos.each do |tipo|
+    - if(tipo!=@mun.tipos.first)
+      ,{
+      "background-image":"//www.zingchart.com/images/chartTwitter.png",
+      "background-repeat":"repeat-y",
+      "background-fit":"x",
+      "background-color":"white"
+      }
   ]
-  }]
-  
+  }
+  ]
+  };
+
+  zingchart.render({ 
+  id : 'container4', 
+  data : myConfig, 
+  height: 500, 
+  width: 725 
   });
+
+
 
 :javascript
   $('#save_image_locally').click(function(){
