@@ -70,7 +70,7 @@ class Ollert
           @boards=@boards.where(fondo: fondo)
           @boards.each do |board|
             if(board.fondo!=nil)
-              if(board.zones.map{|t| t.id}.include?(zone.id))
+              if(board.zones.include?(zone))
                 @valores[i]+=1
                 @sizes[i]+=10
               end
