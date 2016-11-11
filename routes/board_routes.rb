@@ -81,9 +81,6 @@ class Ollert
         end
       end
 
-      puts @valores.to_s
-      puts @fondos.to_s
-      puts @zones.to_s
     respond_to do |format|
       format.html { haml :dashboard }
     end
