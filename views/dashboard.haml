@@ -22,6 +22,10 @@
         #container4
       .col-md-12.col-sm-12.col-xs-12{style:"margin-top:30px;"}
         #container3
+      .col-md-6.col-sm-12.col-xs-12{style:"margin-top:30px;"}
+        #container5
+      .col-md-6.col-sm-12.col-xs-12{style:"margin-top:30px;"}
+        #container6
         %div{id:"hoverinfo",style:"margin-left:80px;"}
       
     .fondo-blanco
@@ -314,6 +318,62 @@
   zingchart.render({ 
   id : 'container4', 
   data : myConfig
+  });
+
+%script
+  var myConfig = {
+  "type":"pie",
+  "title":{
+  "text":"Cantidad de proyectos por prioridad"
+  },
+  "plot":{
+  "value-box":{
+  "text":"%t: %v (%npv%)",
+  "font-size":12,
+  "font-family":"Georgia",
+  "font-weight":"normal",
+  "rules":[
+  {
+  "rule":"%v > 0",
+  "placement":"out",
+  "offset-r":"50%",
+  "font-color":"grey",
+  },
+  {
+  "rule":"%v <= 0",
+  "placement":"out",
+  "font-color":"white",
+  }
+  ]
+  }
+  },
+  "plotarea":{
+  "margin-top":"12%"
+  },
+  "series":[
+  {
+  "values":[#{@count[0]}],
+  "background-color":"#ed1c24",
+  "text":"Urgentes"
+  },
+  {
+  "values":[#{@count[1]}],
+  "background-color":"#e2882d",
+  "text":"Priorizados"
+  },
+  {
+  "values":[#{@count[2]}],
+  "background-color":"#4d97c1",
+  "text":"No Priorizados"
+  }
+  ]
+  };
+
+  zingchart.render({ 
+  id : 'container5', 
+  data : myConfig, 
+  height: 400, 
+  width: "100%" 
   });
 
 

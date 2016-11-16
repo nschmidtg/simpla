@@ -62,6 +62,19 @@ class Ollert
       @sizes=Array.new()
       @fondos=Array.new()
       @zones=Array.new()
+      @count=Array.new()
+      count=0
+      @mun.organizations.each do |org|
+        o=Trello::Organization.find(org.org_id)
+        
+        b_json=o.boards
+        results=Array.new()
+        b_json.each do |hash|
+          results << hash.name if hash.closed == false
+        end
+        @count[count]=results.count
+        count+=1
+      end
       i=0
       @mun.fondos.each do |fondo|
         @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
