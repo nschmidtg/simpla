@@ -48,7 +48,19 @@
   var layout = {
   title: 'Proyectos por Zona y Fondo',
   showlegend: false,
-  hovermode: 'closest'
+  hovermode: 'closest',
+  margin:{
+  l:200
+  },
+  yaxis: {
+  showticklabels: true,
+  tickangle: 45,
+  tickfont: {
+  family: 'Old Standard TT, serif',
+  size: 14,
+  color: 'black'
+  }
+  }
   };
 
   Plotly.newPlot('container3', data, layout);
@@ -94,7 +106,7 @@
   "shadowColor":"#a1a1a1"
   },
   "plotarea":{
-  "margin":"10% 10%"
+  "margin":"5% 5% 20% 5%"
   },
   "scale-x":{
   "line-color":"#0469a4",
@@ -214,7 +226,7 @@
   "shadowColor":"#a1a1a1"
   },
   "plotarea":{
-  "margin":"10% 10%"
+  "margin":"5% 5% 20% 5%"
   },
   "scale-x":{
   "line-color":"#0469a4",
