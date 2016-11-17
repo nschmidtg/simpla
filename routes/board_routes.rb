@@ -74,8 +74,10 @@ class Ollert
         b_json=o.boards
         results=Array.new()
         b_json.each do |hash|
-          results << hash.name if hash.closed == false
-          puts hash.name
+          if hash.closed == false
+            results << hash.name
+            puts hash.name
+          end
         end
         @count[count]=results.count
         count+=1
