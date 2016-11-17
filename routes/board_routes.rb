@@ -71,6 +71,7 @@ class Ollert
         results=Array.new()
         b_json.each do |hash|
           results << hash.name if hash.closed == false
+          puts results
         end
         @count[count]=results.count
         count+=1
