@@ -95,31 +95,24 @@ class Ollert
         end
       end
       @big_total=0
-      @name1="En Formulación"
-      @name2="Ingresado"
-      @name3="Observado"
-      @total1 = @boards.where(current_state: /.*#{@name1}.*/).count
-      @total2 = @boards.where(current_state: /.*#{@name2}.*/).count
-      @total3 = @boards.where(current_state: /.*#{@name3}.*/).count
+
+      @total1 = @boards.where(current_state: /.*#{@mun.states[0].name}.*/).count
+      @total2 = @boards.where(current_state: /.*#{@mun.states[1].name}.*/).count
+      @total3 = @boards.where(current_state: /.*#{@mun.states[2].name}.*/).count
       puts @total1.to_s+" "+@total2.to_s+" "+@total3.to_s
       @stotal1 = @total1+@total2+@total3
       puts @stotal1
       @big_total=@big_total+@stotal1
       puts @big_total
-      @name4="Con aprobación técnica"
-      @name5="Con recursos aprobados"
-      @total4 = @boards.where(current_state: /.*#{@name4}.*/).count
-      @total5 = @boards.where(current_state: /.*#{@name5}.*/).count
+      @total4 = @boards.where(current_state: /.*#{@mun.states[3].name}.*/).count
+      @total5 = @boards.where(current_state: /.*#{@mun.states[4].name}.*/).count
       @stotal2 = @total4+@total5
       @big_total=@big_total+@stotal2
-      @name6="Preparación de licitación"
-      @name7="Evaluación y adjudicación de propuestas"
-      @total6 = @boards.where(current_state: /.*#{@name6}.*/).count
-      @total7 = @boards.where(current_state: /.*#{@name7}.*/).count
+      @total6 = @boards.where(current_state: /.*#{@mun.states[5].name}.*/).count
+      @total7 = @boards.where(current_state: /.*#{@mun.states[6].name}.*/).count
       @stotal3 = @total6+@total7
       @big_total=@big_total+@stotal3
-      @name8="En ejecución"
-      @total8 = @boards.where(current_state: /.*#{@name8}.*/).count
+      @total8 = @boards.where(current_state: /.*#{@mun.states[7].name}.*/).count
       @big_total=@big_total+@total8
       puts @big_total
     respond_to do |format|
