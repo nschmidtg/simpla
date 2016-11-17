@@ -464,3 +464,83 @@
 [2016-11-11 16:04:04 -0300 cpp-VirtualBox (31463)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-11 16:04:04 -0300 cpp-VirtualBox (31465)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-11 16:04:09 -0300 cpp-VirtualBox (31461)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 15:26:38 -0300 cpp-VirtualBox (25527)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 15:26:41 -0300 cpp-VirtualBox (25553)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:13:06 -0300 cpp-VirtualBox (27798)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-16 16:13:06 -0300 cpp-VirtualBox (27798)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-16 16:13:06 -0300 cpp-VirtualBox (27798)] INFO : Will re-attempt in 60 seconds
+[2016-11-16 16:14:03 -0300 cpp-VirtualBox (27876)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-16 16:14:03 -0300 cpp-VirtualBox (27876)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector-232.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-16 16:14:03 -0300 cpp-VirtualBox (27876)] INFO : Will re-attempt in 60 seconds
+[2016-11-16 16:14:35 -0300 cpp-VirtualBox (27798)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:15:25 -0300 cpp-VirtualBox (27876)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:46:44 -0300 cpp-VirtualBox (27798)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 16:46:44 -0300 cpp-VirtualBox (25553)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 16:46:44 -0300 cpp-VirtualBox (27876)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 16:46:50 -0300 cpp-VirtualBox (25553)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 16:52:40 -0300 cpp-VirtualBox (29175)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:52:43 -0300 cpp-VirtualBox (29191)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-16 16:52:43 -0300 cpp-VirtualBox (29191)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-16 16:52:43 -0300 cpp-VirtualBox (29191)] INFO : Will re-attempt in 60 seconds
+[2016-11-16 16:53:18 -0300 cpp-VirtualBox (29234)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:53:46 -0300 cpp-VirtualBox (29191)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:57:31 -0300 cpp-VirtualBox (29386)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:58:09 -0300 cpp-VirtualBox (29479)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-16 16:58:09 -0300 cpp-VirtualBox (29479)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-16 16:58:09 -0300 cpp-VirtualBox (29479)] INFO : Will re-attempt in 60 seconds
+[2016-11-16 16:58:51 -0300 cpp-VirtualBox (29386)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-16 16:58:51 -0300 cpp-VirtualBox (29386)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014621112 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-16 16:59:11 -0300 cpp-VirtualBox (29386)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-16 16:59:11 -0300 cpp-VirtualBox (29386)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.012360426 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-16 16:59:37 -0300 cpp-VirtualBox (29479)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 16:59:59 -0300 cpp-VirtualBox (29574)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 17:01:55 -0300 cpp-VirtualBox (29639)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 17:10:52 -0300 cpp-VirtualBox (29844)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 17:40:51 -0300 cpp-VirtualBox (29574)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 17:40:57 -0300 cpp-VirtualBox (29479)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 17:51:33 -0300 cpp-VirtualBox (29844)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 17:52:28 -0300 cpp-VirtualBox (29844)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 17:53:35 -0300 cpp-VirtualBox (29844)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-16 17:57:55 -0300 cpp-VirtualBox (31052)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 17:57:56 -0300 cpp-VirtualBox (31087)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-16 17:58:21 -0300 cpp-VirtualBox (31081)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-17 09:31:23 -0300 cpp-VirtualBox (31288)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-17 09:31:23 -0300 cpp-VirtualBox (31288)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 09:31:23 -0300 cpp-VirtualBox (31288)] INFO : Will re-attempt in 60 seconds
+[2016-11-17 09:31:24 -0300 cpp-VirtualBox (31375)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-17 09:31:24 -0300 cpp-VirtualBox (31375)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 09:31:24 -0300 cpp-VirtualBox (31375)] INFO : Will re-attempt in 60 seconds
+[2016-11-17 09:32:25 -0300 cpp-VirtualBox (31375)] ERROR : Error establishing connection with New Relic Service at collector.newrelic.com:443:
+[2016-11-17 09:32:25 -0300 cpp-VirtualBox (31375)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error talking to collector.newrelic.com:443 after 2 attempts: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 09:32:25 -0300 cpp-VirtualBox (31375)] INFO : Will re-attempt in 120 seconds
+[2016-11-17 09:32:31 -0300 cpp-VirtualBox (31288)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-17 09:34:34 -0300 cpp-VirtualBox (31375)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-17 10:07:11 -0300 cpp-VirtualBox (31375)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:12:47 -0300 cpp-VirtualBox (31081)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:12:47 -0300 cpp-VirtualBox (31375)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:12:47 -0300 cpp-VirtualBox (31288)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:14:46 -0300 cpp-VirtualBox (31288)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:14:46 -0300 cpp-VirtualBox (31081)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:14:46 -0300 cpp-VirtualBox (31375)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:25:11 -0300 cpp-VirtualBox (31288)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:25:11 -0300 cpp-VirtualBox (31375)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:25:11 -0300 cpp-VirtualBox (31081)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : Starting the New Relic agent in "development" environment.
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/sis/gestion-municipal)
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : Environment: development
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : Dispatcher: unicorn
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : Application: Gestion Municipal (Development)
+[2016-11-17 10:27:42 -0300 cpp-VirtualBox (1188)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2016-11-17 10:27:43 -0300 cpp-VirtualBox (1188)] INFO : Installing Net instrumentation
+[2016-11-17 10:27:43 -0300 cpp-VirtualBox (1188)] INFO : Installing deferred Rack::Builder instrumentation
+[2016-11-17 10:27:43 -0300 cpp-VirtualBox (1188)] INFO : Installing Rack::Builder middleware instrumentation
+[2016-11-17 10:27:43 -0300 cpp-VirtualBox (1188)] INFO : Installing Sinatra instrumentation
+[2016-11-17 10:27:43 -0300 cpp-VirtualBox (1188)] INFO : Installing Mongo instrumentation
+[2016-11-17 10:27:43 -0300 cpp-VirtualBox (1188)] INFO : Finished instrumentation
+[2016-11-17 10:27:45 -0300 cpp-VirtualBox (1188)] INFO : Doing deferred dependency-detection before Rack startup
+[2016-11-17 10:27:55 -0300 cpp-VirtualBox (1207)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-17 10:27:55 -0300 cpp-VirtualBox (1201)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-17 10:27:55 -0300 cpp-VirtualBox (1204)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2016-11-17 10:51:46 -0300 cpp-VirtualBox (1207)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 10:53:26 -0300 cpp-VirtualBox (1207)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
