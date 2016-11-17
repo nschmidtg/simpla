@@ -52,6 +52,10 @@ class Ollert
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
   
 
       @mun=Municipio.find_by(id: params[:mun_id])
@@ -71,7 +75,7 @@ class Ollert
         results=Array.new()
         b_json.each do |hash|
           results << hash.name if hash.closed == false
-          puts results
+          puts hash.name
         end
         @count[count]=results.count
         count+=1
