@@ -442,7 +442,7 @@
   // add browser data
   browserData.push({
   name: categories[i],
-  y: data[i].y*#{@big_total}/100,
+  y: Math.round(data[i].y*#{@big_total}/100),
   color: data[i].color
   });
 
@@ -452,7 +452,7 @@
   brightness = 0.2 - (j / drillDataLen) / 5;
   versionsData.push({
   name: data[i].drilldown.categories[j],
-  y: data[i].drilldown.data[j]*#{@big_total}/100,
+  y: Math.round(data[i].drilldown.data[j]*#{@big_total}/100),
   color: Highcharts.Color(data[i].color).brighten(brightness).get()
   });
   }
