@@ -75,8 +75,10 @@ class Ollert
         results=Array.new()
         b_json.each do |hash|
           if hash.closed == false
-            results << hash.name
-            puts hash.name
+            if(@mun.boards.find_by(board_id: hash.id)!=nil)
+              results << hash.name
+              puts hash.name
+            end
           end
         end
         @count[count]=results.count
