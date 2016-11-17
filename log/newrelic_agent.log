@@ -544,3 +544,81 @@
 [2016-11-17 10:27:55 -0300 cpp-VirtualBox (1204)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
 [2016-11-17 10:51:46 -0300 cpp-VirtualBox (1207)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2016-11-17 10:53:26 -0300 cpp-VirtualBox (1207)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2016-11-17 14:27:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:27:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015059608 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:27:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:27:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.0185034 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:27:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:27:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.017762945 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:27:42 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:27:42 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01387999 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:27:43 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:27:43 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015080084 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:27:44 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:27:44 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.017376919 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:28:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:28:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.019021522 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:28:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:28:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01654045 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:28:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:28:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01893114 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:28:42 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:28:42 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014873393 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:28:43 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:28:43 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015553139 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:28:44 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:28:44 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016281619 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:29:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:29:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014550861 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:29:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:29:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.017140015 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:29:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:29:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015931703 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:29:42 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:29:42 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016003642 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:29:43 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:29:43 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014470717 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:29:44 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:29:44 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.018615405 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:30:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:30:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.025875887 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:30:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:30:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.013736216 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:30:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:30:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.018188681 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:30:42 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:30:42 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.022017389 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:30:43 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:30:43 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015005447 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:30:44 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:30:44 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.017732603 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:31:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:31:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015244077 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:31:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:31:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.013163224 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:31:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:31:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016776211 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:31:42 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:31:42 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015364319 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:31:43 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:31:43 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.015028759 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:31:44 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:31:44 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01871832 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:32:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:32:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.013534474 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:32:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:32:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.016189233 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:32:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:32:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.009184884 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:32:42 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:32:42 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014179662 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:32:43 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:32:43 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.014803863 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:32:44 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_data' in Agent Event Loop:
+[2016-11-17 14:32:44 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.012295616 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:33:02 -0300 cpp-VirtualBox (1207)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:33:02 -0300 cpp-VirtualBox (1207)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.01488139 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:33:03 -0300 cpp-VirtualBox (1201)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:33:03 -0300 cpp-VirtualBox (1201)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.011938808 seconds: getaddrinfo: Temporary failure in name resolution
+[2016-11-17 14:33:04 -0300 cpp-VirtualBox (1204)] ERROR : 1 error(s) running task for event 'report_event_data' in Agent Event Loop:
+[2016-11-17 14:33:04 -0300 cpp-VirtualBox (1204)] ERROR : NewRelic::Agent::ServerConnectionException: Recoverable error connecting to collector-232.newrelic.com:443 after 20.0139141 seconds: getaddrinfo: Temporary failure in name resolution

@@ -287,7 +287,10 @@
                                             %option{:value => "#{@prioridades[count-10]}"} #{@prioridades[count-10]}
                                     - else
                                       #{prioridad}
-
+                          - else
+                            - if(bdbrd==nil)
+                              - bdbrd.closed="true" 
+                              - bdbrd.save
 
                                       
                                    
