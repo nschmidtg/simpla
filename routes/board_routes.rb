@@ -62,7 +62,7 @@ class Ollert
       @mun_id=@mun.id
       @boards=@mun.boards.and(
         @mun.boards.where(closed:"false").selector,
-        @mun.boards.where(:current_state.ne => "Finalizado").selector
+        @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector
         )
       @title="Indicadores Globales"
       @valores=Array.new()
