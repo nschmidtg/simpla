@@ -60,7 +60,10 @@ class Ollert
 
       @mun=Municipio.find_by(id: params[:mun_id])
       @mun_id=@mun.id
-      @boards=@mun.boards.where(closed:"false")
+      @boards=@mun.boards.and(
+        @mun.boards.where(closed:"false").selector,
+        @mun.boards.where(:current_state.ne => "Finalizado").selector
+        )
       @title="Indicadores Globales"
       @valores=Array.new()
       @sizes=Array.new()
