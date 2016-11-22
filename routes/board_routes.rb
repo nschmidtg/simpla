@@ -44,7 +44,7 @@ class Ollert
 
         format.json { status 400 }
       end
-    end
+    endf
   end
 
   get '/dashboard', :auth => :connected do
