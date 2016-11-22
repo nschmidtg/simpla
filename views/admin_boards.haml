@@ -52,9 +52,6 @@
                   - @zones.each do |z|  
                     %option #{z}
                     
-                
-              - if(@user.role=="secpla" || @user.role=="admin")
-                %th Editar
           %tbody.cuerpo-tabla
             - @boards.each do |board|
               - if(board.fondo!=nil)
@@ -123,11 +120,6 @@
                         NO ASIGNADAS
                     - else
                       NO ASIGNADAS
-                - if(@user.role=="secpla" || @user.role=="admin")
-                  %td.celda-tabla{style: "width: 100%;"}
-                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                      %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{board.board_id}&board_name=#{board.name}&edit=true"}
-                        %span.glyphicon.glyphicon-pencil
     .row{style:"margin:0px;"}
       %a.btn.plus#save_image_locally
         Imprimir
