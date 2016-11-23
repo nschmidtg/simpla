@@ -120,6 +120,8 @@ class Ollert
       @big_total=@big_total+@stotal3
       @total8 = @boards.where(current_state: /.*#{@mun.states[7].name}.*/).count
       @big_total=@big_total+@total8
+      @total9 = @boards.where(current_state: nil).count
+      @big_total=@big_total+@total9
       puts @big_total
     respond_to do |format|
       format.html { haml :dashboard }

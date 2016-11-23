@@ -372,7 +372,7 @@
 %script
 
   var colors = Highcharts.getOptions().colors,
-  categories = ['En Formulación', 'Con aprobación técnica', 'En Licitación', 'En Ejecución'],
+  categories = ['En Formulación', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'NO ASIGNADO'],
 
   data = [{
   color: colors[0],
@@ -412,6 +412,7 @@
   },
   y: #{(@stotal3.to_f)/@big_total*100}
   },
+
   {
   color: colors[3],
   drilldown: {
@@ -424,6 +425,19 @@
   color: colors[3]
   },
   y: #{@total8.to_f/@big_total*100}
+  },
+  {
+  color: colors[3],
+  drilldown: {
+  name: 'NO ASIGNADO',
+  categories: [
+  'NO ASIGNADO'
+  ],
+
+  data: [#{@total9.to_f/@big_total*100}],
+  color: colors[3]
+  },
+  y: #{(@stotal9.to_f)/@big_total*100}
   }
 
   ],

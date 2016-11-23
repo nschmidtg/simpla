@@ -61,7 +61,7 @@
                           
                         - else
                           - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
-                          %option{:disabled => "disabled", :selected => "", :value=>""} Tipo de proyecto
+                          %option{:disabled => "disabled", :selected => "", :value=>""} Tipo de proyecto*
                           - @tipos.each do |f|
                             %option{:value => "#{f.id}"} #{f.name}
 
@@ -113,7 +113,7 @@
                                 %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                         - else
                           - @fondos=Municipio.find_by(id: params[:mun_id]).fondos
-                          %option{:disabled => "", :selected => "", :value=>""} Fondo
+                          %option{:disabled => "", :selected => "", :value=>""} Fondo*
                           - @disenos=@fondos.where(:etapa => "diseno")
                           - if(@disenos.count>0)
                             %optgroup{:label=>"Diseño"}
