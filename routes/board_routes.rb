@@ -72,20 +72,13 @@ class Ollert
       @count=Array.new()
       count=0
       @mun.organizations.each do |org|
-        o=Trello::Organization.find(org.org_id)
-        
-        b_json=o.boards
-        results=Array.new()
-        b_json.each do |hash|
-          if hash.closed == false
-            if(@mun.boards.find_by(board_id: hash.id)!=nil)
-              results << hash.name
-              puts hash.name
-            end
-          end
+        if(org.name=="1. Urgentes")
+          @count[0]=org.boards.count
+        elsif(org.name=="2. Priorizados")
+          @count[1]=org.boards.count
+        elsif(org.name=="3. No Priorizados")
+          @count[2]=org.boards.count
         end
-        @count[count]=results.count
-        count+=1
       end
       i=0
       @mun.fondos.each do |fondo|
