@@ -75,7 +75,7 @@
               - else
                 - statex="NO ASIGNADO"
               - if(board.organization!=nil)
-                - orgx=board.organization.name.split(" ")[1]
+                - orgx=board.organization.name.split(". ")[1]
               - else
                 - orgx="NO ASIGNADA"
               - zoness=" | "
@@ -93,7 +93,7 @@
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
                       - if board.organization != nil
-                        #{board.organization.name.split(" ")[1]}
+                        #{board.organization.name.split(". ")[1]}
                       - else
                         NO ASIGNADA
                     - else
