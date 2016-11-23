@@ -11,6 +11,14 @@
               %th{style:"min-width:125px;"}
                 Nombre Proyecto
               %th{style:"min-width:100px;"}
+                %select#assigned-org-filter.form-control
+                  %option{:disabled => "", :selected => ""} Prioridad
+                  %option Todos
+                  %option NO ASIGNADA
+                  %option Urgentes
+                  %option Priorizados
+                  %option No Priorizados
+              %th{style:"min-width:100px;"}
                 %select#assigned-fondo-filter.form-control
                   %option{:disabled => "", :selected => ""} Fondo
                   %option Todos
@@ -66,6 +74,10 @@
                 - statex=board.current_state
               - else
                 - statex="NO ASIGNADO"
+              - if(board.organization!=nil)
+                - orgx=board.organization.name.split(" ")[1]
+              - else
+                - orgx="NO ASIGNADA"
               - zoness=" | "
               - if(board.zones.count != 0)
                 - zones=board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
@@ -73,10 +85,19 @@
                   - zoness=zoness+zone.name+" | "
               -else
                 - zoness="NO ASIGNADAS"
-              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}","data-assigned-tipo"=>"#{tipox}","data-assigned-state"=>"#{statex}","data-assigned-zone"=>"#{zoness}"}
+              %tr.task-list-row{"data-assigned-fondo"=>"#{fondox}","data-assigned-tipo"=>"#{tipox}","data-assigned-state"=>"#{statex}","data-assigned-zone"=>"#{zoness}","data-assigned-org"=>"#{orgx}"}
                 %td.celda-tabla{style: "min-width: 250px;width: 100%;max-width: 0px;"}
                   %a.btn-link.boards-list-item-link.overflow{href: "/boards/#{board.board_id}",title:"#{board.name.split(' |')[0]} "}
-                    #{board.name.split(' |')[0]}               
+                    #{board.name.split(' |')[0]}  
+                %td.celda-tabla{style: "width: 100%;"}
+                  .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
+                    - if board != nil
+                      - if board.organization != nil
+                        #{board.organization.name.split(" ")[1]}
+                      - else
+                        NO ASIGNADA
+                    - else
+                      NO ASIGNADA           
                 %td.celda-tabla{style: "width: 100%;"}
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
@@ -141,7 +162,7 @@
 
 
   var
-  tipoFilter, stateFilter, fondoFilter, zoneFilter;
+  tipoFilter, stateFilter, fondoFilter, zoneFilter, orgFilter;
 
   function updateFilters() {
     $('.task-list-row').hide().filter(function() {
@@ -157,6 +178,9 @@
       }
       if (stateFilter && (stateFilter != 'Todos')) {
         result = result && stateFilter === self.data('assigned-state');
+      }
+      if (orgFilter && (orgFilter != 'Todos')) {
+        result = result && orgFilter === self.data('assigned-org');
       }
       if (zoneFilter && (zoneFilter != 'Todas')) {
         result = result && self.data('assigned-zone').split(" | ").indexOf(zoneFilter) != -1;
@@ -182,6 +206,12 @@
   // Task Status Dropdown Filter
   $('#assigned-state-filter').on('change', function() {
     stateFilter = this.value;
+    updateFilters();
+  });
+
+  // Task Status Dropdown Filter
+  $('#assigned-org-filter').on('change', function() {
+    orgFilter = this.value;
     updateFilters();
   });
 
