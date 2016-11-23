@@ -131,6 +131,7 @@
   },
   "values":[
   - zonesss=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+  "NO ASIGNADA",
   "#{zonesss.first.name}"
   - zonesss.each do |zone|
     - if(zone!=zonesss.first)
@@ -170,6 +171,7 @@
   {
   "values":[
   - zonesss=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+  #{@boards.and(@boards.where(closed: "false").selector,@boards.where(:zone_ids => nil).selector).count},
   #{zonesss.first.boards.where(closed: "false").count}
   - zonesss.each do |zone|
     - if(zone!=zonesss.first)
@@ -184,15 +186,15 @@
   "borderRadius":"5px"
   }
   - zonesss.each do |tipo|
-    - if(tipo!=zonesss.first)
-      ,{
-      / "background-image":"/img/Indicadores-02.png",
-      / "background-repeat":"repeat-y",
-      / "background-size":"cover",
-      "background-color":"#e2882d",
-      "borderRadius":"5px",
 
-      }
+    ,{
+    / "background-image":"/img/Indicadores-02.png",
+    / "background-repeat":"repeat-y",
+    / "background-size":"cover",
+    "background-color":"#e2882d",
+    "borderRadius":"5px",
+
+    }
   ]
   }
   ]
@@ -304,14 +306,13 @@
   "borderRadius":"5px",
   }
   - @mun.tipos.each do |tipo|
-    - if(tipo!=@mun.tipos.first)
-      ,{
-      / "background-image":"/img/Indicadores-02.png",
-      / "background-repeat":"repeat-y",
-      / "background-size":"cover",
-      "background-color":"#e2882d",
-      "borderRadius":"5px"      
-      }
+    ,{
+    / "background-image":"/img/Indicadores-02.png",
+    / "background-repeat":"repeat-y",
+    / "background-size":"cover",
+    "background-color":"#e2882d",
+    "borderRadius":"5px"      
+    }
   ]
   }
   ]
