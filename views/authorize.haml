@@ -4,7 +4,7 @@
 		.row
 			.text-center
 				%a{class: "btn btn-primary btn-xl connect-btn", href: "javascript:void(0)", onClick: "TrelloController.authorize()"}
-					Connect to Get Started
+					Conectar con Trello
 - user=User.find_by(login_mail: params[:mail])
 - if(user.role!="alcalde"&&user.role!="concejal")
 	:javascript
@@ -17,7 +17,7 @@
 				Trello.clearReady();
 
 				Trello.authorize({
-					name: "Ollert",
+					name: "Simpla",
 					type: "popup",
 					interactive: true,
 					expiration: "never",
@@ -33,7 +33,7 @@
 		};
 
 		var onSuccessfulAuthorization = function (url) {
-			$(".connect-btn").text("Connecting...");
+			$(".connect-btn").text("Conectando...");
 
 			$.ajax({
 				url: "/trello/connect",
@@ -43,13 +43,13 @@
 					login_mail: "#{params[:mail]}"
 				},
 				success: function () {
-					$(".connect-btn").text("Connection successful. Redirecting...");
+					$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
 					self.location = "/";
 				},
 				error: function (xhr, textStatus, errorThrown) {
 					if (xhr.responseText) {
 				FlashMessage.error(xhr.responseText);
-				$(".connect-btn").text("Connection failed. Try again.");
+				$(".connect-btn").text("Conexión fallida. Inténtelo de nuevo.");
 					}
 				}
 			});
@@ -74,13 +74,13 @@
 					login_mail: "#{params[:mail]}"
 				},
 				success: function () {
-					$(".connect-btn").text("Connection successful. Redirecting...");
+					$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
 					self.location = "/";
 				},
 				error: function (xhr, textStatus, errorThrown) {
 					if (xhr.responseText) {
 				FlashMessage.error(xhr.responseText);
-				$(".connect-btn").text("Connection failed. Try again.");
+				$(".connect-btn").text("Conexión fallida. Inténtelo de nuevo.");
 					}
 				}
 			});
@@ -97,7 +97,7 @@
 		}());
 :javascript
 	$( document ).ready(function() {
-		Trello.setKey("d362373a44e62ddcbb30a60418a99f41");
+		Trello.setKey("#{ENV['PUBLIC_KEY']}");
 	  if (false) {
 	    Ollert.initDrawer();
 	  }

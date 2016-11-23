@@ -235,7 +235,12 @@
                               - bdbrd=Board.new
                               - bdbrd.state_change_dates=Array.new(10)
                               - bdbrd.name=board["name"]
+                              - bdbrd.organization=org
                               - bdbrd.board_id=board["id"]
+                              - cstate=board["name"].split('|')[1]
+                              - if(cstate!=nil)
+                                - bdbrd.current_state=cstate
+                              - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.coords=@user.municipio.coords
                               - bdbrd.municipio=@user.municipio
@@ -247,7 +252,12 @@
                               - if(bdbrd.state_change_dates==nil)
                                 - bdbrd.state_change_dates=Array.new(10)
                               - bdbrd.name=board["name"]
+                              - bdbrd.organization=org
                               - bdbrd.board_id=board["id"]
+                              - cstate=board["name"].split('|')[1]
+                              - if(cstate!=nil)
+                                - bdbrd.current_state=cstate
+                              - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.municipio=@user.municipio
                               - bdbrd.users<<@user
@@ -291,6 +301,17 @@
                           - else
                             - if(bdbrd!=nil)
                               - bdbrd.closed="true" 
+                              - bdbrd.organization=org
+                              - if(bdbrd.current_state!=@mun.states.all[8].name && bdbrd.current_state!=@mun.states.all[9].name)
+                                - bdbrd.current_state=@mun.states.all[9].name
+                                - board=Trello::Board.find(bdbrd.board_id)
+                                - zstate=@mun.states.all[9].name
+                                - if board.name.include? "|"
+                                  - board.name=board.name.split('|')[0]+" |"+zstate+"|"
+                                - else
+                                  - board.name=board.name+" |"+zstate+"|"
+                                - board.save
+                                - bdbrd.name=board.name
                               - bdbrd.save
 
                                       

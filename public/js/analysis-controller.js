@@ -20,12 +20,7 @@ var AnalysisController = (function () {
     var startOfWork = getCurrentStartingList(),
         endOfWork = getCurrentEndingList();
 
-    WipChartBuilder.build(boardId, token);
-    StatsBuilder.build(boardId, token);
-    LabelCountChartBuilder.build(boardId, token);
-    ProgressChartBuilder.build(boardId, token, startOfWork, endOfWork);
-    ListChangesChartBuilder.build(boardId, token, startOfWork, endOfWork);
-    CalendarChartBuilder.build(boardId, token);
+
   };
 
   var updateListRange = function (boardId, token) {

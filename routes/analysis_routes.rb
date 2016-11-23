@@ -122,16 +122,16 @@ class Ollert
     brd.save
     board.save
     if(state=="Finalizado" && brd.closed.to_s=="false")
-        JSON.parse(client.put("/boards/#{board_id}/closed?value=true"))
-        puts "se cierra"
-        brd.closed="true"
-        brd.save
-      elsif(brd.closed.to_s=="true")
-        puts "se abre"
-        JSON.parse(client.put("/boards/#{board_id}/closed?value=false"))
-        brd.closed="false"
-        brd.save
-      end
+      JSON.parse(client.put("/boards/#{board_id}/closed?value=true"))
+      puts "se cierra"
+      brd.closed="true"
+      brd.save
+    elsif(brd.closed.to_s=="true")
+      puts "se abre"
+      JSON.parse(client.put("/boards/#{board_id}/closed?value=false"))
+      brd.closed="false"
+      brd.save
+    end
     Thread.new do
       local_board=Board.find_by(board_id: board_id)
       s=local_board.municipio.states.find_by(name: state)
@@ -210,6 +210,8 @@ class Ollert
       if(organization.name.include?(priority))
         board.organization_id=organization.org_id
         board.update!
+        brd.organization=organization
+        brd.save
       end
     end
     

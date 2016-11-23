@@ -3,6 +3,8 @@ require 'mongoid'
 class Organization
   include Mongoid::Document
 
+  has_many :boards
+
   field :org_id, type: String
   field :name, type: String
 

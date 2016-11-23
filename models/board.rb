@@ -23,6 +23,7 @@ class Board
   field :archivado, type: String
 
 
+  belongs_to :organization
   belongs_to :municipio
   belongs_to :fondo
   belongs_to :tipo

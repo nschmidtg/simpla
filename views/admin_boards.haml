@@ -62,8 +62,8 @@
                 - tipox=board.tipo.name
               - else
                 - tipox="NO ASIGNADO"
-              - if(board.name.split('|')[1]!=nil)
-                - statex=board.name.split('|')[1]
+              - if(board.current_state!=nil)
+                - statex=board.current_state
               - else
                 - statex="NO ASIGNADO"
               - zoness=" | "
