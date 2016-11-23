@@ -62,7 +62,8 @@ class Ollert
       @mun_id=@mun.id
       @boards=@mun.boards.and(
         @mun.boards.where(closed:"false").selector,
-        @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector
+        @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector,
+        @mun.boards.where(:current_state.ne => @mun.states.all[9].name).selector
         )
       @title="Indicadores Globales"
       @valores=Array.new()
@@ -73,11 +74,11 @@ class Ollert
       count=0
       @mun.organizations.each do |org|
         if(org.name=="1. Urgentes")
-          @count[0]=org.boards.count
+          @count[0]=@boards.where(organization: org).count
         elsif(org.name=="2. Priorizados")
-          @count[1]=org.boards.count
+          @count[1]=@boards.where(organization: org).count
         elsif(org.name=="3. No Priorizados")
-          @count[2]=org.boards.count
+          @count[2]=@boards.where(organization: org).count
         end
       end
       i=0
