@@ -5,6 +5,10 @@
 
     %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
       .col-md-12.col-sm-12.col-xs-12.no-padding
+        .col-md-3
+          %a{href:"#",onclick: "resetx()"}
+            %span.glyphicon.glyphicon-erase{"aria-hidden" => "true"}
+            Quitar filtros
         %table.table{id: "myTable"}
           %thead
             %tr
@@ -24,7 +28,7 @@
                   %option Todos
                   %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.fondo}.compact 
-                  - @names=@not_nil.map{|t| t.name}.uniq 
+                  - @names=@not_nil.map{|t| t.name+" ("+t.etapa+")"}.uniq.sort{|a,b| a <=> b}
                   - @names.each do |name|
                     %option #{name}
               %th{style:"min-width:100px;"}
@@ -33,14 +37,14 @@
                   %option Todos
                   %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.tipo}.compact 
-                  - @names=@not_nil.map{|t| t.name}.uniq 
+                  - @names=@not_nil.map{|t| t.name}.uniq.sort{|a,b| a <=> b} 
                   - @names.each do |name|
                     %option #{name}
               %th{style:"min-width:100px;"}
                 %select#assigned-state-filter.form-control
-                  %option{:disabled => "", :selected => ""} Estado
-                  %option Todos
-                  %option NO ASIGNADO
+                  %option{:disabled => "", :selected => ""} Etapa
+                  %option Todas
+                  %option NO ASIGNADA
                   %option En Creación Municipal
                   %option Ingresado
                   %option Observado
@@ -63,7 +67,7 @@
           %tbody.cuerpo-tabla
             - @boards.each do |board|
               - if(board.fondo!=nil)
-                - fondox=board.fondo.name
+                - fondox=board.fondo.name+" ("+board.fondo.etapa+")"
               - else
                 - fondox="NO ASIGNADO"
               - if(board.tipo!=nil)
@@ -73,7 +77,7 @@
               - if(board.current_state!=nil)
                 - statex=board.current_state
               - else
-                - statex="NO ASIGNADO"
+                - statex="NO ASIGNADA"
               - if(board.organization!=nil)
                 - orgx=board.organization.name.split(". ")[1]
               - else
@@ -102,7 +106,7 @@
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
                       - if board.fondo != nil
-                        #{board.fondo.name}
+                        #{board.fondo.name} (#{board.fondo.etapa})
                       - else
                         NO ASIGNADO
                     - else
@@ -121,7 +125,7 @@
                     - if(board.current_state!=nil)
                       #{board.current_state}
                     - else
-                      NO ASIGNADO
+                      NO ASIGNADA
                 %td.celda-tabla{style: "width: 100%;"}
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if board != nil
@@ -158,6 +162,20 @@
       }
     });
   });
+:javascript
+  function resetx(){
+    $('#assigned-org-filter').val('Todos');
+    $('#assigned-fondo-filter').val('Todos');
+    $('#assigned-tipo-filter').val('Todos');
+    $('#assigned-state-filter').val('Todas');
+    $('#assigned-zone-filter').val('Todas');
+
+    $('#assigned-org-filter').change();
+    $('#assigned-fondo-filter').change();
+    $('#assigned-tipo-filter').change();
+    $('#assigned-state-filter').change();
+    $('#assigned-zone-filter').change();
+  }
 
 
 
@@ -176,7 +194,7 @@
       if (fondoFilter && (fondoFilter != 'Todos')) {
         result = result && fondoFilter === self.data('assigned-fondo');
       }
-      if (stateFilter && (stateFilter != 'Todos')) {
+      if (stateFilter && (stateFilter != 'Todas')) {
         result = result && stateFilter === self.data('assigned-state');
       }
       if (orgFilter && (orgFilter != 'Todos')) {

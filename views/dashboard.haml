@@ -170,13 +170,13 @@
   "series":[
   {
   "values":[
-  - zonesss=@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
   #{@boards.and(@boards.where(closed: "false").selector,@boards.where(:zone_ids => nil).selector).count},
   #{zonesss.first.boards.where(closed: "false").count}
   - zonesss.each do |zone|
     - if(zone!=zonesss.first)
       ,#{zone.boards.where(closed: "false").count}
   ],
+  "text":"Proyectos por zona",
   "styles":[
   {
   / "background-image":"/img/Indicadores-02.png",
@@ -252,10 +252,11 @@
   "visible":"true"
   },
   "values":[
+  - tiposss=@mun.tipos.sort{|a,b| a.name <=> b.name}
   "NO ASIGNADO",
-  "#{@mun.tipos.first.name}"
-  - @mun.tipos.each do |tipo|
-    - if(tipo!=@mun.tipos.first)
+  "#{tiposss.first.name}"
+  - tiposss.each do |tipo|
+    - if(tipo!=tiposss.first)
       ,"#{tipo.name}"
   ],
   "item":{
@@ -292,11 +293,12 @@
   {
   "values":[
   #{@mun.boards.and(@mun.boards.where(tipo: nil).selector,@mun.boards.where(closed: "false").selector).count},
-  #{@mun.tipos.first.boards.where(closed: "false").count}
-  - @mun.tipos.each do |tipo|
-    - if(tipo!=@mun.tipos.first)
+  #{tiposss.first.boards.where(closed: "false").count}
+  - tiposss.each do |tipo|
+    - if(tipo!=tiposss.first)
       ,#{tipo.boards.where(closed: "false").count}
   ],
+  "text":"Proyectos por tipo",
   "styles":[
   {
   / "background-image":"/img/Indicadores-02.png",
@@ -375,7 +377,7 @@
 %script
 
   var colors = Highcharts.getOptions().colors,
-  categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'NO ASIGNADO'],
+  categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'NO ASIGNADA'],
 
   data = [{
   color: colors[0],
@@ -433,9 +435,9 @@
   {
   color: colors[4],
   drilldown: {
-  name: 'NO ASIGNADO',
+  name: 'NO ASIGNADA',
   categories: [
-  'NO ASIGNADO'
+  'NO ASIGNADA'
   ],
 
   data: [#{@total9.to_f/@big_total*100}],
@@ -482,7 +484,7 @@
   type: 'pie'
   },
   title: {
-  text: 'Estados de proyectos abiertos'
+  text: 'Etapas de proyectos abiertos'
   },
   yAxis: {
   title: {

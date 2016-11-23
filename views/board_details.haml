@@ -153,6 +153,7 @@
       return value/(3600*1000*24);
     }
   }
+
 %script
   var now = new Date();
   var locale = parseInt(now.toString().split("-")[1].split(" (")[0])/100;
@@ -171,7 +172,7 @@
   type: 'bar'
   },
   title: {
-  text: 'Días en cada estado'
+  text: 'Días en cada etapa'
   },
   xAxis: {
   categories: [" "],

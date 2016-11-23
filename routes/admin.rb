@@ -3120,7 +3120,7 @@ class Ollert
     if(@user.role!="admin"  && @user.role!="secpla" )
       respond_to do |format|
         format.html do
-          flash[:error] = "No tiene permiso para eliminar estados."
+          flash[:error] = "No tiene permiso para eliminar etapas."
           redirect '/boards'
         end
       end
@@ -3161,7 +3161,7 @@ class Ollert
 
     respond_to do |format|
       format.html do
-        flash[:success] = "Estado eliminado exitosamente."
+        flash[:success] = "Etapa eliminada exitosamente."
         redirect '/admin'
       end
       
@@ -3434,7 +3434,7 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:success] = "Estado creado exitosamente"
+          flash[:success] = "Etapa creada exitosamente"
           redirect "/admin"
         end
       end
@@ -4062,7 +4062,7 @@ class Ollert
 
     respond_to do |format|
         format.html do
-          flash[:success] = "Estado creado exitosamente"
+          flash[:success] = "Etapa creada exitosamente"
           redirect "/admin/municipio/fondos?mun_id=#{@mun.id}"
         end
       end

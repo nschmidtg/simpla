@@ -52,7 +52,7 @@
                       %select#textinput.form-control.input-md.inpSelect{name: "tipo", style: "cursor: auto;", required: "true"}
                         - if(params[:edit]=="true" && @board.tipo!=nil)
                           - @tipo=@board.tipo
-                          - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
+                          - @tipos=Municipio.find_by(id: params[:mun_id]).tipos.sort{|a,b| a.name <=> b.name}
                           - @tipos.each do |f|
                             - if(@tipo.id==f.id)
                               %option{:value => "#{f.id}", :selected => ""} #{f.name}
@@ -60,7 +60,7 @@
                               %option{:value => "#{f.id}"} #{f.name}
                           
                         - else
-                          - @tipos=Municipio.find_by(id: params[:mun_id]).tipos
+                          - @tipos=Municipio.find_by(id: params[:mun_id]).tipos.sort{|a,b| a.name <=> b.name}
                           %option{:disabled => "disabled", :selected => "", :value=>""} Tipo de proyecto*
                           - @tipos.each do |f|
                             %option{:value => "#{f.id}"} #{f.name}
@@ -230,15 +230,15 @@
                         %input{:type => "submit", :value => "Crear", :class => "btn plus"} 
                       - if(params[:edit]=="true")
                         %a#delete.btn.plus{style:"background-color:#eb5a46;margin-right:10px;"}
-                          Eliminar Proyecto 
+                          Descartar Proyecto 
                     
 - if(params[:edit]=="true")
   #confirm.modalx.hide.fade
     .modal-body
-      ¿Estás seguro que deseas eliminar #{params[:board_name]}?
+      ¿Estás seguro que deseas descartar #{params[:board_name]}?
     
     .modal-footer
-      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Descartar
       %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
   
 

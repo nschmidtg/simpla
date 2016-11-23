@@ -8,7 +8,7 @@
           - if(@state!=nil)
             #{@state.name}
           -else
-            Nuevo Estado para #{@mun.name}
+            Nueva etapa para #{@mun.name}
     - if(@state!=nil)
       .row
         .col-md-10.col-sm-10.col-xs-10
@@ -30,14 +30,14 @@
                     - if(@state!=nil)
                       %input#textinput.form-control.input-md{name: "name", value: "#{@state.name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
-                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del estado", style: "cursor: auto;", type: "text",required: ""}/
+                      %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre de la etapa", style: "cursor: auto;", type: "text",required: ""}/
                 .form-group
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Orden
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@state!=nil)
                       %input#textinput.form-control.input-md{name: "order", value: "#{@state.order}", style: "cursor: auto;", type: "number" ,min: "1",required: ""}/
                     - else
-                      %input#textinput.form-control.input-md{name: "order", placeholder: "Orden del estado", style: "cursor: auto;", type: "number",min: "1",required: ""}/
+                      %input#textinput.form-control.input-md{name: "order", placeholder: "Orden de la etapa", style: "cursor: auto;", type: "number",min: "1",required: ""}/
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@state!=nil)
@@ -57,7 +57,7 @@
 - if(@state!=nil)
   #confirm.modalx.hide.fade
     .modal-body
-      ¿Estás seguro que deseas eliminar el estado #{@state.name}?
+      ¿Estás seguro que deseas eliminar la etapa #{@state.name}?
     
     .modal-footer
       %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
