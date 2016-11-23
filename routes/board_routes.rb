@@ -86,15 +86,19 @@ class Ollert
         @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
           @valores[i]=0
           @sizes[i]=0
-          @boardsx=@boards.where(fondo: fondo)
-          @boardsx.each do |board|
-            if(board.fondo!=nil)
-              if(board.zones.include?(zone))
-                @valores[i]+=1
-                @sizes[i]+=10
-              end
-            end
-          end
+
+
+          @valores[i]=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
+          @sizes[i]=@valores[i]*10
+          # @boardsx=@boards.where(fondo: fondo)
+          # @boardsx.each do |board|
+          #   if(board.fondo!=nil)
+          #     if(board.zones.include?(zone))
+          #       @valores[i]+=1
+          #       @sizes[i]+=10
+          #     end
+          #   end
+          # end
           @zones<<zone.name
           @fondos<<fondo.name+" ("+fondo.etapa+")"
           i=i+1
