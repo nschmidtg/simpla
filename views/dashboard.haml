@@ -250,6 +250,7 @@
   "visible":"true"
   },
   "values":[
+  "NO ASIGNADO",
   "#{@mun.tipos.first.name}"
   - @mun.tipos.each do |tipo|
     - if(tipo!=@mun.tipos.first)
@@ -288,6 +289,7 @@
   "series":[
   {
   "values":[
+  #{@mun.boards.and(@mun.boards.where(tipo: nil).selector,@mun.boards.where(closed: "false").selector).count},
   #{@mun.tipos.first.boards.where(closed: "false").count}
   - @mun.tipos.each do |tipo|
     - if(tipo!=@mun.tipos.first)
