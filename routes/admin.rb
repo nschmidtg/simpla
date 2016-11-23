@@ -441,7 +441,7 @@ class Ollert
             
 
             estado1=State.new
-            estado1.name="En Formulación"
+            estado1.name="En Creación Municipal"
             estado1.order=1
             estado1.municipio=mun
             estado1.save

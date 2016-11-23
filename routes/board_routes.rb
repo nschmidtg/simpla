@@ -99,6 +99,7 @@ class Ollert
           @fondos<<fondo.name+" ("+fondo.etapa+")"
           i=i+1
         end
+        
       end
       @big_total=0
 

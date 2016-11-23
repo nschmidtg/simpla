@@ -375,14 +375,14 @@
 %script
 
   var colors = Highcharts.getOptions().colors,
-  categories = ['En Formulación', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'NO ASIGNADO'],
+  categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'NO ASIGNADO'],
 
   data = [{
   color: colors[0],
   drilldown: {
   name: 'En Formulación',
   categories: [
-  'En Formulación','Ingresado','Observado'
+  'En Creación Municipal','Ingresado','Observado'
   ],
   data: [#{@total1.to_f/@big_total*100},#{@total2.to_f/@big_total*100},#{@total3.to_f/@big_total*100}],
   color: colors[0]

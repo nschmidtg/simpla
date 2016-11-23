@@ -16,7 +16,7 @@
           %li.lindo
             %a.tab-custom.active{:href => "#tab-1",:id => "tab-text-1"} NO ASIGNADO
           %li.lindo
-            %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} EN FORMULACIÓN
+            %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} EN CREACIÓN MUNICIPAL
           %li.lindo
             %a.tab-custom{:href => "#tab-3",:id => "tab-text-3"} INGRESADO
           %li.lindo
@@ -166,7 +166,7 @@
                                   NO ASIGNADO
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %div
-                                      %a{onclick: "changeState('En Formulación','#{board["id"]}')", title: "Pasar a la etapa 'En Formulación'"}
+                                      %a{onclick: "changeState('En Creación Municipal','#{board["id"]}')", title: "Pasar a la etapa 'En Creación Municipal'"}
                                         %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                               - if(@user.role=="secpla" || @user.role=="admin")
                                 %td.celda-tabla{style: "width: 100%;"}

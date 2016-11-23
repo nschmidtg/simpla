@@ -146,7 +146,7 @@
   };
 :javascript
   function cantidad_de_dias(nombre,value,locale,now,extra){
-    if(nombre=="En Formulación"){
+    if(nombre=="En Creación Municipal"){
       return ((value+locale*3600*1000-now+extra*3600*1000*24)/(3600*24*1000));
     }
     else{
@@ -321,7 +321,7 @@
     {
     - value=(@board.state_change_dates[1].to_date-@board.state_change_dates[0].to_date).to_i
     - count=count+value
-    name: 'En Formulación',
+    name: 'En Creación Municipal',
     extra: #{count},
     data: [#{value}*3600*1000*24+now-locale*3600*1000-#{count*1000*24*3600}]
     }
@@ -329,7 +329,7 @@
     {
     - value=(DateTime.now-@board.state_change_dates[0].to_date).to_i
     - count=count+value
-    name: 'En Formulación',
+    name: 'En Creación Municipal',
     extra: #{count},
     data: [#{value}*3600*1000*24+now-locale*3600*1000-#{count*1000*24*3600}]
     }
