@@ -109,7 +109,7 @@
                                         - if actual_board != nil
                                           .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                                             - if(state=="Finalizado")
-                                              %a{style: 'display: inline-block;', href: "/archivar?mun_id=#{@mun.id}&board_id=#{actual_board.board_id}",onclick:"return confirm('¿Está seguro de que quiere archivar el proyecto?')"}
+                                              %a{style: 'display: inline-block;',onclick:"archivar('#{actual_board.board_id}')"}
                                                 %span.glyphicon.glyphicon-inbox
                                             - else
                                               %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
@@ -414,28 +414,43 @@
     }
     
     function changePriority(boardPriority,boardId){
-      var va=false;
-      if(confirm("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?")){
-        $body = $("body");
-        $body.addClass("loading");
-        va=true;
-      }
-      if(va){
-        $.ajax({
-          url: "/api/v1/change_board_priority/" + boardId,
-          data: {
-            token: "#{@token}",
-            user_id: "#{@user.trello_id}",
-            priority: boardPriority
-          },
-          success: function(xhr){
-            window.location.reload();
-          },
-          error: function(xhr) {
-            if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
-          }
+      $("#textoPopup").text("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?");
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#delete', function() {
+          $body = $("body");
+          $body.addClass("loading");
+          va=true;
+          $.ajax({
+            url: "/api/v1/change_board_priority/" + boardId,
+            data: {
+              token: "#{@token}",
+              user_id: "#{@user.trello_id}",
+              priority: boardPriority
+            },
+            success: function(xhr){
+              window.location.reload();
+            },
+            error: function(xhr) {
+              if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de prioridad no será guardado.")){window.location.reload();}
+            }
+          });
         });
-      }
+      $("#confirm").removeClass( "hide");
+      
+    }
+    function archivar(boardId){
+      $("#textoPopup").text("¿Está seguro de que quiere archivar el proyecto? El proyecto se cerrará.");
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#delete', function() {
+          $body = $("body");
+          $body.addClass("loading");
+          va=true;
+          
+          window.location.href= "/archivar?mun_id=#{@mun.id}&board_id=" + boardId;
+          
+        });
+      $("#confirm").removeClass( "hide");
+      
     }
 
           
