@@ -52,7 +52,18 @@
                   .boards-list-item-link-b.overflow{style:"max-width: 100%;"}
                     - if user != nil
                       - if user.role != nil
-                        #{user.role}
+                        - if(user.role=="admin")
+                          Administrador
+                        - elsif(user.role=="secpla")
+                          Director SECPLAC
+                        - elsif(user.role=="concejal")
+                          Concejal
+                        - elsif(user.role=="alcalde")
+                          Alcalde
+                        - elsif(user.role=="funcionario")
+                          Funcionario SECPLAC
+                        - else
+                          #{user.role}
                       - else
                         NO ASIGNADO
                     - else

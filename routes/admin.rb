@@ -3218,7 +3218,7 @@ class Ollert
             if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
               respond_to do |format|
                 format.html do
-                  flash[:error] = "Un municipio debe tener al menos un Secpla."
+                  flash[:error] = "Un municipio debe tener al menos un Director SECPLAC."
                   redirect '/admin'
                 end
 

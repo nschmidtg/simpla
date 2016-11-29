@@ -67,39 +67,45 @@
                         - @tipo=@new_user.role
                         - if (@tipo == "secpla")
                           - if(@user.id==@new_user.id)                          
-                            %option{:value => "secpla", :selected => ""} Secpla
+                            %option{:value => "secpla", :selected => ""} Director SECPLAC
                           - else
-                            %option{:value => "secpla", :selected => ""} Secpla
+                            %option{:value => "secpla", :selected => ""} Director SECPLAC
+                            %option{:value => "funcionario"} Funcionario SECPLAC
                             %option{:value => "alcalde"} Alcalde
                             %option{:value => "concejal"} Concejal
-                            %option{:value => "funcionario"} Funcionario
+                            
                         - elsif (@tipo == "alcalde")                          
-                          %option{:value => "secpla"} Secpla
+                          %option{:value => "secpla"} Director SECPLAC
+                          %option{:value => "funcionario"} Funcionario SECPLAC
                           %option{:value => "alcalde", :selected => ""} Alcalde
                           %option{:value => "concejal"} Concejal
-                          %option{:value => "funcionario"} Funcionario
+                          
                         - elsif (@tipo == "concejal")                          
-                          %option{:value => "secpla"} Secpla
+                          %option{:value => "secpla"} Director SECPLAC
+                          %option{:value => "funcionario"} Funcionario SECPLAC
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal", :selected => ""} Concejal
-                          %option{:value => "funcionario"} Funcionario
+                          
                         - elsif (@tipo == "funcionario")                          
-                          %option{:value => "secpla"} Secpla
+                          %option{:value => "secpla"} Director SECPLAC
+                          %option{:value => "funcionario", :selected => ""} Funcionario SECPLAC
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal"} Concejal
-                          %option{:value => "funcionario", :selected => ""} Funcionario
+                          
                         - else
                           %option{:disabled => ""} Seleccione                          
-                          %option{:value => "secpla"} Secpla
+                          %option{:value => "secpla"} Director SECPLAC
+                          %option{:value => "funcionario"} Funcionario SECPLAC
                           %option{:value => "alcalde"} Alcalde
                           %option{:value => "concejal"} Concejal
-                          %option{:value => "funcionario"} Funcionario
+                          
                       - else
                         %option{:disabled => ""} Seleccione                        
-                        %option{:value => "secpla"} Secpla
+                        %option{:value => "secpla"} Director SECPLAC
+                        %option{:value => "funcionario"} Funcionario SECPLAC
                         %option{:value => "alcalde"} Alcalde
                         %option{:value => "concejal"} Concejal
-                        %option{:value => "funcionario"} Funcionario
+                        
 
                 .form-group
                   

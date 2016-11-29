@@ -27,6 +27,14 @@ class Board
   belongs_to :municipio
   belongs_to :fondo
   belongs_to :tipo
+  def self.to_csv(options = {})
+    CSV.generate(options) do |csv|
+      csv << ["uno","dos","tres"]
+      all.each do |product|
+        csv << product.pluck(:name,:closed,:end_date)
+      end
+    end
+  end
 
   def add_members(client,host)
     begin
@@ -115,5 +123,6 @@ class Board
     end
     
   end
+
   
 end

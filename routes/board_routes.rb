@@ -47,6 +47,16 @@ class Ollert
     end
   end
 
+  get '/dashboard/raport.xls', :auth => :connected do
+      require 'csv'
+      require 'to_xls'
+      respond_to do |format|
+        format.xls { 
+          User.all.to_xls
+     }
+      end
+  end
+
   get '/dashboard', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],

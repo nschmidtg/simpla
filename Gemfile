@@ -19,7 +19,8 @@ gem 'business_time'
 gem 'require_all'
 gem 'newrelic_rpm'
 gem 'mail'
-
+gem 'spreadsheet'
+gem 'to_xls'
 
 group :development do
   gem 'pry'
