@@ -230,17 +230,86 @@
                         %input{:type => "submit", :value => "Crear", :class => "btn plus"} 
                       - if(params[:edit]=="true")
                         %a#delete.btn.plus{style:"background-color:#eb5a46;margin-right:10px;"}
-                          Descartar Proyecto 
+                          - if(@board.current_state==@municipio.states.all[9].name || @board.current_state==@municipio.states.all[8].name)
+                            Volver a abrir
+                          - else
+                            Descartar Proyecto 
                     
 - if(params[:edit]=="true")
   #confirm.modalx.hide.fade
     .modal-body
-      ¿Estás seguro que deseas descartar #{params[:board_name]}?
+      %span#textoPopup asda
     
     .modal-footer
-      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Descartar
+      - if(@board.current_state==@municipio.states.all[9].name || @board.current_state==@municipio.states.all[8].name)
+        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Volver a abrir
+      - else
+        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Descartar
       %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
+%script
   
+
+  window.onload = function() {
+
+
+  if(!$("#always").prop('checked'))
+  $("#map").hide();
+
+  - if(params[:edit]=="true")
+    $('#delete').on('click', function(e){
+    - if(@board.current_state==@municipio.states.all[9].name || @board.current_state==@municipio.states.all[8].name)
+      $("#textoPopup").text("¿Está seguro de que quiere volver a abrir el proyecto");
+      $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
+      $body = $("body");
+      $body.addClass("loading");
+      $.ajax({
+      url: "/api/v1/change_board_state/#{@board.board_id}",
+      data: {
+      token: "#{@user.member_token}",
+      state: "#{@last_state}"
+      },
+      success: function(xhr){
+      window.location.href="/boards/#{@board.board_id}";
+      },
+      error: function(xhr) {
+      if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de etapa no será guardado.")){window.location.reload();}
+      }
+      });
+
+    -else
+      $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como Descartado El proyecto se cerrará");
+      $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
+      window.location.href = "/boards/delete/#{params[:last_board_id]}";
+    });
+    $("#confirm").removeClass( "hide");
+    });
+
+
+  $('#monto').bind('input', function() { 
+  var numero=$(this).val().replace(/\./g,'')
+  var i =numero.length-1;
+  count=0;
+  string="";
+  while(i>-1){
+  count++;
+  if(count%3==0){
+  string="."+numero[i]+string;
+  }
+  else{
+  string=numero[i]+string;
+  }
+  i--;
+  }
+  if(string[0]=='.'){
+  string=string.substring(1,string.length);
+  }
+  $(this).val(string);
+
+  });
+
+
+
+  };
 
 :javascript
   function toggle(source) {
@@ -270,49 +339,7 @@
   
 
     
-:javascript
-  
 
-  window.onload = function() {
-    
-
-    if(!$("#always").prop('checked'))
-      $("#map").hide();
-    $('#delete').on('click', function(e){
-      e.preventDefault();
-      $('#confirm').modal({ backdrop: 'static', keyboard: false })
-        .one('click', '#delete', function() {
-            window.location.href = "/boards/delete/#{params[:last_board_id]}";
-        });
-      $("#confirm").removeClass( "hide");
-    });
-
-
-    $('#monto').bind('input', function() { 
-      var numero=$(this).val().replace(/\./g,'')
-      var i =numero.length-1;
-      count=0;
-      string="";
-      while(i>-1){
-        count++;
-        if(count%3==0){
-          string="."+numero[i]+string;
-        }
-        else{
-          string=numero[i]+string;
-        }
-        i--;
-      }
-      if(string[0]=='.'){
-        string=string.substring(1,string.length);
-      }
-      $(this).val(string);
-
-    });
-    
-
-    
-  };
 :javascript
   function checkboxes(){
     if(jQuery('#zones input[type=checkbox]:checked').length>0){

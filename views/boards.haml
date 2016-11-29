@@ -321,47 +321,95 @@
                           var text=$(document).find("#tab-text-#{count}").text();
                           $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
 
-- if(@user.role=="secpla" || @user.role=="admin")       
+
+- if(@user.role=="secpla" || @user.role=="admin")  
+  #confirm.modalx.hide.fade
+    .modal-body
+      %span#textoPopup asda
+    
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+      %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
+
+
+
   :javascript
     function changeState(boardState,boardId){
       var va=false;
       if(boardState=="Finalizado" || boardState=="Descartado"){
-        if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")){
-          $body = $("body");
-          $body.addClass("loading");
-          va=true;
-        }
+        $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará");
+        //if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")){
+        $('#confirm').modal({ backdrop: 'static', keyboard: false })
+          .one('click', '#delete', function() {
+            $body = $("body");
+            $body.addClass("loading");
+            va=true;
+            $.ajax({
+              url: "/api/v1/change_board_state/" + boardId,
+              data: {
+                token: "#{@token}",
+                state: boardState
+              },
+              success: function(xhr){
+                window.location.reload();
+              },
+              error: function(xhr) {
+                if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de etapa no será guardado.")){window.location.reload();}
+              }
+            });
+          });
+        $("#confirm").removeClass( "hide");
+        //}
       }
       else{
         if(window.location.href.includes("closed")){
-          if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas a la etapa.")){
-            $body = $("body");
-            $body.addClass("loading");
-            va=true;
-          }
+          $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas a la etapa.");
+          //if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas a la etapa.")){
+          $('#confirm').modal({ backdrop: 'static', keyboard: false })
+            .one('click', '#delete', function() {
+              $body = $("body");
+              $body.addClass("loading");
+              va=true;
+              $.ajax({
+                url: "/api/v1/change_board_state/" + boardId,
+                data: {
+                  token: "#{@token}",
+                  state: boardState
+                },
+                success: function(xhr){
+                  window.location.reload();
+                },
+                error: function(xhr) {
+                  if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de etapa no será guardado.")){window.location.reload();}
+                }
+              });
+            });
+          $("#confirm").removeClass( "hide");
+         // }
         }
         else{
-          if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas a la etapa.")){
-            $body = $("body");
-            $body.addClass("loading");
-            va=true;
-          }
+          $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas a la etapa.");
+          $('#confirm').modal({ backdrop: 'static', keyboard: false })
+            .one('click', '#delete', function() {
+              $body = $("body");
+              $body.addClass("loading");
+              va=true;
+              $.ajax({
+                url: "/api/v1/change_board_state/" + boardId,
+                data: {
+                  token: "#{@token}",
+                  state: boardState
+                },
+                success: function(xhr){
+                  window.location.reload();
+                },
+                error: function(xhr) {
+                  if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de etapa no será guardado.")){window.location.reload();}
+                }
+              });
+            });
+          $("#confirm").removeClass( "hide");
         }
-      }
-      if(va){
-        $.ajax({
-          url: "/api/v1/change_board_state/" + boardId,
-          data: {
-            token: "#{@token}",
-            state: boardState
-          },
-          success: function(xhr){
-            window.location.reload();
-          },
-          error: function(xhr) {
-            if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de etapa no será guardado.")){window.location.reload();}
-          }
-        });
       }
     }
     

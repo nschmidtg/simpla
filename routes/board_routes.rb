@@ -536,6 +536,18 @@ class Ollert
         if(params[:edit]=="true")
           @board=Board.find_by board_id: params[:last_board_id]
           @municipio=Municipio.find_by(id: params[:mun_id])
+          if(@board.current_state==@municipio.states.all[9].name)
+            index=@board.state_change_dates.compact.size
+            if(index>1)
+              puts index
+              puts "indiceeeee"
+              @last_state=@municipio.states.all[(index-2)].name
+            else
+              @last_state=""
+            end
+          elsif(@board.current_state==@municipio.states.all[8].name)
+            @last_state=@municipio.states.all[8].name
+          end       
         end
         
       else

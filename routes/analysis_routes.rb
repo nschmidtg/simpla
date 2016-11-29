@@ -98,10 +98,16 @@ class Ollert
     state=params['state']
 
     board=Trello::Board.find(board_id)
-    if board.name.include? "|"
-      board.name=board.name.split('|')[0]+" |"+state+"|"
+    if(state!="")
+      if board.name.include? "|"
+        board.name=board.name.split('|')[0]+" |"+state+"|"
+      else
+        board.name=board.name+" |"+state+"|"
+      end
     else
-      board.name=board.name+" |"+state+"|"
+      if board.name.include? "|"
+        board.name=board.name.split('|')[0]
+      end
     end
     brd=Board.find_by(board_id: board_id)
     brd.name=board.name
@@ -113,7 +119,10 @@ class Ollert
         brd.state_change_dates=Array.new(10)
         brd.save
       end
-      brd.state_change_dates[order.to_i-1]=Time.now.strftime("%d/%m/%Y %H:%M")
+      if((order.to_i-1)==8 && brd.state_change_dates[order.to_i-1]!=nil)
+      else
+        brd.state_change_dates[order.to_i-1]=Time.now.strftime("%d/%m/%Y %H:%M")
+      end
       for i in order.to_i..9
         brd.state_change_dates[i]=nil
       end
@@ -130,6 +139,7 @@ class Ollert
       puts "se abre"
       JSON.parse(client.put("/boards/#{board_id}/closed?value=false"))
       brd.closed="false"
+      brd.archivado="false"
       brd.save
     end
     Thread.new do

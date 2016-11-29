@@ -119,7 +119,7 @@
       .form-group    
         .col-md-9.col-sm-12.col-xs-12
           .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
-            %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}|&edit=true"}
+            %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}&edit=true"}
               Editar Proyecto 
       
     .row
@@ -134,7 +134,7 @@
     .row
       .col-md-12.col-sm-12.col-xs-12.no-padding
         .analysis-block-md
-          %img#calendar-spinner{src: '/img/spinner.gif'}
+          %img#calendar-spinner
           #timeline-container.med-chart.graph-container
 
    
@@ -161,11 +161,11 @@
   var now=utc_now.getTime();
   - if(@board.state_change_dates[8]!=nil)
     - fin = @board.state_change_dates[8].split('/')
-    var fin = new Date(#{fin[2]},#{fin[1]},#{fin[0]},0,0,0,0);
+    var fin = new Date(#{fin[2].split(' ')[0]},#{fin[1]}-1,#{fin[0]},0,0,0,0);
     now=fin.getTime();
   - if(@board.state_change_dates[9]!=nil)
     - fin = @board.state_change_dates[9].split('/')
-    var fin = new Date(#{fin[2].split(' ')[0]},#{fin[1]},#{fin[0]},0,0,0,0);
+    var fin = new Date(#{fin[2].split(' ')[0]},#{fin[1]}-1,#{fin[0]},0,0,0,0);
     now=fin.getTime();
   $('#timeline-container').highcharts({
   chart: {
