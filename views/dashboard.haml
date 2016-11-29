@@ -50,7 +50,7 @@
   var data = [trace1];
 
   var layout = {
-  title: 'Proyectos por Zona y Fondo',
+  title: 'Proyectos por área de intervención y fondo',
   showlegend: false,
   hovermode: 'closest',
   margin:{
@@ -88,7 +88,7 @@
   "type":"bar",
   "background-color":"#fff",
   "title":{
-  "text":"Proyectos por zona",
+  "text":"Proyectos por área de intervención",
   "font-weight":"bold",
   "font-color":"#0469a4",
   "background-color":"#fff"
@@ -176,7 +176,7 @@
     - if(zone!=zonesss.first)
       ,#{zone.boards.where(closed: "false").count}
   ],
-  "text":"Proyectos por zona",
+  "text":"Proyectos por área de intervención",
   "styles":[
   {
   / "background-image":"/img/Indicadores-02.png",

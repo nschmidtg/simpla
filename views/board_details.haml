@@ -95,32 +95,32 @@
                 #{@board.desc}
               - else
                 NO ASIGNADA
-          
+    .row      
       
-    .form-group
-      .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
-        .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-        
-          %b
-            Zonas:
-            %br
-          - zones=@board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
-          - zones.each do |zona|
-            #{zona.name}
-            %br
+      .form-group
+        .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
+          .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:4px;color:#555"}
+          
+            %b
+              Áreas de intervención:
+              %br
+            - zones=@board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
+            - zones.each do |zona|
+              #{zona.name}
+              %br
 
-        - if(@board.coords!=nil&&@board.coords!="")
-          .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
-            .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-              %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
-              #map
+          - if(@board.coords!=nil&&@board.coords!="")
+            .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
+              .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+                %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
+                #map
 
-    - if(@user.role=="admin" || @user.role=="secpla")
-      .form-group    
-        .col-md-9.col-sm-12.col-xs-12
-          .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
-            %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}&edit=true"}
-              Editar Proyecto 
+      - if(@user.role=="admin" || @user.role=="secpla")
+        .form-group    
+          .col-md-9.col-sm-12.col-xs-12
+            .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
+              %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}&edit=true"}
+                Editar Proyecto 
       
     .row
       .form-group 

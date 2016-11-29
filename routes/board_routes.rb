@@ -100,7 +100,17 @@ class Ollert
           #   end
           # end
           @zones<<zone.name
-          @fondos<<fondo.name+" ("+fondo.etapa+")"
+          if(fondo.etapa=="diseno")
+            @fondos<<fondo.name+" (Diseño)"
+          elsif(fondo.etapa=="ejecucion")
+            @fondos<<fondo.name+" (Ejecución)"
+          elsif(fondo.etapa=="adquisicion")
+            @fondos<<fondo.name+" (Adquisición)"
+          elsif(fondo.etapa=="estudios")
+            @fondos<<fondo.name+" (Estudios)"
+          elsif(fondo.etapa=="otros")
+            @fondos<<fondo.name+" (Otros)"
+          end
           i=i+1
         end
         
