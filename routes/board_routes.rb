@@ -52,7 +52,7 @@ class Ollert
       require 'to_xls'
       respond_to do |format|
         format.xls { 
-          User.all.to_xls
+          Board.all.to_xls
      }
       end
   end
