@@ -55,7 +55,7 @@
   var data = [trace1];
 
   var layout = {
-  title: 'Proyectos por área de intervención y fondo',
+  title: 'Proyectos por zona de intervención y fondo',
   showlegend: false,
   hovermode: 'closest',
   margin:{
@@ -93,7 +93,7 @@
   "type":"bar",
   "background-color":"#fff",
   "title":{
-  "text":"Proyectos por área de intervención",
+  "text":"Proyectos por zona de intervención",
   "font-weight":"bold",
   "font-color":"#0469a4",
   "background-color":"#fff"
@@ -181,7 +181,7 @@
     - if(zone!=zonesss.first)
       ,#{zone.boards.where(closed: "false").count}
   ],
-  "text":"Proyectos por área de intervención",
+  "text":"Proyectos por zona de intervención",
   "styles":[
   {
   / "background-image":"/img/Indicadores-02.png",
@@ -297,11 +297,11 @@
   "series":[
   {
   "values":[
-  #{@mun.boards.and(@mun.boards.where(tipo: nil).selector,@mun.boards.where(closed: "false").selector).count},
-  #{tiposss.first.boards.where(closed: "false").count}
+  #{@boards.and(@boards.where(tipo: nil).selector,@boards.where(closed: "false").selector).count},
+  #{@boards.where(tipo: tiposss.first).count}
   - tiposss.each do |tipo|
     - if(tipo!=tiposss.first)
-      ,#{tipo.boards.where(closed: "false").count}
+      ,#{@boards.where(tipo: tipo).count}
   ],
   "text":"Proyectos por tipo",
   "styles":[
@@ -382,7 +382,7 @@
 %script
 
   var colors = Highcharts.getOptions().colors,
-  categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'NO ASIGNADA'],
+  categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'Etapa no asignada'],
 
   data = [{
   color: colors[0],
@@ -440,9 +440,9 @@
   {
   color: colors[4],
   drilldown: {
-  name: 'NO ASIGNADA',
+  name: 'Etapa no asignada',
   categories: [
-  'NO ASIGNADA'
+  'Etapa no asignada'
   ],
 
   data: [#{@total9.to_f/@big_total*100}],

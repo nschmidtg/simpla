@@ -1,11 +1,15 @@
 
    
 .container
+
   .fondo-blanco
     .row{style:"margin:0px;"}
       %h2.ollert-header
         .text-center.col-xs-12.no-padding
           Fondos
+      - if(@user.role=="secpla" || @user.role=="admin") 
+        %a.btn.plus{href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}",style:"margin-right:25px;"}
+          Agregar Fondo
 
     .row{style:"margin:0px;"}
       .col-md-12.col-sm-12.col-xs-12.no-padding
@@ -31,8 +35,5 @@
               /   %a.btn.btn-link.boards-list-item-link{href: "/admin/municipio/fondos/states?mun_id=#{@mun.id}&fondo_id=#{fondo.id}"}
               /     Etapas: #{@mun.states.count}
           
-    - if(@user.role=="secpla" || @user.role=="admin") 
-      .row{style:"margin:0px;"}
-        %a.btn.plus{href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}"}
-          Agregar Fondo      
+         
       

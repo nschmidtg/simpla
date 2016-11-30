@@ -102,7 +102,7 @@
           .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:4px;color:#555"}
           
             %b
-              Áreas de intervención:
+              Zonas de intervención:
               %br
             - zones=@board.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
             - zones.each do |zona|

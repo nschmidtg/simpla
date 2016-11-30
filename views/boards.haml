@@ -1,20 +1,26 @@
 
    
 .container
+  - @mun=@user.municipio
+  - if(@user.role=="secpla" || @user.role=="admin") 
+    .row{style:"margin-top:30px;margin-bottom:30px;margin-right:15px;"}
+      
+      - @org=@mun.organizations.find_by(name: "3. No Priorizados")
+      - if(@org!=nil)
+        %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
+          Agregar Proyecto
   .fondo-blanco
     %div
-      %h4
-        %a{href: "/boards",style: "color:#808080"}Gestión de Proyectos >
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
           Etapas de Proyectos
 
-    %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
-      - @mun=@user.municipio
+    %div{style:"display: -webkit-inline-box;"}
+      
       #responsiveTabsDemo
         %ul#myTab.nav.nav-tabs.responsive
           %li.lindo
-            %a.tab-custom.active{:href => "#tab-1",:id => "tab-text-1"} NO ASIGNADA
+            %a.tab-custom.active{:href => "#tab-1",:id => "tab-text-1"} ETAPA NO ASIGNADA
           %li.lindo
             %a.tab-custom{:href => "#tab-2",:id => "tab-text-2"} EN CREACIÓN MUNICIPAL
           %li.lindo
@@ -177,20 +183,14 @@
                   %script
                     var text=$(document).find("#tab-text-1").text();
                     $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
-    - if(@user.role=="secpla" || @user.role=="admin") 
-      .row{style:"margin:0px;"}
-        
-        - @org=@mun.organizations.find_by(name: "3. No Priorizados")
-        - if(@org!=nil)
-          %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
-            Agregar Proyecto
+    
 
   .fondo-blanco
     %div{style:"display: -webkit-inline-box;"}
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
           Prioridad de Proyectos
-    %div{style:"margin-top:50px;"}
+    %div{style:""}
       #responsiveTabsDemo2
         %ul#myTab.nav.nav-tabs.responsive
           %li.lindo

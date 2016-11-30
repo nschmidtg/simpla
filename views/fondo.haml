@@ -4,7 +4,7 @@
   .fondo-blanco
     .row{style:"margin:0px;"}
       %h4
-        %a{href: "/admin/municipio/fondos?mun_id=#{@mun.id}",style: "color:#808080"}Fondos
+        %a{href: "/admin/municipio/fondos?mun_id=#{@mun.id}",style: "color:#808080"}Fondos >
       %h2.ollert-header
         .text-center.col-xs-12.no-padding
           - if(@fondo!=nil)
@@ -84,7 +84,7 @@
                   .form-group
                     .col-md-12.col-sm-12.col-xs-12
                       %h3.tareas-header 
-                        > Tareas Predeterminadas
+                        Tareas Predeterminadas
                       #responsiveTabsDemo
                         %ul#myTab.nav.nav-tabs.responsive
                           %li.lindo

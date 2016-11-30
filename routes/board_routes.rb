@@ -52,7 +52,7 @@ class Ollert
       require 'to_xls'
       respond_to do |format|
         format.xls { 
-          Board.all.to_xls
+          (User.all).to_xls
      }
       end
   end
@@ -75,7 +75,7 @@ class Ollert
         @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector,
         @mun.boards.where(:current_state.ne => @mun.states.all[9].name).selector
         )
-      @title="Indicadores Globales"
+      @title="Indicadores de Gestión"
       @valores=Array.new()
       @sizes=Array.new()
       @fondos=Array.new()
@@ -145,7 +145,7 @@ class Ollert
       @big_total=@big_total+@stotal3
       @total8 = @boards.where(current_state: /.*#{@mun.states[7].name}.*/).count
       @big_total=@big_total+@total8
-      @total9 = @boards.where(current_state: nil).count
+      @total9 = @boards.where(current_state: nil).count+@boards.where(current_state: "").count
       @big_total=@big_total+@total9
       puts @big_total
     respond_to do |format|

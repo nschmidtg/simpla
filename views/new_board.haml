@@ -118,39 +118,39 @@
                           - if(@disenos.count>0)
                             %optgroup{:label=>"Diseño"}
                             - @disenos.each do |f|
-                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Diseño)
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                           - @ejecuciones=@fondos.where(:etapa => "ejecucion")
                           - if(@ejecuciones.count>0)
                             %optgroup{:label=>"Ejecución"}
                             - @ejecuciones.each do |f|
-                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Ejecución)
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} 
                           - @adquisiciones=@fondos.where(:etapa => "adquisicion")
                           - if(@adquisiciones.count>0)
                             %optgroup{:label=>"Adquisición"}
                             - @adquisiciones.each do |f|
-                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Adquisición)
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                           - @estudios=@fondos.where(:etapa => "estudios")
                           - if(@estudios.count>0)
                             %optgroup{:label=>"Estudios"}
                             - @estudios.each do |f|
-                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Estudios)
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name}
                           - @otros=@fondos.where(:etapa => "otros")
                           - if(@otros.count>0)
                             %optgroup{:label=>"Otros"}
                             - @otros.each do |f|
-                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} (Otro)
+                              %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} 
                 .form-group
                   .col-md-9.col-sm-12.col-xs-12
                     .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
                       - if(params[:edit]=="true" && (@board.start_date!=nil&&@board.start_date!=""))
                         %input#datepicker1.form-control.input-md{name: "start_date", value: "#{@board.start_date}", style: "cursor: auto;", type: "text"}
                       - else
-                        %input#datepicker1.form-control.input-md{name: "start_date", placeholder: "Fecha tentativa de Inicio del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
+                        %input#datepicker1.form-control.input-md{name: "start_date", placeholder: "Fecha tentativa de Inicio del proyecto", style: "cursor: auto;", type: "text"}
                     .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
                       - if(params[:edit]=="true" && (@board.end_date!=nil&&@board.end_date!=""))
                         %input#datepicker2.form-control.input-md{name: "end_date", value: "#{@board.end_date}", style: "cursor: auto;", type: "text"}
                       - else
-                        %input#datepicker2.form-control.input-md{name: "end_date", placeholder: "Fecha tentativa de fin del proyecto (Opcional)", style: "cursor: auto;", type: "text"}
+                        %input#datepicker2.form-control.input-md{name: "end_date", placeholder: "Fecha tentativa de fin del proyecto", style: "cursor: auto;", type: "text"}
                     .col-md-4.col-sm-12.col-xs-12.no-padding
                       - if(params[:edit]=="true")
                         %input#monto.form-control.input-md{name: "monto",min: "0", style: "cursor: auto;", type: "text",value: "#{@board.monto}"}/
@@ -169,7 +169,7 @@
                   .col-md-9.col-sm-12.col-xs-12
                     
                     .col-md-3.col-sm-12.col-xs-12#zones{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-                      %label.col-md-12.col-sm-12.col-xs-12.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Áreas de intervención:*
+                      %p.col-md-12.col-sm-12.col-xs-12.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Zonas de intervención:*
                       .checkbox
                         %label
                           %input#select_all{:type => "checkbox", :onClick=>"toggle(this)"}>/
@@ -192,12 +192,16 @@
                     
                     .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
                       .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-                        %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
+                        %p.col-md-3.col-sm-3.col-xs-3.control-label{for: "textinput",style:"text-align:left !important;padding:0px;color:#999999"} ¿El proyecto tiene una ubicación específica?
                         - if(params[:edit]=="true" && @board.coords!="")
                           %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
                         - else
                           %input#always{:type => "checkbox", :name =>"coords"}>/
+                        #indicacion
+                          %br
+                          %p{style:"color:#999"}Si tu proyecto tiene una ubicación puntual, arrastra el marcador rojo hacia ella.
                         #map
+
                         - if(params[:edit]=="true")
                           - if(@board.coords != nil)
                             %input#textinput-zona.form-control.input-md{name: "zona", value: "#{@board.coords}", style: "cursor: auto;", type: "hidden"}/
@@ -254,6 +258,7 @@
 
   if(!$("#always").prop('checked'))
   $("#map").hide();
+  $("#indicacion").hide();
 
   - if(params[:edit]=="true")
     $('#delete').on('click', function(e){
@@ -331,10 +336,14 @@
   }
   
     $('#always').change(function () { 
-      if(!this.checked)               
+      if(!this.checked){            
         $('#map').hide();
-      else
+        $("#indicacion").hide();
+      }
+      else{
         $('#map').show();
+        $("#indicacion").show();
+      }
     }); //ensure visible state matches initially
   
 
