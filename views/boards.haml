@@ -104,7 +104,7 @@
                                         - if(@states[count-3]!="Descartado")
                                           - if(@user.role=="secpla" || @user.role=="admin")
                                             %div 
-                                              %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'",style:"cursor:pointer;"}
+                                              %a{onclick: "changeStateBack('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                         - if (actual_board!=nil)
                                           Cambiar de etapa
@@ -416,6 +416,40 @@
         }
       }
     }
+
+    function changeStateBack(boardState,boardId){
+      var va=false;
+      $(".modalx").css('background-color','#eb5a46');
+      $(".modal-body").css('background-color','#eb5a46');
+      $("#textoPopup").html("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? No se volverán a cargar las <a href='/predet' target='_blank'>tareas predeterminadas</a> de esa etapa, ni se eliminarán las de la etapa actual.");
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#delete', function() {
+          $body = $("body");
+          $body.addClass("loading");
+          va=true;
+          $.ajax({
+            url: "/api/v1/change_board_state/" + boardId,
+            data: {
+              token: "#{@token}",
+              state: boardState
+            },
+            success: function(xhr){
+              window.location.reload();
+            },
+            error: function(xhr) {
+              if(!alert("Usted no tiene permisos de administrador en el tablero. El cambio de etapa no será guardado.")){window.location.reload();}
+            }
+          });
+        });
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#dismiss', function() {
+          $(".modalx").css('background-color','rgb(135, 186, 62)');
+          $(".modal-body").css('background-color','rgb(135, 186, 62)');
+        });
+      $("#confirm").removeClass( "hide");
+      
+    }
+  
     
     function changePriority(boardPriority,boardId){
       $("#textoPopup").text("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?");
