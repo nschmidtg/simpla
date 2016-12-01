@@ -1986,3 +1986,18 @@ select.form-control{
 optgroup{
   background-color:#999
 }
+#myInput {
+    background-image: url("/img/searchicon.png");
+    background-position: 0px 2px;
+    background-size: 37px;
+    background-position-x: right;
+    background-repeat: no-repeat;
+    color: #999;
+    font-size: 16px;
+    padding: 6px 8px 6px 8px;
+    border: 0px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 12px;
+    float: right;
+    background-color: #eee;
+}

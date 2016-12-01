@@ -9,6 +9,8 @@
           %a{href:"#",onclick: "resetx()"}
             %span.glyphicon.glyphicon-erase{"aria-hidden" => "true"}
             Quitar filtros
+        %input#myInput{:onkeyup => "myFunction()", :placeholder => "", :type => "text"}/
+
         %table.table{id: "myTable"}
           %thead
             %tr
@@ -173,6 +175,30 @@
       Imprimir
 
 :javascript
+  function myFunction() {
+    // Declare variables 
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    updateFilters();
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      if(tr[i].style.display!="none"){
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        } 
+      }
+    }
+  }
+
+:javascript
   $('#save_image_locally').click(function(){
     html2canvas($('#myTable'), 
     {background :'#FFFFFF',
@@ -192,12 +218,14 @@
     $('#assigned-tipo-filter').val('Todos');
     $('#assigned-state-filter').val('Todas');
     $('#assigned-zone-filter').val('Todas');
+    $('#myInput').val('');
 
     $('#assigned-org-filter').change();
     $('#assigned-fondo-filter').change();
     $('#assigned-tipo-filter').change();
     $('#assigned-state-filter').change();
     $('#assigned-zone-filter').change();
+    $('#myInput').change();
   }
 
 
@@ -236,30 +264,35 @@
   $('#assigned-tipo-filter').on('change', function() {
     tipoFilter = this.value;
     updateFilters();
+    myFunction();
   });
 
   // Task Status Dropdown Filter
   $('#assigned-fondo-filter').on('change', function() {
     fondoFilter = this.value;
     updateFilters();
+    myFunction();
   });
 
   // Task Status Dropdown Filter
   $('#assigned-state-filter').on('change', function() {
     stateFilter = this.value;
     updateFilters();
+    myFunction();
   });
 
   // Task Status Dropdown Filter
   $('#assigned-org-filter').on('change', function() {
     orgFilter = this.value;
     updateFilters();
+    myFunction();
   });
 
   // Task Status Dropdown Filter
   $('#assigned-zone-filter').on('change', function() {
     zoneFilter = this.value;
     updateFilters();
+    myFunction();
   });
 
  
