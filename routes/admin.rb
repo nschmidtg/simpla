@@ -4347,9 +4347,9 @@ class Ollert
 
     respond_to do |format|
       format.html do
-        flash[:success] = "Tarea eliminado exitosamente."
+        flash[:success] = "Tarea eliminada exitosamente."
 
-        redirect "/admin/municipio/states/tasks?mun_id=#{params[:mun_id]}&state_id=#{params[:state_id]}&fondo_id=#{params[:fondo_id]}"
+        redirect "/admin/municipio/fondos/fondo?mun_id=#{params[:mun_id]}&fondo_id=#{params[:fondo_id]}&edit=true"
       end
       
     end

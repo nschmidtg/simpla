@@ -10,6 +10,11 @@ require_relative '../utils/analyzers/cards_from_mun_analyzer'
 require_relative '../utils/fetchers/cards_from_mun_fetcher'
 
 class Ollert
+  get '/predet', :auth => :connected do
+    respond_to do |format|
+      format.html { haml :predet }
+    end
+  end
 
   get '/archivar', :auth => :connected do
     if(@user.role=="secpla" || @user.role=="admin")

@@ -101,21 +101,21 @@
                                         - if(@states[count-3]!="Descartado")
                                           - if(@user.role=="secpla" || @user.role=="admin")
                                             %div 
-                                              %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'"}
+                                              %a{onclick: "changeState('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                         - if (actual_board!=nil)
-                                          #{actual_board.current_state}
+                                          Cambiar de etapa
                                         - if(@states[count-1]!="Descartado")
                                           - if(@user.role=="secpla" || @user.role=="admin") 
                                             %div
-                                              %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'"}
+                                              %a{onclick: "changeState('#{@states[count-1]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-1]}'",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                                     - if(@user.role=="secpla" || @user.role=="admin")
                                       %td.celda-tabla{style: "width: 100%;"}
                                         - if actual_board != nil
                                           .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                                             - if(state=="Finalizado")
-                                              %a{style: 'display: inline-block;',onclick:"archivar('#{actual_board.board_id}')"}
+                                              %a{style: 'display: inline-block;',onclick:"archivar('#{actual_board.board_id}')",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-inbox
                                             - else
                                               %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
@@ -169,10 +169,10 @@
                               
                               %td.celda-tabla{style: "width: 100%;"}
                                 .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                                  NO ASIGNADA
+                                  Cambiar de etapa
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %div
-                                      %a{onclick: "changeState('En Creación Municipal','#{board["id"]}')", title: "Pasar a la etapa 'En Creación Municipal'"}
+                                      %a{onclick: "changeState('En Creación Municipal','#{board["id"]}')", title: "Pasar a la etapa 'En Creación Municipal'",style:"cursor:pointer;"}
                                         %span.glyphicon.glyphicon-chevron-right{"aria-hidden" => "true", "style"=>"float:right;"}
                               - if(@user.role=="secpla" || @user.role=="admin")
                                 %td.celda-tabla{style: "width: 100%;"}
@@ -282,7 +282,7 @@
                                 %td.celda-tabla{style: "width: 100%;"}
                                   .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
                                     - if(@user.role=="admin"||@user.role=="secpla")
-                                      %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: auto;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
+                                      %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: pointer;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
                                         - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
                                           - if(@user.role=="secpla" || @user.role=="admin")
                                             %option{:value => "#{@prioridades[count-14]}"} #{@prioridades[count-14]}
@@ -388,7 +388,7 @@
          // }
         }
         else{
-          $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las tareas predeterminadas asociadas a la etapa.");
+          $("#textoPopup").html("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las <a href='/predet' target='_blank'>tareas predeterminadas</a> asociadas a la etapa.");
           $('#confirm').modal({ backdrop: 'static', keyboard: false })
             .one('click', '#delete', function() {
               $body = $("body");

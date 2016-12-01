@@ -1,7 +1,7 @@
 
    
-.container
-  .fondo-blanco
+.container{style:"margin-left:15px;"}
+  .fondo-blanco{style:"display: -webkit-inline-box;margin-right:15px;"}
 
     %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
       .col-md-12.col-sm-12.col-xs-12.no-padding
@@ -12,7 +12,7 @@
         %table.table{id: "myTable"}
           %thead
             %tr
-              %th{style:"min-width:125px;"}
+              %th{style:"min-width:250px;"}
                 Nombre Proyecto
               %th{style:"min-width:100px;"}
                 %select#assigned-org-filter.form-control
@@ -168,9 +168,9 @@
                         NO ASIGNADAS
                     - else
                       NO ASIGNADAS
-    .row{style:"margin:0px;"}
-      %a.btn.plus#save_image_locally
-        Imprimir
+  .row{style:"margin:0px;"}
+    %a.btn.plus#save_image_locally
+      Imprimir
 
 :javascript
   $('#save_image_locally').click(function(){
