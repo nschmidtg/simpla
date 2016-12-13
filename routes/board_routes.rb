@@ -102,7 +102,7 @@ class Ollert
           @valores[i]=0
           @sizes[i]=0
 
-          value=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector,zone.boards.where(archivado: "false").selector).count
+          value=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
           if(value!=0)
             @valores[i]=value
             @sizes[i]=@valores[i]*10
