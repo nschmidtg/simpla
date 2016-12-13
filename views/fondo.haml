@@ -160,9 +160,10 @@
                                               - else
                                                 NO ASIGNADO
                                           %td.celda-tabla
-                                            .boards-list-item-link-c
+                                            .boards-list-item-link-c{style:"text-align:-webkit-center"}
                                               %a{href: "/admin/municipio/states/tasks/task?mun_id=#{@mun.id}&state_id=#{state.id}&task_id=#{task.id}&fondo_id=#{@fondo.id}"}
                                                 %span.glyphicon.glyphicon-pencil
+                                            
                                 - if(@user.role=="secpla" || @user.role=="admin") 
                                   - if(@fondo != nil)
                                     .row{style:"margin:0px;"}
@@ -186,12 +187,13 @@
 
 - if(@fondo!=nil)
   #confirm.modalx.hide.fade
-    .modal-body
-      %span#text¿Estás seguro que deseas eliminar el fondo #{@fondo.name}?
-    
-    .modal-footer
-      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
-      %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
+    .col-md-9.col-sm-12.col-xs-12
+      .modal-body
+        %span#text¿Estás seguro que deseas eliminar el fondo #{@fondo.name}?
+    .col-md-3.col-sm-12.col-xs-12
+      .modal-footer
+        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
+        %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
 
   
   :javascript

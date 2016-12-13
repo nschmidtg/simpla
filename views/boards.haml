@@ -107,7 +107,10 @@
                                               %a{onclick: "changeStateBack('#{@states[count-3]}','#{board["id"]}')", title: "Pasar a la etapa '#{@states[count-3]}'",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-chevron-left{"aria-hidden" => "true", "style"=>"float:left;"}
                                         - if (actual_board!=nil)
-                                          Cambiar de etapa
+                                          - if(@user.role=="admin" || @user.role=="secpla")
+                                            Cambiar de etapa
+                                          - else
+                                            #{actual_board.current_state}
                                         - if(@states[count-1]!="Descartado")
                                           - if(@user.role=="secpla" || @user.role=="admin") 
                                             %div
@@ -116,7 +119,7 @@
                                     - if(@user.role=="secpla" || @user.role=="admin")
                                       %td.celda-tabla{style: "width: 100%;"}
                                         - if actual_board != nil
-                                          .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                          .boards-list-item-link-c.overflow{style:"max-width: 100%;text-align:-webkit-center"}
                                             - if(state=="Finalizado")
                                               %a{style: 'display: inline-block;',onclick:"archivar('#{actual_board.board_id}')",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-inbox
@@ -172,7 +175,10 @@
                               
                               %td.celda-tabla{style: "width: 100%;"}
                                 .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
-                                  Cambiar de etapa
+                                  - if(@user.role=="admin" || @user.role=="secpla")
+                                    Cambiar de etapa
+                                  - else
+                                    #{actual_board.current_state}
                                   - if(@user.role=="secpla" || @user.role=="admin") 
                                     %div
                                       %a{onclick: "changeState('En Creación Municipal','#{board["id"]}')", title: "Pasar a la etapa 'En Creación Municipal'",style:"cursor:pointer;"}
@@ -180,7 +186,7 @@
                               - if(@user.role=="secpla" || @user.role=="admin")
                                 %td.celda-tabla{style: "width: 100%;"}
                                   - if actual_board != nil
-                                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                                    .boards-list-item-link-c.overflow{style:"max-width: 100%;text-align:-webkit-center"}
                                       %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
                                         %span.glyphicon.glyphicon-pencil
                   %script
@@ -327,13 +333,14 @@
 
 - if(@user.role=="secpla" || @user.role=="admin")  
   #confirm.modalx.hide.fade{style:"background-color:#87BA3E"}
-    .modal-body{style:"background-color:#87BA3E"} 
-      %span#textoPopup asda
-      .imagen{style:"opacity:0;display:none;background-image:url('/img/etapas.png');background-repeat:no-repeat;padding-right:0px;height:125px;background-size:100%;width:100%"}
-    
-    .modal-footer
-      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
-      %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
+    .col-md-9.col-sm-12.col-xs-12
+      .modal-body{style:"background-color:#87BA3E"} 
+        %span#textoPopup asda
+        .imagen{style:"opacity:0;display:none;background-image:url('/img/etapas.png');background-repeat:no-repeat;padding-right:0px;height:125px;background-size:100%;width:100%"}
+    .col-md-3.col-sm-12.col-xs-12
+      .modal-footer
+        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+        %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
 
 
 
@@ -477,7 +484,7 @@
       
     }
     function archivar(boardId){
-      $("#textoPopup").text("¿Está seguro de que quiere archivar el proyecto? El proyecto se cerrará.");
+      $("#textoPopup").text("¿Está seguro de que quiere archivar el proyecto? El proyecto se cerrará y quedará registrado en el archivo de proyectos.");
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#delete', function() {
           $body = $("body");

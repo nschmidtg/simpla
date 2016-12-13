@@ -1992,6 +1992,7 @@ optgroup{
     background-image: url("/img/searchicon.png");
     background-position: 0px 2px;
     background-size: 37px;
+    min-width: 250px;
     background-position-x: right;
     background-repeat: no-repeat;
     color: #999;
@@ -2000,6 +2001,5 @@ optgroup{
     border: 0px solid #ddd;
     border-radius: 5px;
     margin-bottom: 12px;
-    float: right;
     background-color: #eee;
 }

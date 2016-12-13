@@ -5,11 +5,14 @@
 
     %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
       .col-md-12.col-sm-12.col-xs-12.no-padding
-        .col-md-3
-          %a{href:"#",onclick: "resetx()"}
-            %span.glyphicon.glyphicon-erase{"aria-hidden" => "true"}
-            Quitar filtros
-        %input#myInput{:onkeyup => "myFunction()", :placeholder => "", :type => "text"}/
+        .col-md-12
+          .col-md-3
+            %a{href:"#",onclick: "resetx()"}
+              %span.glyphicon.glyphicon-erase{"aria-hidden" => "true"}
+              Quitar filtros
+        .col-md-12.no-padding
+          .col-md-3.no-padding
+            %input#myInput{:onkeyup => "myFunction()", :placeholder => "Buscar por nombre", :type => "text"}/
 
         %table.table{id: "myTable"}
           %thead
@@ -67,6 +70,7 @@
                   %option Evaluación y adjudicación de propuestas
                   %option En Ejecución
                   %option Finalizado
+                  %option Archivado
                   %option Descartado
               %th{style:"min-width:100px;"} 
                 %select#assigned-zone-filter.form-control 
@@ -100,7 +104,10 @@
               - else
                 - tipox="NO ASIGNADO"
               - if(board.current_state!=nil)
-                - statex=board.current_state
+                - if(board.current_state=="Finalizado" && board.archivado=="true")
+                  - statex="Archivado"
+                - else
+                  - statex=board.current_state
               - else
                 - statex="NO ASIGNADA"
               - if(board.organization!=nil)
@@ -148,7 +155,10 @@
                 %td.celda-tabla{style: "width: 100%;"}
                   .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
                     - if(board.current_state!=nil)
-                      #{board.current_state}
+                      - if(board.current_state =="Finalizado" && board.archivado=="true")
+                        Archivado
+                      - else
+                        #{board.current_state}
                     - else
                       NO ASIGNADA
                 %td.celda-tabla{style: "width: 100%;"}

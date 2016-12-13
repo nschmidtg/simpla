@@ -80,13 +80,14 @@
 
 - if(@task!=nil)
   #confirm.modalx.hide.fade
-    .modal-body
-      ¿Estás seguro que deseas eliminar la tarea #{@task.name}?
+    .col-md-9.col-sm-12.col-xs-12
+      .modal-body
+        ¿Estás seguro que deseas eliminar la tarea #{@task.name}?
+    .col-md-3.col-sm-12.col-xs-12  
+      .modal-footer
+        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
+        %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
     
-    .modal-footer
-      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
-      %button.btn{"data-dismiss" => "modal", :type => "button"} Cancelar
-  
   :javascript
     window.onload = function() {
       $('#delete').on('click', function(e){
