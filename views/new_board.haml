@@ -192,11 +192,13 @@
                     
                     .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
                       .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
-                        %p.col-md-3.col-sm-3.col-xs-3.control-label{for: "textinput",style:"text-align:left !important;padding:0px;color:#999999"} ¿El proyecto tiene una ubicación específica?
-                        - if(params[:edit]=="true" && @board.coords!="")
-                          %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
-                        - else
-                          %input#always{:type => "checkbox", :name =>"coords"}>/
+                        .col-md-1.col-sm-1.col-xs-1
+                          - if(params[:edit]=="true" && @board.coords!="")
+                            %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
+                          - else
+                            %input#always{:type => "checkbox", :name =>"coords"}>/
+                        %p.col-md-11.col-sm-11.col-xs-11.control-label{for: "textinput",style:"text-align:left !important;padding:0px;color:#999999"} ¿El proyecto tiene una ubicación específica?
+                        
                         #indicacion
                           %br
                           %p{style:"color:#999"}Si tu proyecto tiene una ubicación puntual, arrastra el marcador rojo hacia ella.

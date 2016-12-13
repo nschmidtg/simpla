@@ -129,7 +129,16 @@
             #textinput.form-control.input-md 
               %b
                 Fecha de la última actividad del proyecto: 
-              #{@last_activity.strftime("%d/%m/%Y")}     
+              #{@last_activity.strftime("%d/%m/%Y")} 
+    - if(@user.role=="funcionario" || @user.role=="secpla")
+      .row
+        .form-group 
+          .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
+            .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
+              #textinput.form-control.input-md 
+                %a{href:"https://trello.com/b/#{@board.board_id}",target:"_blank"}
+                  %b Ir al proyecto en Trello
+     
 
     .row
       .col-md-12.col-sm-12.col-xs-12.no-padding
