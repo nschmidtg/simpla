@@ -378,154 +378,290 @@
   }]
   });
 
+- if(@user.role=="concejal" || @user.role=="alcalde")
+  %script
+    $("#container6").highcharts({
+    tooltip: {
+    pointFormat: '{series.name}: <b>{point.y}</b>'
+    },
+    chart: {
 
-%script
+    type: 'bar'
+    },
+    title: {
+    text: 'Proyectos por etapa'
+    },
+    xAxis: {
+    categories: ['Etapa']
+    },
+    yAxis: {
+    min: 0,
+    title: {
+    text: 'Cantidad de proyectos'
+    }
+    },
+    legend: {
+    reversed: true
+    },
+    plotOptions: {
+    series: {
+    stacking: 'normal'
+    }
+    },
+    series: [{
+    name: 'En Ejecución',
+    data: [#{@total8.to_f}]
+    }, {
+    name: 'En Licitación',
+    data: [#{@stotal3.to_f}]
+    }, {
+    name: 'Con aprobación técnica',
+    data: [#{@stotal2.to_f}]
+    }, {
+    name: 'En Creación Municipal',
+    data: [#{@stotal1.to_f}]
+    }, {
+    name: 'Etapa no asignada',
+    data: [#{@total9.to_f}]
+    }]
+    },function(chart){
+    var flag = false;
 
-  var colors = Highcharts.getOptions().colors,
-  categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'Etapa no asignada'],
+    $.each(chart.series,function(i,serie){
 
-  data = [{
-  color: colors[0],
-  drilldown: {
-  name: 'En Formulación',
-  categories: [
-  'En Creación Municipal','Ingresado','Observado'
-  ],
-  data: [#{@total1.to_f/@big_total*100},#{@total2.to_f/@big_total*100},#{@total3.to_f/@big_total*100}],
-  color: colors[0]
-  },
-  y: #{(@stotal1.to_f)/@big_total*100}
-  },
-  {
-  color: colors[1],
-  drilldown: {
-  name: 'Con aprobación técnica',
-  categories: [
-  'Con aprobación técnica','Con recursos aprobados'
-  ],
+    
+    if(serie.data[0].y ==   0){
+    console.log(serie.data[0].y);
+    serie.legendGroup.destroy();
+ 
+    }
+    });
 
-  data: [#{@total4.to_f/@big_total*100},#{@total5.to_f/@big_total*100}],
-  color: colors[1]
-  },
-  y: #{(@stotal2.to_f)/@big_total*100}
-  },
-  {
-  color: colors[2],
-  drilldown: {
-  name: 'En Licitación',
-  categories: [
-  'Preparación de licitación','Evaluación y adjudicación de propuestas'
-  ],
+ 
 
-  data: [#{@total6.to_f/@big_total*100},#{@total7.to_f/@big_total*100}],
-  color: colors[2]
-  },
-  y: #{(@stotal3.to_f)/@big_total*100}
-  },
+    });
+- else
+  %script
+    $("#container6").highcharts({
+    tooltip: {
+    pointFormat: '{series.name}: <b>{point.y}</b>'
+    },
+    chart: {
 
-  {
-  color: colors[3],
-  drilldown: {
-  name: 'En Ejecución',
-  categories: [
-  'En Ejecución'
-  ],
+    type: 'bar'
+    },
+    title: {
+    text: 'Proyectos por etapa'
+    },
+    xAxis: {
+    categories: ['Etapa']
+    },
+    yAxis: {
+    min: 0,
+    title: {
+    text: 'Cantidad de proyectos'
+    }
+    },
+    legend: {
+    reversed: true
+    },
+    plotOptions: {
+    series: {
+    stacking: 'normal'
+    }
+    },
+    series: [{
+    name: 'En ejecución',
+    data: [#{@total8.to_f}]
+    }, {
+    name: 'Evaluación y adjudicación de propuestas',
+    data: [#{@total7.to_f}]
+    }, {
+    name: 'Preparación licitación',
+    data: [#{@total6.to_f}]
+    }, {
+    name: 'Con recursos aprobados',
+    data: [#{@total5.to_f}]
+    }, {
+    name: 'Con aprobación técnica',
+    data: [#{@total4.to_f}]
+    }, {
+    name: 'Observado',
+    data: [#{@total3.to_f}]
+    }, {
+    name: 'Ingresado',
+    data: [#{@total2.to_f}]
+    }, {
+    name: 'En creación municipal',
+    data: [#{@total1.to_f}]
+    }, {
+    name: 'Etapa no asignada',
+    data: [#{@total9.to_f}]
+    }]
+    },function(chart){
+    var flag = false;
 
-  data: [#{@total8.to_f/@big_total*100}],
-  color: colors[3]
-  },
-  y: #{@total8.to_f/@big_total*100}
-  },
+    $.each(chart.series,function(i,serie){
 
-  {
-  color: colors[4],
-  drilldown: {
-  name: 'Etapa no asignada',
-  categories: [
-  'Etapa no asignada'
-  ],
+    
+    if(serie.data[0].y ==   0){
+    console.log(serie.data[0].y);
+    serie.legendGroup.destroy();
+ 
+    }
+    });
 
-  data: [#{@total9.to_f/@big_total*100}],
-  color: colors[4]
-  },
-  y: #{(@total9.to_f)/@big_total*100}
-  }
+ 
 
-  ],
-  browserData = [],
-  versionsData = [],
-  i,
-  j,
-  dataLen = data.length,
-  drillDataLen,
-  brightness;
+    });
+
+/ %script
+
+/   var colors = Highcharts.getOptions().colors,
+/   categories = ['En Creación Municipal', 'Con aprobación técnica', 'En Licitación', 'En Ejecución', 'Etapa no asignada'],
+
+/   data = [{
+/   color: colors[0],
+/   drilldown: {
+/   name: 'En Creación Municipal',
+/   categories: [
+/   'En Creación Municipal','Ingresado','Observado'
+/   ],
+/   data: [#{@total1.to_f/@big_total*100},#{@total2.to_f/@big_total*100},#{@total3.to_f/@big_total*100}],
+/   color: colors[0]
+/   },
+/   y: #{(@stotal1.to_f)/@big_total*100}
+/   },
+/   {
+/   color: colors[1],
+/   drilldown: {
+/   name: 'Con aprobación técnica',
+/   categories: [
+/   'Con aprobación técnica','Con recursos aprobados'
+/   ],
+
+/   data: [#{@total4.to_f/@big_total*100},#{@total5.to_f/@big_total*100}],
+/   color: colors[1]
+/   },
+/   y: #{(@stotal2.to_f)/@big_total*100}
+/   },
+/   {
+/   color: colors[2],
+/   drilldown: {
+/   name: 'En Licitación',
+/   categories: [
+/   'Preparación de licitación','Evaluación y adjudicación de propuestas'
+/   ],
+
+/   data: [#{@total6.to_f/@big_total*100},#{@total7.to_f/@big_total*100}],
+/   color: colors[2]
+/   },
+/   y: #{(@stotal3.to_f)/@big_total*100}
+/   },
+
+/   {
+/   color: colors[3],
+/   drilldown: {
+/   name: 'En Ejecución',
+/   categories: [
+/   'En Ejecución'
+/   ],
+
+/   data: [#{@total8.to_f/@big_total*100}],
+/   color: colors[3]
+/   },
+/   y: #{@total8.to_f/@big_total*100}
+/   },
+
+/   {
+/   color: colors[4],
+/   drilldown: {
+/   name: 'Etapa no asignada',
+/   categories: [
+/   'Etapa no asignada'
+/   ],
+
+/   data: [#{@total9.to_f/@big_total*100}],
+/   color: colors[4]
+/   },
+/   y: #{(@total9.to_f)/@big_total*100}
+/   }
+
+/   ],
+/   browserData = [],
+/   versionsData = [],
+/   i,
+/   j,
+/   dataLen = data.length,
+/   drillDataLen,
+/   brightness;
 
 
-  // Build the data arrays
-  for (i = 0; i < dataLen; i += 1) {
+/   // Build the data arrays
+/   for (i = 0; i < dataLen; i += 1) {
 
-  // add browser data
-  browserData.push({
-  name: categories[i],
-  y: Math.round(data[i].y*#{@big_total}/100),
-  color: data[i].color
-  });
+/   // add browser data
+/   browserData.push({
+/   name: categories[i],
+/   y: Math.round(data[i].y*#{@big_total}/100),
+/   color: data[i].color
+/   });
 
-  // add version data
-  drillDataLen = data[i].drilldown.data.length;
-  for (j = 0; j < drillDataLen; j += 1) {
-  brightness = 0.2 - (j / drillDataLen) / 5;
-  versionsData.push({
-  name: data[i].drilldown.categories[j],
-  y: Math.round(data[i].drilldown.data[j]*#{@big_total}/100),
-  color: Highcharts.Color(data[i].color).brighten(brightness).get()
-  });
-  }
-  }
+/   // add version data
+/   drillDataLen = data[i].drilldown.data.length;
+/   for (j = 0; j < drillDataLen; j += 1) {
+/   brightness = 0.2 - (j / drillDataLen) / 5;
+/   versionsData.push({
+/   name: data[i].drilldown.categories[j],
+/   y: Math.round(data[i].drilldown.data[j]*#{@big_total}/100),
+/   color: Highcharts.Color(data[i].color).brighten(brightness).get()
+/   });
+/   }
+/   }
 
-  // Create the chart
-  $('#container6').highcharts({
-  chart: {
-  type: 'pie'
-  },
-  title: {
-  text: 'Etapas de proyectos abiertos'
-  },
-  yAxis: {
-  title: {
-  text: 'Total percent market share'
-  }
-  },
-  plotOptions: {
-  pie: {
-  shadow: false,
-  center: ['50%', '50%']
-  }
-  },
-  series: [{
-  name: 'Cantidad de proyectos',
-  data: browserData,
-  size: '60%',
-  dataLabels: {
-  formatter: function () {
-  return this.y > 0 ? this.point.name : null;
-  },
-  color: '#ffffff',
-  distance: -30
-  }
-  }, {
-  name: 'Cantidad de proyectos',
-  data: versionsData,
-  size: '80%',
-  innerSize: '60%',
-  dataLabels: {
-  formatter: function () {
-  // display only if larger than 1
-  return this.y > 0 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
-  }
-  }
-  }]
-  });
+/   // Create the chart
+/   $('#container6').highcharts({
+/   chart: {
+/   type: 'pie'
+/   },
+/   title: {
+/   text: 'Etapas de proyectos abiertos'
+/   },
+/   yAxis: {
+/   title: {
+/   text: 'Total percent market share'
+/   }
+/   },
+/   plotOptions: {
+/   pie: {
+/   shadow: false,
+/   center: ['50%', '50%']
+/   }
+/   },
+/   series: [{
+/   name: 'Cantidad de proyectos',
+/   data: browserData,
+/   size: '60%',
+/   dataLabels: {
+/   formatter: function () {
+/   return this.y > 0 ? this.point.name : null;
+/   },
+/   color: '#ffffff',
+/   distance: -30
+/   }
+/   }, {
+/   name: 'Cantidad de proyectos',
+/   data: versionsData,
+/   size: '80%',
+/   innerSize: '60%',
+/   dataLabels: {
+/   formatter: function () {
+/   // display only if larger than 1
+/   return this.y > 0 ? '<b>' + this.point.name + ':</b> ' + this.y : null;
+/   }
+/   }
+/   }]
+/   });
 
 
 :javascript

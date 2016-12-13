@@ -114,6 +114,23 @@
               .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
                 %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
                 #map
+    .row
+      .form-group
+        .col-md-9.col-sm-12.col-xs-12.no-padding
+          .col-md-6.col-sm-12.col-xs-12{style:"padding-right:5px !important;padding-left:20px !important;"}
+          
+            #textinput.form-control.input-md 
+              %b
+                Fecha de la última actividad del proyecto: 
+              #{@last_activity.strftime("%d/%m/%Y")} 
+          - if(@user.role=="funcionario" || @user.role=="secpla")
+           
+            .col-md-6.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:5px !important;"}
+            
+              #textinput.form-control.input-md 
+                %a{href:"https://trello.com/b/#{@board.board_id}",target:"_blank",style:"cursor:pointer"}
+                  %b Ir al proyecto en Trello
+    .row
 
       - if(@user.role=="admin" || @user.role=="secpla")
         .form-group    
@@ -122,22 +139,7 @@
               %a#delete.btn.plus{href:"/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}&edit=true"}
                 Editar Proyecto 
       
-    .row
-      .form-group 
-        .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
-          .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
-            #textinput.form-control.input-md 
-              %b
-                Fecha de la última actividad del proyecto: 
-              #{@last_activity.strftime("%d/%m/%Y")} 
-    - if(@user.role=="funcionario" || @user.role=="secpla")
-      .row
-        .form-group 
-          .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
-            .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
-              #textinput.form-control.input-md 
-                %a{href:"https://trello.com/b/#{@board.board_id}",target:"_blank"}
-                  %b Ir al proyecto en Trello
+
      
 
     .row
