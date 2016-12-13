@@ -97,8 +97,8 @@ class Ollert
         end
       end
       i=0
-      @mun.fondos.each do |fondo|
-        @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
+      @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
+        @mun.fondos.each do |fondo|
           @valores[i]=0
           @sizes[i]=0
 
