@@ -102,31 +102,34 @@ class Ollert
           @valores[i]=0
           @sizes[i]=0
 
-
-          @valores[i]=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
-          @sizes[i]=@valores[i]*10
-          # @boardsx=@boards.where(fondo: fondo)
-          # @boardsx.each do |board|
-          #   if(board.fondo!=nil)
-          #     if(board.zones.include?(zone))
-          #       @valores[i]+=1
-          #       @sizes[i]+=10
-          #     end
-          #   end
-          # end
-          @zones<<zone.name
-          if(fondo.etapa=="diseno")
-            @fondos<<fondo.name+" (Diseño)"
-          elsif(fondo.etapa=="ejecucion")
-            @fondos<<fondo.name+" (Ejecución)"
-          elsif(fondo.etapa=="adquisicion")
-            @fondos<<fondo.name+" (Adquisición)"
-          elsif(fondo.etapa=="estudios")
-            @fondos<<fondo.name+" (Estudios)"
-          elsif(fondo.etapa=="otros")
-            @fondos<<fondo.name+" (Otros)"
+          value=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector,zone.boards.where(archivado: "false").selector).count
+          if(value!=0)
+            @valores[i]=value
+            @sizes[i]=@valores[i]*10
+            
+            # @boardsx=@boards.where(fondo: fondo)
+            # @boardsx.each do |board|
+            #   if(board.fondo!=nil)
+            #     if(board.zones.include?(zone))
+            #       @valores[i]+=1
+            #       @sizes[i]+=10
+            #     end
+            #   end
+            # end
+            @zones<<zone.name
+            if(fondo.etapa=="diseno")
+              @fondos<<fondo.name+" (Diseño)"
+            elsif(fondo.etapa=="ejecucion")
+              @fondos<<fondo.name+" (Ejecución)"
+            elsif(fondo.etapa=="adquisicion")
+              @fondos<<fondo.name+" (Adquisición)"
+            elsif(fondo.etapa=="estudios")
+              @fondos<<fondo.name+" (Estudios)"
+            elsif(fondo.etapa=="otros")
+              @fondos<<fondo.name+" (Otros)"
+            end
+            i=i+1
           end
-          i=i+1
         end
         
       end
