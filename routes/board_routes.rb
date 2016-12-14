@@ -56,15 +56,174 @@ class Ollert
       require 'zip/zip'
       require 'axlsx'
 
-      Axlsx::Package.new do |p|
-        p.workbook.add_worksheet(:name => "Piesssss Chart") do |sheet|
-          sheet.add_row ["Simple Pie Chart"]
-          %w(first second third).each { |label| sheet.add_row [label, rand(24)+1] }
-          sheet.add_chart(Axlsx::Pie3DChart, :start_at => [0,5], :end_at => [10, 20], :title => "example 3: Pie Chart") do |chart|
-            chart.add_series :data => sheet["B2:B4"], :labels => sheet["A2:A4"],  :colors => ['FF0000', '00FF00', '0000FF']
-          end
-          p.serialize("rap.xls")
+      client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
+  
+
+      @mun=@user.municipio
+      @mun_id=@mun.id
+      @boards=@mun.boards.and(
+        @mun.boards.where(closed:"false").selector,
+        @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector,
+        @mun.boards.where(:current_state.ne => @mun.states.all[9].name).selector
+        )
+      @title="Indicadores de Gestión"
+      @valores=Array.new()
+      @sizes=Array.new()
+      @fondos=Array.new()
+      @zones=Array.new()
+      @count=Array.new()
+      count=0
+      @mun.organizations.each do |org|
+        if(org.name=="1. Urgentes")
+          @count[0]=@boards.where(organization: org).count
+        elsif(org.name=="2. Priorizados")
+          @count[1]=@boards.where(organization: org).count
+        elsif(org.name=="3. No Priorizados")
+          @count[2]=@boards.where(organization: org).count
         end
+      end
+      i=0
+      
+      @big_total=0
+
+      @total1 = @boards.where(current_state: /.*#{@mun.states[0].name}.*/).count
+      @total2 = @boards.where(current_state: /.*#{@mun.states[1].name}.*/).count
+      @total3 = @boards.where(current_state: /.*#{@mun.states[2].name}.*/).count
+      puts @total1.to_s+" "+@total2.to_s+" "+@total3.to_s
+      @stotal1 = @total1+@total2+@total3
+      puts @stotal1
+      @big_total=@big_total+@stotal1
+      puts @big_total
+      @total4 = @boards.where(current_state: /.*#{@mun.states[3].name}.*/).count
+      @total5 = @boards.where(current_state: /.*#{@mun.states[4].name}.*/).count
+      @stotal2 = @total4+@total5
+      @big_total=@big_total+@stotal2
+      @total6 = @boards.where(current_state: /.*#{@mun.states[5].name}.*/).count
+      @total7 = @boards.where(current_state: /.*#{@mun.states[6].name}.*/).count
+      @stotal3 = @total6+@total7
+      @big_total=@big_total+@stotal3
+      @total8 = @boards.where(current_state: /.*#{@mun.states[7].name}.*/).count
+      @big_total=@big_total+@total8
+      @total9 = @boards.where(current_state: nil).count+@boards.where(current_state: "").count
+      @big_total=@big_total+@total9
+      puts @big_total
+
+
+
+      p=Axlsx::Package.new
+      workbook=p.workbook
+      workbook.styles do |s|
+        #heading = s.add_style alignment: {horizontal: :center}, b: true, sz: 18, bg_color: "0066CC", fg_color: "FF"
+        heading = s.add_style b: true
+        workbook.add_worksheet(:name => "Reporte") do |sheet|
+        sheet.add_row ["Municipalidad","#{@mun.name}"], style: heading
+        sheet.add_row ["Fecha del reporte","#{Time.now}"], style: heading
+        sheet.add_row ["Usuario","#{@user.login_name} #{@user.login_last_name}"], style: heading
+        sheet.add_row [""]
+        sheet.add_row ["ESTADO ACTUAL DE LOS PROYECTOS"], style: heading
+        sheet.add_row ["Proyectos abiertos","#{@boards.count}"]
+        sheet.add_row [""]
+
+        sheet.add_row ["Proyectos por etapa"], style: heading
+        sheet.add_row ["En creación municipal","#{@total1}"]
+        sheet.add_row ["Ingresado","#{@total2}"]
+        sheet.add_row ["Observado","#{@total3}"]
+        sheet.add_row ["Con aprobación técnica","#{@total4}"]
+        sheet.add_row ["Con recursos aprobados","#{@total5}"]
+        sheet.add_row ["Preparación licitación","#{@total6}"]
+        sheet.add_row ["Evaluación y adjudicación de propuestas","#{@total7}"]
+        sheet.add_row ["En ejecución","#{@total8}"]
+        sheet.add_row ["Estapa no asignada","#{@total9}"]
+        sheet.add_row [""]
+
+        sheet.add_row ["Proyectos por nivel de prioridad"], style: heading
+        sheet.add_row ["Proyectos urgentes","#{@count[0]}"]
+        sheet.add_row ["Proyectos priorizados","#{@count[1]}"]
+        sheet.add_row ["Proyectos no priorizados","#{@count[2]}"]
+        sheet.add_row [""]
+
+        sheet.add_row ["Proyectos por sector de inversión"], style: heading
+        sheet.add_row ["NO ASIGNADO","#{@boards.and(@boards.where(tipo: nil).selector,@boards.where(closed: "false").selector).count}"]
+        @mun.tipos.each do |tipo|
+          sheet.add_row ["#{tipo.name}","#{@boards.where(tipo: tipo).count}"]
+        end  
+        sheet.add_row [""]
+
+        sheet.add_row ["Proyectos por zona de intervención"], style: heading
+        sheet.add_row ["NO ASIGNADA","#{@boards.and(@boards.where(closed: "false").selector,@boards.where(:zone_ids => nil).selector).count}"]
+        @mun.zones.each do |zone|
+          sheet.add_row ["#{zone.name}","#{zone.boards.where(closed: "false").count}"]
+        end  
+
+
+
+        sheet.add_row ["Proyectos por zona de intervención y fondo"], style: heading
+        nombres=Array.new()
+        nombres<<"Zonas de intervención"
+        nombres=nombres+@mun.zones.map{|z| z.name}
+        sheet.add_row nombres.to_a
+        @mun.fondos.each do |fondo|
+          i=1
+          if(fondo.etapa=="diseno")
+            a=sheet.add_row ["#{fondo.name} (Diseño)","","","","","","","","","","","","","","","","","","","","","","","","",""]
+          elsif(fondo.etapa=="ejecucion")
+            a=sheet.add_row ["#{fondo.name} (Ejecución)","","","","","","","","","","","","","","","","","","","","","","","","",""]
+          elsif(fondo.etapa=="adquisicion")
+            a=sheet.add_row ["#{fondo.name} (Adquisición)","","","","","","","","","","","","","","","","","","","","","","","","",""]
+          elsif(fondo.etapa=="estudios")
+            a=sheet.add_row ["#{fondo.name} (Estudios)","","","","","","","","","","","","","","","","","","","","","","","","",""]
+          elsif(fondo.etapa=="otros")
+            a=sheet.add_row ["#{fondo.name} (Otros)","","","","","","","","","","","","","","","","","","","","","","","","",""]
+          end
+          @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
+            valuex=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
+            sheet.rows[a.index].cells[i].value=valuex
+            i=i+1
+          end
+          
+        end
+        
+        
+
+
+
+
+        sheet.add_row [""]
+        sheet.add_row [""]
+        sheet.add_row ["INDICADORES HISTÓRICOS"], style: heading
+        sheet.add_row [""]
+        sheet.add_row ["","2016","2015","2014"], style: heading
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'En creación municipal'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Ingresado'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Observado'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con aprobación técnica'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con recursos aprobados'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Preparación licitación'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'En ejecución'","1","2","3"]
+        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Finalizado'","1","2","3"]
+        sheet.add_row [""]
+        sheet.add_row ["","2016","2015","2014"], style: heading
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En creación municipal'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Ingresado'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Observado'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Con aprobación técnica'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Con recursos aprobados'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Preparación licitación'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En ejecución'","1000000","2000000","3000000"]
+        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Finalizado'","1000000","2000000","3000000"]
+      end
+      
+      
+      p.serialize("rap.xls")
         
         respond_to do |format|
           format.xls do
