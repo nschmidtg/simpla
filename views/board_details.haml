@@ -117,6 +117,17 @@
     .row
       .form-group
         .col-md-9.col-sm-12.col-xs-12.no-padding
+          .col-md-12.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
+          
+            #textinput.form-control.input-md 
+              %b
+                Proyecto creado por: 
+              - creator=@municipio.users.find_by(id: @board.created_by)
+              #{creator.login_name} #{creator.login_last_name} 
+          
+    .row
+      .form-group
+        .col-md-9.col-sm-12.col-xs-12.no-padding
           .col-md-6.col-sm-12.col-xs-12{style:"padding-right:5px !important;padding-left:20px !important;"}
           
             #textinput.form-control.input-md 
