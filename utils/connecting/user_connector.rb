@@ -48,7 +48,7 @@ class UserConnector
       end
 
       # set or update other fields
-      
+      user.last_login=Time.now
       user.save
 
       return {
