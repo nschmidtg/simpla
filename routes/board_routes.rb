@@ -229,15 +229,15 @@ class Ollert
         # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Finalizado'","1000000","2000000","3000000"]
       end
       
-      
-      p.serialize("tmp/rap.xls")
-      File.read("rap.xls") 
+      a=Time.now
+      p.serialize("tmp/rap-#{a}.xls")
       respond_to do |format|
         format.xls do
-           File.read("tmp/rap.xls") 
+           File.read("tmp/rap-#{a}.xls") 
 
         end
       end
+      
       #send_data p.to_stream.read, type: "application/xlsx", filename: "filename.xlsx"
       
 
