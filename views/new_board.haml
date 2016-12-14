@@ -61,7 +61,7 @@
                           
                         - else
                           - @tipos=Municipio.find_by(id: params[:mun_id]).tipos.sort{|a,b| a.name <=> b.name}
-                          %option{:disabled => "disabled", :selected => "", :value=>""} Tipo de proyecto*
+                          %option{:disabled => "disabled", :selected => "", :value=>""} Sector de inversión*
                           - @tipos.each do |f|
                             %option{:value => "#{f.id}"} #{f.name}
 

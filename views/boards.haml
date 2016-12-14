@@ -338,12 +338,13 @@
 
 
 - if(@user.role=="secpla" || @user.role=="admin")  
-  #confirm.modalx.hide.fade{style:"background-color:#87BA3E"}
-    .col-md-9.col-sm-12.col-xs-12
-      .modal-body{style:"background-color:#87BA3E"} 
+  #confirm.modalx.hide.fade{style:"background-color:#ffffff"}
+    .col-md-10.col-sm-12.col-xs-12
+      .modal-body{style:"background-color:#ffffff"} 
         %span#textoPopup asda
-        .imagen{style:"opacity:0;display:none;background-image:url('/img/etapas.png');background-repeat:no-repeat;padding-right:0px;height:125px;background-size:100%;width:100%"}
-    .col-md-3.col-sm-12.col-xs-12
+        .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
+          %img{src:"/img/etapas.png", style:"width:100%"}
+    .col-md-2.col-sm-12.col-xs-12#button-container
       .modal-footer
         %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
         %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
@@ -355,6 +356,8 @@
       var va=false;
       if(boardState=="Finalizado" || boardState=="Descartado"){
         $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará");
+        $("#confirm").css('background-color','#AFDB9C');
+        $(".modal-body").css('background-color','#AFDB9C');
         //if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se cerrará")){
         $('#confirm').modal({ backdrop: 'static', keyboard: false })
           .one('click', '#delete', function() {
@@ -381,6 +384,8 @@
       else{
         if(window.location.href.includes("closed")){
           $("#textoPopup").text("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas a la etapa.");
+          $("#confirm").css('background-color','#AFDB9C');
+          $(".modal-body").css('background-color','#AFDB9C');
           //if(confirm("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? El proyecto se volverá a abrir y se cargarán las tareas predeterminadas asociadas a la etapa.")){
           $('#confirm').modal({ backdrop: 'static', keyboard: false })
             .one('click', '#delete', function() {
@@ -406,6 +411,8 @@
         }
         else{
           $("#textoPopup").html("¿Está seguro de que quiere marcar el proyecto como "+boardState+"? Se cargarán las <a href='/predet' target='_blank'>tareas predeterminadas</a> asociadas a la etapa.");
+          $("#confirm").css('background-color','#AFDB9C');
+          $(".modal-body").css('background-color','#AFDB9C');
           $('#confirm').modal({ backdrop: 'static', keyboard: false })
             .one('click', '#delete', function() {
               $body = $("body");
@@ -466,6 +473,8 @@
     
     function changePriority(boardPriority,boardId){
       $("#textoPopup").text("¿Está seguro de que quiere cambiar la prioridad del proyecto a "+boardPriority+"?");
+      $("#confirm").css('background-color','#AFDB9C');
+        $(".modal-body").css('background-color','#AFDB9C');
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#delete', function() {
           $body = $("body");
@@ -491,6 +500,8 @@
     }
     function archivar(boardId){
       $("#textoPopup").text("¿Está seguro de que quiere archivar el proyecto? El proyecto se cerrará y quedará registrado en el archivo de proyectos.");
+      $("#confirm").css('background-color','#AFDB9C');
+      $(".modal-body").css('background-color','#AFDB9C');
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#delete', function() {
           $body = $("body");
@@ -508,20 +519,26 @@
       $("#textoPopup").text("");
       $(".imagen").css('opacity','1');
       $(".imagen").css('display','');
-      $('#confirm').modal({ backdrop: 'static', keyboard: false })
-        .one('click', '#delete', function() {
-          
-          $(".imagen").css('opacity','0');
-          $(".imagen").css('display','none');
-        });
+      $("#confirm").css('background-color','#FFFFFF');
+      $(".modal-body").css('background-color','#FFFFFF');
+      $("#delete").addClass("hide");
+      $("#dismiss").text("Aceptar");
+      $("#button-container").css('position','absolute');
+      $("#button-container").css('bottom','15px');
+      $("#button-container").css('right','0px');
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#dismiss', function() {
           
-          
           $(".imagen").css('opacity','0');
           $(".imagen").css('display','none');
+          $("#delete").removeClass("hide");
+          $("#dismiss").text("Cancelar");
+          $("#button-container").css('position','relative');
+          $("#button-container").css('bottom','');
+          $("#button-container").css('right','');
         });
       $("#confirm").removeClass( "hide");
+      
     }
 
           

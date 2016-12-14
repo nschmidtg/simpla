@@ -49,7 +49,7 @@
                       %option #{name}
               %th{style:"min-width:100px;"}
                 %select#assigned-tipo-filter.form-control
-                  %option{:disabled => "", :selected => ""} Tipo
+                  %option{:disabled => "", :selected => ""} Sector de inversión
                   %option Todos
                   %option NO ASIGNADO
                   - @not_nil=@boards.map{|t| t.tipo}.compact 
