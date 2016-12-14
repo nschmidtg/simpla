@@ -136,7 +136,7 @@ class Ollert
 
         sheet.add_row ["Proyectos por zona de intervención"], style: heading
         sheet.add_row ["NO ASIGNADA","#{@boards.and(@boards.where(closed: "false").selector,@boards.where(:zone_ids => nil).selector).count}"]
-        @mun.zones.each do |zone|
+        @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
           sheet.add_row ["#{zone.name}","#{zone.boards.where(closed: "false").count}"]
         end  
         sheet.add_row [""]
@@ -153,7 +153,7 @@ class Ollert
         sheet.add_row ["Proyectos por zona de intervención y fondo"], style: heading
         nombres=Array.new()
         nombres<<"Zonas de intervención"
-        nombres=nombres+@mun.zones.map{|z| z.name}
+        nombres=nombres+@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.map{|z| z.name}
         sheet.add_row nombres.to_a
 
         auxZonas=Array.new(@mun.zones.count)
