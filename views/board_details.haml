@@ -166,6 +166,7 @@
   }
 
 %script
+  
   var now = new Date();
   var locale = parseInt(now.toString().split("-")[1].split(" (")[0])/100;
   var utc_now = new Date(now.getFullYear(), now.getMonth(), now.getDate(),0,0,0,0); 
@@ -179,6 +180,7 @@
     var fin = new Date(#{fin[2].split(' ')[0]},#{fin[1]}-1,#{fin[0]},0,0,0,0);
     now=fin.getTime();
   $('#timeline-container').highcharts({
+  
   chart: {
   type: 'bar'
   },
@@ -348,8 +350,7 @@
   ],
   yAxis: {
   type: 'datetime',
-  tickInterval: 3600 * 1000*24,
-  minTickInterval: moment.duration(1, 'month').asMilliseconds(),
+  minTickInterval: moment.duration(1, 'day').asMilliseconds(),
   min: now-#{count*1000*24*3600},
   title: {
   text: ' '

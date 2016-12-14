@@ -21,6 +21,7 @@ class Board
   field :current_state, type: String
   field :state_change_dates, type: Array
   field :archivado, type: String
+  
 
 
   belongs_to :organization

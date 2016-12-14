@@ -79,6 +79,14 @@
         });
         $.datepicker.regional["es"];
       } );
+    :javascript
+      Highcharts.setOptions({
+      lang: {
+      months: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+      weekdays: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+      shortMonths: [ "Ene" , "Feb" , "Mar" , "Abr" , "May" , "Jun" , "Jul" , "Ago" , "Sep" , "Oct" , "Nov" , "Dic"]
+      }
+      });
   %body
     %div
       %nav{class: 'navbar navbar-default navbar-static-top', role: 'navigation'}
