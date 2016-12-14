@@ -20,7 +20,10 @@ gem 'require_all'
 gem 'newrelic_rpm'
 gem 'mail'
 gem 'spreadsheet'
-gem 'to_xls'
+gem 'zip-zip'
+gem 'rubyzip', :require => 'zip'
+
+gem 'axlsx'
 
 group :development do
   gem 'pry'

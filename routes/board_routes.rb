@@ -53,13 +53,31 @@ class Ollert
   end
 
   get '/dashboard/raport.xls', :auth => :connected do
-      require 'csv'
-      require 'to_xls'
-      respond_to do |format|
-        format.xls { 
-          (User.all).to_xls
-     }
+      require 'zip/zip'
+      require 'axlsx'
+
+      Axlsx::Package.new do |p|
+        p.workbook.add_worksheet(:name => "Piesssss Chart") do |sheet|
+          sheet.add_row ["Simple Pie Chart"]
+          %w(first second third).each { |label| sheet.add_row [label, rand(24)+1] }
+          sheet.add_chart(Axlsx::Pie3DChart, :start_at => [0,5], :end_at => [10, 20], :title => "example 3: Pie Chart") do |chart|
+            chart.add_series :data => sheet["B2:B4"], :labels => sheet["A2:A4"],  :colors => ['FF0000', '00FF00', '0000FF']
+          end
+          p.serialize("rap.xls")
+        end
+        
+        respond_to do |format|
+          format.xls do
+             File.read("rap.xls") 
+
+          end
+        end
+
+      
+
       end
+      
+      
   end
 
   get '/dashboard', :auth => :connected do
