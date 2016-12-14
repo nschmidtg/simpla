@@ -6,7 +6,7 @@ class Ollert
   get '/logout', :auth => :connected do
     session[:user] = nil
 
-    flash[:success] = "Successfully logged out."
+    flash[:success] = "Sesión cerrada exitosamente"
     redirect '/'
   end
 

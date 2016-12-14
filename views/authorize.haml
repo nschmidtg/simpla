@@ -43,13 +43,21 @@
 					login_mail: "#{params[:mail]}"
 				},
 				success: function (data) {
-					if(data.status == '200'){
+					try{
+						obj = JSON.parse(data);
+					}
+					catch(err){
+						$(".connect-btn").text("Conexión fallida. Su cuenta de Trello no coincide con su email. Intente cerrando sesión en Trello. Redirigiendo...");
+						console.log(data);
+						self.location = "/";
+					}
+					if(obj.username!=null){
 						$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
 						self.location = "/";
 					}
 					else{
 						$(".connect-btn").text("Conexión fallida. Su cuenta de Trello no coincide con su email. Intente cerrando sesión en Trello. Redirigiendo...");
-						
+						console.log(data);
 						self.location = "/";
 					}
 				},
@@ -81,13 +89,21 @@
 					login_mail: "#{params[:mail]}"
 				},
 				success: function (data) {
-					if(data.status == '200'){
+					try{
+						obj = JSON.parse(data);
+					}
+					catch(err){
+						$(".connect-btn").text("Conexión fallida. Su cuenta de Trello no coincide con su email. Intente cerrando sesión en Trello. Redirigiendo...");
+						console.log(data);
+						self.location = "/";
+					}
+					if(obj.username!=null){
 						$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
 						self.location = "/";
 					}
 					else{
 						$(".connect-btn").text("Conexión fallida. Su cuenta de Trello no coincide con su email. Intente cerrando sesión en Trello. Redirigiendo...");
-						
+
 						self.location = "/";
 					}
 				},
