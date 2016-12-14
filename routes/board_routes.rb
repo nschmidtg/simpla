@@ -201,17 +201,6 @@ class Ollert
 
         
 
-         
-        
-
-
-
-        
-        
-        
-
-
-
 
         sheet.add_row [""]
         sheet.add_row [""]
@@ -241,18 +230,18 @@ class Ollert
       end
       
       
-      p.serialize("rap.xls")
-        
-        respond_to do |format|
-          format.xls do
-             File.read("rap.xls") 
+      p.serialize("tmp/rap.xls")
+      File.read("rap.xls") 
+      respond_to do |format|
+        format.xls do
+           File.read("tmp/rap.xls") 
 
-          end
         end
-
+      end
+      #send_data p.to_stream.read, type: "application/xlsx", filename: "filename.xlsx"
       
 
-      end
+    end
       
       
   end
