@@ -202,31 +202,31 @@ class Ollert
         
 
 
-        sheet.add_row [""]
-        sheet.add_row [""]
-        sheet.add_row ["INDICADORES HISTÓRICOS"], style: heading
-        sheet.add_row [""]
-        sheet.add_row ["","2016","2015","2014"], style: heading
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'En creación municipal'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Ingresado'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Observado'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con aprobación técnica'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con recursos aprobados'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Preparación licitación'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'En ejecución'","1","2","3"]
-        sheet.add_row ["N° de proyectos que pasaron por la etapa 'Finalizado'","1","2","3"]
-        sheet.add_row [""]
-        sheet.add_row ["","2016","2015","2014"], style: heading
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En creación municipal'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Ingresado'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Observado'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Con aprobación técnica'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Con recursos aprobados'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Preparación licitación'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En ejecución'","1000000","2000000","3000000"]
-        sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Finalizado'","1000000","2000000","3000000"]
+        # sheet.add_row [""]
+        # sheet.add_row [""]
+        # sheet.add_row ["INDICADORES HISTÓRICOS"], style: heading
+        # sheet.add_row [""]
+        # sheet.add_row ["","2016","2015","2014"], style: heading
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'En creación municipal'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Ingresado'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Observado'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con aprobación técnica'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con recursos aprobados'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Preparación licitación'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'En ejecución'","1","2","3"]
+        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Finalizado'","1","2","3"]
+        # sheet.add_row [""]
+        # sheet.add_row ["","2016","2015","2014"], style: heading
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En creación municipal'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Ingresado'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Observado'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Con aprobación técnica'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Con recursos aprobados'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Preparación licitación'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En ejecución'","1000000","2000000","3000000"]
+        # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Finalizado'","1000000","2000000","3000000"]
       end
       
       
