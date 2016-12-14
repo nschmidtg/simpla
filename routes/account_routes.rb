@@ -93,8 +93,10 @@ class Ollert
       body result[:body]
     else
       puts result
+      status result[:status]
       session[:user] = nil
-      flash[:error] = "Cuenta de Trello no coincide con Email"
+      body result[:body]
+      flash[:error] = "Cuenta de Trello no coincide con el email provisto"
       redirect '/'
     end
   end

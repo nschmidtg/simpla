@@ -42,14 +42,21 @@
 					token: Trello.token(),
 					login_mail: "#{params[:mail]}"
 				},
-				success: function () {
-					$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
-					self.location = "/";
+				success: function (data) {
+					if(data.status == '200'){
+						$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
+						self.location = "/";
+					}
+					else{
+						$(".connect-btn").text("Conexión fallida. Su cuenta de Trello no coincide con su email. Intente cerrando sesión en Trello. Redirigiendo...");
+						
+						self.location = "/";
+					}
 				},
 				error: function (xhr, textStatus, errorThrown) {
 					if (xhr.responseText) {
 				FlashMessage.error(xhr.responseText);
-				$(".connect-btn").text("Conexión fallida. Inténtelo de nuevo.");
+				$(".connect-btn").text("Conexión fallida. Inténtelo de nuevo...");
 					}
 				}
 			});
@@ -73,14 +80,21 @@
 					token: "#{User.find_by(login_mail: params[:mail]).municipio.users.find_by(role: "secpla").member_token}",
 					login_mail: "#{params[:mail]}"
 				},
-				success: function () {
-					$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
-					self.location = "/";
+				success: function (data) {
+					if(data.status == '200'){
+						$(".connect-btn").text("Conexión exitosa. Redirigiendo...");
+						self.location = "/";
+					}
+					else{
+						$(".connect-btn").text("Conexión fallida. Su cuenta de Trello no coincide con su email. Intente cerrando sesión en Trello. Redirigiendo...");
+						
+						self.location = "/";
+					}
 				},
 				error: function (xhr, textStatus, errorThrown) {
 					if (xhr.responseText) {
 				FlashMessage.error(xhr.responseText);
-				$(".connect-btn").text("Conexión fallida. Inténtelo de nuevo.");
+				$(".connect-btn").text("Conexión fallida. Inténtelo de nuevo...");
 					}
 				}
 			});
