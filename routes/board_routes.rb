@@ -131,6 +131,62 @@ class Ollert
         sheet.add_row ["Proyectos abiertos","#{@boards.count}"]
         sheet.add_row [""]
 
+
+        
+
+        sheet.add_row ["Proyectos por zona de intervención"], style: heading
+        sheet.add_row ["NO ASIGNADA","#{@boards.and(@boards.where(closed: "false").selector,@boards.where(:zone_ids => nil).selector).count}"]
+        @mun.zones.each do |zone|
+          sheet.add_row ["#{zone.name}","#{zone.boards.where(closed: "false").count}"]
+        end  
+        sheet.add_row [""]
+
+
+
+        sheet.add_row ["Proyectos por sector de inversión"], style: heading
+        sheet.add_row ["NO ASIGNADO","#{@boards.and(@boards.where(tipo: nil).selector,@boards.where(closed: "false").selector).count}"]
+        @mun.tipos.each do |tipo|
+          sheet.add_row ["#{tipo.name}","#{@boards.where(tipo: tipo).count}"]
+        end
+        sheet.add_row [""]
+
+        sheet.add_row ["Proyectos por zona de intervención y fondo"], style: heading
+        nombres=Array.new()
+        nombres<<"Zonas de intervención"
+        nombres=nombres+@mun.zones.map{|z| z.name}
+        sheet.add_row nombres.to_a
+
+        auxZonas=Array.new(@mun.zones.count)
+        @mun.fondos.each do |fondo|
+          i=1
+          if(fondo.etapa=="diseno")
+            a=sheet.add_row ["#{fondo.name} (Diseño)"]+auxZonas
+          elsif(fondo.etapa=="ejecucion")
+            a=sheet.add_row ["#{fondo.name} (Ejecución)"]+auxZonas
+          elsif(fondo.etapa=="adquisicion")
+            a=sheet.add_row ["#{fondo.name} (Adquisición)"]+auxZonas
+          elsif(fondo.etapa=="estudios")
+            a=sheet.add_row ["#{fondo.name} (Estudios)"]+auxZonas
+          elsif(fondo.etapa=="otros")
+            a=sheet.add_row ["#{fondo.name} (Otros)"]+auxZonas
+          end
+          @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
+            valuex=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
+            sheet.rows[a.index].cells[i].value=valuex
+            i=i+1
+          end
+          
+        end
+        sheet.add_row [""]
+
+
+        sheet.add_row ["Proyectos por nivel de prioridad"], style: heading
+        sheet.add_row ["Proyectos urgentes","#{@count[0]}"]
+        sheet.add_row ["Proyectos priorizados","#{@count[1]}"]
+        sheet.add_row ["Proyectos no priorizados","#{@count[2]}"]
+        sheet.add_row [""]
+
+
         sheet.add_row ["Proyectos por etapa"], style: heading
         sheet.add_row ["En creación municipal","#{@total1}"]
         sheet.add_row ["Ingresado","#{@total2}"]
@@ -143,52 +199,14 @@ class Ollert
         sheet.add_row ["Estapa no asignada","#{@total9}"]
         sheet.add_row [""]
 
-        sheet.add_row ["Proyectos por nivel de prioridad"], style: heading
-        sheet.add_row ["Proyectos urgentes","#{@count[0]}"]
-        sheet.add_row ["Proyectos priorizados","#{@count[1]}"]
-        sheet.add_row ["Proyectos no priorizados","#{@count[2]}"]
-        sheet.add_row [""]
+        
 
-        sheet.add_row ["Proyectos por sector de inversión"], style: heading
-        sheet.add_row ["NO ASIGNADO","#{@boards.and(@boards.where(tipo: nil).selector,@boards.where(closed: "false").selector).count}"]
-        @mun.tipos.each do |tipo|
-          sheet.add_row ["#{tipo.name}","#{@boards.where(tipo: tipo).count}"]
-        end  
-        sheet.add_row [""]
-
-        sheet.add_row ["Proyectos por zona de intervención"], style: heading
-        sheet.add_row ["NO ASIGNADA","#{@boards.and(@boards.where(closed: "false").selector,@boards.where(:zone_ids => nil).selector).count}"]
-        @mun.zones.each do |zone|
-          sheet.add_row ["#{zone.name}","#{zone.boards.where(closed: "false").count}"]
-        end  
+         
+        
 
 
 
-        sheet.add_row ["Proyectos por zona de intervención y fondo"], style: heading
-        nombres=Array.new()
-        nombres<<"Zonas de intervención"
-        nombres=nombres+@mun.zones.map{|z| z.name}
-        sheet.add_row nombres.to_a
-        @mun.fondos.each do |fondo|
-          i=1
-          if(fondo.etapa=="diseno")
-            a=sheet.add_row ["#{fondo.name} (Diseño)","","","","","","","","","","","","","","","","","","","","","","","","",""]
-          elsif(fondo.etapa=="ejecucion")
-            a=sheet.add_row ["#{fondo.name} (Ejecución)","","","","","","","","","","","","","","","","","","","","","","","","",""]
-          elsif(fondo.etapa=="adquisicion")
-            a=sheet.add_row ["#{fondo.name} (Adquisición)","","","","","","","","","","","","","","","","","","","","","","","","",""]
-          elsif(fondo.etapa=="estudios")
-            a=sheet.add_row ["#{fondo.name} (Estudios)","","","","","","","","","","","","","","","","","","","","","","","","",""]
-          elsif(fondo.etapa=="otros")
-            a=sheet.add_row ["#{fondo.name} (Otros)","","","","","","","","","","","","","","","","","","","","","","","","",""]
-          end
-          @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
-            valuex=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
-            sheet.rows[a.index].cells[i].value=valuex
-            i=i+1
-          end
-          
-        end
+        
         
         
 
