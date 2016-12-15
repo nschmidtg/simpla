@@ -114,7 +114,7 @@
               .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
                 %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
                 #map
-    - creator=@municipio.users.find_by(id: @board.created_by)
+    
     - if(creator!=nil)
       .row
         .form-group
@@ -125,7 +125,7 @@
                 %b
                   Proyecto creado por: 
                 
-                  #{creator.login_name} #{creator.login_last_name} (#{creator.login_mail})
+                  #{@board.creator} (#{@board.contact})
 
           
     .row

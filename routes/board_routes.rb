@@ -174,12 +174,14 @@ class Ollert
           else
             fila<<"No asignado"
           end
-          creator=User.find_by(id: b.created_by)
-          if(creator!=nil)
-            fila<<creator.login_name+" "+creator.login_last_name
-            fila<<creator.login_mail
+          if(b.created_by!=nil)
+            fila<<b.created_by
           else
             fila<<"No asignado"
+          end
+          if(b.contact!=nil)
+            fila<<b.contact
+          else
             fila<<"No asignado"
           end
 
@@ -824,7 +826,8 @@ class Ollert
         board_settings.closed="false"
         board_settings.state_change_dates=Array.new(10)
         board_settings.tipo=Tipo.find_by(id: params[:tipo])
-        board_settings.created_by=@user.id
+        board_settings.created_by=@user.login_name+" "+@user.login_last_name
+        board_settings.contact=@user.login_mail
         board_settings.fondo=Fondo.find_by(id: params[:fondo])
         if(params[:coords]=="on")
           board_settings.coords=params[:zona]
@@ -892,7 +895,8 @@ class Ollert
         #Busco el tablero a nivel de BD:
         board_settings = Board.find_or_create_by(board_id: @board.id)
         board_settings.monto=params[:monto]
-        board_settings.created_by=@user.id
+        board_settings.created_by=@user.login_name+" "+@user.login_last_name
+        board_settings.contact=@user.login_mail
         board_settings.tipo=Tipo.find_by(id: params[:tipo])
         board_settings.fondo=params[:fondo]
         puts params[:coords]

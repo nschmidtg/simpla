@@ -250,7 +250,9 @@
                               - if(cstate!=nil)
                                 - bdbrd.current_state=cstate
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").id
+                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                              - if(bdbrd.contact==nil)
+                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.coords=@user.municipio.coords
@@ -269,7 +271,9 @@
                               - if(cstate!=nil)
                                 - bdbrd.current_state=cstate
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").id
+                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                              - if(bdbrd.contact==nil)
+                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.municipio=@user.municipio
@@ -315,7 +319,9 @@
                             - if(bdbrd!=nil)
                               - bdbrd.closed="true" 
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").id
+                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                              - if(bdbrd.contact==nil)
+                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.organization=org
                               - if(bdbrd.current_state!=@mun.states.all[8].name && bdbrd.current_state!=@mun.states.all[9].name)
                                 - bdbrd.current_state=@mun.states.all[9].name
