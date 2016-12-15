@@ -22,6 +22,7 @@ class Board
   field :state_change_dates, type: Array
   field :archivado, type: String
   field :created_by, type: String
+  field :created_at, type: String
   
 
 

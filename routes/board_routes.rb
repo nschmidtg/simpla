@@ -52,6 +52,154 @@ class Ollert
     end
   end
 
+  post '/archivo/reporte.xls', :auth => :connected do
+    require 'zip/zip'
+    require 'axlsx'
+
+    @mun=@user.municipio
+
+    p=Axlsx::Package.new
+    workbook=p.workbook
+    workbook.styles do |s|
+      #heading = s.add_style alignment: {horizontal: :center}, b: true, sz: 18, bg_color: "0066CC", fg_color: "FF"
+      heading = s.add_style b: true
+      workbook.add_worksheet(:name => "Archivo") do |sheet|
+        sheet.add_row ["Municipalidad","#{@mun.name}"], style: heading
+        sheet.add_row ["Fecha del reporte","#{Time.now}"], style: heading
+        sheet.add_row ["Usuario","#{@user.login_name} #{@user.login_last_name}"], style: heading
+        sheet.add_row [""]
+        sheet.add_row ["Nombre Proyecto","Fondo","Etapa a la que postula","Año de creación","Sector de inversión","Zonas","Monto","Etapa actual","Días en etapa actual","Prioridad","Fecha de creación","Fecha de ejecución","Archivado","Responsable","Contacto"], style: heading
+        @boards=@mun.boards
+        
+        @boards.each do |b|
+          fila=Array.new()
+          if(b.name!=nil)
+            fila<<b.name.split('|')[0]
+          else
+            fila<<"No asignado"
+          end
+          if(b.fondo!=nil)
+            fila<<b.fondo.name
+            if(b.fondo.etapa=="diseno")
+              fila<<"Diseño"
+            elsif(b.fondo.etapa=="ejecucion")
+              fila<<"Ejecución"
+            elsif(b.fondo.etapa=="adquisicion")
+              fila<<"Adquisición"
+            elsif(b.fondo.etapa=="estudios")
+              fila<<"Estudios"
+            elsif(b.fondo.etapa=="otros")
+              fila<<"Otros"
+            else
+              fila<<"No asignada"
+            end
+          else
+            fila<<"No asignado"
+            fila<<"No asignada"
+          end
+          if(b.created_at!=nil)
+            fila<<b.created_at
+          else
+            fila<<"No asignado"
+          end
+          if(b.tipo!=nil)
+            fila<<b.tipo.name
+          else
+            fila<<"No asignado"
+          end
+          if(b.zones!=nil)
+            fila<<b.zones.map{|z| z.name}
+          else
+            fila<<"No asignada"
+          end
+          if(b.monto!=nil)
+            mnt=b.monto.gsub('.','')
+            if(mnt=="")
+              fila<<"0"
+            else
+              fila<<mnt
+            end
+          else
+            fila<<"No asignado"
+          end
+          if(b.current_state!=nil)
+            cs=b.current_state
+            if(cs=="Finalizado" && b.closed=="true")
+              fila<<"Archivado"
+            else
+              fila<<b.current_state
+            end
+          else
+            fila<<"No asignada"
+          end
+          if(b.state_change_dates!=nil)
+            comp=b.state_change_dates.compact
+            if(comp.size==0 && b.created_at!=nil)
+              value=(Date.today-Date.parse(b.created_at)).to_i
+            elsif(comp.size>0)
+              value=(Date.today-Date.parse(comp[comp.size-1])).to_i
+            else
+              value="No asignado"
+            end
+            fila<<value
+          elsif(b.created_at!=nil)
+            value=(Date.today-Date.parse(b.created_at)).to_i
+          else
+            value="No asignado"
+          end
+          if(b.organization!=nil)
+            fila<<b.organization.name
+          else
+            fila<<"No asignado"
+          end
+
+
+          #dias desde la ultima mod
+          if(b.created_at!=nil)
+            fila<<b.created_at
+          else
+            fila<<"No asignada"
+          end
+          if(b.state_change_dates[7]!=nil)
+            fila<<b.state_change_dates[7]
+          else
+            fila<<"No asignada"
+          end
+          if(b.archivado!=nil)
+            if(b.archivado=="true")
+              fila<<"Sí"
+            else
+              fila<<"No"
+            end
+          else
+            fila<<"No asignado"
+          end
+          creator=User.find_by(id: b.created_by)
+          if(creator!=nil)
+            fila<<creator.login_name+" "+creator.login_last_name
+            fila<<creator.login_mail
+          else
+            fila<<"No asignado"
+            fila<<"No asignado"
+          end
+
+        sheet.add_row fila.to_a
+
+        end
+      end
+      
+    end
+      
+    a=Time.now
+    p.serialize("tmp/archivo-#{a}.xls")
+    respond_to do |format|
+      format.xls do
+         File.read("tmp/archivo-#{a}.xls") 
+    
+      end
+    end
+  end
+
   post '/dashboard/raport.xls', :auth => :connected do
       require 'zip/zip'
       require 'axlsx'
