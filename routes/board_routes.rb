@@ -199,24 +199,111 @@ class Ollert
         sheet.add_row ["Estapa no asignada","#{@total9}"]
         sheet.add_row [""]
 
-        
+
+        sheet.add_row [""]
+        sheet.add_row ["INDICADORES HISTÓRICOS"], style: heading
+        sheet.add_row [""]
+        dates=Array.new()
+        dates<<""
+        thisYear=Time.now.year
+        firstYear=@mun.created_at.to_date.year
+        for i in thisYear.downto(firstYear)
+          puts i
+          dates<<i.to_s
+        end
+        puts dates
+        sheet.add_row dates.to_a, style: heading
 
 
-        # sheet.add_row [""]
-        # sheet.add_row [""]
-        # sheet.add_row ["INDICADORES HISTÓRICOS"], style: heading
-        # sheet.add_row [""]
-        # sheet.add_row ["","2016","2015","2014"], style: heading
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'En creación municipal'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Ingresado'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Observado'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con aprobación técnica'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Con recursos aprobados'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Preparación licitación'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'En ejecución'","1","2","3"]
-        # sheet.add_row ["N° de proyectos que pasaron por la etapa 'Finalizado'","1","2","3"]
-        # sheet.add_row [""]
+        creacion=Array.new()
+        creacion<<"N° de proyectos que pasaron por la etapa 'En creación municipal'"
+        ingresado=Array.new()
+        ingresado<<"N° de proyectos que pasaron por la etapa 'Ingresado'"
+        observado=Array.new()
+        observado<<"N° de proyectos que pasaron por la etapa 'Observado'"
+        aprobacion=Array.new()
+        aprobacion<<"N° de proyectos que pasaron por la etapa 'Con aprobación técnica'"
+        recursos=Array.new()
+        recursos<<"N° de proyectos que pasaron por la etapa 'Con recursos aprobados'"
+        licitacion=Array.new()
+        licitacion<<"N° de proyectos que pasaron por la etapa 'Preparación de licitación'"
+        evaluacion=Array.new()
+        evaluacion<<"N° de proyectos que pasaron por la etapa 'Evaluación y adjudicación de propuestas'"
+        ejecucion=Array.new()
+        ejecucion<<"N° de proyectos que pasaron por la etapa 'En ejecución'"
+        finalizado=Array.new()
+        finalizado<<"N° de proyectos que pasaron por la etapa 'Finalizado'"
+        for i in thisYear.downto(firstYear)
+          creacion[thisYear-i+1]=0
+          ingresado[thisYear-i+1]=0
+          observado[thisYear-i+1]=0
+          aprobacion[thisYear-i+1]=0
+          recursos[thisYear-i+1]=0
+          licitacion[thisYear-i+1]=0
+          evaluacion[thisYear-i+1]=0
+          ejecucion[thisYear-i+1]=0
+          finalizado[thisYear-i+1]=0
+          @mun.boards.each do |b|
+            if(b.current_state!="Descartado")
+              if(b.state_change_dates[0]!=nil)
+                if(b.state_change_dates[0].to_date.year==i)
+                  creacion[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[1]!=nil)
+                if(b.state_change_dates[1].to_date.year==i)
+                  ingresado[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[2]!=nil)
+                if(b.state_change_dates[2].to_date.year==i)
+                  observado[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[3]!=nil)
+                if(b.state_change_dates[3].to_date.year==i)
+                  aprobacion[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[4]!=nil)
+                if(b.state_change_dates[4].to_date.year==i)
+                  recursos[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[5]!=nil)
+                if(b.state_change_dates[5].to_date.year==i)
+                  licitacion[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[6]!=nil)
+                if(b.state_change_dates[6].to_date.year==i)
+                  evaluacion[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[7]!=nil)
+                if(b.state_change_dates[7].to_date.year==i)
+                  ejecucion[thisYear-i+1]+=1
+                end
+              end
+              if(b.state_change_dates[8]!=nil)
+                if(b.state_change_dates[8].to_date.year==i)
+                  finalizado[thisYear-i+1]+=1
+                end
+              end
+            end
+          end
+        end
+        sheet.add_row creacion.to_a
+        sheet.add_row ingresado.to_a
+        sheet.add_row observado.to_a
+        sheet.add_row aprobacion.to_a
+        sheet.add_row recursos.to_a
+        sheet.add_row licitacion.to_a
+        sheet.add_row evaluacion.to_a
+        sheet.add_row ejecucion.to_a
+        sheet.add_row finalizado.to_a
+
+        sheet.add_row [""]
         # sheet.add_row ["","2016","2015","2014"], style: heading
         # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En creación municipal'","1000000","2000000","3000000"]
         # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Ingresado'","1000000","2000000","3000000"]
