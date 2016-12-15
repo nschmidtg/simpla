@@ -2723,6 +2723,7 @@ class Ollert
         #Independiente de si creo o edito, asigno el nombre, coordenadas y zonas al municipio
         mun.name=nombre
         mun.coords=ubicacion
+        mun.created_at=Time.now
         mun.save
 
         zonas.each do |zone_id,zone_name|
