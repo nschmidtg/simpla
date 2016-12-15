@@ -124,7 +124,7 @@ class Ollert
           end
           if(b.current_state!=nil)
             cs=b.current_state
-            if(cs=="Finalizado" && b.closed=="true")
+            if(cs=="Finalizado" && b.archivado=="true")
               fila<<"Archivado"
             else
               fila<<b.current_state
