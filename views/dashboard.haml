@@ -31,8 +31,9 @@
 
     .fondo-blanco
       .row{style:"margin:0px;"}
-        %a.btn.plus{href:"/dashboard/raport.xls"}
-          Excel
+        %form{role: "form", :action=>"/dashboard/raport.xls", :method=>"post"}
+          %input.btn.plus{type:"submit",value:"Excel"}
+            
         
 
 

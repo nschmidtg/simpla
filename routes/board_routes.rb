@@ -52,7 +52,7 @@ class Ollert
     end
   end
 
-  get '/dashboard/raport.xls', :auth => :connected do
+  post '/dashboard/raport.xls', :auth => :connected do
       require 'zip/zip'
       require 'axlsx'
 
@@ -234,7 +234,6 @@ class Ollert
       respond_to do |format|
         format.xls do
            File.read("tmp/rap-#{a}.xls") 
-
         end
       end
       
