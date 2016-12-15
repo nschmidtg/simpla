@@ -98,7 +98,7 @@ class Ollert
             fila<<"No asignada"
           end
           if(b.created_at!=nil)
-            fila<<b.created_at
+            fila<<b.created_at.to_time.year
           else
             fila<<"No asignado"
           end
