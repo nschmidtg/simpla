@@ -115,7 +115,7 @@
                 %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
                 #map
     
-    - if(@board.creator!=nil)
+    - if(@board.created_by!=nil)
       .row
         .form-group
           .col-md-9.col-sm-12.col-xs-12.no-padding
@@ -125,7 +125,7 @@
                 %b
                   Proyecto creado por: 
                 
-                  #{@board.creator} (#{@board.contact})
+                  #{@board.created_by} (#{@board.contact})
 
           
     .row
