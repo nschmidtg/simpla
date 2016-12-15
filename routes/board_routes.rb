@@ -304,6 +304,24 @@ class Ollert
         sheet.add_row finalizado.to_a
 
         sheet.add_row [""]
+        sheet.add_row dates.to_a, style: heading
+        plata=Array.new()
+        plata<<"Suma de los montos de los proyectos que pasaron por la etapa 'En ejecución'"
+        for i in thisYear.downto(firstYear)
+          plata[thisYear-i+1]=0
+          @mun.boards.each do |b|
+            if(b.current_state!="Descartado")
+              if(b.state_change_dates[7]!=nil)
+                if(b.state_change_dates[7].to_date.year==i)
+                  if(b.monto!=nil)
+                    plata[thisYear-i+1]+=b.monto.gsub('.','').to_i
+                  end
+                end
+              end
+            end
+          end
+        end
+        sheet.add_row plata.to_a
         # sheet.add_row ["","2016","2015","2014"], style: heading
         # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'En creación municipal'","1000000","2000000","3000000"]
         # sheet.add_row ["Suma de los montos de los proyectos que pasaron por la etapa 'Ingresado'","1000000","2000000","3000000"]
