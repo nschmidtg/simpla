@@ -96,7 +96,7 @@
               %img{src:"/img/logo-head.png",style:"max-height:50px;"}
           
           .title-header
-            %h3{style:"margin-top:14px;"}
+            %h3#titulo-header{style:"margin-top:14px;"}
               #{@title}
             
           - if @user.nil?
@@ -218,6 +218,9 @@
 
     :javascript
       $(document).ready(function(){
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          $("#titulo-header").hide();
+        }
       var lastName="";
         $(".icon-link").each(function() {
           $(this).parent().parent().find("#header-lateral").hide();
