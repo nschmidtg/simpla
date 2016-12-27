@@ -73,6 +73,7 @@
 
   var layout = {
   title: 'Proyectos por zona de intervención y fondo',
+  family: 'Muli, sans-serif',
   showlegend: false,
   hovermode: 'closest',
   margin:{
@@ -262,6 +263,9 @@
 %script
   var myConfig = {
   "type":"bar",
+  "globals":{
+  "fontFamily":"Muli, sans-serif"
+  },
   "background-color":"#fff",
   "title":{
   "text":"Proyectos por sector de inversión",
@@ -383,6 +387,9 @@
   $('#container5').highcharts({
   chart: {
   plotBackgroundColor: null,
+  style: {
+  fontFamily: 'Muli, sans-serif'
+  },
   plotBorderWidth: null,
   plotShadow: false,
   type: 'pie'
@@ -434,7 +441,9 @@
     pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     chart: {
-
+    style: {
+    fontFamily: 'Muli, sans-serif'
+    },
     type: 'bar'
     },
     title: {
@@ -496,7 +505,9 @@
     pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     chart: {
-
+    style: {
+    fontFamily: 'Muli, sans-serif'
+    },
     type: 'bar'
     },
     title: {
