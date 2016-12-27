@@ -168,7 +168,7 @@
                 .form-group
                   .col-md-9.col-sm-12.col-xs-12
                     
-                    .col-md-3.col-sm-12.col-xs-12#zones{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+                    .col-md-3.col-sm-12.col-xs-12#zones{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:5px;"}
                       %p.col-md-12.col-sm-12.col-xs-12.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Zonas de intervención:*
                       .checkbox
                         %label
@@ -191,7 +191,7 @@
                                 #{zona.name}
                     
                     .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
-                      .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+                      .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:5px;"}
                         .col-md-1.col-sm-1.col-xs-1
                           - if(params[:edit]=="true" && @board.coords!="")
                             %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
