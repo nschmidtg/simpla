@@ -7,6 +7,8 @@
       %h2.ollert-header
         .text-center.col-xs-12.no-padding
           Fondos
+          %a{onclick:"explicacionFondo()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
       - if(@user.role=="secpla" || @user.role=="admin") 
         %a.btn.plus{href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}",style:"margin-right:25px;"}
           Agregar Fondo
@@ -36,4 +38,32 @@
               /     Etapas: #{@mun.states.count}
           
          
+%script
+  function explicacionFondo(){
+  $("#textoPopup").text("La configuración de fondos permite tener en el listado todas las fuentes de financiamiento externo a las que recurre el municipio para los proyectos de inversión. Se pueden agregar o eliminar dependiendo del municipio. Cada fondo tendrá sus propias tareas determinadas que se cargarán de forma automática en Trello para el equipo SECPLAC, reconociendo papeleos y requerimientos de cada fuente de financiamiento.");
+  $("#textoPopup").css('color','#000000');
+  $(".imagen").css('opacity','1');
+  $(".imagen").css('display','none');
+  $(".modal-body").css('display','block');
+  $("#confirm").css('background-color','#FFFFFF');
+  $(".modal-body").css('background-color','#FFFFFF');
+  $("#delete").addClass("hide");
+  $("#dismiss").text("Aceptar");
+  $("#button-container").css('position','absolute');
+  $("#button-container").css('bottom','15px');
+  $("#button-container").css('right','0px');
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
+  $("#textoPopup").text("");
+  $("#textoPopup").css('color','#ffffff');
+  $(".imagen").css('opacity','0');
+  $(".imagen").css('display','none');
+  $("#dismiss").text("Cancelar");
+  $("#button-container").css('position','relative');
+  $("#button-container").css('bottom','');
+  $("#button-container").css('right','');
+  $(".modal-body").css('display','-webkit-inline-box');
+  });
+  $("#confirm").removeClass( "hide");
+  }
+
       
