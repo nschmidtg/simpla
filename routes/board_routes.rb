@@ -17,7 +17,7 @@ class Ollert
   end
 
 
-  get '/change_pass_vol', auth => :connected do
+  get '/change_pass_vol', :auth => :connected do
     respond_to do |format|
       format.html { haml :change_pass_vol }
     end
