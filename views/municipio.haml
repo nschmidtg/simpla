@@ -121,6 +121,7 @@
   $(document).ready(function() {
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
+    var a=false;
     
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
@@ -132,6 +133,14 @@
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
+
+
+    $(".form-horizontal :input").change(function() {
+       a=true;
+    });
+    window.onbeforeunload = function(){
+      if (a)return '¿Está seguro que quiere salir?';
+    };
   });
 
 %script
