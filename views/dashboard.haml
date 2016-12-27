@@ -116,8 +116,7 @@
   $("#button-container").css('position','absolute');
   $("#button-container").css('bottom','15px');
   $("#button-container").css('right','0px');
-  $('#confirm').modal({ backdrop: 'static', keyboard: false })
-  .one('click', '#dismiss', function() {
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
   $("#textoPopup").text("");
   $("#textoPopup").css('color','#ffffff');
   $(".imagen").css('opacity','0');
