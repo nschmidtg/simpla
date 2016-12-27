@@ -250,9 +250,9 @@
                               - if(cstate!=nil)
                                 - bdbrd.current_state=cstate
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                                - bdbrd.created_by=org.municipio.users.find_by(role: "secpla").login_name+" "+org.municipio.users.find_by(role: "secpla").login_last_name
                               - if(bdbrd.contact==nil)
-                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
+                                - bdbrd.contact=org.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.coords=@user.municipio.coords
@@ -271,9 +271,9 @@
                               - if(cstate!=nil)
                                 - bdbrd.current_state=cstate
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                                - bdbrd.created_by=org.municipio.users.find_by(role: "secpla").login_name+" "+org.municipio.users.find_by(role: "secpla").login_last_name
                               - if(bdbrd.contact==nil)
-                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
+                                - bdbrd.contact=org.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.municipio=@user.municipio
