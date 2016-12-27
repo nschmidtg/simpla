@@ -135,7 +135,7 @@
             
         - else @user.nil?
           .col.md-12.col-sm-12.col-xs-12.no-padding-nav
-            .drawer-contents-nav
+            .drawer-contents-nav{style:"height:100% !important;"}
               %ul.drawer-nav#config-drawer-board-list.no-padding
                 - if @user.role!="admin"
                   .col.md.general
