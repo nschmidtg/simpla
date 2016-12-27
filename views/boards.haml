@@ -14,8 +14,8 @@
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
           Etapas de Proyectos
-          %a{onclick:"explicacionEtapas()", style:"cursor:pointer"}
-            %img{src:"/img/faq.png"}
+          %a{onclick:"explicacionEtapas()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
         
 
     %div{style:"display: -webkit-inline-box;"}
@@ -522,7 +522,8 @@
     }
 
     function explicacionEtapas(){
-      $("#textoPopup").text("");
+      $("#textoPopup").text("Las etapas de proyecto presentan las distintas fases por las cuales pasa un proyecto de inversión en un municipio. Estas fases son lineales y marcados por hitos claros, por lo que los proyectos avanzan en estas etapas hasta ser completados o cerrados e indican el nivel de desarrollo que tienen. Al moverlos esto será reportado al equipo SECPLAC como también a todos los que tengan acceso a SIMPLA para conocer el nivel de avance de los proyectos.
+");
       $(".imagen").css('opacity','1');
       $(".imagen").css('display','');
       $("#confirm").css('background-color','#FFFFFF');
@@ -534,7 +535,7 @@
       $("#button-container").css('right','0px');
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#dismiss', function() {
-          
+          $("#textoPopup").text("");
           $(".imagen").css('opacity','0');
           $(".imagen").css('display','none');
           $("#delete").removeClass("hide");
