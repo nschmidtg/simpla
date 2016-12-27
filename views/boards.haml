@@ -347,17 +347,17 @@
                           $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
 
 
-- if(@user.role=="secpla" || @user.role=="admin")  
-  #confirm.modalx.hide.fade{style:"background-color:#ffffff"}
-    .col-md-10.col-sm-12.col-xs-12
-      .modal-body{style:"background-color:#ffffff"} 
-        %span#textoPopup asda
-        .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
-          %img{src:"/img/etapas.png", style:"width:100%"}
-    .col-md-2.col-sm-12.col-xs-12#button-container
-      .modal-footer
-        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
-        %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
+
+#confirm.modalx.hide.fade{style:"background-color:#ffffff"}
+  .col-md-10.col-sm-12.col-xs-12
+    .modal-body{style:"background-color:#ffffff"} 
+      %span#textoPopup asda
+      .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
+        %img{src:"/img/etapas.png", style:"width:100%"}
+  .col-md-2.col-sm-12.col-xs-12#button-container
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+      %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
 
 
 
