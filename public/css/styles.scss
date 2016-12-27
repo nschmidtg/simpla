@@ -1855,7 +1855,6 @@ a.btn {
   text-align: -webkit-center;
   display: -webkit-box;
   background-color: #eee;
-  border: 1px solid #fff;
   border-bottom: none;
 
 
@@ -1930,15 +1929,14 @@ a.btn {
       display: block;
       border-style: solid;
       padding: 10px;
-      background-color: #fff;
+      background-color: #eee;
       color: #fff;
       border-color: #F3F3F3;
       text-decoration: none;
-      text-shadow: 0 1px rgba(0, 0, 0, 0.4);
+      text-shadow: 0 1px rgba(0,0,0,0.4);
       border-top-right-radius: 4px;
       border-top-left-radius: 4px;
-      border-width: 1px;
-    }
+      border-width: 1px;    }
   }
   .r-tabs-accordion-title.r-tabs-state-active {
     background-color: #4D97C1;
