@@ -2,6 +2,12 @@
    
 .container{style:"margin-left:15px;"}
   .fondo-blanco{style:"display: -webkit-inline-box;margin-right:15px;"}
+    %div
+      %h2.ollert-header
+        .text-center.col-xs-12.no-padding{style:"text-align:left;"}
+          Archivo de proyectos
+          %a{onclick:"explicacionArchivo()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
 
     %div{style:"margin-top:50px;    display: -webkit-inline-box;"}
       .col-md-12.col-sm-12.col-xs-12.no-padding
@@ -184,6 +190,16 @@
     .row{style:"margin:0px;"}
       %form{role: "form", :action=>"/archivo/reporte.xls", :method=>"post"}
         %input.btn.plus{type:"submit",value:"Excel"}
+#confirm.modalx.hide.fade{style:"background-color:#ffffff"}
+  .col-md-10.col-sm-12.col-xs-12
+    .modal-body{style:"background-color:#ffffff"} 
+      %span#textoPopup asda
+      .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
+        %img{src:"/img/etapas.png", style:"width:100%"}
+  .col-md-2.col-sm-12.col-xs-12#button-container
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+      %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
 
 :javascript
   function myFunction() {
@@ -294,4 +310,34 @@
     myFunction();
   });
 
+
+%script
+  function explicacionArchivo(){
+  $("#textoPopup").text("El archivo de proyectos funciona como un repositorio de proyectos de inversión histórico que permite ver cómo se desarrollaron y cuales son sus condiciones y estados.");
+  $("#textoPopup").css('color','#000000');
+  $(".imagen").css('opacity','1');
+  $(".imagen").css('display','none');
+  $(".modal-body").css('display','block');
+  $("#confirm").css('background-color','#FFFFFF');
+  $(".modal-body").css('background-color','#FFFFFF');
+  $("#delete").addClass("hide");
+  $("#dismiss").text("Aceptar");
+  $("#button-container").css('position','absolute');
+  $("#button-container").css('bottom','15px');
+  $("#button-container").css('right','0px');
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
+  $("#textoPopup").text("");
+  $("#textoPopup").css('color','#ffffff');
+  $(".imagen").css('opacity','0');
+  $(".imagen").css('display','none');
+  $("#dismiss").text("Cancelar");
+  $("#button-container").css('position','relative');
+  $("#button-container").css('bottom','');
+  $("#button-container").css('right','');
+  $(".modal-body").css('display','-webkit-inline-box');
+  });
+  $("#confirm").removeClass( "hide");
+  }
+
+  
  
