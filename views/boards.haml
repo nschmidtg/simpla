@@ -16,7 +16,7 @@
           Etapas de Proyectos
           %a{onclick:"explicacionEtapas()", style:"cursor:pointer;vertical-align:super;"}
             %img{src:"/img/faq.png", style:"width:15px;"}
-        
+       
 
     %div{style:"display: -webkit-inline-box;"}
       
@@ -199,6 +199,10 @@
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
           Prioridad de Proyectos
+          %a{onclick:"explicacionPrioridades()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
+        
+
     %div{style:""}
       #responsiveTabsDemo2
         %ul#myTab.nav.nav-tabs.responsive
@@ -523,6 +527,35 @@
 
     function explicacionEtapas(){
       $("#textoPopup").text("Las etapas de proyecto presentan las distintas fases por las cuales pasa un proyecto de inversión en un municipio. Estas fases son lineales y marcados por hitos claros, por lo que los proyectos avanzan en estas etapas hasta ser completados o cerrados e indican el nivel de desarrollo que tienen. Al moverlos esto será reportado al equipo SECPLAC como también a todos los que tengan acceso a SIMPLA para conocer el nivel de avance de los proyectos.");
+      $("#textoPopup").css('color','#000000');
+      $(".imagen").css('opacity','1');
+      $(".imagen").css('display','');
+      $(".modal-body").css('display','block');
+      $("#confirm").css('background-color','#FFFFFF');
+      $(".modal-body").css('background-color','#FFFFFF');
+      $("#delete").addClass("hide");
+      $("#dismiss").text("Aceptar");
+      $("#button-container").css('position','absolute');
+      $("#button-container").css('bottom','15px');
+      $("#button-container").css('right','0px');
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#dismiss', function() {
+          $("#textoPopup").text("");
+          $("#textoPopup").css('color','#ffffff');
+          $(".imagen").css('opacity','0');
+          $(".imagen").css('display','none');
+          $("#delete").removeClass("hide");
+          $("#dismiss").text("Cancelar");
+          $("#button-container").css('position','relative');
+          $("#button-container").css('bottom','');
+          $("#button-container").css('right','');
+          $(".modal-body").css('display','-webkit-inline-box');
+        });
+      $("#confirm").removeClass( "hide");
+      
+    }
+    function explicacionPrioridades(){
+      $("#textoPopup").text("Mover los diferentes proyectos en los items Urgentes - Priorizados - No Priorizados sirve para distribuir de forma eficiente el trabajo de los equipos SECPLAC pues indicará en qué proyectos los equipos deben poner los esfuerzos.");
       $("#textoPopup").css('color','#000000');
       $(".imagen").css('opacity','1');
       $(".imagen").css('display','');
