@@ -301,8 +301,8 @@
                                       NO ASIGNADO
                                 
                                 %td.celda-tabla{style: "width: 100%;"}
-                                  .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
-                                    - if(@user.role=="admin"||@user.role=="secpla")
+                                  - if(@user.role=="admin"||@user.role=="secpla")
+                                    .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
                                       %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: pointer;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
                                         - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
                                           - if(@user.role=="secpla" || @user.role=="admin")
@@ -317,7 +317,8 @@
                                         - if(@prioridades[count-10]=="3. No Priorizados" && @prioridades[count-10]!=nil)
                                           - if(@user.role=="secpla" || @user.role=="admin")
                                             %option{:value => "#{@prioridades[count-10]}"} #{@prioridades[count-10]}
-                                    - else
+                                  - else
+                                    .boards-list-item-link-b.overflow{style:"max-width: 100%"}
                                       #{prioridad}
                           - else
                             - if(bdbrd!=nil)
