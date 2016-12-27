@@ -130,7 +130,7 @@
                       var text=$(document).find("#tab-text-#{count}").text();
                       $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
           %div{id: "tab-1", class: "tab-pane"}
-            .col-md-12.col-sm-12.col-xs-12.no-padding
+            .col-md-12.col-sm-12.col-xs-12.no-padding{style:"background-color:#ffffff"}
               %table.table{id: "myTable-1"}
                 %thead
                   %tr
@@ -217,7 +217,7 @@
           - @prioridades.each do |prioridad|
             - count=count+1
             %div{id: "tab-#{count}", class: "tab-pane"}
-              .col-md-12.col-sm-12.col-xs-12.no-padding
+              .col-md-12.col-sm-12.col-xs-12.no-padding{style:"background-color:#ffffff"}
                 %table.table{id: "myTable-#{count}"}
                   %thead
                     %tr
