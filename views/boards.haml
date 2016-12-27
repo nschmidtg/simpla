@@ -9,7 +9,7 @@
       - if(@org!=nil)
         %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
           Agregar Proyecto
-  .fondo-blanco
+  .fondo-blanco{style:"display: inline-block;min-width:100%;"}
     %div
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
