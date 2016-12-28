@@ -143,7 +143,7 @@
                       .col.md.izq-menu
                         %a.icon-link{href:"/dashboard?mun_id=#{@user.municipio.id}"}
                           %img.svg-element#boton{src: "/img/Iconos-blancos-26.png", type:"image/svg+xml"}
-                      .col#header-lateral
+                      .col.header-laterals#header-lateral{onclick:"javascript:location.href='/dashboard?mun_id=#{@user.municipio.id}'",style:"cursor:pointer"}
                         %h5.h5-lateral
                           Indicadores de Gestión
                   .col.md.general
@@ -151,7 +151,7 @@
                       .col.md.izq-menu
                         %a.icon-link{href:"/boards"}
                           %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml"}
-                      .col#header-lateral
+                      .col.header-laterals#header-lateral{onclick:"javascript:location.href='/boards'",style:"cursor:pointer"}
                         %h5.h5-lateral
                           - if @user.role=="admin" || @user.role=="secpla"
                             Gestión Proyectos
@@ -162,7 +162,7 @@
                       .col.md.izq-menu
                         %a.icon-link{href:"/calendar?mun_id=#{@user.municipio.id}"}
                           %img.svg-element#boton{src: "/img/Iconos-blancos-27.png", type:"image/svg+xml"}
-                      .col#header-lateral
+                      .col.header-laterals#header-lateral{onclick:"javascript:location.href='/calendar?mun_id=#{@user.municipio.id}'",style:"cursor:pointer"}
                         %h5.h5-lateral
                           Calendario General
                   .col.md.general
@@ -170,7 +170,7 @@
                       .col.md.izq-menu
                         %a.icon-link{href: "/archivo/municipio/proyectos?mun_id=#{@user.municipio.id}"}
                           %img.svg-element#boton{src: "/img/Iconos-blancos-24.png", type:"image/svg+xml"}
-                      .col#header-lateral
+                      .col.header-laterals#header-lateral{onclick:"javascript:location.href='/archivo/municipio/proyectos?mun_id=#{@user.municipio.id}'",style:"cursor:pointer"}
                         %h5.h5-lateral
                           Archivo de Proyectos
                 - if @user.role=="admin" || @user.role=="secpla"
@@ -179,9 +179,10 @@
                       .col.md.izq-menu
                         %a.icon-link{href:"/admin"}
                           %img.svg-element#boton{src: "/img/Iconos-blancos-21.png", type:"image/svg+xml"}
-                      .col#header-lateral
+                      .col.header-laterals#header-lateral{onclick:"javascript:location.href='/admin'",style:"cursor:pointer"}
                         %h5.h5-lateral
                           Configuración
+                      
 
         .col.md-12.col-sm-12.col-xs-12.principal
           - if flash.has? :error
@@ -217,11 +218,13 @@
        
 
     :javascript
+      var lastName="";
+      var ultimo="";
       $(document).ready(function(){
         if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
           $("#titulo-header").hide();
         }
-      var lastName="";
+      
         $(".icon-link").each(function() {
           $(this).parent().parent().find("#header-lateral").hide();
           if (window.location.href.includes(this.href)) {
@@ -250,6 +253,24 @@
               }
             );
           }
+        });
+        
+        $(".header-laterals").each(function(){
+          $(this).hover(function(){
+            $(this).show();
+            $(this).parent().find(".icon-link").addClass("icon-link-hover");
+            $(this).parent().find(".icon-link").removeClass("icon-link");
+            ultimo=$(this).parent().find(".svg-element").attr("src");
+            $(this).parent().find(".svg-element").attr("src",ultimo.replace("blancos-",""));
+          },
+          function(){
+            $(this).hide();
+            if(ultimo.includes("blancos-")){
+              $(this).parent().find(".icon-link-hover").addClass("icon-link");
+              $(this).parent().find(".icon-link").removeClass("icon-link-hover");
+              $(this).parent().find(".svg-element").attr("src",ultimo);
+            }
+          })
         });
       });
 
