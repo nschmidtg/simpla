@@ -91,12 +91,12 @@
     %div
       %nav{class: 'navbar navbar-default navbar-static-top', role: 'navigation'}
         .container-fluid.header-naranjo
-          .navbar-header{style:"position:fixed;"}
+          .navbar-header{style:"position:fixed;padding-left: 4px;"}
             %a.navbar-brand{href: '/',style:"margin:0;"}
               %img{src:"/img/logo-head.png",style:"max-height:50px;"}
           
           .title-header
-            %h3{style:"margin-top:14px;"}
+            %h3#titulo-header{style:"margin-top:14px;"}
               #{@title}
             
           - if @user.nil?
@@ -120,6 +120,10 @@
                         %b.caret
                     %ul.dropdown-menu.pull-right
                       %li
+                        %a{href: "/change_pass_vol", alt: "Cambiar Contraseña"}
+                          %span.glyphicon.glyphicon-edit
+                          Cambiar Contraseña
+                      %li
                         %a{href: "/logout", alt: "Log out"}
                           %span.glyphicon.glyphicon-off
                           Cerrar Sesión
@@ -131,7 +135,7 @@
             
         - else @user.nil?
           .col.md-12.col-sm-12.col-xs-12.no-padding-nav
-            .drawer-contents-nav
+            .drawer-contents-nav{style:"height:100% !important;"}
               %ul.drawer-nav#config-drawer-board-list.no-padding
                 - if @user.role!="admin"
                   .col.md.general
@@ -214,6 +218,9 @@
 
     :javascript
       $(document).ready(function(){
+        if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+          $("#titulo-header").hide();
+        }
       var lastName="";
         $(".icon-link").each(function() {
           $(this).parent().parent().find("#header-lateral").hide();

@@ -4,7 +4,11 @@
   .fondo-blanco
     .row{style:"margin:0px;"}
       %h2.ollert-header
-        .text-center.col-xs-12.no-padding Usuarios
+        .text-center.col-xs-12.no-padding 
+          Usuarios
+          %a{onclick:"explicacionUsuario()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
+
       - if(@user.role=="secpla" || @user.role=="admin") 
         - @org=@mun.organizations.find_by(name: "3. No Priorizados")
         %a.btn.plus{href:"/admin/municipio/users/user?mun_id=#{@mun.id}"}
@@ -91,6 +95,46 @@
           - if(@mun.launched=="false")
             %a.btn.plus{href: "/admin/municipio/launch?mun_id=#{@mun.id}"}
               Enviar invitaciones
+#confirm.modalx.hide.fade{style:"background-color:#ffffff"}
+  .col-md-10.col-sm-12.col-xs-12
+    .modal-body{style:"background-color:#ffffff"} 
+      %span#textoPopup asda
+      .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
+        %img{src:"/img/etapas.png", style:"width:100%"}
+  .col-md-2.col-sm-12.col-xs-12#button-container
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+      %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
 :javascript
   $("#myTable").tablesorter();
 
+
+%script
+  function explicacionUsuario(){
+  $("#textoPopup").text("Los usuarios que se agregan a SIMPLA son: Alcalde, Concejales, Director SECPLAC y equipo SECPLAC. Cada usuario tendrá diferente acceso a las plataformas de Trello y SIMPLA según el rol que se le asigne, correspondiente a lo pertinente.");
+  $("#textoPopup").css('color','#000000');
+  $(".imagen").css('opacity','1');
+  $(".imagen").css('display','none');
+  $(".modal-body").css('display','block');
+  $("#confirm").css('background-color','#FFFFFF');
+  $(".modal-body").css('background-color','#FFFFFF');
+  $("#delete").addClass("hide");
+  $("#dismiss").text("Aceptar");
+  $("#button-container").css('position','absolute');
+  $("#button-container").css('bottom','15px');
+  $("#button-container").css('right','0px');
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
+  $("#textoPopup").text("");
+  $("#textoPopup").css('color','#ffffff');
+  $(".imagen").css('opacity','0');
+  $(".imagen").css('display','none');
+  $("#dismiss").text("Cancelar");
+  $("#button-container").css('position','relative');
+  $("#button-container").css('bottom','');
+  $("#button-container").css('right','');
+  $(".modal-body").css('display','-webkit-inline-box');
+  });
+  $("#confirm").removeClass( "hide");
+  }
+
+  

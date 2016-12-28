@@ -60,10 +60,13 @@
                     - else
                       %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
                 .form-group
-                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Zonas
+                  %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
+                    Zonas
+                    %a{onclick:"explicacionZona()", style:"cursor:pointer;vertical-align:super;"}
+                      %img{src:"/img/faq.png", style:"width:15px;"}
                   .col-md-6.col-sm-6.col-xs-12
                     .input_fields_wrap
-                      %button.add_field_button Añadir más zonas
+                      
                       - if(@municipio!=nil)
                         - zones=@municipio.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
                         - zones.each do |zone|
@@ -74,6 +77,7 @@
                       - else
                         %div
                           %input.form-control.input-md{:name => "zonas[nuevo]", :value => "",:type => "text",required: "", placeholder: "Nombre de la zona"}/
+                      %button.btn.plus.add_field_button Añadir zona
                 .form-group
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)
@@ -95,7 +99,8 @@
   #confirm.modalx.hide.fade
     .col-md-9.col-sm-12.col-xs-12
       .modal-body
-        ¿Estás seguro que deseas eliminar #{@municipio.name}?
+        %span#textoPopup ¿Estás seguro que deseas eliminar #{@municipio.name}?
+        
     .col-md-3.col-sm-12.col-xs-12
       .modal-footer
         %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Eliminar
@@ -116,6 +121,7 @@
   $(document).ready(function() {
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
+    var a=false;
     
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
@@ -127,5 +133,43 @@
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
+
+
+    $(".form-horizontal :input").change(function() {
+       a=true;
+    });
+    window.onbeforeunload = function(){
+      if (a)return '¿Está seguro que quiere salir?';
+    };
   });
+
+%script
+  function explicacionZona(){
+  $("#textoPopup").text("Las zonas son los sectores geográficos en los que se divide la comuna (unidades vecinales, sectores, etc). Definirlos permite, luego, asignar las zonas de intervención para cada proyecto de inversión.");
+  $("#textoPopup").css('color','#000000');
+  $(".imagen").css('opacity','1');
+  $(".imagen").css('display','none');
+  $(".modal-body").css('display','block');
+  $("#confirm").css('background-color','#FFFFFF');
+  $(".modal-body").css('background-color','#FFFFFF');
+  $("#delete").addClass("hide");
+  $("#dismiss").text("Aceptar");
+  $("#button-container").css('position','absolute');
+  $("#button-container").css('bottom','15px');
+  $("#button-container").css('right','0px');
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
+  $("#textoPopup").text("¿Estás seguro que deseas eliminar #{@municipio.name}?");
+  $("#textoPopup").css('color','#ffffff');
+  $(".imagen").css('opacity','0');
+  $(".imagen").css('display','none');
+  $("#delete").removeClass("hide");
+  $("#dismiss").text("Cancelar");
+  $("#button-container").css('position','relative');
+  $("#button-container").css('bottom','');
+  $("#button-container").css('right','');
+  $(".modal-body").css('display','-webkit-inline-box');
+  });
+  $("#confirm").removeClass( "hide");
+  }
+
   

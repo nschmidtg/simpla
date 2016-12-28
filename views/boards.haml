@@ -9,14 +9,14 @@
       - if(@org!=nil)
         %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
           Agregar Proyecto
-  .fondo-blanco
+  .fondo-blanco{style:"display: inline-block;min-width:100%;"}
     %div
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
           Etapas de Proyectos
-          %a{onclick:"explicacionEtapas()", style:"cursor:pointer"}
-            %img{src:"/img/faq.png"}
-        
+          %a{onclick:"explicacionEtapas()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
+       
 
     %div{style:"display: -webkit-inline-box;"}
       
@@ -48,7 +48,7 @@
           - @states.each do |state|
             - count=count+1
             %div{id: "tab-#{count}", class: "tab-pane"}
-              .col-md-12.col-sm-12.col-xs-12.no-padding
+              .col-md-12.col-sm-12.col-xs-12.no-padding{style:"background-color:#ffffff"}
                 %table.table{id: "myTable-#{count}"}
                   %thead
                     %tr
@@ -130,7 +130,7 @@
                       var text=$(document).find("#tab-text-#{count}").text();
                       $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
           %div{id: "tab-1", class: "tab-pane"}
-            .col-md-12.col-sm-12.col-xs-12.no-padding
+            .col-md-12.col-sm-12.col-xs-12.no-padding{style:"background-color:#ffffff"}
               %table.table{id: "myTable-1"}
                 %thead
                   %tr
@@ -194,11 +194,15 @@
                     $(document).find("#tab-text-1").text(text+" [#{cantidad_tableros}]");
     
 
-  .fondo-blanco
+  .fondo-blanco{style:"display: inline-block;min-width:100%;"}
     %div{style:"display: -webkit-inline-box;"}
       %h2.ollert-header
         .text-center.col-xs-12.no-padding{style:"text-align:left;"}
           Prioridad de Proyectos
+          %a{onclick:"explicacionPrioridades()", style:"cursor:pointer;vertical-align:super;"}
+            %img{src:"/img/faq.png", style:"width:15px;"}
+        
+
     %div{style:""}
       #responsiveTabsDemo2
         %ul#myTab.nav.nav-tabs.responsive
@@ -213,7 +217,7 @@
           - @prioridades.each do |prioridad|
             - count=count+1
             %div{id: "tab-#{count}", class: "tab-pane"}
-              .col-md-12.col-sm-12.col-xs-12.no-padding
+              .col-md-12.col-sm-12.col-xs-12.no-padding{style:"background-color:#ffffff"}
                 %table.table{id: "myTable-#{count}"}
                   %thead
                     %tr
@@ -250,9 +254,9 @@
                               - if(cstate!=nil)
                                 - bdbrd.current_state=cstate
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                                - bdbrd.created_by=org.municipio.users.find_by(role: "secpla").login_name+" "+org.municipio.users.find_by(role: "secpla").login_last_name
                               - if(bdbrd.contact==nil)
-                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
+                                - bdbrd.contact=org.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.coords=@user.municipio.coords
@@ -271,9 +275,9 @@
                               - if(cstate!=nil)
                                 - bdbrd.current_state=cstate
                               - if(bdbrd.created_by==nil)
-                                - bdbrd.created_by=bdbrd.municipio.users.find_by(role: "secpla").login_name+" "+bdbrd.municipio.users.find_by(role: "secpla").login_last_name
+                                - bdbrd.created_by=org.municipio.users.find_by(role: "secpla").login_name+" "+org.municipio.users.find_by(role: "secpla").login_last_name
                               - if(bdbrd.contact==nil)
-                                - bdbrd.contact=bdbrd.municipio.users.find_by(role: "secpla").login_mail
+                                - bdbrd.contact=org.municipio.users.find_by(role: "secpla").login_mail
                               - bdbrd.archivado="false"
                               - bdbrd.closed="false"
                               - bdbrd.municipio=@user.municipio
@@ -297,8 +301,8 @@
                                       NO ASIGNADO
                                 
                                 %td.celda-tabla{style: "width: 100%;"}
-                                  .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
-                                    - if(@user.role=="admin"||@user.role=="secpla")
+                                  - if(@user.role=="admin"||@user.role=="secpla")
+                                    .boards-list-item-link-c.overflow{style:"max-width: 100%;padding:0px;"}
                                       %select#textinput.form-control.input-md{name: "prioridad", style: "cursor: pointer;", required: "true",onchange: "changePriority(this.options[this.selectedIndex].value,'#{board["id"]}')"}
                                         - if(@prioridades[count-14]=="1. Urgentes" && @prioridades[count-14]!=nil)
                                           - if(@user.role=="secpla" || @user.role=="admin")
@@ -313,7 +317,8 @@
                                         - if(@prioridades[count-10]=="3. No Priorizados" && @prioridades[count-10]!=nil)
                                           - if(@user.role=="secpla" || @user.role=="admin")
                                             %option{:value => "#{@prioridades[count-10]}"} #{@prioridades[count-10]}
-                                    - else
+                                  - else
+                                    .boards-list-item-link-b.overflow{style:"max-width: 100%"}
                                       #{prioridad}
                           - else
                             - if(bdbrd!=nil)
@@ -343,17 +348,17 @@
                           $(document).find("#tab-text-#{count}").text(text+" [#{cantidad_tableros}]");
 
 
-- if(@user.role=="secpla" || @user.role=="admin")  
-  #confirm.modalx.hide.fade{style:"background-color:#ffffff"}
-    .col-md-10.col-sm-12.col-xs-12
-      .modal-body{style:"background-color:#ffffff"} 
-        %span#textoPopup asda
-        .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
-          %img{src:"/img/etapas.png", style:"width:100%"}
-    .col-md-2.col-sm-12.col-xs-12#button-container
-      .modal-footer
-        %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
-        %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
+
+#confirm.modalx.hide.fade{style:"background-color:#ffffff"}
+  .col-md-10.col-sm-12.col-xs-12
+    .modal-body{style:"background-color:#ffffff"} 
+      %span#textoPopup asda
+      .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
+        %img{src:"/img/etapas.png", style:"width:100%"}
+  .col-md-2.col-sm-12.col-xs-12#button-container
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+      %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
 
 
 
@@ -522,9 +527,11 @@
     }
 
     function explicacionEtapas(){
-      $("#textoPopup").text("");
+      $("#textoPopup").text("Las etapas de proyecto presentan las distintas fases por las cuales pasa un proyecto de inversión en un municipio. Estas fases son lineales y marcados por hitos claros, por lo que los proyectos avanzan en estas etapas hasta ser completados o cerrados e indican el nivel de desarrollo que tienen. Al moverlos esto será reportado al equipo SECPLAC como también a todos los que tengan acceso a SIMPLA para conocer el nivel de avance de los proyectos.");
+      $("#textoPopup").css('color','#000000');
       $(".imagen").css('opacity','1');
       $(".imagen").css('display','');
+      $(".modal-body").css('display','block');
       $("#confirm").css('background-color','#FFFFFF');
       $(".modal-body").css('background-color','#FFFFFF');
       $("#delete").addClass("hide");
@@ -534,7 +541,8 @@
       $("#button-container").css('right','0px');
       $('#confirm').modal({ backdrop: 'static', keyboard: false })
         .one('click', '#dismiss', function() {
-          
+          $("#textoPopup").text("");
+          $("#textoPopup").css('color','#ffffff');
           $(".imagen").css('opacity','0');
           $(".imagen").css('display','none');
           $("#delete").removeClass("hide");
@@ -542,6 +550,36 @@
           $("#button-container").css('position','relative');
           $("#button-container").css('bottom','');
           $("#button-container").css('right','');
+          $(".modal-body").css('display','-webkit-inline-box');
+        });
+      $("#confirm").removeClass( "hide");
+      
+    }
+    function explicacionPrioridades(){
+      $("#textoPopup").text("Mover los diferentes proyectos en los items Urgentes - Priorizados - No Priorizados sirve para distribuir de forma eficiente el trabajo de los equipos SECPLAC pues indicará en qué proyectos los equipos deben poner los esfuerzos.");
+      $("#textoPopup").css('color','#000000');
+      $(".imagen").css('opacity','1');
+      $(".imagen").css('display','none');
+      $(".modal-body").css('display','block');
+      $("#confirm").css('background-color','#FFFFFF');
+      $(".modal-body").css('background-color','#FFFFFF');
+      $("#delete").addClass("hide");
+      $("#dismiss").text("Aceptar");
+      $("#button-container").css('position','absolute');
+      $("#button-container").css('bottom','15px');
+      $("#button-container").css('right','0px');
+      $('#confirm').modal({ backdrop: 'static', keyboard: false })
+        .one('click', '#dismiss', function() {
+          $("#textoPopup").text("");
+          $("#textoPopup").css('color','#ffffff');
+          $(".imagen").css('opacity','0');
+          $(".imagen").css('display','none');
+          $("#delete").removeClass("hide");
+          $("#dismiss").text("Cancelar");
+          $("#button-container").css('position','relative');
+          $("#button-container").css('bottom','');
+          $("#button-container").css('right','');
+          $(".modal-body").css('display','-webkit-inline-box');
         });
       $("#confirm").removeClass( "hide");
       

@@ -119,10 +119,10 @@ class Ollert
         brd.state_change_dates=Array.new(10)
         brd.save
       end
-      if((order.to_i-1)==8 && brd.state_change_dates[order.to_i-1]!=nil)
-      else
+      #if((order.to_i-1)==8 && brd.state_change_dates[order.to_i-1]!=nil)
+      #else
         brd.state_change_dates[order.to_i-1]=Time.now.strftime("%d/%m/%Y %H:%M")
-      end
+      #end
       for i in order.to_i..9
         brd.state_change_dates[i]=nil
       end

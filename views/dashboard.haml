@@ -1,4 +1,4 @@
-.container
+.container{style:"min-width:1000px;"}
   %div
     /%h4
     /  %a{href: "/dashboard",style: "color:#808080"}Indicadores del Municipio >
@@ -6,10 +6,16 @@
     /  .text-center.col-xs-12.no-padding{style:"text-align:left;"}
     /    Resumen #{@mun.name}
     .fondo-blanco
+      %div
+        %h2.ollert-header
+          .text-center.col-xs-12.no-padding{style:"text-align:left;"}
+            Indicadores de gestión
+            %a{onclick:"explicacionIndicadores()", style:"cursor:pointer;vertical-align:super;"}
+              %img{src:"/img/faq.png", style:"width:15px;"}
       .row
         .col-md-12.col-sm-12.col-xs-12
           .col-md-3.col-sm-12.col-xs-12
-            .boards-list-item-link-blue{style:"height:250px;"}
+            .boards-list-item-link-blue{style:"height:250px;width:250px;"}
               %img.svg-element#boton{src: "/img/Iconos-blancos-23.png", type:"image/svg+xml", style:"width:65%;"}
               %h1{style:"margin-top:0px;margin-bottom:0px;"} 
                 #{@boards.count}
@@ -33,6 +39,19 @@
       .row{style:"margin:0px;"}
         %form{role: "form", :action=>"/dashboard/raport.xls", :method=>"post"}
           %input.btn.plus{type:"submit",value:"Excel"}
+
+
+#confirm.modalx.hide.fade{style:"background-color:#ffffff"}
+  .col-md-10.col-sm-12.col-xs-12
+    .modal-body{style:"background-color:#ffffff"} 
+      %span#textoPopup asda
+      .imagen{style:"opacity:0;display:none;background-repeat:no-repeat;padding-right:0px;background-size:100%;width:100%"}
+        %img{src:"/img/etapas.png", style:"width:100%"}
+  .col-md-2.col-sm-12.col-xs-12#button-container
+    .modal-footer
+      %button#delete.btn.btn-primary{"data-dismiss" => "modal", :type => "button"} Aceptar
+      %button#dismiss.btn{"data-dismiss" => "modal", :type => "button"} Cancelar  
+
             
         
 
@@ -54,6 +73,9 @@
 
   var layout = {
   title: 'Proyectos por zona de intervención y fondo',
+  font: {
+  family: 'Muli, sans-serif'
+  },
   showlegend: false,
   hovermode: 'closest',
   margin:{
@@ -63,7 +85,7 @@
   yaxis: {
   showticklabels: true,
   tickfont: {
-  family: 'Old Standard TT, serif',
+  family: 'Muli, sans-serif',
   size: 14,
   color: 'black'
   }
@@ -72,7 +94,7 @@
   showticklabels: true,
   tickangle: -25,
   tickfont: {
-  family: 'Old Standard TT, serif',
+  family: 'Muli, sans-serif',
   size: 14,
   color: 'black'
   },
@@ -82,6 +104,35 @@
   };
 
   Plotly.newPlot('container3', data, layout);
+
+%script
+  function explicacionIndicadores(){
+  $("#textoPopup").text("La sección de indicadores tiene como fin resumir, de forma simple y visual, los datos e información que se levanta de la gestión municipal de proyectos de inversión. Facilita la revelación de datos o inclinaciones del municipio y que pueden clarificar decisiones estratégicas del municipio.");
+  $("#textoPopup").css('color','#000000');
+  $(".imagen").css('opacity','1');
+  $(".imagen").css('display','none');
+  $(".modal-body").css('display','block');
+  $("#confirm").css('background-color','#FFFFFF');
+  $(".modal-body").css('background-color','#FFFFFF');
+  $("#delete").addClass("hide");
+  $("#dismiss").text("Aceptar");
+  $("#button-container").css('position','absolute');
+  $("#button-container").css('bottom','15px');
+  $("#button-container").css('right','0px');
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
+  $("#textoPopup").text("");
+  $("#textoPopup").css('color','#ffffff');
+  $(".imagen").css('opacity','0');
+  $(".imagen").css('display','none');
+  $("#dismiss").text("Cancelar");
+  $("#button-container").css('position','relative');
+  $("#button-container").css('bottom','');
+  $("#button-container").css('right','');
+  $(".modal-body").css('display','-webkit-inline-box');
+  });
+  $("#confirm").removeClass( "hide");
+  }
+
   
 
 
@@ -89,6 +140,9 @@
 %script
   var myConfig = {
   "type":"bar",
+  "globals":{
+  "fontFamily":"Muli, sans-serif"
+  },
   "background-color":"#fff",
   "title":{
   "text":"Proyectos por zona de intervención",
@@ -211,6 +265,9 @@
 %script
   var myConfig = {
   "type":"bar",
+  "globals":{
+  "fontFamily":"Muli, sans-serif"
+  },
   "background-color":"#fff",
   "title":{
   "text":"Proyectos por sector de inversión",
@@ -332,6 +389,9 @@
   $('#container5').highcharts({
   chart: {
   plotBackgroundColor: null,
+  style: {
+  fontFamily: 'Muli, sans-serif'
+  },
   plotBorderWidth: null,
   plotShadow: false,
   type: 'pie'
@@ -383,7 +443,9 @@
     pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     chart: {
-
+    style: {
+    fontFamily: 'Muli, sans-serif'
+    },
     type: 'bar'
     },
     title: {
@@ -445,7 +507,9 @@
     pointFormat: '{series.name}: <b>{point.y}</b>'
     },
     chart: {
-
+    style: {
+    fontFamily: 'Muli, sans-serif'
+    },
     type: 'bar'
     },
     title: {
@@ -512,6 +576,7 @@
  
 
     });
+
 
 / %script
 

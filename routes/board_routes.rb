@@ -16,6 +16,26 @@ class Ollert
     end
   end
 
+
+  get '/change_pass_vol', :auth => :connected do
+    respond_to do |format|
+      format.html { haml :change_pass_vol }
+    end
+  end
+
+  post '/save_pass_vol', :auth => :connected do
+    user=User.find_by(id: params[:user])
+    if(user!=nil && params[:pass1]==params[:pass2])
+      user.login_pass=Digest::SHA256.base64digest(params[:pass1])
+      user.save
+      flash[:success] = "Contraseña cambiada exitosamente."
+      redirect '/'
+    else
+      flash[:error] = "El usuario no existe o las contraseñas no coinciden."
+      redirect '/'
+    end
+  end
+
   get '/archivar', :auth => :connected do
     if(@user.role=="secpla" || @user.role=="admin")
       if(@user.municipio.id.to_s==params[:mun_id])
