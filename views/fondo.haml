@@ -22,14 +22,14 @@
             #input.tab-pane.active
               .component
                 / Text input
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@fondo!=nil)
                       %input#textinput.form-control.input-md{name: "name", value: "#{@fondo.name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del fondo", style: "cursor: auto;", type: "text",required: ""}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Etapa
                   .col-md-6.col-sm-6.col-xs-12
                     - if(params[:edit]=="true" && @fondo.etapa!=nil)
@@ -73,7 +73,7 @@
                         %option{:value => "adquisicion"} Adquisición
                         %option{:value => "estudios"} Estudios
                         %option{:value => "otros"} Otros
-                .form-group
+                .form-group{style:"display: inline;"}
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@fondo!=nil)
                       %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;",required: "", type: "hidden"}/
@@ -81,7 +81,7 @@
                     - else
                       %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;",required: "", type: "hidden"}/
                 - if(@fondo != nil)
-                  .form-group
+                  .form-group{style:"display: inline;"}
                     .col-md-12.col-sm-12.col-xs-12
                       %a{href: "/predet", target: "_blank"}
                         %h3.tareas-header
@@ -174,7 +174,7 @@
                                 var text=$(document).find("#tab-text-#{count}").text();
                                 $(document).find("#tab-text-#{count}").text(text+" [#{task_count}]"); 
                                                                        
-                .form-group
+                .form-group{style:"display: inline;"}
                   .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
                     - if(@fondo!=nil)
                       %input{:type => "submit", :value => "Guardar Cambios", :class => "btn plus"} 
@@ -222,4 +222,11 @@
     $("#myTable-8").tablesorter(); 
     $("#myTable-9").tablesorter(); 
     $("#myTable-10").tablesorter(); 
+    var a=false;
+      $(".form-horizontal :input").change(function() {
+        a=true;
+      });
+      window.onbeforeunload = function(){
+        if (a)return '¿Está seguro que quiere salir?';
+      };
   })

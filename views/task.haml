@@ -23,21 +23,21 @@
             #input.tab-pane.active
               .component
                 / Text input
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
                       %input#textinput.form-control.input-md{name: "name", value: "#{@task.name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre de la tarea", style: "cursor: auto;", type: "text",required: ""}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Descripción
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
                       %input#textinput.form-control.input-md{name: "desc", value: "#{@task.desc}", style: "cursor: auto;", type: "text"}/
                     - else
                       %input#textinput.form-control.input-md{name: "desc", placeholder: "Decripción de la tarea", style: "cursor: auto;", type: "text"}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Predeterminada
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
@@ -47,7 +47,7 @@
                         %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
                     - else
                       %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Checklist
                   .col-md-6.col-sm-6.col-xs-12
                     .input_fields_wrap
@@ -59,14 +59,14 @@
                             %div
                               %input.form-control.input-md{:name => "checklist[]", :value => "#{subtask}",:type => "text",required: "", placeholder: "Subtarea"}/
                               %a.remove_field{:href=>"#"}Quitar
-                .form-group
+                .form-group{style:"display: inline;"}
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
                       %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;", required: "", type: "hidden"}/
                       %input#textinput.form-control.input-md{name: "id", value: "#{@task.id}", style: "cursor: auto;", required: "", type: "hidden"}/
                     - else
                       %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", required: "", type: "hidden"}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
@@ -114,4 +114,11 @@
     $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
+    var a=false;
+      $(".form-horizontal :input").change(function() {
+        a=true;
+      });
+      window.onbeforeunload = function(){
+        if (a)return '¿Está seguro que quiere salir?';
+      };
   });

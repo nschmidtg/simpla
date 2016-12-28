@@ -41,14 +41,14 @@
             #input.tab-pane.active
               .component
                 / Text input
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)
                       %input#textinput.form-control.input-md{name: "name", value: "#{@municipio.name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del Municipio", style: "cursor: auto;", type: "text",required: ""}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Ubicación
                   .col-md-6.col-sm-6.col-xs-12
                     #map
@@ -59,7 +59,7 @@
                         %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.085 -70.930", style: "cursor: auto;", type: "hidden"}/
                     - else
                       %input#textinput-zona.form-control.input-md{name: "zona", value: "-33.0833 -70.9333", style: "cursor: auto;", type: "hidden"}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                     Zonas
                     %a{onclick:"explicacionZona()", style:"cursor:pointer;vertical-align:super;"}
@@ -78,7 +78,7 @@
                         %div
                           %input.form-control.input-md{:name => "zonas[nuevo]", :value => "",:type => "text",required: "", placeholder: "Nombre de la zona"}/
                       %button.btn.plus.add_field_button Añadir zona
-                .form-group
+                .form-group{style:"display: inline;"}
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)
                       %input#textinput.form-control.input-md{name: "edit", value: "true", style: "cursor: auto;" ,required: "", type: "hidden"}/
@@ -86,7 +86,7 @@
                     - else
                       %input#textinput.form-control.input-md{name: "edit", value: "false", placeholder: "Nombre del Municipio", style: "cursor: auto;",required: "", type: "hidden"}/
 
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@municipio!=nil)

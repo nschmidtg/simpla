@@ -16,7 +16,7 @@
     .row{style:"margin:0px;"}
       .col-md-12.col-sm-12.col-xs-12.no-padding
         - @mun.fondos.order(:etapa => 'asc').each do |fondo|
-          .col-md-4.col-sm-6.col-xs-6
+          .col-md-4.col-sm-6.col-xs-12
             %a.btn.fondox{style: 'display: inline-block;float: right;padding: 5px !important;min-height: 200px; position: relative;', href: "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}&fondo_id=#{fondo.id}&edit=true"}
               %h1 #{fondo.name}
               %h4{style: "bottom: 0;    position: absolute;    right: 0;    left: 0;"} 

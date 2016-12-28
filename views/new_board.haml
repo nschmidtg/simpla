@@ -48,7 +48,7 @@
                     %input#textinput.form-control.input-md{name: "orgName", value: "#{@orgName}", style: "cursor: auto;", type: "hidden", disabled: "true"}
                 .form-group
                   .col-md-9.col-sm-12.col-xs-12
-                    .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+                    .col-md-6.col-sm-6.col-xs-12#cambia-mobile
                       %select#textinput.form-control.input-md.inpSelect{name: "tipo", style: "cursor: auto;", required: "true"}
                         - if(params[:edit]=="true" && @board.tipo!=nil)
                           - @tipo=@board.tipo
@@ -141,12 +141,12 @@
                               %option{:value => "#{f.id}", :id => "#{f.etapa}"} #{f.name} 
                 .form-group
                   .col-md-9.col-sm-12.col-xs-12
-                    .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+                    .col-md-4.col-sm-12.col-xs-12#cambia-mobile
                       - if(params[:edit]=="true" && (@board.start_date!=nil&&@board.start_date!=""))
                         %input#datepicker1.form-control.input-md{name: "start_date", value: "#{@board.start_date}", style: "cursor: auto;", type: "text"}
                       - else
                         %input#datepicker1.form-control.input-md{name: "start_date", placeholder: "Fecha tentativa de Inicio del proyecto", style: "cursor: auto;", type: "text"}
-                    .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right: 10px !important;"}
+                    .col-md-4.col-sm-12.col-xs-12#cambia-mobile
                       - if(params[:edit]=="true" && (@board.end_date!=nil&&@board.end_date!=""))
                         %input#datepicker2.form-control.input-md{name: "end_date", value: "#{@board.end_date}", style: "cursor: auto;", type: "text"}
                       - else
@@ -262,6 +262,13 @@
   if(!$("#always").prop('checked'))
   $("#map").hide();
   $("#indicacion").hide();
+  var a=false;
+  $(".form-horizontal :input").change(function() {
+  a=true;
+  });
+  window.onbeforeunload = function(){
+  if (a)return '¿Está seguro que quiere salir?';
+  };
 
   - if(params[:edit]=="true")
     $('#delete').on('click', function(e){

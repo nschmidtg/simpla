@@ -16,6 +16,8 @@
   padding: 15px;
   margin-top: 20px;
   margin-bottom: 20px;
+  display: inline-block;
+  min-width:100%;
 }
 .title-header{
   color:#fff;
@@ -1343,7 +1345,11 @@ body{
 
 @media (max-width: 768px) {
   .navbar-default .navbar-nav > li .dropdown-menu > li > a {
-    color: whitesmoke !important;
+    color: #777 !important;
+  }
+  #cambia-mobile{
+    padding-right:0px !important;
+    margin-bottom:15px;
   }
 }
 
@@ -1955,6 +1961,19 @@ a.btn {
   width: 100%;
   display: inline-table;
 }
+@media (max-width: 767px){
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: #fff;
+    color: #000;
+    border: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
+}
 
 .fc-scroller{
   overflow-x: inherit !important;
@@ -2003,3 +2022,10 @@ optgroup{
     margin-bottom: 12px;
     background-color: #eee;
 }
+
+
+#cambia-mobile{
+  padding-right: 10px;
+  padding-left: 0px;
+}
+
