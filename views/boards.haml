@@ -7,7 +7,7 @@
       
       - @org=@mun.organizations.find_by(name: "3. No Priorizados")
       - if(@org!=nil)
-        %a.btn.plus{href:"/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
+        %a.btn.plus{href:"/boards/new_board?mun_id=#{@mun.id}&org_id=#{@org.org_id}&last_board_id=#{@org.org_id}&orgName=#{@org.name}&edit=false&admin=true"}
           Agregar Proyecto
   .fondo-blanco{style:"display: inline-block;min-width:100%;"}
     %div
@@ -124,7 +124,7 @@
                                               %a{style: 'display: inline-block;',onclick:"archivar('#{actual_board.board_id}')",style:"cursor:pointer;"}
                                                 %span.glyphicon.glyphicon-inbox
                                             - else
-                                              %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
+                                              %a{style: 'display: inline-block;', href: "/boards/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
                                                 %span.glyphicon.glyphicon-pencil
                     %script
                       var text=$(document).find("#tab-text-#{count}").text();
@@ -187,7 +187,7 @@
                                 %td.celda-tabla{style: "width: 100%;"}
                                   - if actual_board != nil
                                     .boards-list-item-link-c.overflow{style:"max-width: 100%;text-align:-webkit-center"}
-                                      %a{style: 'display: inline-block;', href: "/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
+                                      %a{style: 'display: inline-block;', href: "/boards/new_board?mun_id=#{@mun.id}&last_board_id=#{actual_board.board_id}&board_name=#{actual_board.name}&edit=true"}
                                         %span.glyphicon.glyphicon-pencil
                   %script
                     var text=$(document).find("#tab-text-1").text();

@@ -13,11 +13,14 @@
     %script{:src => "https://canvg.github.io/canvg/rgbcolor.js", :type => "text/javascript"}
     %script{:src => "https://canvg.github.io/canvg/StackBlur.js", :type => "text/javascript"}
     %script{:src => "https://canvg.github.io/canvg/canvg.js", :type => "text/javascript"}
-
+   
 
     %script{:type => "text/javascript",:src  => "https://code.jquery.com/jquery.min.js"}
     %script{:type => "text/javascript",:src => "https://code.jquery.com/ui/1.12.1/jquery-ui.js"}
     %script{:src => "https://ajax.aspnetcdn.com/ajax/jquery.validate/1.7/jquery.validate.min.js", :type => "text/javascript"}
+    %link{:href => "https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css", :rel => "stylesheet"}/
+    %script{:src => "https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"}
+
     %script{:src => "/js/zingchart/zingchart.min.js",:type => "text/javascript"}
     %script{:src => "/js/es.js", :type => "text/javascript"}
     %script{src: "/js/vendor/bootstrap.min.js"}
@@ -98,6 +101,7 @@
           .title-header
             %h3#titulo-header{style:"margin-top:14px;"}
               #{@title}
+            
             
           - if @user.nil?
             

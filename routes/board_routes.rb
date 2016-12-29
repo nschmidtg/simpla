@@ -996,13 +996,13 @@ class Ollert
 
 
 
-  get '/new_board', :auth => :connected do
+  get '/boards/new_board', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
     begin
-      @title="Archivo de Proyectos"
+      @title="Gestión de Proyectos"
       if(@user.role=="secpla" || @user.role=="admin")
 
         @orgName=params[:orgName]

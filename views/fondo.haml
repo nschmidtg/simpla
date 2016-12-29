@@ -223,10 +223,14 @@
     $("#myTable-9").tablesorter(); 
     $("#myTable-10").tablesorter(); 
     var a=false;
-      $(".form-horizontal :input").change(function() {
-        a=true;
-      });
-      window.onbeforeunload = function(){
-        if (a)return '¿Está seguro que quiere salir?';
-      };
+    $(".form-horizontal :input").change(function() {
+    a=true;
+    });
+    $(window).on('beforeunload',function(){
+    if (a)return '¿Está seguro que quiere salir?';
+    });
+    $(document).on("submit", "form", function(event){
+    // disable unload warning
+    $(window).off('beforeunload');
+    });
   })

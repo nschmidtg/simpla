@@ -150,11 +150,15 @@
       });
       var a=false;
       $(".form-horizontal :input").change(function() {
-        a=true;
+      a=true;
       });
-      window.onbeforeunload = function(){
-        if (a)return '¿Está seguro que quiere salir?';
-      };
+      $(window).on('beforeunload',function(){
+      if (a)return '¿Está seguro que quiere salir?';
+      });
+      $(document).on("submit", "form", function(event){
+      // disable unload warning
+      $(window).off('beforeunload');
+      });
     };
 - else
   :javascript
@@ -176,11 +180,15 @@
       $("#txtConfirmPassword").keyup(checkPasswordMatch);
       var a=false;
       $(".form-horizontal :input").change(function() {
-        a=true;
+      a=true;
       });
-      window.onbeforeunload = function(){
-        if (a)return '¿Está seguro que quiere salir?';
-      };
+      $(window).on('beforeunload',function(){
+      if (a)return '¿Está seguro que quiere salir?';
+      });
+      $(document).on("submit", "form", function(event){
+      // disable unload warning
+      $(window).off('beforeunload');
+      });
     });
     $(function() {
       $('#components').submit(function() {

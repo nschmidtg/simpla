@@ -121,7 +121,7 @@
   $(document).ready(function() {
     var wrapper         = $(".input_fields_wrap"); //Fields wrapper
     var add_button      = $(".add_field_button"); //Add button ID
-    var a=false;
+
     
     var x = 1; //initlal text box count
     $(add_button).click(function(e){ //on add input button click
@@ -134,13 +134,17 @@
         e.preventDefault(); $(this).parent('div').remove(); x--;
     })
 
-
+    var a=false;
     $(".form-horizontal :input").change(function() {
-       a=true;
+    a=true;
     });
-    window.onbeforeunload = function(){
-      if (a)return '¿Está seguro que quiere salir?';
-    };
+    $(window).on('beforeunload',function(){
+    if (a)return '¿Está seguro que quiere salir?';
+    });
+    $(document).on("submit", "form", function(event){
+    // disable unload warning
+    $(window).off('beforeunload');
+    });
   });
 
 %script
