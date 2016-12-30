@@ -22,21 +22,21 @@
             #input.tab-pane.active
               .component
                 / Text input
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Nombre
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@new_user!=nil)
                       %input#textinput.form-control.input-md{name: "name", value: "#{@new_user.login_name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
                       %input#textinput.form-control.input-md{name: "name", placeholder: "Nombre del Usuario", style: "cursor: auto;", type: "text",required: ""}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Apellido
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@new_user!=nil)
                       %input#textinput.form-control.input-md{name: "last_name", value: "#{@new_user.login_last_name}", style: "cursor: auto;", type: "text" ,required: ""}/
                     - else
                       %input#textinput.form-control.input-md{name: "last_name", placeholder: "Apellido del Usuario", style: "cursor: auto;", type: "text",required: ""}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Email
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@new_user!=nil)
@@ -44,22 +44,22 @@
                     - else
                       %input#textinput.form-control.input-md{name: "mail", placeholder: "Mail del usuario", style: "cursor: auto;", type: "email",required: ""}/
                 - if(@new_user==nil)
-                  .form-group
+                  .form-group{style:"display: inline;"}
                     %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Contraseña
                     .col-md-6.col-sm-6.col-xs-12
                       %input#txtNewPassword.form-control.input-md{name: "pass1", placeholder: "Contraseña", style: "cursor: auto;", type: "password",required: ""}/
                 - if(@new_user==nil)
-                  .form-group
+                  .form-group{style:"display: inline;"}
                     %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Repetir Contraseña
                     .col-md-6.col-sm-6.col-xs-12
                       %input#txtConfirmPassword.form-control.input-md{name: "pass2", placeholder: "Confirme Contraseña", style: "cursor: auto;", type: "password",required: ""}/
                 - if(@new_user==nil)
-                  .form-group
+                  .form-group{style:"display: inline;"}
                     %label.col-md-3.col-sm-3.col-xs-12.control-label
                     .col-md-6.col-sm-6.col-xs-12
                       #divCheckPasswordMatch
                 
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Rol
                   .col-md-6.col-sm-6.col-xs-12
                     %select#textinput.form-control.input-md{name: "role", style: "cursor: auto;",required: ""}
@@ -107,7 +107,7 @@
                         %option{:value => "concejal"} Concejal
                         
 
-                .form-group
+                .form-group{style:"display: inline;"}
                   
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@new_user!=nil)
@@ -115,7 +115,7 @@
                       %input#textinput.form-control.input-md{name: "id", value: "#{@new_user.id}", style: "cursor: auto;", required: "", type: "hidden"}/
                     - else
                       %input#textinput.form-control.input-md{name: "edit", value: "false", style: "cursor: auto;", required: "", type: "hidden"}/
-                .form-group
+                .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} 
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@new_user!=nil)

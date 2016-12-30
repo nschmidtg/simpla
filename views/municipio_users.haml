@@ -87,14 +87,24 @@
                       No
                 - if(@user.role=="secpla" || @user.role=="admin")
                   %td.celda-tabla{style: "width: 100%;"}   
-                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}           
-                      %a{style: 'display: inline-block;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
-                        %span.glyphicon.glyphicon-pencil
+                    .boards-list-item-link-c.overflow{style:"max-width: 100%;"}
+                      - if(user.last_login!=nil && user.trello_id !=nil)           
+                        %a{style: 'display: inline-block;', href: "/admin/municipio/users/user?mun_id=#{@mun.id}&user_id=#{user.id}"}
+                          %span.glyphicon.glyphicon-pencil
+                      - elsif(user.trello_id!=nil)
+                        %a{style: 'display: inline-block;cursor:pointer', href: "#", onclick:"deleteUser('#{user.id}')",title:"Este usuario no ha iniciado sesión en Simpla aún, por lo que no se puede editar."}
+                          %span.glyphicon.glyphicon-remove{style:"color:red"}
+                      - else
+                        %a{style: 'display: inline-block;cursor:pointer', href: "#",title:"Debe enviar las invitaciones pendientes antes de realizar acciones sobre este usuario."}
+                          %span.glyphicon.glyphicon-minus-sign{style:"color:grey"}
       - if(@user.role=="secpla" || @user.role=="admin") 
         .row{style:"margin:0px;"}
           - if(@mun.launched=="false")
             %a.btn.plus{href: "/admin/municipio/launch?mun_id=#{@mun.id}"}
               Enviar invitaciones
+          - else
+            %a.btn.plus{href: "/admin/municipio/launch?mun_id=#{@mun.id}"}
+              Volver a enviar invitaciones
 #confirm.modalx.hide.fade{style:"background-color:#ffffff"}
   .col-md-10.col-sm-12.col-xs-12
     .modal-body{style:"background-color:#ffffff"} 
@@ -108,6 +118,18 @@
 :javascript
   $("#myTable").tablesorter();
 
+%script
+  function deleteUser(id){
+  $("#textoPopup").text("¿Estás seguro que deseas eliminar a este usuario?");
+  
+  $("#confirm").css('background-color','#eb5a46');
+  $(".modal-body").css('background-color','#eb5a46');
+  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#delete', function() {
+  window.location.href = "/admin/municipio/users/user/delete?mun_id=#{@mun.id}&user_id="+id;
+  });
+  $("#confirm").removeClass( "hide");
+
+  }
 
 %script
   function explicacionUsuario(){

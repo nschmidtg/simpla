@@ -14,6 +14,7 @@ class Organization
   def add_members(client,host)
   	begin
 	  	org=self
+	  	
 	  	data=JSON.parse(client.get("/organizations/#{org.org_id}/members?filter=admins"))
 	    admin_ids=Array.new()
 	    data.each do |admin|

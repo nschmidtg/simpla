@@ -3194,6 +3194,7 @@ class Ollert
         new_user.login_name=params[:name].gsub(" ","")
         new_user.first_time="true"
         new_user.login_last_name=params[:last_name].gsub(" ","")
+        last_mail=new_user.login_mail
         new_user.login_mail=params[:mail].downcase
         if(edit=="false")
           new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
@@ -3213,8 +3214,8 @@ class Ollert
         
         new_user.municipio=@mun
         new_user.save
-        if(new_user.role!=params[:role] && new_user.trello_id!=nil)
-          #Estoy editando el rol de un usuario que ya tenia cuenta en Ollert
+        if(new_user.role!=params[:role] && new_user.role!=nil)
+          #Estoy editando el rol de un usuario antiguo
           if(new_user.municipio.launched=="true")
             if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
               respond_to do |format|
@@ -3226,120 +3227,219 @@ class Ollert
                 format.json { status 400 }
               end
             end
+            last_role=new_user.role
             new_user.role=params[:role]
-            if(new_user.role=="admin" || new_user.role=="secpla")
-              new_user.municipio.organizations.each do |org|
-                begin
-                  JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-                rescue => error
-                  puts error
+            new_user.save
+            if((new_user.role=="admin" || new_user.role=="secpla")&&(last_role=="funcionario"))
+              puts "Estoy pasando de funcionario a secpla o admin"
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  #Además cambió el mail-> eliminar mail antiguo de los tableros
+                  new_user.municipio.organizations.each do |org|
+                    begin
+                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                    end
+                  end
+                  new_user.municipio.boards.each do |board|
+                    begin
+                      new_user.boards.delete(board)
+                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                    end
+                  end
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  end
+                end 
+              end
+            elsif((new_user.role=="admin" || new_user.role=="secpla")&&(last_role=="concejal"||last_role=="alcalde"))
+              puts "Paso de alcalde o concejal a secpla o admin"
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.trello_name=nil
+                  new_user.gravatar_hash=nil
+                  new_user.email=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  end
                 end
               end
-              new_user.municipio.boards.each do |board|
-                begin
-                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-                rescue => error
-                  puts error
+            elsif(new_user.role=="concejal" || new_user.role=="alcalde")
+              puts "Cambio de rol a alcalde o concejal desde secpla o admin o funcionario"
+              Thread.new do
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                  rescue => error
+                    puts error
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    new_user.boards.delete(board)
+                    JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                  rescue => error
+                    puts error
+                  end
+                end
+                if(new_user.login_mail!=last_mail)
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.trello_name=nil
+                  new_user.gravatar_hash=nil
+                  new_user.email=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                puts "se sacó al concejal o alcalde de los tableros y equipos"
+                secpla=new_user.municipio.users.find_by(role: "secpla")
+                if(secpla!=nil)
+                  new_user.member_token=@mun.users.and(
+                  @mun.users.where(:role => "secpla").selector,
+                  @mun.users.where(:member_token.ne => nil).selector
+                  ).first.member_token
+                  new_user.save
                 end
               end
-            elsif(new_user.role=="funcionario")
-              puts "hola"
-              new_user.municipio.organizations.each do |org|
-                begin
-                  JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                rescue => error
-                  puts error
+            elsif((new_user.role=="funcionario")&&(last_role=="secpla" || last_role=="admin"))
+              puts "Estoy pasando secpla o admin a funcionario"
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  #Además cambió el mail-> eliminar mail antiguo de los tableros
+                  new_user.municipio.organizations.each do |org|
+                    begin
+                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                    end
+                  end
+                  new_user.municipio.boards.each do |board|
+                    begin
+                      new_user.boards.delete(board)
+                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                    end
+                  end
+                  new_user.trello_id=nil
+                  new_user.last_login=nil
+                  new_user.save
                 end
-              end
-              new_user.municipio.boards.each do |board|
-                begin
-                  JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                rescue => error
-                  puts error
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                  end
                 end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                  end
+                end 
               end
-            else
-              new_user.municipio.organizations.each do |org|
-                begin
-                  JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
-                rescue => error
-                  puts error
+            elsif((new_user.role=="funcionario")&&(last_role=="concejal"||last_role=="alcalde"))
+              puts "Paso de alcalde o concejal a funcionario"
+              Thread.new do
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                  end
                 end
-              end
-              new_user.municipio.boards.each do |board|
-                begin
-                  new_user.boards.delete(board)
-                  JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
-                rescue => error
-                  puts error
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                  end
                 end
-              end
-              puts "se sacó al concejal o alcalde de los tableros y equipos"
-              secpla=new_user.municipio.users.find_by(role: "secpla")
-              if(secpla!=nil)
-                new_user.member_token=new_user.municipio.users.find_by(role: "secpla").member_token
               end
             end
           end
         else
-          puts "aca 2"+params[:role]
-          if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
-              respond_to do |format|
-                format.html do
-                  flash[:error] = "Un municipio debe tener al menos un Secpla."
-                  redirect '/admin'
-                end
-
-                format.json { status 400 }
-              end
-            end
+          #Usuario nuevo
           new_user.role=params[:role]
+          new_user.save
           if(new_user.role=="alcalde"|| new_user.role=="concejal")
-            #sacar a este loco de los tableros
-            if(edit=="true")
-              new_user.municipio.organizations.each do |org|
-                begin
-                  JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
-                rescue => error
-                  puts error
-                end
-              end
-              new_user.municipio.boards.each do |board|
-                begin
-                  new_user.boards.delete(board)
-                  JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
-                rescue => error
-                  puts error
-                end
-              end
-              puts "se sacó al concejal o alcalde de los tableros y equipos"
-            end
-            secpla=new_user.municipio.users.find_by(role: "secpla")
-            if(secpla!=nil)
-              new_user.member_token=new_user.municipio.users.find_by(role: "secpla").member_token
+            puts "Creando un alcalde o concejal"
+            secplaConToken=@mun.users.and(
+              @mun.users.where(:role => "secpla").selector,
+              @mun.users.where(:member_token.ne => nil).selector
+              ).first
+            if(secplaConToken!=nil)
+              new_user.member_token=secplaConToken.member_token
+              new_user.save
             end
           else
-            #Acá se llega cuando un concejal o alcalde pasa a ser funcionario o secpla
-            if(edit=="true")
-              mun=new_user.municipio
-              if(mun.launched=="true")
-                Thread.new do
-                  mun.organizations.each do |org|
-                    org.add_members(client,request.host)
-                  end
-                  mun.boards.each do |board|
-                    board.add_members(client,request.host)         
-                  end
+            puts "Creando funcionario o secpla"
+            mun=new_user.municipio
+            if(mun.launched=="true")
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.trello_name=nil
+                  new_user.gravatar_hash=nil
+                  new_user.email=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                client = Trello::Client.new(
+                  :developer_public_key => ENV['PUBLIC_KEY'],
+                  :member_token => @user.member_token
+                )
+                mun.organizations.each do |org|
+                  org.add_members(client,request.host)
+                end
+                mun.boards.each do |board|
+                  board.add_members(client,request.host)         
                 end
               end
             end
           end
         end
-        new_user.first_time="true"
-        new_user.save
         if(edit=="false")
           @mun.launched="false"
+          new_user.first_time="true"
         end
+        new_user.save
         @mun.save
       else
         respond_to do |format|
@@ -4374,21 +4474,24 @@ class Ollert
         @mun=Municipio.find_by(id: params[:mun_id])
         @new_user=@mun.users.find_by(id: params[:user_id])
         if(@new_user!=nil)
-          boards=@new_user.municipio.boards
-          boards.each do |board|
-            begin
-              JSON.parse(client.delete("/boards/#{board.board_id}/members/#{@new_user.trello_id}"))
-            rescue
+            Thread.new do
+            orgs=@new_user.municipio.organizations
+            orgs.each do |org|
+              begin
+                JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{@new_user.trello_id}"))
+              rescue
+              end
             end
-          end
-          orgs=@new_user.municipio.organizations
-          orgs.each do |org|
-            begin
-              JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{@new_user.trello_id}"))
-            rescue
+            boards=@new_user.municipio.boards
+            boards.each do |board|
+              begin
+                JSON.parse(client.delete("/boards/#{board.board_id}/members/#{@new_user.trello_id}"))
+              rescue
+              end
             end
+            
+            @new_user.destroy
           end
-          @new_user.destroy
         end
       else
         respond_to do |format|

@@ -148,32 +148,33 @@
   });
 
 %script
-  function explicacionZona(){
-  $("#textoPopup").text("Las zonas son los sectores geográficos en los que se divide la comuna (unidades vecinales, sectores, etc). Definirlos permite, luego, asignar las zonas de intervención para cada proyecto de inversión.");
-  $("#textoPopup").css('color','#000000');
-  $(".imagen").css('opacity','1');
-  $(".imagen").css('display','none');
-  $(".modal-body").css('display','block');
-  $("#confirm").css('background-color','#FFFFFF');
-  $(".modal-body").css('background-color','#FFFFFF');
-  $("#delete").addClass("hide");
-  $("#dismiss").text("Aceptar");
-  $("#button-container").css('position','absolute');
-  $("#button-container").css('bottom','15px');
-  $("#button-container").css('right','0px');
-  $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
-  $("#textoPopup").text("¿Estás seguro que deseas eliminar #{@municipio.name}?");
-  $("#textoPopup").css('color','#ffffff');
-  $(".imagen").css('opacity','0');
-  $(".imagen").css('display','none');
-  $("#delete").removeClass("hide");
-  $("#dismiss").text("Cancelar");
-  $("#button-container").css('position','relative');
-  $("#button-container").css('bottom','');
-  $("#button-container").css('right','');
-  $(".modal-body").css('display','-webkit-inline-box');
-  });
-  $("#confirm").removeClass( "hide");
-  }
+  - if(@municipio!=nil)
+    function explicacionZona(){
+    $("#textoPopup").text("Las zonas son los sectores geográficos en los que se divide la comuna (unidades vecinales, sectores, etc). Definirlos permite, luego, asignar las zonas de intervención para cada proyecto de inversión.");
+    $("#textoPopup").css('color','#000000');
+    $(".imagen").css('opacity','1');
+    $(".imagen").css('display','none');
+    $(".modal-body").css('display','block');
+    $("#confirm").css('background-color','#FFFFFF');
+    $(".modal-body").css('background-color','#FFFFFF');
+    $("#delete").addClass("hide");
+    $("#dismiss").text("Aceptar");
+    $("#button-container").css('position','absolute');
+    $("#button-container").css('bottom','15px');
+    $("#button-container").css('right','0px');
+    $('#confirm').modal({ backdrop: 'static', keyboard: false }).one('click', '#dismiss', function() {
+    $("#textoPopup").text("¿Estás seguro que deseas eliminar #{@municipio.name}?");
+    $("#textoPopup").css('color','#ffffff');
+    $(".imagen").css('opacity','0');
+    $(".imagen").css('display','none');
+    $("#delete").removeClass("hide");
+    $("#dismiss").text("Cancelar");
+    $("#button-container").css('position','relative');
+    $("#button-container").css('bottom','');
+    $("#button-container").css('right','');
+    $(".modal-body").css('display','-webkit-inline-box');
+    });
+    $("#confirm").removeClass( "hide");
+    }
 
-  
+    
