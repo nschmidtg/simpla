@@ -1,4 +1,5 @@
 require 'trello'
+require 'newrelic_rpm'
 class Ollert
   get '/admin', :auth => :connected do
     client = Trello::Client.new(
@@ -3240,6 +3241,7 @@ class Ollert
                       JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
                     rescue => error
                       puts error
+                      NewRelic::Agent.notice_error(error)
                     end
                   end
                   new_user.municipio.boards.each do |board|
@@ -3248,6 +3250,7 @@ class Ollert
                       JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
                     rescue => error
                       puts error
+                      NewRelic::Agent.notice_error(error)
                     end
                   end
                   new_user.member_token=nil
@@ -3260,6 +3263,7 @@ class Ollert
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
                   rescue => error
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
                   end
                 end
                 new_user.municipio.boards.each do |board|
@@ -3267,6 +3271,7 @@ class Ollert
                     JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
                   rescue => error
                     JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
                   end
                 end 
               end
@@ -3287,6 +3292,7 @@ class Ollert
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
                   rescue => error
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
                   end
                 end
                 new_user.municipio.boards.each do |board|
@@ -3294,6 +3300,7 @@ class Ollert
                     JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
                   rescue => error
                     JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
                   end
                 end
               end
@@ -3304,6 +3311,7 @@ class Ollert
                   begin
                     JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
                   rescue => error
+                    NewRelic::Agent.notice_error(error)
                     puts error
                   end
                 end
@@ -3312,6 +3320,7 @@ class Ollert
                     new_user.boards.delete(board)
                     JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
                   rescue => error
+                    NewRelic::Agent.notice_error(error)
                     puts error
                   end
                 end
@@ -3344,6 +3353,7 @@ class Ollert
                       JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
                     rescue => error
                       puts error
+                      NewRelic::Agent.notice_error(error)
                     end
                   end
                   new_user.municipio.boards.each do |board|
@@ -3352,6 +3362,7 @@ class Ollert
                       JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
                     rescue => error
                       puts error
+                      NewRelic::Agent.notice_error(error)
                     end
                   end
                   new_user.trello_id=nil
@@ -3363,6 +3374,7 @@ class Ollert
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
                   rescue => error
                     puts error
+                    NewRelic::Agent.notice_error(error)
                   end
                 end
                 new_user.municipio.boards.each do |board|
@@ -3370,6 +3382,7 @@ class Ollert
                     JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
                   rescue => error
                     puts error
+                    NewRelic::Agent.notice_error(error)
                   end
                 end 
               end
@@ -3381,6 +3394,7 @@ class Ollert
                     JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
                   rescue => error
                     puts error
+                    NewRelic::Agent.notice_error(error)
                   end
                 end
                 new_user.municipio.boards.each do |board|
@@ -3388,13 +3402,14 @@ class Ollert
                     JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
                   rescue => error
                     puts error
+                    NewRelic::Agent.notice_error(error)
                   end
                 end
               end
             end
           end
         else
-          #Usuario nuevo
+          #Usuario nuevo o edición de campos!=role
           new_user.role=params[:role]
           new_user.save
           if(new_user.role=="alcalde"|| new_user.role=="concejal")
@@ -3413,6 +3428,23 @@ class Ollert
             if(mun.launched=="true")
               Thread.new do
                 if(new_user.login_mail!=last_mail)
+                  new_user.municipio.organizations.each do |org|
+                    begin
+                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      NewRelic::Agent.notice_error(error)
+                      puts error
+                    end
+                  end
+                  new_user.municipio.boards.each do |board|
+                    begin
+                      new_user.boards.delete(board)
+                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      NewRelic::Agent.notice_error(error)
+                      puts error
+                    end
+                  end
                   new_user.member_token=nil
                   new_user.trello_id=nil
                   new_user.trello_name=nil
@@ -3420,6 +3452,7 @@ class Ollert
                   new_user.email=nil
                   new_user.last_login=nil
                   new_user.save
+                  
                 end
                 client = Trello::Client.new(
                   :developer_public_key => ENV['PUBLIC_KEY'],

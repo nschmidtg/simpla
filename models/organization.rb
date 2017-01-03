@@ -1,5 +1,5 @@
 require 'mongoid'
-
+require 'newrelic_rpm'
 class Organization
   include Mongoid::Document
 
@@ -52,6 +52,7 @@ class Organization
 	              JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
 	            rescue => error
 	            	puts error
+	            	NewRelic::Agent.notice_error(error)
 	            end
 	          end
 	        end
@@ -65,6 +66,7 @@ class Organization
 		            rescue => error
 		            	puts error
 		            	JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{user.login_mail}&fullName=#{user.login_name} #{user.login_last_name}&type=normal"))
+		            	NewRelic::Agent.notice_error(error)
 		            	# data=JSON.parse(client.put("/webhooks?idModel=#{self.org_id}&callbackURL=http://#{host}/virtual_member?data=#{self.org_id}|#{self.org_id}|#{client.member_token}|#{client.developer_public_key}&description=Callback cuando el miembro deje de ser virtual"))
 	              #   puts "webhook agregado"
 	              #   puts data
@@ -88,6 +90,7 @@ class Organization
 	    end
 	  rescue => error
 	  	puts error
+	  	NewRelic::Agent.notice_error(error)
 	  end
   end
 end

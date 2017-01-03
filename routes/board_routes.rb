@@ -342,7 +342,7 @@ class Ollert
           end
           @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
             valuex=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
-            sheet.rows[a.index].cells[i].value=valuex
+            sheet.rows[a.index].cells[i].value=valuex.to_i
             i=i+1
           end
           

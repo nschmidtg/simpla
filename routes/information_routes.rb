@@ -161,6 +161,7 @@ class Ollert
       puts "ME LLAMARON!!"
     rescue => error
       puts error
+      NewRelic::Agent.notice_error(error)
     end
   end
 
