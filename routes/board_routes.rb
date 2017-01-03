@@ -326,7 +326,7 @@ class Ollert
         nombres=nombres+@mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.map{|z| z.name}
         sheet.add_row nombres.to_a
 
-        auxZonas=Array.new(@mun.zones.count)
+        auxZonas=Array.new(@mun.zones.count,0)
         @mun.fondos.each do |fondo|
           i=1
           if(fondo.etapa=="diseno")
