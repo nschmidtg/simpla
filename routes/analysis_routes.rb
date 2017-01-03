@@ -45,6 +45,18 @@ class Ollert
     status 200
   end
 
+  get '/api/v1/change_predet_task/:id' do |id|
+    
+    task=Task.find_by(id: id)
+    if(task.checked=="true")
+      task.checked="false"
+    else
+      task.checked="true"
+    end
+    task.save
+    status 200
+  end
+
   get '/api/v1/stats/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],

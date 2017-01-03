@@ -148,13 +148,17 @@
                                               - else
                                                 NO ASIGNADAS
                                           %td.celda-tabla
-                                            .boards-list-item-link-b
+                                            .boards-list-item-link-b{style:"text-align:center"}
                                               - if task != nil
                                                 - if task.checked != nil
                                                   - if task.checked=="true"
-                                                    Sí
+                                                    %label.switch
+                                                      %input{:type => "checkbox",:checked=>"checked",:onclick=>"change_predet_task('#{task.id}')"}/
+                                                      .slider.round
                                                   - else
-                                                    No
+                                                    %label.switch
+                                                      %input{:type => "checkbox",:onclick=>"change_predet_task('#{task.id}')"}/
+                                                      .slider.round
                                                 - else
                                                   NO ASIGNADO
                                               - else
@@ -204,10 +208,12 @@
         .one('click', '#delete', function() {
             window.location.href = "/admin/municipio/fondos/fondo/delete?mun_id=#{@fondo.municipio.id}&fondo_id=#{@fondo.id}";
         });
-      $("#confirm").removeClass( "hide");
-    });
+        $("#confirm").removeClass( "hide");
+      });
+      
     };
 :javascript
+  var a=false;
   $(document).ready(function(){
     $('#responsiveTabsDemo').responsiveTabs({
       startCollapsed: 'accordion'
@@ -222,7 +228,7 @@
     $("#myTable-8").tablesorter(); 
     $("#myTable-9").tablesorter(); 
     $("#myTable-10").tablesorter(); 
-    var a=false;
+    
     $(".form-horizontal :input").change(function() {
     a=true;
     });
@@ -233,4 +239,22 @@
     // disable unload warning
     $(window).off('beforeunload');
     });
+
+    
   })
+  function change_predet_task(id){
+      $.ajax({
+        url: "/api/v1/change_predet_task/" + id,
+        data: {
+          token: "#{@user.member_token}"
+        },
+        success: function(xhr){
+          a=false;
+        },
+        error: function(xhr) {
+          a=false;
+          if(!alert("Ocurrió un error. El cambio de etapa no será guardado.")){window.location.reload();}
+        }
+      });
+      
+    }
