@@ -142,7 +142,10 @@
                                                   - checklists=" | "
                                                   - task.checklist.split('|').each do |item|
                                                     - checklists=checklists+item+" | "
-                                                  #{checklists}
+                                                  - if(checklists!=" | ")
+                                                    #{checklists}
+                                                  - else
+                                                    NO ASIGNADAS
                                                 - else
                                                   NO ASIGNADAS
                                               - else

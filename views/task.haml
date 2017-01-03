@@ -42,9 +42,13 @@
                   .col-md-6.col-sm-6.col-xs-12
                     - if(@task!=nil)
                       - if(@task.checked=="true")
-                        %input#textinput.input-md{type: "checkbox", name: "checked", checked: "true", style: "cursor: auto;"}/
+                        %label.switch
+                          %input{:type => "checkbox",:checked=>"checked"}/
+                          .slider.round
                       - else
-                        %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
+                        %label.switch
+                          %input{:type => "checkbox"}/
+                          .slider.round
                     - else
                       %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
                 .form-group{style:"display: inline;"}
