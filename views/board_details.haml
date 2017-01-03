@@ -28,7 +28,7 @@
           .col-12{style:"padding-right:5px !important;padding-left:5px !important;"}
 
             
-            #textinput.form-control.input-md 
+            #textinput.form-control.input-md{style:"height:100%"}
               %b
                 Nombre: 
               #{@board.name.split(' |')[0]}
@@ -39,7 +39,7 @@
 
       .form-group
         .col-md-9.col-sm-12.col-xs-12
-          .col-md-6.col-sm-6.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+          .col-md-6.col-sm-6.col-xs-12.no-padding#cambia-mobile{style:"padding-right:5px !important;padding-left:5px !important;"}
             #textinput.form-control.input-md.description
               %b
                 Sector de inversión: 
@@ -61,7 +61,7 @@
               
       .form-group
         .col-md-9.col-sm-12.col-xs-12
-          .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+          .col-md-4.col-sm-12.col-xs-12.no-padding#cambia-mobile{style:"padding-right:5px !important;padding-left:5px !important;"}
             .form-control.input-md.description
               %b
                 Fecha tentativa de inicio: 
@@ -69,7 +69,7 @@
                 #{@board.start_date}
               - else
                 NO ASIGNADA
-          .col-md-4.col-sm-12.col-xs-12.no-padding{style:"padding-right:5px !important;padding-left:5px !important;"}
+          .col-md-4.col-sm-12.col-xs-12.no-padding#cambia-mobile{style:"padding-right:5px !important;padding-left:5px !important;"}
             .form-control.input-md.description
               %b
                 Fecha tentativa de fin: 
@@ -99,7 +99,7 @@
       
       .form-group
         .col-md-9.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
-          .col-md-3.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:4px;color:#555"}
+          .col-md-3.col-sm-12.col-xs-12#cambia-mobile3{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:4px;color:#555;padding-right:10px;"}
           
             %b
               Zonas de intervención:
@@ -110,8 +110,8 @@
               %br
 
           - if(@board.coords!=nil&&@board.coords!="")
-            .col-md-9.col-sm-12.col-xs-12{style:"padding-right:0px;"}
-              .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;"}
+            .col-md-9.col-sm-12.col-xs-12#cambia-mobile2{style:"padding-right:0px;padding-left:10px;"}
+              .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:5px;"}
                 %label.col-md-2.col-sm-2.col-xs-2.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Ubicación:
                 #map
     
@@ -131,7 +131,7 @@
     .row
       .form-group
         .col-md-9.col-sm-12.col-xs-12.no-padding
-          .col-md-6.col-sm-12.col-xs-12{style:"padding-right:5px !important;padding-left:20px !important;"}
+          .col-md-6.col-sm-12.col-xs-12#cambia-mobile4{style:"padding-right:5px;padding-left:20px !important;"}
           
             #textinput.form-control.input-md 
               %b
@@ -139,7 +139,7 @@
               #{@last_activity.strftime("%d/%m/%Y")} 
           - if(@user.role=="funcionario" || @user.role=="secpla")
            
-            .col-md-6.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:5px !important;"}
+            .col-md-6.col-sm-12.col-xs-12#cambia-mobile5{style:"padding-right:20px !important;padding-left:5px;"}
             
               #textinput.form-control.input-md 
                 %a{href:"https://trello.com/b/#{@board.board_id}",target:"_blank",style:"cursor:pointer"}
