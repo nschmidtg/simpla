@@ -165,7 +165,11 @@
                     #{card.name}:
                     - att.each do |adj|
                       %li
-                        %a{:href=>"#{adj.url}",:target=>"_blank"}#{adj.name}
+                        - if((((((adj.url.downcase.include?(".png")) || adj.url.downcase.include?(".jpg")) || adj.url.downcase.include?(".svg")) || adj.url.downcase.include?(".jpeg)") || adj.url.downcase.include?(".gif")) || adj.url.downcase.include?(".bmp")) || adj.url.downcase.include?(".webp)") || adj.url.downcase.include?(".ico"))
+                          %a{:href=>"#{adj.url}",:target=>"_blank"}
+                            %img{:src=>"#{adj.url}",:style=>"width:200px;heigth:200px;"}
+                        - else
+                          %a{:href=>"#{adj.url}",:target=>"_blank"}#{adj.name}
     .row
 
       - if(@user.role=="admin" || @user.role=="secpla")
