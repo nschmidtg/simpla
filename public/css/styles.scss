@@ -1347,6 +1347,10 @@ body{
   .navbar-default .navbar-nav > li .dropdown-menu > li > a {
     color: #777 !important;
   }
+  
+}
+
+@media (max-width: 992px){
   #cambia-mobile{
     padding-right:0px !important;
     margin-bottom:15px;
@@ -2028,7 +2032,8 @@ select.form-control{
   height: inherit;
 }
 optgroup{
-  background-color:#999
+  background-color:#999;
+  color: #ffffff;
 }
 #myInput {
     background-image: url("/img/searchicon.png");

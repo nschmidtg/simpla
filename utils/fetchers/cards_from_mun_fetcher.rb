@@ -11,7 +11,7 @@ class CardsFromMunFetcher
     	a["cards"].each do |card|
             boardName=card["boardName"]
             card["boardName"]=a["name"]
-            card["finish"]=board.end_date
+            #card["finish"]=board.end_date
     		cards<<card
     	end
     end

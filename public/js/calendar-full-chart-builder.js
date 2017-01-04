@@ -1,9 +1,12 @@
+
+var optionsBuild;
 var CalendarFullChartBuilder = (function() {
-  var optionsBuild;
+  
   var buildChart = function(options) {
     
     var eventos='[';
     var date;
+    console.log(options);
     date=new Date(options[0].due);
     eventos=eventos+'{"title": "'+options[0].name.replace(/\"/g, "'")+'","start": "'+date+'","description": "'+options[0].boardName.replace(/\"/g, "'").split(' |')[0]+'"}';
     for(i=1;i<options.length;i++){
