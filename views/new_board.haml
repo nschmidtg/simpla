@@ -171,33 +171,44 @@
                     .col-md-3.col-sm-12.col-xs-12#zones{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:5px;"}
                       %p.col-md-12.col-sm-12.col-xs-12.control-label{for: "textinput",style:"text-align:left !important;padding:0px;"} Zonas de intervención:*
                       .checkbox
-                        %label
-                          %input#select_all{:type => "checkbox", :onClick=>"toggle(this)"}>/
+                        %label.switch
+                          %input{:type => "checkbox", :onClick=>"toggle(this)"}/
+                          .slider.round
                         
-                          Marcar Todas
+                        
+                        Marcar Todas
                       - if(params[:org_id]!="nil")
                         - zones=@municipio.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}
                         - zones.each do |zona|
                           .checkbox
-                            %label
-                              - if(params[:edit]=="true")
-                                - if(@board.zones.find_by(id: zona.id)!=nil)
-                                  %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]", :checked =>"true"}>/
-                                - else
-                                  %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
-                                #{zona.name}
+                            - if(params[:edit]=="true")
+                              - if(@board.zones.find_by(id: zona.id)!=nil)
+                                %label.switch
+                                  %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]", :checked =>"true"}/
+                                  .slider.round
                               - else
-                                %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}>/
-                                #{zona.name}
+                                %label.switch
+                                  %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}/
+                                  .slider.round
+                              #{zona.name}
+                            - else
+                              %label.switch
+                                %input{:type => "checkbox", :value => "#{zona.id}", :name =>"zonas[]"}/
+                                .slider.round
+                              #{zona.name}
                     
                     .col-md-9.col-sm-12.col-xs-12#cambia-mobile2{style:"padding-right:0px;"}
                       .col-md-12.col-sm-12.col-xs-12{style:"background-color:#eee;padding-top:10px;padding-bottom:10px;border-radius:5px;"}
-                        .col-md-1.col-sm-1.col-xs-1
+                        .col-md-2.col-sm-2.col-xs-2.no-padding
                           - if(params[:edit]=="true" && @board.coords!="")
-                            %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}>/
+                            %label.switch
+                              %input#always{:type => "checkbox", :name =>"coords", :checked=>"true"}/
+                              .slider.round
                           - else
-                            %input#always{:type => "checkbox", :name =>"coords"}>/
-                        %p.col-md-11.col-sm-11.col-xs-11.control-label{for: "textinput",style:"text-align:left !important;padding:0px;color:#999999"} ¿El proyecto tiene una ubicación específica?
+                            %label.switch
+                              %input#always{:type => "checkbox", :name =>"coords"}/
+                              .slider.round
+                        %p.col-md-10.col-sm-10.col-xs-10.control-label{for: "textinput",style:"text-align:left !important;padding:0px;color:#999999"} ¿El proyecto tiene una ubicación específica?
                         
                         #indicacion
                           %br
@@ -259,9 +270,10 @@
   window.onload = function() {
 
 
-  if(!$("#always").prop('checked'))
+  if(!$("#always").prop('checked')){
   $("#map").hide();
   $("#indicacion").hide();
+  }
 
   var a=false;
   $(".form-horizontal :input").change(function() {

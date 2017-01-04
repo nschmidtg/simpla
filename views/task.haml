@@ -50,12 +50,14 @@
                           %input{:type => "checkbox"}/
                           .slider.round
                     - else
-                      %input#textinput.input-md{type: "checkbox", name: "checked", style: "cursor: auto;"}/
+                      %label.switch
+                        %input{:type => "checkbox",:checked=>"checked"}/
+                        .slider.round
                 .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Checklist
                   .col-md-6.col-sm-6.col-xs-12
                     .input_fields_wrap
-                      %button.add_field_button Añadir subtarea
+                      %button.btn.plus.add_field_button Añadir subtarea
                       - if(@task!=nil)
                         - checklist=@task.checklist
                         - if(checklist!=nil && checklist!="")
