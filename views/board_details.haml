@@ -145,14 +145,6 @@
                 %a{href:"https://trello.com/b/#{@board.board_id}",target:"_blank",style:"cursor:pointer"}
                   %b Ir al proyecto en Trello
     .row
-
-      - if(@user.role=="admin" || @user.role=="secpla")
-        .form-group    
-          .col-md-9.col-sm-12.col-xs-12
-            .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
-              %a#delete.btn.plus{href:"/boards/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}&edit=true"}
-                Editar Proyecto 
-    .row
       .form-group
         .col-md-9.col-sm-12.col-xs-12.no-padding
           .col-md-12.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
@@ -172,6 +164,15 @@
                   - card.attachments.each do |adj|
                     %li
                       %a{:href=>"#{adj.url}",:target=>"_blank"}#{adj.name}
+    .row
+
+      - if(@user.role=="admin" || @user.role=="secpla")
+        .form-group    
+          .col-md-9.col-sm-12.col-xs-12
+            .col-md-12.col-sm-12.col-xs-12{style:"text-align:right;"}
+              %a#delete.btn.plus{href:"/boards/new_board?mun_id=#{@municipio.id}&last_board_id=#{@board.board_id}&board_name=#{@board.name}&edit=true"}
+                Editar Proyecto 
+
                 
                 
     
