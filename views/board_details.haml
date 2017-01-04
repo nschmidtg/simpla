@@ -160,10 +160,12 @@
               - trello_board=Trello::Board.find(@board.board_id)
               - trello_board.cards.each do |card|
                 %ul
-                  #{card.name}:
-                  - card.attachments.each do |adj|
-                    %li
-                      %a{:href=>"#{adj.url}",:target=>"_blank"}#{adj.name}
+                  - att=card.attachments
+                  - if(att.size!=0)
+                    #{card.name}:
+                    - att.each do |adj|
+                      %li
+                        %a{:href=>"#{adj.url}",:target=>"_blank"}#{adj.name}
     .row
 
       - if(@user.role=="admin" || @user.role=="secpla")
