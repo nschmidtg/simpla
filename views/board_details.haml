@@ -149,23 +149,11 @@
         .col-md-9.col-sm-12.col-xs-12.no-padding
           .col-md-12.col-sm-12.col-xs-12{style:"padding-right:20px !important;padding-left:20px !important;"}
           
-            #textinput.form-control.input-md 
+            #textinput-adj.form-control.input-md 
               %b
                 Archivos adjuntos:
-              %br
-              - Trello.configure do |config|
-                - config.developer_public_key = ENV['PUBLIC_KEY']
-                - config.member_token = @user.member_token
-                
-              - trello_board=Trello::Board.find(@board.board_id)
-              - trello_board.cards.each do |card|
-                %ul
-                  - att=card.attachments
-                  - if(att.size!=0)
-                    #{card.name}:
-                    - att.each do |adj|
-                      %li
-                        %a{:href=>"#{adj.url}",:target=>"_blank"}#{adj.name}
+              .textinput-adj
+                %img#spinner2{:src=>"/img/spinner.gif"}
     .row
 
       - if(@user.role=="admin" || @user.role=="secpla")
@@ -193,6 +181,8 @@
 :javascript
   window.onload = function() {
     AnalysisController.init("#{@board_id}", #{@board_lists}, "#{@starting_list}", "#{@ending_list}", "#{@token}");
+
+    
   };
 :javascript
   function cantidad_de_dias(nombre,value,locale,now,extra){
@@ -203,6 +193,23 @@
       return value/(3600*1000*24);
     }
   }
+%script
+  $(document).ready(function(){
+  $.ajax({
+  url: "/api/v1/load_adj/" + '#{@board.board_id}',
+  data: {
+  token: "#{@user.member_token}"
+  },
+  success: function(xhr){
+  $(".textinput-adj").append(xhr);
+  $("#spinner2").hide();
+  },
+  error: function(xhr) {
+
+  }
+  });
+
+  });
 
 %script
   
