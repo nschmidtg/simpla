@@ -3427,7 +3427,7 @@ class Ollert
             mun=new_user.municipio
             if(mun.launched=="true")
               Thread.new do
-                if(new_user.login_mail!=last_mail)
+                if(new_user.login_mail!=last_mail && last_mail!=nil)
                   new_user.municipio.organizations.each do |org|
                     begin
                       JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
