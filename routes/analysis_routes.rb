@@ -12,32 +12,6 @@ class Ollert
     end
   end
 
-  get '/api/v1/load_adj/:board_id' do |board_id|
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token = params["token"]
-    end
-           
-    trello_board=Trello::Board.find(board_id)
-
-    response=""
-    trello_board.cards.each do |card|
-      att=card.attachments
-      if(att.size!=0)
-        response=response+"<ul>"
-        response=response+"<b>"+card.name+":</b>"
-        att.each do |adj|
-          response=response+"<li>"
-          response=response+"<a href='"+adj.url+"' target='_blank'>"+adj.name+"</a>"
-          response=response+"</li>"
-        end
-        response=response+"</ul>"
-      end
-    end
-    body (response)
-    status 200
-  end
-
   get '/api/v1/progress/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -71,18 +45,6 @@ class Ollert
     status 200
   end
 
-  get '/api/v1/change_predet_task/:id' do |id|
-    
-    task=Task.find_by(id: id)
-    if(task.checked=="true")
-      task.checked="false"
-    else
-      task.checked="true"
-    end
-    task.save
-    status 200
-  end
-
   get '/api/v1/stats/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -100,16 +62,6 @@ class Ollert
     )
 
     body LabelCountAnalyzer.analyze(LabelCountFetcher.fetch(client, board_id)).to_json
-    status 200
-  end
-
-  get '/api/v1/calendar/:board_id' do |board_id|
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => params['token']
-    )
-
-    body CardsFromBoardAnalyzer.analyze(CardsFromBoardFetcher.fetch(client, board_id)).to_json
     status 200
   end
 

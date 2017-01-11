@@ -2493,3 +2493,37 @@
 [2017-01-05 17:36:29 -0300 cpp-VirtualBox (17782)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2017-01-05 17:37:20 -0300 cpp-VirtualBox (17785)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
 [2017-01-05 17:37:44 -0300 cpp-VirtualBox (18669)] INFO : Starting Agent shutdown
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Starting the New Relic agent in "development" environment.
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Reading configuration from config/newrelic.yml (/home/nico/sis/gestion-municipal)
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Environment: development
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Dispatcher: unicorn
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Application: Gestion Municipal (Development)
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Installing Sinatra instrumentation
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Installing Net instrumentation
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Installing Mongo instrumentation
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-01-11 12:06:27 -0300 nico-VirtualBox (3497)] INFO : Finished instrumentation
+[2017-01-11 12:06:28 -0300 nico-VirtualBox (3497)] INFO : Doing deferred dependency-detection before Rack startup
+[2017-01-11 12:06:37 -0300 nico-VirtualBox (3515)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-11 12:06:37 -0300 nico-VirtualBox (3508)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-11 12:06:37 -0300 nico-VirtualBox (3511)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Starting the New Relic agent in "development" environment.
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Reading configuration from config/newrelic.yml (/home/nico/sis/gestion-municipal)
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Environment: development
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Dispatcher: unicorn
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Application: Gestion Municipal (Development)
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Installing Sinatra instrumentation
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Installing Net instrumentation
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Installing Mongo instrumentation
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Finished instrumentation
+[2017-01-11 12:07:10 -0300 nico-VirtualBox (3739)] INFO : Doing deferred dependency-detection before Rack startup
+[2017-01-11 12:07:14 -0300 nico-VirtualBox (3750)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-11 12:07:14 -0300 nico-VirtualBox (3756)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-11 12:07:14 -0300 nico-VirtualBox (3753)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
