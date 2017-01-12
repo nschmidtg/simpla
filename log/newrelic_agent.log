@@ -2521,3 +2521,17 @@
 [2017-01-12 16:15:59 -0300 nico-VirtualBox (26589)] INFO : Installing Rack::Builder middleware instrumentation
 [2017-01-12 16:15:59 -0300 nico-VirtualBox (26589)] INFO : Finished instrumentation
 [2017-01-12 16:16:00 -0300 nico-VirtualBox (26589)] INFO : Doing deferred dependency-detection before Rack startup
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Starting the New Relic agent in "development" environment.
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Reading configuration from config/newrelic.yml (/home/nico/sis/gestion-municipal)
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Environment: development
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Dispatcher: unicorn
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Application: Gestion Municipal (Development)
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Installing Sinatra instrumentation
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Installing Net instrumentation
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Installing Mongo instrumentation
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-01-12 16:46:35 -0300 nico-VirtualBox (28396)] INFO : Finished instrumentation
+[2017-01-12 16:46:36 -0300 nico-VirtualBox (28396)] INFO : Doing deferred dependency-detection before Rack startup
