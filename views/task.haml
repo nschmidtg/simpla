@@ -43,15 +43,15 @@
                     - if(@task!=nil)
                       - if(@task.checked=="true")
                         %label.switch
-                          %input{:name =>"checked":type => "checkbox",:checked=>"checked"}/
+                          %input{:name =>"checked", :type => "checkbox",:checked=>"checked"}/
                           .slider.round
                       - else
                         %label.switch
-                          %input{:name =>"checked":type => "checkbox"}/
+                          %input{:name =>"checked", :type => "checkbox"}/
                           .slider.round
                     - else
                       %label.switch
-                        %input{:name =>"checked":type => "checkbox",:checked=>"checked"}/
+                        %input{:name =>"checked", :type => "checkbox",:checked=>"checked"}/
                         .slider.round
                 .form-group{style:"display: inline;"}
                   %label.col-md-3.col-sm-3.col-xs-12.control-label{for: "textinput"} Checklist
