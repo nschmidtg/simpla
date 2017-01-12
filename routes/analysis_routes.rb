@@ -38,39 +38,6 @@ class Ollert
     status 200
   end
 
-  get '/api/v1/progress/:board_id' do |board_id|
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => params["token"]
-    )
-
-    body ProgressChartsAnalyzer.analyze(ProgressChartsFetcher.fetch(client, board_id),
-     params["startingList"], params["endingList"]).to_json
-    status 200
-  end
-
-  get '/api/v1/listchanges/:board_id' do |board_id|
-    client = Trello::Client.new developer_public_key: ENV['PUBLIC_KEY'], member_token: params['token']
-
-    lists = client.get("/boards/#{board_id}/lists", filter: 'open').json_into(Trello::List)
-    all = Utils::Fetchers::ListActionFetcher.fetch(client, board_id)
-
-    {
-      lists: lists.map {|l| {id: l.id, name: l.name}},
-      times: Utils::Analyzers::TimeTracker.by_card(all)
-    }.to_json
-  end
-
-  get '/api/v1/wip/:board_id' do |board_id|
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => params["token"]
-    )
-
-    body WipAnalyzer.analyze(WipFetcher.fetch(client, board_id)).to_json
-    status 200
-  end
-
   get '/api/v1/change_predet_task/:id' do |id|
     
     task=Task.find_by(id: id)
@@ -80,26 +47,6 @@ class Ollert
       task.checked="true"
     end
     task.save
-    status 200
-  end
-
-  get '/api/v1/stats/:board_id' do |board_id|
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => params['token']
-    )
-
-    body StatsAnalyzer.analyze(StatsFetcher.fetch(client, board_id)).to_json
-    status 200
-  end
-
-  get '/api/v1/labels/:board_id' do |board_id|
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => params['token']
-    )
-
-    body LabelCountAnalyzer.analyze(LabelCountFetcher.fetch(client, board_id)).to_json
     status 200
   end
 
@@ -271,6 +218,5 @@ class Ollert
     body Trello::Organization.to_json
     status 200
   end
-
   
 end
