@@ -16,7 +16,6 @@ class Ollert
     end
   end
 
-
   get '/change_pass_vol', :auth => :connected do
     respond_to do |format|
       format.html { haml :change_pass_vol }
@@ -223,10 +222,10 @@ class Ollert
   end
 
   post '/dashboard/raport.xls', :auth => :connected do
-      require 'zip/zip'
-      require 'axlsx'
+    require 'zip/zip'
+    require 'axlsx'
 
-      client = Trello::Client.new(
+    client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
@@ -515,9 +514,7 @@ class Ollert
       #send_data p.to_stream.read, type: "application/xlsx", filename: "filename.xlsx"
       
 
-    end
-      
-      
+    end  
   end
 
   get '/dashboard', :auth => :connected do
@@ -636,36 +633,6 @@ class Ollert
     end
   end
 
-  get '/organizations', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-
-    begin
-      @organizations = OrganizationFetcher.fetch(client, @user.trello_name)
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.json { {'data' => @organizations }.to_json }
-    end
-  end
-
   get '/closed', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -765,7 +732,7 @@ class Ollert
     end
   end
 
-   get '/boards/delete/:board_id', :auth => :connected do |board_id|
+  get '/boards/delete/:board_id', :auth => :connected do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
@@ -994,8 +961,6 @@ class Ollert
     end
   end
 
-
-
   get '/boards/new_board', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -1120,13 +1085,6 @@ class Ollert
     @title = "Gestión de Proyectos"
     @last_activity = JSON.parse(client.get("/boards/#{board_id}/actions?limit=1"))[0]["date"].to_date
     haml :board_details
-  end
-
-  put '/boards/:board_id', :auth => :connected do |board_id|
-    board_settings = @user.boards.find_or_create_by(board_id: board_id)
-    board_settings.starting_list = params["startingList"] || board_settings.starting_list
-    board_settings.ending_list = params["endingList"] || board_settings.ending_list
-    board_settings.save
   end
 
   def saved_list_or_default(saved_list, list_options, default_list)

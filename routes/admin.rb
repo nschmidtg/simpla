@@ -1,6 +1,7 @@
 require 'trello'
 require 'newrelic_rpm'
 class Ollert
+
   get '/admin', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -151,7 +152,6 @@ class Ollert
       redirect '/admin'
       
     end
-
   end
 
   get '/admin/municipio/fondos/fondo/delete', :auth => :connected do
@@ -200,7 +200,6 @@ class Ollert
       redirect '/admin'
       
     end
-
   end
 
   get '/admin/municipio/launch', :auth => :connected do
@@ -255,9 +254,7 @@ class Ollert
       flash[:success] = "Invitaciones enviadas satisfactoriamente."
       redirect "/admin"
       
-    end
-
-    
+    end 
   end
 
   post '/admin/create_municipio', :auth => :connected do
@@ -2792,9 +2789,7 @@ class Ollert
       end
       
       
-    end
-
-    
+    end 
   end
 
   get '/admin/municipio/users', :auth => :connected do
@@ -2845,8 +2840,6 @@ class Ollert
       format.html { haml :municipio_users }
       
     end
-
-    
   end
 
   get '/admin/municipio/states/tasks', :auth => :connected do
@@ -2898,8 +2891,6 @@ class Ollert
       format.html { haml :municipio_states_tasks }
       
     end
-
-    
   end
 
   get '/admin/municipio/states/tasks/task', :auth => :connected do
@@ -2953,8 +2944,6 @@ class Ollert
       format.html { haml :task }
       
     end
-
-    
   end
 
   get '/admin/municipio/fondos/fondo', :auth => :connected do
@@ -3006,8 +2995,6 @@ class Ollert
       format.html { haml :fondo }
       
     end
-
-    
   end
 
   get '/admin/municipio/fondos/states', :auth => :connected do
@@ -3058,8 +3045,6 @@ class Ollert
       format.html { haml :municipio_states }
       
     end
-
-    
   end
 
   get '/admin/municipio/states/state', :auth => :connected do
@@ -3109,9 +3094,7 @@ class Ollert
     respond_to do |format|
       format.html { haml :state }
       
-    end
-
-    
+    end 
   end
 
   get '/admin/municipio/states/state/delete', :auth => :connected do
@@ -3506,9 +3489,7 @@ class Ollert
           flash[:success] = "Usuario creado exitosamente"
           redirect "/admin/municipio/users?mun_id=#{@mun.id}"
         end
-      end
-
-    
+      end  
   end
 
   post '/admin/create_state', :auth => :connected do
@@ -3572,8 +3553,6 @@ class Ollert
           redirect "/admin"
         end
       end
-
-    
   end
 
   post '/admin/create_fondo', :auth => :connected do
@@ -4200,8 +4179,6 @@ class Ollert
           redirect "/admin/municipio/fondos?mun_id=#{@mun.id}"
         end
       end
-
-    
   end
 
   post '/admin/create_task', :auth => :connected do
@@ -4297,9 +4274,7 @@ class Ollert
           flash[:success] = "Tarea creada exitosamente"
           redirect "/admin/municipio/fondos/fondo?mun_id=#{@mun.id}&fondo_id=#{@fondo.id}&edit=true"
         end
-      end
-
-    
+      end 
   end
 
   get '/archivo/municipio/proyecto', :auth => :connected do
@@ -4426,12 +4401,9 @@ class Ollert
     respond_to do |format|
       format.html { haml :user }
       
-    end
-
-    
+    end 
   end
 
-  
   get '/admin/municipio/states/tasks/task/delete', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -4611,8 +4583,6 @@ class Ollert
     respond_to do |format|
       format.html { haml :municipio_fondos }
       
-    end
-
-    
+    end  
   end
 end

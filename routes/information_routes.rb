@@ -1,6 +1,7 @@
 class Ollert
   require 'socket'
   require 'mail'
+
   get '/', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
       if(@user.first_time=="true")
@@ -50,7 +51,6 @@ class Ollert
     end
   end
   
-
   get '/forgot', :auth => :none do
     respond_to do |format|
       format.html { haml :forgot }
@@ -132,42 +132,6 @@ class Ollert
       redirect '/'
     
     end
-    
   end
-
-
-
-  post '/virtual_member', :auth => :none do
-    
-    parametros=params[:data].split('|')
-    idModel=parametros[0]
-    board_id=parametros[1]
-    member_token=parametros[2]
-    pub_key=parametros[3]
-    puts idModel
-    puts board_id
-    puts member_token
-    puts pub_key
-
-    client = Trello::Client.new(
-      :developer_public_key => pub_key,
-      :member_token => member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = pub_key
-      config.member_token = member_token
-    end
-    begin
-      puts "ME LLAMARON!!"
-    rescue => error
-      puts error
-      NewRelic::Agent.notice_error(error)
-    end
-  end
-
-
-
-
-
 
 end

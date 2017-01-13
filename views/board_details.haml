@@ -179,12 +179,6 @@
   
 
 :javascript
-  window.onload = function() {
-    AnalysisController.init("#{@board_id}", #{@board_lists}, "#{@starting_list}", "#{@ending_list}", "#{@token}");
-
-    
-  };
-:javascript
   function cantidad_de_dias(nombre,value,locale,now,extra){
     if(nombre=="En Creación Municipal"){
       return ((value+locale*3600*1000-now+extra*3600*1000*24)/(3600*24*1000));
