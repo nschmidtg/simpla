@@ -74,7 +74,3 @@ Environment variables:
   * You should set this to `development`. Other options include `testing` and `production`.
 
 Run `rake` to start the application on `localhost:4000`. This will fork two processes: a rack server (probably `unicorn`) and `grunt watch` (to constantly compile and minify Sass and javascript files).
-
-If it doesn't work run `bundle exec rake`.
-
-
