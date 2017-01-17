@@ -10,9 +10,72 @@ require_relative '../utils/analyzers/cards_from_mun_analyzer'
 require_relative '../utils/fetchers/cards_from_mun_fetcher'
 
 class Ollert
+
   get '/predet', :auth => :connected do
     respond_to do |format|
       format.html { haml :predet }
+    end
+  end
+
+  #Gets the view of the main features of the software. Shown only if it's the first time connecting
+  get '/takeawalk', :auth => :connected do
+    @user.first_time="false"
+    @user.save
+    respond_to do |format|
+      format.html { 
+        haml :takeawalk 
+      }
+    end
+  end
+
+
+
+
+  get '/archivo/municipio/proyectos', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
+    begin
+      if(params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s)
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @boards=@mun.boards
+        @title="Archivo de Proyectos"
+        
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Este no es su municipio."
+            redirect '/admin'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/admin'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :admin_boards }
+      
     end
   end
 

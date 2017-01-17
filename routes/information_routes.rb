@@ -2,6 +2,13 @@ class Ollert
   require 'socket'
   require 'mail'
 
+  not_found do
+    flash[:error] = "The page requested could not be found."
+    redirect '/'
+  end
+
+  #Definition of the root. 
+  #Sends to landing, /boards, /dashboard or takeawalk depending on connected, first_time and role
   get '/', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
       if(@user.first_time=="true")
@@ -18,64 +25,42 @@ class Ollert
     haml :landing
   end
 
-  not_found do
-    flash[:error] = "The page requested could not be found."
-    redirect '/'
-  end
 
-  get '/takeawalk', :auth => :connected do
-    @user.first_time="false"
-    @user.save
-    respond_to do |format|
-      format.html { 
-        haml :takeawalk 
-      }
-    end
-  end
 
-  post '/change_pass', :auth => :none do
-    user=User.find_by(restore_pass: params[:hash])
-    if(user!=nil && params[:pass1]==params[:pass2])
-      if((Time.now-(user.restore_pass_generated.to_time))<300)
-        user.login_pass=Digest::SHA256.base64digest(params[:pass1])
-        user.save
-        flash[:success] = "Contraseña cambiada exitosamente."
-        redirect '/'
+  ###LOGIN###
+  #Gets the mail and password from the login form and validates it. The it redirects to the Trello login
+  post '/authorize', :auth => :none do
+    require 'digest'
+    mail=params[:mail]
+    password=params[:password]
+    user= User.find_by(login_mail: mail)
+    if(user!=nil)
+      hash=Digest::SHA256.base64digest password
+      if(hash==user.login_pass)     
+        respond_to do |format|
+          format.html { haml :authorize }
+        end
       else
-        flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
-        redirect '/forgot'
+        flash[:error] = "Contraseña no válida"
+        redirect '/'
       end
     else
-      flash[:error] = "El usuario no existe o las contraseñas no coinciden."
+      flash[:error] = "Correo no registrado"
       redirect '/'
     end
   end
-  
+
+
+
+  ###FORGOT PASSWORD###
+  #Form to restore password
   get '/forgot', :auth => :none do
     respond_to do |format|
       format.html { haml :forgot }
     end
   end
 
-  get '/restore', :auth => :none do
-    @hash=params[:hash]
-
-    user=User.find_by(restore_pass: @hash)
-    if(user!=nil)
-      if((Time.now-(user.restore_pass_generated.to_time))<300)
-        respond_to do |format|
-        format.html { haml :restore }
-      end
-      else
-        flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
-        redirect '/'
-      end
-    else
-      flash[:error] = "El usuario no existe."
-      redirect '/'
-    end
-  end
-
+  #Gets the email from the restore password form and sends an email with a restore token
   post '/forgot_mail', :auth => :none do
     user=User.find_by(login_mail: params[:mail])
     if(user!=nil)
@@ -111,26 +96,42 @@ class Ollert
     end
   end
 
-  post '/authorize', :auth => :none do
-    require 'digest'
-    mail=params[:mail]
-    password=params[:password]
-    user= User.find_by(login_mail: mail)
+  #Gets the restore token, validates it and shows the form to change the password
+  get '/restore', :auth => :none do
+    @hash=params[:hash]
+
+    user=User.find_by(restore_pass: @hash)
     if(user!=nil)
-      hash=Digest::SHA256.base64digest password
-      if(hash==user.login_pass)     
+      if((Time.now-(user.restore_pass_generated.to_time))<300)
         respond_to do |format|
-          format.html { haml :authorize }
-        end
+        format.html { haml :restore }
+      end
       else
-        flash[:error] = "Contraseña no válida"
+        flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
         redirect '/'
       end
     else
-
-      flash[:error] = "Correo no registrado"
+      flash[:error] = "El usuario no existe."
       redirect '/'
-    
+    end
+  end
+
+  #Receive new password, validates it and change the password of the user
+  post '/change_pass', :auth => :none do
+    user=User.find_by(restore_pass: params[:hash])
+    if(user!=nil && params[:pass1]==params[:pass2])
+      if((Time.now-(user.restore_pass_generated.to_time))<300)
+        user.login_pass=Digest::SHA256.base64digest(params[:pass1])
+        user.save
+        flash[:success] = "Contraseña cambiada exitosamente."
+        redirect '/'
+      else
+        flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
+        redirect '/forgot'
+      end
+    else
+      flash[:error] = "El usuario no existe o las contraseñas no coinciden."
+      redirect '/'
     end
   end
 

@@ -2,6 +2,7 @@ require 'trello'
 require 'newrelic_rpm'
 class Ollert
 
+  #Administration panel. List of municipios if the user as 'admin' role
   get '/admin', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -46,6 +47,10 @@ class Ollert
     end
   end
 
+
+
+  ###MUNICIPIO###
+  #Gets a municipio and its zones or the form to create one
   get '/admin/municipio', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -96,167 +101,7 @@ class Ollert
     end
   end
 
-  get '/admin/municipio/delete', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token =  @user.member_token
-    end
-    if(@user.role!="admin")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      @municipio = Municipio.find_by(id: params[:id_municipio])
-      @municipio.organizations.each do |org|
-        boards=Trello::Organization.find(org.org_id).boards
-        boards.each do |board|
-          begin
-            JSON.parse(client.put("/boards/#{board.id}/closed?value=true"))
-          rescue
-          end
-        end
-        begin
-          JSON.parse(client.delete("/organizations/#{org.org_id}"))
-        rescue
-        end
-      end
-
-      @municipio.destroy
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      flash[:success] = "Municipio eliminado satisfactoriamente."
-      redirect '/admin'
-      
-    end
-  end
-
-  get '/admin/municipio/fondos/fondo/delete', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token =  @user.member_token
-    end
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      @municipio = Municipio.find_by(id: params[:mun_id])
-      @fondo=Fondo.find_by(id: params[:fondo_id])
-      if(@fondo.municipio.id==@municipio.id)
-        @fondo.destroy
-      end
-      
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      flash[:success] = "Fondo eliminado satisfactoriamente."
-      redirect '/admin'
-      
-    end
-  end
-
-  get '/admin/municipio/launch', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token = @user.member_token
-    end
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==@user.municipio.id.to_s))
-        mun=Municipio.find_by(id: params[:mun_id])
-        Thread.new do
-          mun.organizations.each do |org|
-            org.add_members(client,request.host)
-          end
-          mun.boards.each do |board|
-            board.add_members(client,request.host)         
-          end
-          mun.launched="true"
-          mun.save
-        end
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            mun=Municipio.find_by(id: params[:mun_id])
-            mun.launched="false"
-            mun.save
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    
-      mun=Municipio.find_by(id: params[:mun_id])
-      mun.launched="true"
-      mun.save
-
-    respond_to do |format|
-      flash[:success] = "Invitaciones enviadas satisfactoriamente."
-      redirect "/admin"
-      
-    end 
-  end
-
+  #Creates a new municipio
   post '/admin/create_municipio', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -2792,62 +2637,17 @@ class Ollert
     end 
   end
 
-  get '/admin/municipio/users', :auth => :connected do
+  #Deletes a municipio
+  get '/admin/municipio/delete', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin"  && @user.role!="secpla" )
-      respond_to do |format|
-        format.html do
-          flash[:error] = "1Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
     end
-    begin
-      @title="Configuración"
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        @mun=Municipio.find_by(id: params[:mun_id])
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "2Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.html { haml :municipio_users }
-      
-    end
-  end
-
-  get '/admin/municipio/states/tasks', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin"  && @user.role!="secpla" )
+    if(@user.role!="admin")
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
@@ -2856,20 +2656,22 @@ class Ollert
       end
     end
     begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        @mun=Municipio.find_by(id: params[:mun_id])
-        @state=State.find_by(id: params[:state_id])
-        @fondo=Fondo.find_by(id: params[:fondo_id])
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Está tratando de editar un municipio que no es el suyo."
-            redirect '/boards'
+      @municipio = Municipio.find_by(id: params[:id_municipio])
+      @municipio.organizations.each do |org|
+        boards=Trello::Organization.find(org.org_id).boards
+        boards.each do |board|
+          begin
+            JSON.parse(client.put("/boards/#{board.id}/closed?value=true"))
+          rescue
           end
-
-          format.json { status 400 }
+        end
+        begin
+          JSON.parse(client.delete("/organizations/#{org.org_id}"))
+        rescue
         end
       end
+
+      @municipio.destroy
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -2879,7 +2681,7 @@ class Ollert
 
       respond_to do |format|
         format.html do
-          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
@@ -2888,12 +2690,76 @@ class Ollert
     end
 
     respond_to do |format|
-      format.html { haml :municipio_states_tasks }
+      flash[:success] = "Municipio eliminado satisfactoriamente."
+      redirect '/admin'
       
     end
   end
 
-  get '/admin/municipio/states/tasks/task', :auth => :connected do
+  #Sends the invitations to the members of the municipio to join the trello 
+  #boards and organizations. It also can be used to re-join the members of a 
+  #board or organization if that member has been kicked out. The user must 
+  #have admin permissions on every Trello board and organization are required to launch a municipio.
+  get '/admin/municipio/launch', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token = @user.member_token
+    end
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==@user.municipio.id.to_s))
+        mun=Municipio.find_by(id: params[:mun_id])
+        Thread.new do
+          mun.organizations.each do |org|
+            org.add_members(client,request.host)
+          end
+          mun.boards.each do |board|
+            board.add_members(client,request.host)         
+          end
+          mun.launched="true"
+          mun.save
+        end
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            mun=Municipio.find_by(id: params[:mun_id])
+            mun.launched="false"
+            mun.save
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    
+      mun=Municipio.find_by(id: params[:mun_id])
+      mun.launched="true"
+      mun.save
+
+    respond_to do |format|
+      flash[:success] = "Invitaciones enviadas satisfactoriamente."
+      redirect "/admin"
+      
+    end 
+  end
+
+
+
+  ###FONDOS###
+  #Gets the fondos from a municipio
+  get '/admin/municipio/fondos', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
@@ -2910,9 +2776,7 @@ class Ollert
       @title="Configuración"
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
-        @state=State.find_by(id: params[:state_id])
-        @task=Task.find_by(id: params[:task_id])
-        @fondo=Fondo.find_by(id: params[:fondo_id])
+
       else
         respond_to do |format|
           format.html do
@@ -2941,11 +2805,12 @@ class Ollert
     end
 
     respond_to do |format|
-      format.html { haml :task }
+      format.html { haml :municipio_fondos }
       
-    end
+    end  
   end
 
+  #Gets one fondo and the tasks of a municipio or the form to create one
   get '/admin/municipio/fondos/fondo', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -2997,564 +2862,7 @@ class Ollert
     end
   end
 
-  get '/admin/municipio/fondos/states', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin"  && @user.role!="secpla" )
-      respond_to do |format|
-        format.html do
-          flash[:error] = "1Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        @mun=Municipio.find_by(id: params[:mun_id])
-        @fondo=Fondo.find_by(id: params[:fondo_id])
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Está tratando de editar un municipio que no es el suyo."
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.html { haml :municipio_states }
-      
-    end
-  end
-
-  get '/admin/municipio/states/state', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        @mun=Municipio.find_by(id: params[:mun_id])
-        @state=State.find_by(id: params[:state_id])
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.html { haml :state }
-      
-    end 
-  end
-
-  get '/admin/municipio/states/state/delete', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin"  && @user.role!="secpla" )
-      respond_to do |format|
-        format.html do
-          flash[:error] = "No tiene permiso para eliminar etapas."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        @mun=Municipio.find_by(id: params[:mun_id])
-        @new_state=@mun.states.find_by(id: params[:state_id])
-        if(@new_state!=nil)
-          @new_state.destroy
-        end
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/admin'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.html do
-        flash[:success] = "Etapa eliminada exitosamente."
-        redirect '/admin'
-      end
-      
-    end
-  end
-
-  post '/admin/create_user', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        edit=params[:edit]
-        @mun=Municipio.find_by(id: params[:mun_id])
-        if(edit=="true")
-          new_user=User.find_by(id: params[:id])
-        else
-          new_user=User.new
-        end
-        new_user.login_name=params[:name].gsub(" ","")
-        new_user.first_time="true"
-        new_user.login_last_name=params[:last_name].gsub(" ","")
-        last_mail=new_user.login_mail
-        new_user.login_mail=params[:mail].downcase
-        if(edit=="false")
-          new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
-          new_user.role=params[:role]
-
-        end
-        if(params[:role]=="admin" && @user.role!="admin")
-          respond_to do |format|
-            format.html do
-              flash[:error] = "No tienes permiso para dar este rol."
-              redirect '/boards'
-            end
-
-            format.json { status 400 }
-          end
-        end
-        
-        new_user.municipio=@mun
-        new_user.save
-        if(new_user.role!=params[:role] && new_user.role!=nil)
-          #Estoy editando el rol de un usuario antiguo
-          if(new_user.municipio.launched=="true")
-            if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
-              respond_to do |format|
-                format.html do
-                  flash[:error] = "Un municipio debe tener al menos un Director SECPLAC."
-                  redirect '/admin'
-                end
-
-                format.json { status 400 }
-              end
-            end
-            last_role=new_user.role
-            new_user.role=params[:role]
-            new_user.save
-            if((new_user.role=="admin" || new_user.role=="secpla")&&(last_role=="funcionario"))
-              puts "Estoy pasando de funcionario a secpla o admin"
-              Thread.new do
-                if(new_user.login_mail!=last_mail)
-                  #Además cambió el mail-> eliminar mail antiguo de los tableros
-                  new_user.municipio.organizations.each do |org|
-                    begin
-                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
-                    rescue => error
-                      puts error
-                      NewRelic::Agent.notice_error(error)
-                    end
-                  end
-                  new_user.municipio.boards.each do |board|
-                    begin
-                      new_user.boards.delete(board)
-                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
-                    rescue => error
-                      puts error
-                      NewRelic::Agent.notice_error(error)
-                    end
-                  end
-                  new_user.member_token=nil
-                  new_user.trello_id=nil
-                  new_user.last_login=nil
-                  new_user.save
-                end
-                new_user.municipio.organizations.each do |org|
-                  begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-                  rescue => error
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end
-                new_user.municipio.boards.each do |board|
-                  begin
-                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-                  rescue => error
-                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end 
-              end
-            elsif((new_user.role=="admin" || new_user.role=="secpla")&&(last_role=="concejal"||last_role=="alcalde"))
-              puts "Paso de alcalde o concejal a secpla o admin"
-              Thread.new do
-                if(new_user.login_mail!=last_mail)
-                  new_user.member_token=nil
-                  new_user.trello_id=nil
-                  new_user.trello_name=nil
-                  new_user.gravatar_hash=nil
-                  new_user.email=nil
-                  new_user.last_login=nil
-                  new_user.save
-                end
-                new_user.municipio.organizations.each do |org|
-                  begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-                  rescue => error
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end
-                new_user.municipio.boards.each do |board|
-                  begin
-                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
-                  rescue => error
-                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end
-              end
-            elsif(new_user.role=="concejal" || new_user.role=="alcalde")
-              puts "Cambio de rol a alcalde o concejal desde secpla o admin o funcionario"
-              Thread.new do
-                new_user.municipio.organizations.each do |org|
-                  begin
-                    JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
-                  rescue => error
-                    NewRelic::Agent.notice_error(error)
-                    puts error
-                  end
-                end
-                new_user.municipio.boards.each do |board|
-                  begin
-                    new_user.boards.delete(board)
-                    JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
-                  rescue => error
-                    NewRelic::Agent.notice_error(error)
-                    puts error
-                  end
-                end
-                if(new_user.login_mail!=last_mail)
-                  new_user.member_token=nil
-                  new_user.trello_id=nil
-                  new_user.trello_name=nil
-                  new_user.gravatar_hash=nil
-                  new_user.email=nil
-                  new_user.last_login=nil
-                  new_user.save
-                end
-                puts "se sacó al concejal o alcalde de los tableros y equipos"
-                secpla=new_user.municipio.users.find_by(role: "secpla")
-                if(secpla!=nil)
-                  new_user.member_token=@mun.users.and(
-                  @mun.users.where(:role => "secpla").selector,
-                  @mun.users.where(:member_token.ne => nil).selector
-                  ).first.member_token
-                  new_user.save
-                end
-              end
-            elsif((new_user.role=="funcionario")&&(last_role=="secpla" || last_role=="admin"))
-              puts "Estoy pasando secpla o admin a funcionario"
-              Thread.new do
-                if(new_user.login_mail!=last_mail)
-                  #Además cambió el mail-> eliminar mail antiguo de los tableros
-                  new_user.municipio.organizations.each do |org|
-                    begin
-                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
-                    rescue => error
-                      puts error
-                      NewRelic::Agent.notice_error(error)
-                    end
-                  end
-                  new_user.municipio.boards.each do |board|
-                    begin
-                      new_user.boards.delete(board)
-                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
-                    rescue => error
-                      puts error
-                      NewRelic::Agent.notice_error(error)
-                    end
-                  end
-                  new_user.trello_id=nil
-                  new_user.last_login=nil
-                  new_user.save
-                end
-                new_user.municipio.organizations.each do |org|
-                  begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                  rescue => error
-                    puts error
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end
-                new_user.municipio.boards.each do |board|
-                  begin
-                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                  rescue => error
-                    puts error
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end 
-              end
-            elsif((new_user.role=="funcionario")&&(last_role=="concejal"||last_role=="alcalde"))
-              puts "Paso de alcalde o concejal a funcionario"
-              Thread.new do
-                new_user.municipio.organizations.each do |org|
-                  begin
-                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                  rescue => error
-                    puts error
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end
-                new_user.municipio.boards.each do |board|
-                  begin
-                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
-                  rescue => error
-                    puts error
-                    NewRelic::Agent.notice_error(error)
-                  end
-                end
-              end
-            end
-          end
-        else
-          #Usuario nuevo o edición de campos!=role
-          new_user.role=params[:role]
-          new_user.save
-          if(new_user.role=="alcalde"|| new_user.role=="concejal")
-            puts "Creando un alcalde o concejal"
-            secplaConToken=@mun.users.and(
-              @mun.users.where(:role => "secpla").selector,
-              @mun.users.where(:member_token.ne => nil).selector
-              ).first
-            if(secplaConToken!=nil)
-              new_user.member_token=secplaConToken.member_token
-              new_user.save
-            end
-          else
-            puts "Creando funcionario o secpla"
-            mun=new_user.municipio
-            if(mun.launched=="true")
-              Thread.new do
-                if(new_user.login_mail!=last_mail && last_mail!=nil)
-                  new_user.municipio.organizations.each do |org|
-                    begin
-                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
-                    rescue => error
-                      NewRelic::Agent.notice_error(error)
-                      puts error
-                    end
-                  end
-                  new_user.municipio.boards.each do |board|
-                    begin
-                      new_user.boards.delete(board)
-                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
-                    rescue => error
-                      NewRelic::Agent.notice_error(error)
-                      puts error
-                    end
-                  end
-                  new_user.member_token=nil
-                  new_user.trello_id=nil
-                  new_user.trello_name=nil
-                  new_user.gravatar_hash=nil
-                  new_user.email=nil
-                  new_user.last_login=nil
-                  new_user.save
-                  
-                end
-                client = Trello::Client.new(
-                  :developer_public_key => ENV['PUBLIC_KEY'],
-                  :member_token => @user.member_token
-                )
-                mun.organizations.each do |org|
-                  org.add_members(client,request.host)
-                end
-                mun.boards.each do |board|
-                  board.add_members(client,request.host)         
-                end
-              end
-            end
-          end
-        end
-        if(edit=="false")
-          @mun.launched="false"
-          new_user.first_time="true"
-        end
-        new_user.save
-        @mun.save
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/admin'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/admin'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-        format.html do
-          flash[:success] = "Usuario creado exitosamente"
-          redirect "/admin/municipio/users?mun_id=#{@mun.id}"
-        end
-      end  
-  end
-
-  post '/admin/create_state', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-
-        edit=params[:edit]
-        @mun=Municipio.find_by(id: params[:mun_id])
-        if(edit=="true")
-          new_state=State.find_by(id: params[:id])
-        else
-          new_state=State.new
-        end
-        new_state.name=params[:name]
-        new_state.order=params[:order]
-        new_state.municipio=@mun
-        new_state.save
-        @mun.save
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/admin'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/admin'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-        format.html do
-          flash[:success] = "Etapa creada exitosamente"
-          redirect "/admin"
-        end
-      end
-  end
-
+  #Creates a new fondo for the muncipio
   post '/admin/create_fondo', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -4181,6 +3489,113 @@ class Ollert
       end
   end
 
+  #Deletes one fondo of a municipio
+  get '/admin/municipio/fondos/fondo/delete', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      @municipio = Municipio.find_by(id: params[:mun_id])
+      @fondo=Fondo.find_by(id: params[:fondo_id])
+      if(@fondo.municipio.id==@municipio.id)
+        @fondo.destroy
+      end
+      
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      flash[:success] = "Fondo eliminado satisfactoriamente."
+      redirect '/admin'
+      
+    end
+  end
+
+
+
+  ##TASKS##
+  #Gets the task of a fondo and state or the form to create one
+  get '/admin/municipio/states/tasks/task', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin" && @user.role!="secpla")
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      @title="Configuración"
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @state=State.find_by(id: params[:state_id])
+        @task=Task.find_by(id: params[:task_id])
+        @fondo=Fondo.find_by(id: params[:fondo_id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :task }
+      
+    end
+  end
+
+  #Creates a new task
   post '/admin/create_task', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -4277,41 +3692,32 @@ class Ollert
       end 
   end
 
-  get '/archivo/municipio/proyecto', :auth => :connected do
+  #Deletes one task of a fondo
+  get '/admin/municipio/states/tasks/task/delete', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin" && @user.role!="secpla")
+    if(@user.role!="admin"  && @user.role!="secpla" )
       respond_to do |format|
         format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          flash[:error] = "No tiene permiso para eliminar tareas."
           redirect '/boards'
         end
       end
     end
-  end
-
-  get '/archivo/municipio/proyectos', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token =  @user.member_token
-    end
     begin
-      if(params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s)
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
         @mun=Municipio.find_by(id: params[:mun_id])
-        @boards=@mun.boards
-        @title="Archivo de Proyectos"
-        
+        @new_task=Task.find_by(id: params[:task_id])
+        if(@new_task!=nil)
+          @new_task.destroy
+        end
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "Este no es su municipio."
-            redirect '/admin'
+            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
           end
 
           format.json { status 400 }
@@ -4335,11 +3741,70 @@ class Ollert
     end
 
     respond_to do |format|
-      format.html { haml :admin_boards }
+      format.html do
+        flash[:success] = "Tarea eliminada exitosamente."
+
+        redirect "/admin/municipio/fondos/fondo?mun_id=#{params[:mun_id]}&fondo_id=#{params[:fondo_id]}&edit=true"
+      end
       
     end
   end
 
+
+
+  ###USERS###
+  #Gets all the users of a municipio
+  get '/admin/municipio/users', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role!="admin"  && @user.role!="secpla" )
+      respond_to do |format|
+        format.html do
+          flash[:error] = "1Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+      end
+    end
+    begin
+      @title="Configuración"
+      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        @mun=Municipio.find_by(id: params[:mun_id])
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "2Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "3Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    respond_to do |format|
+      format.html { haml :municipio_users }
+      
+    end
+  end
+
+  #Gets a user or the form to create one
   get '/admin/municipio/users/user', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -4404,31 +3869,317 @@ class Ollert
     end 
   end
 
-  get '/admin/municipio/states/tasks/task/delete', :auth => :connected do
+  #Creates a new user and sends the invitations to the 
+  #Trello boards and orgnanizations if the municipio has been launched
+  post '/admin/create_user', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role!="admin"  && @user.role!="secpla" )
+    if(@user.role!="admin" && @user.role!="secpla")
       respond_to do |format|
         format.html do
-          flash[:error] = "No tiene permiso para eliminar tareas."
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
       end
     end
     begin
       if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
+        edit=params[:edit]
         @mun=Municipio.find_by(id: params[:mun_id])
-        @new_task=Task.find_by(id: params[:task_id])
-        if(@new_task!=nil)
-          @new_task.destroy
+        if(edit=="true")
+          new_user=User.find_by(id: params[:id])
+        else
+          new_user=User.new
         end
+        new_user.login_name=params[:name].gsub(" ","")
+        new_user.first_time="true"
+        new_user.login_last_name=params[:last_name].gsub(" ","")
+        last_mail=new_user.login_mail
+        new_user.login_mail=params[:mail].downcase
+        if(edit=="false")
+          new_user.login_pass=Digest::SHA256.base64digest(params[:pass1])
+          new_user.role=params[:role]
+
+        end
+        if(params[:role]=="admin" && @user.role!="admin")
+          respond_to do |format|
+            format.html do
+              flash[:error] = "No tienes permiso para dar este rol."
+              redirect '/boards'
+            end
+
+            format.json { status 400 }
+          end
+        end
+        
+        new_user.municipio=@mun
+        new_user.save
+        if(new_user.role!=params[:role] && new_user.role!=nil)
+          #Estoy editando el rol de un usuario antiguo
+          if(new_user.municipio.launched=="true")
+            if(new_user.role=="secpla" && (new_user.municipio.users.where(role: "secpla").count==1 && params[:role]!="secpla"))
+              respond_to do |format|
+                format.html do
+                  flash[:error] = "Un municipio debe tener al menos un Director SECPLAC."
+                  redirect '/admin'
+                end
+
+                format.json { status 400 }
+              end
+            end
+            last_role=new_user.role
+            new_user.role=params[:role]
+            new_user.save
+            if((new_user.role=="admin" || new_user.role=="secpla")&&(last_role=="funcionario"))
+              puts "Estoy pasando de funcionario a secpla o admin"
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  #Además cambió el mail-> eliminar mail antiguo de los tableros
+                  new_user.municipio.organizations.each do |org|
+                    begin
+                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                      NewRelic::Agent.notice_error(error)
+                    end
+                  end
+                  new_user.municipio.boards.each do |board|
+                    begin
+                      new_user.boards.delete(board)
+                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                      NewRelic::Agent.notice_error(error)
+                    end
+                  end
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end 
+              end
+            elsif((new_user.role=="admin" || new_user.role=="secpla")&&(last_role=="concejal"||last_role=="alcalde"))
+              puts "Paso de alcalde o concejal a secpla o admin"
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.trello_name=nil
+                  new_user.gravatar_hash=nil
+                  new_user.email=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=admin"))
+                  rescue => error
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end
+              end
+            elsif(new_user.role=="concejal" || new_user.role=="alcalde")
+              puts "Cambio de rol a alcalde o concejal desde secpla o admin o funcionario"
+              Thread.new do
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                  rescue => error
+                    NewRelic::Agent.notice_error(error)
+                    puts error
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    new_user.boards.delete(board)
+                    JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                  rescue => error
+                    NewRelic::Agent.notice_error(error)
+                    puts error
+                  end
+                end
+                if(new_user.login_mail!=last_mail)
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.trello_name=nil
+                  new_user.gravatar_hash=nil
+                  new_user.email=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                puts "se sacó al concejal o alcalde de los tableros y equipos"
+                secpla=new_user.municipio.users.find_by(role: "secpla")
+                if(secpla!=nil)
+                  new_user.member_token=@mun.users.and(
+                  @mun.users.where(:role => "secpla").selector,
+                  @mun.users.where(:member_token.ne => nil).selector
+                  ).first.member_token
+                  new_user.save
+                end
+              end
+            elsif((new_user.role=="funcionario")&&(last_role=="secpla" || last_role=="admin"))
+              puts "Estoy pasando secpla o admin a funcionario"
+              Thread.new do
+                if(new_user.login_mail!=last_mail)
+                  #Además cambió el mail-> eliminar mail antiguo de los tableros
+                  new_user.municipio.organizations.each do |org|
+                    begin
+                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                      NewRelic::Agent.notice_error(error)
+                    end
+                  end
+                  new_user.municipio.boards.each do |board|
+                    begin
+                      new_user.boards.delete(board)
+                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      puts error
+                      NewRelic::Agent.notice_error(error)
+                    end
+                  end
+                  new_user.trello_id=nil
+                  new_user.last_login=nil
+                  new_user.save
+                end
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end 
+              end
+            elsif((new_user.role=="funcionario")&&(last_role=="concejal"||last_role=="alcalde"))
+              puts "Paso de alcalde o concejal a funcionario"
+              Thread.new do
+                new_user.municipio.organizations.each do |org|
+                  begin
+                    JSON.parse(client.put("/organizations/#{org.org_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end
+                new_user.municipio.boards.each do |board|
+                  begin
+                    JSON.parse(client.put("/boards/#{board.board_id}/members?email=#{new_user.login_mail}&fullName=#{new_user.login_name} #{new_user.login_last_name}&type=normal"))
+                  rescue => error
+                    puts error
+                    NewRelic::Agent.notice_error(error)
+                  end
+                end
+              end
+            end
+          end
+        else
+          #Usuario nuevo o edición de campos!=role
+          new_user.role=params[:role]
+          new_user.save
+          if(new_user.role=="alcalde"|| new_user.role=="concejal")
+            puts "Creando un alcalde o concejal"
+            secplaConToken=@mun.users.and(
+              @mun.users.where(:role => "secpla").selector,
+              @mun.users.where(:member_token.ne => nil).selector
+              ).first
+            if(secplaConToken!=nil)
+              new_user.member_token=secplaConToken.member_token
+              new_user.save
+            end
+          else
+            puts "Creando funcionario o secpla"
+            mun=new_user.municipio
+            if(mun.launched=="true")
+              Thread.new do
+                if(new_user.login_mail!=last_mail && last_mail!=nil)
+                  new_user.municipio.organizations.each do |org|
+                    begin
+                      JSON.parse(client.delete("/organizations/#{org.org_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      NewRelic::Agent.notice_error(error)
+                      puts error
+                    end
+                  end
+                  new_user.municipio.boards.each do |board|
+                    begin
+                      new_user.boards.delete(board)
+                      JSON.parse(client.delete("/boards/#{board.board_id}/members/#{new_user.trello_id}"))
+                    rescue => error
+                      NewRelic::Agent.notice_error(error)
+                      puts error
+                    end
+                  end
+                  new_user.member_token=nil
+                  new_user.trello_id=nil
+                  new_user.trello_name=nil
+                  new_user.gravatar_hash=nil
+                  new_user.email=nil
+                  new_user.last_login=nil
+                  new_user.save
+                  
+                end
+                client = Trello::Client.new(
+                  :developer_public_key => ENV['PUBLIC_KEY'],
+                  :member_token => @user.member_token
+                )
+                mun.organizations.each do |org|
+                  org.add_members(client,request.host)
+                end
+                mun.boards.each do |board|
+                  board.add_members(client,request.host)         
+                end
+              end
+            end
+          end
+        end
+        if(edit=="false")
+          @mun.launched="false"
+          new_user.first_time="true"
+        end
+        new_user.save
+        @mun.save
       else
         respond_to do |format|
           format.html do
             flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/boards'
+            redirect '/admin'
           end
 
           format.json { status 400 }
@@ -4452,15 +4203,14 @@ class Ollert
     end
 
     respond_to do |format|
-      format.html do
-        flash[:success] = "Tarea eliminada exitosamente."
-
-        redirect "/admin/municipio/fondos/fondo?mun_id=#{params[:mun_id]}&fondo_id=#{params[:fondo_id]}&edit=true"
-      end
-      
-    end
+        format.html do
+          flash[:success] = "Usuario creado exitosamente"
+          redirect "/admin/municipio/users?mun_id=#{@mun.id}"
+        end
+      end  
   end
 
+  #Deletes a user of a municipio
   get '/admin/municipio/users/user/delete', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -4535,54 +4285,4 @@ class Ollert
     end
   end
 
-  get '/admin/municipio/fondos', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    if(@user.role!="admin" && @user.role!="secpla")
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-      end
-    end
-    begin
-      @title="Configuración"
-      if(@user.role=="admin" || (@user.role=="secpla" && params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s))
-        @mun=Municipio.find_by(id: params[:mun_id])
-
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.html { haml :municipio_fondos }
-      
-    end  
-  end
 end
