@@ -32,16 +32,4 @@ class Ollert
     end
   end
 
-  put '/settings/trello/connect', auth: :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => params[:token]
-    )
-
-    result = UserConnector.connect client, params[:token], @user
-    
-    session[:user] = result[:id]
-    status result[:status]
-    body result[:body]
-  end
 end

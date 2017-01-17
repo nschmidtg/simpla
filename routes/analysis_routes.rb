@@ -12,6 +12,7 @@ class Ollert
     end
   end
 
+  #Load all the attached filed from all the cards on a board. This is shown on the details of a project
   get '/api/v1/load_adj/:board_id' do |board_id|
     Trello.configure do |config|
       config.developer_public_key = ENV['PUBLIC_KEY']
@@ -38,6 +39,7 @@ class Ollert
     status 200
   end
 
+  #Toggles the 'checked' field of a task 
   get '/api/v1/change_predet_task/:id' do |id|
     
     task=Task.find_by(id: id)
@@ -50,6 +52,7 @@ class Ollert
     status 200
   end
 
+  #Loads all the end dates from  all the cards on a board. This is shown on the details of a project
   get '/api/v1/calendar/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -60,6 +63,7 @@ class Ollert
     status 200
   end
 
+  #Loads all the end dates from  all the cards from all the boards. This is shown on the /calendar section
   get '/api/v1/calendarFull/:mun_id' do |mun_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -70,6 +74,7 @@ class Ollert
     status 200
   end
 
+  #Changes the board state
   get '/api/v1/change_board_state/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -185,6 +190,7 @@ class Ollert
     status 200
   end
 
+  #Changes the board priority
   get '/api/v1/change_board_priority/:board_id' do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
