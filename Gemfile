@@ -22,7 +22,6 @@ gem 'mail'
 gem 'spreadsheet'
 gem 'zip-zip'
 gem 'rubyzip', :require => 'zip'
-
 gem 'axlsx'
 
 group :development do
