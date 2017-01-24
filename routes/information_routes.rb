@@ -25,6 +25,17 @@ class Ollert
     haml :landing
   end
 
+  #Gets the view of the main features of the software. Shown only if it's the first time connecting
+  get '/takeawalk', :auth => :connected do
+    @user.first_time="false"
+    @user.save
+    respond_to do |format|
+      format.html { 
+        haml :takeawalk 
+      }
+    end
+  end
+
 
 
   ###LOGIN###
@@ -132,6 +143,41 @@ class Ollert
     else
       flash[:error] = "El usuario no existe o las contraseñas no coinciden."
       redirect '/'
+    end
+  end
+
+
+
+  ###CHANGE PASSWORD###
+  #Gets the form to change password
+  get '/change_pass_vol', :auth => :connected do
+    respond_to do |format|
+      format.html { haml :change_pass_vol }
+    end
+  end
+
+  #Gets the new password and saves its hash
+  post '/save_pass_vol', :auth => :connected do
+    user=User.find_by(id: params[:user])
+    if(user!=nil && params[:pass1]==params[:pass2])
+      user.login_pass=Digest::SHA256.base64digest(params[:pass1])
+      user.save
+      flash[:success] = "Contraseña cambiada exitosamente."
+      redirect '/'
+    else
+      flash[:error] = "El usuario no existe o las contraseñas no coinciden."
+      redirect '/'
+    end
+  end
+
+
+
+
+  ###INFORMATION###
+  #Get the view to explain what are the default tasks
+  get '/predet', :auth => :connected do
+    respond_to do |format|
+      format.html { haml :predet }
     end
   end
 

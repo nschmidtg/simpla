@@ -11,27 +11,10 @@ require_relative '../utils/fetchers/cards_from_mun_fetcher'
 
 class Ollert
 
-  get '/predet', :auth => :connected do
-    respond_to do |format|
-      format.html { haml :predet }
-    end
-  end
-
-  #Gets the view of the main features of the software. Shown only if it's the first time connecting
-  get '/takeawalk', :auth => :connected do
-    @user.first_time="false"
-    @user.save
-    respond_to do |format|
-      format.html { 
-        haml :takeawalk 
-      }
-    end
-  end
-
-
-
-
-  get '/archivo/municipio/proyectos', :auth => :connected do
+  ###INDICADORES DE GESTIÓN###
+  #Main view of the users with role concejal or alcalde
+  #Gets the information to fill the dashboards
+  get '/dashboard', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
@@ -40,251 +23,98 @@ class Ollert
       config.developer_public_key = ENV['PUBLIC_KEY']
       config.member_token =  @user.member_token
     end
-    begin
-      if(params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s)
-        @mun=Municipio.find_by(id: params[:mun_id])
-        @boards=@mun.boards
-        @title="Archivo de Proyectos"
+  
+
+      @mun=Municipio.find_by(id: params[:mun_id])
+      @mun_id=@mun.id
+      @boards=@mun.boards.and(
+        @mun.boards.where(closed:"false").selector,
+        @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector,
+        @mun.boards.where(:current_state.ne => @mun.states.all[9].name).selector
+        )
+      @title="Indicadores de Gestión"
+      @valores=Array.new()
+      @sizes=Array.new()
+      @fondos=Array.new()
+      @zones=Array.new()
+      @count=Array.new()
+      count=0
+      @mun.organizations.each do |org|
+        if(org.name=="1. Urgentes")
+          @count[0]=@boards.where(organization: org).count
+        elsif(org.name=="2. Priorizados")
+          @count[1]=@boards.where(organization: org).count
+        elsif(org.name=="3. No Priorizados")
+          @count[2]=@boards.where(organization: org).count
+        end
+      end
+      i=0
+      @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
+        @mun.fondos.each do |fondo|
+          @valores[i]=0
+          @sizes[i]=0
+
+          value=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
+          if(value!=0)
+            @valores[i]=value
+            @sizes[i]=@valores[i]*10
+            
+            # @boardsx=@boards.where(fondo: fondo)
+            # @boardsx.each do |board|
+            #   if(board.fondo!=nil)
+            #     if(board.zones.include?(zone))
+            #       @valores[i]+=1
+            #       @sizes[i]+=10
+            #     end
+            #   end
+            # end
+            @zones<<zone.name
+            if(fondo.etapa=="diseno")
+              @fondos<<fondo.name+" (Diseño)"
+            elsif(fondo.etapa=="ejecucion")
+              @fondos<<fondo.name+" (Ejecución)"
+            elsif(fondo.etapa=="adquisicion")
+              @fondos<<fondo.name+" (Adquisición)"
+            elsif(fondo.etapa=="estudios")
+              @fondos<<fondo.name+" (Estudios)"
+            elsif(fondo.etapa=="otros")
+              @fondos<<fondo.name+" (Otros)"
+            end
+            i=i+1
+          end
+        end
         
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Este no es su municipio."
-            redirect '/admin'
-          end
-
-          format.json { status 400 }
-        end
       end
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
+      @big_total=0
 
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/admin'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
+      @total1 = @boards.where(current_state: /.*#{@mun.states[0].name}.*/).count
+      @total2 = @boards.where(current_state: /.*#{@mun.states[1].name}.*/).count
+      @total3 = @boards.where(current_state: /.*#{@mun.states[2].name}.*/).count
+      puts @total1.to_s+" "+@total2.to_s+" "+@total3.to_s
+      @stotal1 = @total1+@total2+@total3
+      puts @stotal1
+      @big_total=@big_total+@stotal1
+      puts @big_total
+      @total4 = @boards.where(current_state: /.*#{@mun.states[3].name}.*/).count
+      @total5 = @boards.where(current_state: /.*#{@mun.states[4].name}.*/).count
+      @stotal2 = @total4+@total5
+      @big_total=@big_total+@stotal2
+      @total6 = @boards.where(current_state: /.*#{@mun.states[5].name}.*/).count
+      @total7 = @boards.where(current_state: /.*#{@mun.states[6].name}.*/).count
+      @stotal3 = @total6+@total7
+      @big_total=@big_total+@stotal3
+      @total8 = @boards.where(current_state: /.*#{@mun.states[7].name}.*/).count
+      @big_total=@big_total+@total8
+      @total9 = @boards.where(current_state: nil).count+@boards.where(current_state: "").count
+      @big_total=@big_total+@total9
+      puts @big_total
     respond_to do |format|
-      format.html { haml :admin_boards }
-      
+      format.html { haml :dashboard }
     end
   end
 
-  get '/change_pass_vol', :auth => :connected do
-    respond_to do |format|
-      format.html { haml :change_pass_vol }
-    end
-  end
-
-  post '/save_pass_vol', :auth => :connected do
-    user=User.find_by(id: params[:user])
-    if(user!=nil && params[:pass1]==params[:pass2])
-      user.login_pass=Digest::SHA256.base64digest(params[:pass1])
-      user.save
-      flash[:success] = "Contraseña cambiada exitosamente."
-      redirect '/'
-    else
-      flash[:error] = "El usuario no existe o las contraseñas no coinciden."
-      redirect '/'
-    end
-  end
-
-  get '/archivar', :auth => :connected do
-    if(@user.role=="secpla" || @user.role=="admin")
-      if(@user.municipio.id.to_s==params[:mun_id])
-        board=Board.find_by(board_id: params[:board_id])
-        board.archivado="true"
-        board.save
-        respond_to do |format|
-          format.html do
-            flash[:success] = "Proyecto archivado exitosamente"
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      else
-        respond_to do |format|
-          format.html do
-            flash[:error] = "Usted no pertenece a este municipio"
-            redirect '/boards'
-          end
-
-          format.json { status 400 }
-        end
-      end
-    else
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Usted no tiene los permisos de administrador para archivar el proyecto"
-          redirect '/boards'
-        end
-
-        format.json { status 400 }
-      end
-    end
-  end
-
-  post '/archivo/reporte.xls', :auth => :connected do
-    require 'zip/zip'
-    require 'axlsx'
-
-    @mun=@user.municipio
-
-    p=Axlsx::Package.new
-    workbook=p.workbook
-    workbook.styles do |s|
-      #heading = s.add_style alignment: {horizontal: :center}, b: true, sz: 18, bg_color: "0066CC", fg_color: "FF"
-      heading = s.add_style b: true
-      workbook.add_worksheet(:name => "Archivo") do |sheet|
-        sheet.add_row ["Municipalidad","#{@mun.name}"], style: heading
-        sheet.add_row ["Fecha del reporte","#{Time.now}"], style: heading
-        sheet.add_row ["Usuario","#{@user.login_name} #{@user.login_last_name}"], style: heading
-        sheet.add_row [""]
-        sheet.add_row ["Nombre Proyecto","Fondo","Etapa a la que postula","Año de creación","Sector de inversión","Zonas","Monto","Etapa actual","Días en etapa actual","Prioridad","Fecha de creación","Fecha de ejecución","Archivado","Responsable","Contacto"], style: heading
-        @boards=@mun.boards
-        
-        @boards.each do |b|
-          fila=Array.new()
-          if(b.name!=nil)
-            fila<<b.name.split('|')[0]
-          else
-            fila<<"No asignado"
-          end
-          if(b.fondo!=nil)
-            fila<<b.fondo.name
-            if(b.fondo.etapa=="diseno")
-              fila<<"Diseño"
-            elsif(b.fondo.etapa=="ejecucion")
-              fila<<"Ejecución"
-            elsif(b.fondo.etapa=="adquisicion")
-              fila<<"Adquisición"
-            elsif(b.fondo.etapa=="estudios")
-              fila<<"Estudios"
-            elsif(b.fondo.etapa=="otros")
-              fila<<"Otros"
-            else
-              fila<<"No asignada"
-            end
-          else
-            fila<<"No asignado"
-            fila<<"No asignada"
-          end
-          if(b.created_at!=nil)
-            fila<<b.created_at.to_time.year
-          else
-            fila<<"No asignado"
-          end
-          if(b.tipo!=nil)
-            fila<<b.tipo.name
-          else
-            fila<<"No asignado"
-          end
-          if(b.zones!=nil)
-            fila<<b.zones.map{|z| z.name}
-          else
-            fila<<"No asignada"
-          end
-          if(b.monto!=nil)
-            mnt=b.monto.gsub('.','')
-            if(mnt=="")
-              fila<<"0"
-            else
-              fila<<mnt
-            end
-          else
-            fila<<"No asignado"
-          end
-          if(b.current_state!=nil)
-            cs=b.current_state
-            if(cs=="Finalizado" && b.archivado=="true")
-              fila<<"Archivado"
-            else
-              fila<<b.current_state
-            end
-          else
-            fila<<"No asignada"
-          end
-          if(b.state_change_dates!=nil)
-            comp=b.state_change_dates.compact
-            if(comp.size==0 && b.created_at!=nil)
-              value=(Date.today-Date.parse(b.created_at)).to_i
-            elsif(comp.size>0)
-              value=(Date.today-Date.parse(comp[comp.size-1])).to_i
-            else
-              value="No asignado"
-            end
-            fila<<value
-          elsif(b.created_at!=nil)
-            value=(Date.today-Date.parse(b.created_at)).to_i
-          else
-            value="No asignado"
-          end
-          if(b.organization!=nil)
-            fila<<b.organization.name
-          else
-            fila<<"No asignado"
-          end
-
-
-          #dias desde la ultima mod
-          if(b.created_at!=nil)
-            fila<<b.created_at
-          else
-            fila<<"No asignada"
-          end
-          if(b.state_change_dates[7]!=nil)
-            fila<<b.state_change_dates[7]
-          else
-            fila<<"No asignada"
-          end
-          if(b.archivado!=nil)
-            if(b.archivado=="true")
-              fila<<"Sí"
-            else
-              fila<<"No"
-            end
-          else
-            fila<<"No asignado"
-          end
-          if(b.created_by!=nil)
-            fila<<b.created_by
-          else
-            fila<<"No asignado"
-          end
-          if(b.contact!=nil)
-            fila<<b.contact
-          else
-            fila<<"No asignado"
-          end
-
-        sheet.add_row fila.to_a
-
-        end
-      end
-      
-    end
-      
-    a=Time.now
-    p.serialize("tmp/archivo-#{a}.xls")
-    respond_to do |format|
-      format.xls do
-         File.read("tmp/archivo-#{a}.xls") 
-    
-      end
-    end
-  end
-
-  post '/dashboard/raport.xls', :auth => :connected do
+  #Gets the information and creates the xls
+  post '/dashboard/reporte.xls', :auth => :connected do
     require 'zip/zip'
     require 'axlsx'
 
@@ -580,169 +410,10 @@ class Ollert
     end  
   end
 
-  get '/dashboard', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token =  @user.member_token
-    end
-  
 
-      @mun=Municipio.find_by(id: params[:mun_id])
-      @mun_id=@mun.id
-      @boards=@mun.boards.and(
-        @mun.boards.where(closed:"false").selector,
-        @mun.boards.where(:current_state.ne => @mun.states.all[8].name).selector,
-        @mun.boards.where(:current_state.ne => @mun.states.all[9].name).selector
-        )
-      @title="Indicadores de Gestión"
-      @valores=Array.new()
-      @sizes=Array.new()
-      @fondos=Array.new()
-      @zones=Array.new()
-      @count=Array.new()
-      count=0
-      @mun.organizations.each do |org|
-        if(org.name=="1. Urgentes")
-          @count[0]=@boards.where(organization: org).count
-        elsif(org.name=="2. Priorizados")
-          @count[1]=@boards.where(organization: org).count
-        elsif(org.name=="3. No Priorizados")
-          @count[2]=@boards.where(organization: org).count
-        end
-      end
-      i=0
-      @mun.zones.sort{|a,b| a.name.delete("^0-9").to_i <=> b.name.delete("^0-9").to_i}.each do |zone|
-        @mun.fondos.each do |fondo|
-          @valores[i]=0
-          @sizes[i]=0
-
-          value=zone.boards.and(zone.boards.where(fondo: fondo).selector,zone.boards.where(closed: "false").selector).count
-          if(value!=0)
-            @valores[i]=value
-            @sizes[i]=@valores[i]*10
-            
-            # @boardsx=@boards.where(fondo: fondo)
-            # @boardsx.each do |board|
-            #   if(board.fondo!=nil)
-            #     if(board.zones.include?(zone))
-            #       @valores[i]+=1
-            #       @sizes[i]+=10
-            #     end
-            #   end
-            # end
-            @zones<<zone.name
-            if(fondo.etapa=="diseno")
-              @fondos<<fondo.name+" (Diseño)"
-            elsif(fondo.etapa=="ejecucion")
-              @fondos<<fondo.name+" (Ejecución)"
-            elsif(fondo.etapa=="adquisicion")
-              @fondos<<fondo.name+" (Adquisición)"
-            elsif(fondo.etapa=="estudios")
-              @fondos<<fondo.name+" (Estudios)"
-            elsif(fondo.etapa=="otros")
-              @fondos<<fondo.name+" (Otros)"
-            end
-            i=i+1
-          end
-        end
-        
-      end
-      @big_total=0
-
-      @total1 = @boards.where(current_state: /.*#{@mun.states[0].name}.*/).count
-      @total2 = @boards.where(current_state: /.*#{@mun.states[1].name}.*/).count
-      @total3 = @boards.where(current_state: /.*#{@mun.states[2].name}.*/).count
-      puts @total1.to_s+" "+@total2.to_s+" "+@total3.to_s
-      @stotal1 = @total1+@total2+@total3
-      puts @stotal1
-      @big_total=@big_total+@stotal1
-      puts @big_total
-      @total4 = @boards.where(current_state: /.*#{@mun.states[3].name}.*/).count
-      @total5 = @boards.where(current_state: /.*#{@mun.states[4].name}.*/).count
-      @stotal2 = @total4+@total5
-      @big_total=@big_total+@stotal2
-      @total6 = @boards.where(current_state: /.*#{@mun.states[5].name}.*/).count
-      @total7 = @boards.where(current_state: /.*#{@mun.states[6].name}.*/).count
-      @stotal3 = @total6+@total7
-      @big_total=@big_total+@stotal3
-      @total8 = @boards.where(current_state: /.*#{@mun.states[7].name}.*/).count
-      @big_total=@big_total+@total8
-      @total9 = @boards.where(current_state: nil).count+@boards.where(current_state: "").count
-      @big_total=@big_total+@total9
-      puts @big_total
-    respond_to do |format|
-      format.html { haml :dashboard }
-    end
-  end
- 
-  get '/calendar', :auth => :connected do 
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-  
-
-      @mun=Municipio.find_by(id: params[:mun_id])
-      @mun_id=@mun.id
-      @token=@user.member_token
-      @title="Calendario"
-
-    respond_to do |format|
-      format.html { haml :calendar }
-    end
-  end
-
-  get '/closed', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    Trello.configure do |config|
-      config.developer_public_key = ENV['PUBLIC_KEY']
-      config.member_token =  @user.member_token
-    end
-    if(@user.role=="admin")
-      respond_to do |format|
-        format.html do
-          redirect '/admin'
-        end
-      end
-    end
-    begin
-      @boards = BoardAnalyzer.analyze2(BoardFetcher.fetch2(client, @user.trello_name),@user)
-      @statesd=@user.municipio.states.order(:order => 'asc')
-      @states=@statesd.pluck(:name)
-      @prioridades=["1. Urgentes","2. Priorizados","3. No Priorizados"]
-      @token=@user.member_token
-      @closed="true"
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-
-      end
-
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
-        end
-
-        format.json { status 400 }
-      end
-    end
-
-    respond_to do |format|
-      format.html { haml :boards }
-      format.json { {'data' => @boards }.to_json }
-    end
-  end
-
+  ###GESTIÓN DE PROYECTOS###
+  #Main view of the users with role secpla
+  #Gets the Trello boards and creates the boards that are not tracked in the database
   get '/boards', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -795,56 +466,136 @@ class Ollert
     end
   end
 
-  get '/boards/delete/:board_id', :auth => :connected do |board_id|
+  #Gets all the information from one board
+  get '/boards/:board_id', :auth => :connected do |board_id|
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
-    if(@user.role=="secpla" || @user.role=="admin")
-      begin
+
+    begin
+      details = BoardDetailsAnalyzer.analyze(BoardDetailsFetcher.fetch(client, board_id))
+      @board_name = details[:name]
+      @board_lists = details[:lists]
+
+      board_settings = @user.boards.find_or_create_by(board_id: board_id)
+
+      list_ids = @board_lists.map {|bl| bl[:id]}
+      board_settings.starting_list = saved_list_or_default(board_settings.starting_list, list_ids, list_ids.first)
+      board_settings.ending_list = saved_list_or_default(board_settings.ending_list, list_ids, list_ids.last)
+
+      board_settings.save
+
+      @board_lists = @board_lists.to_json
+      @starting_list = board_settings.starting_list
+      @ending_list = board_settings.ending_list
+      @token = @user.member_token
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
+
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
+          redirect '/'
+        end
+
+        format.json { status 400 }
+      end
+    end
+
+    @board_id = board_id
+    @board=Board.find_by(board_id: board_id)
+    @municipio=@board.municipio
+    @title = "Gestión de Proyectos"
+    @last_activity = JSON.parse(client.get("/boards/#{board_id}/actions?limit=1"))[0]["date"].to_date
+    haml :board_details
+  end
+
+  #The form to create or update a borad
+  get '/boards/new_board', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    begin
+      @title="Gestión de Proyectos"
+      if(@user.role=="secpla" || @user.role=="admin")
+
+        @orgName=params[:orgName]
         Trello.configure do |config|
           config.developer_public_key = ENV['PUBLIC_KEY']
           config.member_token = @user.member_token
         end
+        if params[:org_id]==nil
+          @org_id=Trello::Board.find(params[:last_board_id]).organization_id
+          @municipio=Organization.find_by(org_id: @org_id).municipio
+          if @org_id == nil
+            @org_id=""
+          end
+        else
+          @org_id=params[:org_id]
+          @municipio=Organization.find_by(org_id: @org_id).municipio
+          puts @municipio.id
+          
+        end
+        @orgName=Organization.find_by(org_id: @org_id).name
+        if(params[:edit]=="true")
+          @board=Board.find_by board_id: params[:last_board_id]
+          @municipio=Municipio.find_by(id: params[:mun_id])
+          if(@board.current_state==@municipio.states.all[9].name)
+            index=@board.state_change_dates.compact.size
+            if(index>1)
+              puts index
+              puts "indiceeeee"
+              @last_state=@municipio.states.all[(index-2)].name
+            else
+              @last_state=""
+            end
+          elsif(@board.current_state==@municipio.states.all[8].name)
+            @last_state=@municipio.states.all[8].name
+          end       
+        end
         
-        board=Board.find_by(board_id: board_id)
-        board.closed="true"
-        board.current_state="Descartado"
-        board.state_change_dates[9]=Time.now.strftime("%d/%m/%Y %H:%M")
-        board.name=board.name.split(' |')[0]+" |Descartado|"
-        board.save
-        JSON.parse(client.put("/boards/#{board_id}/name", {value: "#{board.name}"}))
-        JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
-
-      rescue Trello::Error => e
-        
-
+      else
         respond_to do |format|
           format.html do
-            flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
+            flash[:error] = "No tienes permisos de administrador, por lo que no puedes crear o modificar proyectos."
             redirect '/boards'
           end
 
           format.json { status 400 }
         end
       end
+      
+    rescue Trello::Error => e
+      unless @user.nil?
+        @user.member_token = nil
+        @user.trello_name = nil
+        @user.save
+      end
 
       respond_to do |format|
-        flash[:success] = "Proyecto eliminado."
-        redirect '/boards'
-      end
-    else
-      respond_to do |format|
         format.html do
-          flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
+          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
           redirect '/boards'
         end
 
         format.json { status 400 }
       end
     end
+
+    respond_to do |format|
+      format.html { haml :new_board }
+      
+    end
   end
 
+  #Create de board with the parameters of /boards/new_board. 
+  #It also add the users to the new board if the municipio has been launched.
   post '/create_project', :auth => :connected do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
@@ -1024,61 +775,144 @@ class Ollert
     end
   end
 
-  get '/boards/new_board', :auth => :connected do
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
-    begin
-      @title="Gestión de Proyectos"
-      if(@user.role=="secpla" || @user.role=="admin")
-
-        @orgName=params[:orgName]
-        Trello.configure do |config|
-          config.developer_public_key = ENV['PUBLIC_KEY']
-          config.member_token = @user.member_token
-        end
-        if params[:org_id]==nil
-          @org_id=Trello::Board.find(params[:last_board_id]).organization_id
-          @municipio=Organization.find_by(org_id: @org_id).municipio
-          if @org_id == nil
-            @org_id=""
+  #Archiva un proyecto finalizado
+  get '/archivar', :auth => :connected do
+    if(@user.role=="secpla" || @user.role=="admin")
+      if(@user.municipio.id.to_s==params[:mun_id])
+        board=Board.find_by(board_id: params[:board_id])
+        board.archivado="true"
+        board.save
+        respond_to do |format|
+          format.html do
+            flash[:success] = "Proyecto archivado exitosamente"
+            redirect '/boards'
           end
-        else
-          @org_id=params[:org_id]
-          @municipio=Organization.find_by(org_id: @org_id).municipio
-          puts @municipio.id
-          
+
+          format.json { status 400 }
         end
-        @orgName=Organization.find_by(org_id: @org_id).name
-        if(params[:edit]=="true")
-          @board=Board.find_by board_id: params[:last_board_id]
-          @municipio=Municipio.find_by(id: params[:mun_id])
-          if(@board.current_state==@municipio.states.all[9].name)
-            index=@board.state_change_dates.compact.size
-            if(index>1)
-              puts index
-              puts "indiceeeee"
-              @last_state=@municipio.states.all[(index-2)].name
-            else
-              @last_state=""
-            end
-          elsif(@board.current_state==@municipio.states.all[8].name)
-            @last_state=@municipio.states.all[8].name
-          end       
-        end
-        
       else
         respond_to do |format|
           format.html do
-            flash[:error] = "No tienes permisos de administrador, por lo que no puedes crear o modificar proyectos."
+            flash[:error] = "Usted no pertenece a este municipio"
             redirect '/boards'
           end
 
           format.json { status 400 }
         end
       end
-      
+    else
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Usted no tiene los permisos de administrador para archivar el proyecto"
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+  end
+
+  #Cierra el proyecto en Trello y lo marca como descartado
+  get '/boards/delete/:board_id', :auth => :connected do |board_id|
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    if(@user.role=="secpla" || @user.role=="admin")
+      begin
+        Trello.configure do |config|
+          config.developer_public_key = ENV['PUBLIC_KEY']
+          config.member_token = @user.member_token
+        end
+        
+        board=Board.find_by(board_id: board_id)
+        board.closed="true"
+        board.current_state="Descartado"
+        board.state_change_dates[9]=Time.now.strftime("%d/%m/%Y %H:%M")
+        board.name=board.name.split(' |')[0]+" |Descartado|"
+        board.save
+        JSON.parse(client.put("/boards/#{board_id}/name", {value: "#{board.name}"}))
+        JSON.parse(client.put("/boards/#{board_id}/closed", {value: "true"}))
+
+      rescue Trello::Error => e
+        
+
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
+            redirect '/boards'
+          end
+
+          format.json { status 400 }
+        end
+      end
+
+      respond_to do |format|
+        flash[:success] = "Proyecto eliminado."
+        redirect '/boards'
+      end
+    else
+      respond_to do |format|
+        format.html do
+          flash[:error] = "Usted no tiene los permisos de administrador para borrar el tablero"
+          redirect '/boards'
+        end
+
+        format.json { status 400 }
+      end
+    end
+  end
+
+
+
+  ###CALENDARIO###
+  #Gets all the end date from all cards from all boards from the municipio and puts it in the Municipio
+  get '/calendar', :auth => :connected do 
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+  
+
+      @mun=Municipio.find_by(id: params[:mun_id])
+      @mun_id=@mun.id
+      @token=@user.member_token
+      @title="Calendario"
+
+    respond_to do |format|
+      format.html { haml :calendar }
+    end
+  end
+
+
+
+  ###ARCHIVO DE PROYECTOS###
+  #Gets all the boards created or discarted
+  get '/archivo/municipio/proyectos', :auth => :connected do
+    client = Trello::Client.new(
+      :developer_public_key => ENV['PUBLIC_KEY'],
+      :member_token => @user.member_token
+    )
+    Trello.configure do |config|
+      config.developer_public_key = ENV['PUBLIC_KEY']
+      config.member_token =  @user.member_token
+    end
+    begin
+      if(params[:mun_id]==Municipio.find_by(id: @user.municipio.id).id.to_s)
+        @mun=Municipio.find_by(id: params[:mun_id])
+        @boards=@mun.boards
+        @title="Archivo de Proyectos"
+        
+      else
+        respond_to do |format|
+          format.html do
+            flash[:error] = "Este no es su municipio."
+            redirect '/admin'
+          end
+
+          format.json { status 400 }
+        end
+      end
     rescue Trello::Error => e
       unless @user.nil?
         @user.member_token = nil
@@ -1089,7 +923,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/boards'
+          redirect '/admin'
         end
 
         format.json { status 400 }
@@ -1097,57 +931,160 @@ class Ollert
     end
 
     respond_to do |format|
-      format.html { haml :new_board }
+      format.html { haml :admin_boards }
       
     end
   end
 
-  get '/boards/:board_id', :auth => :connected do |board_id|
-    client = Trello::Client.new(
-      :developer_public_key => ENV['PUBLIC_KEY'],
-      :member_token => @user.member_token
-    )
+  #Gets all the boards and creates the xls
+  post '/archivo/reporte.xls', :auth => :connected do
+    require 'zip/zip'
+    require 'axlsx'
 
-    begin
-      details = BoardDetailsAnalyzer.analyze(BoardDetailsFetcher.fetch(client, board_id))
-      @board_name = details[:name]
-      @board_lists = details[:lists]
+    @mun=@user.municipio
 
-      board_settings = @user.boards.find_or_create_by(board_id: board_id)
+    p=Axlsx::Package.new
+    workbook=p.workbook
+    workbook.styles do |s|
+      #heading = s.add_style alignment: {horizontal: :center}, b: true, sz: 18, bg_color: "0066CC", fg_color: "FF"
+      heading = s.add_style b: true
+      workbook.add_worksheet(:name => "Archivo") do |sheet|
+        sheet.add_row ["Municipalidad","#{@mun.name}"], style: heading
+        sheet.add_row ["Fecha del reporte","#{Time.now}"], style: heading
+        sheet.add_row ["Usuario","#{@user.login_name} #{@user.login_last_name}"], style: heading
+        sheet.add_row [""]
+        sheet.add_row ["Nombre Proyecto","Fondo","Etapa a la que postula","Año de creación","Sector de inversión","Zonas","Monto","Etapa actual","Días en etapa actual","Prioridad","Fecha de creación","Fecha de ejecución","Archivado","Responsable","Contacto"], style: heading
+        @boards=@mun.boards
+        
+        @boards.each do |b|
+          fila=Array.new()
+          if(b.name!=nil)
+            fila<<b.name.split('|')[0]
+          else
+            fila<<"No asignado"
+          end
+          if(b.fondo!=nil)
+            fila<<b.fondo.name
+            if(b.fondo.etapa=="diseno")
+              fila<<"Diseño"
+            elsif(b.fondo.etapa=="ejecucion")
+              fila<<"Ejecución"
+            elsif(b.fondo.etapa=="adquisicion")
+              fila<<"Adquisición"
+            elsif(b.fondo.etapa=="estudios")
+              fila<<"Estudios"
+            elsif(b.fondo.etapa=="otros")
+              fila<<"Otros"
+            else
+              fila<<"No asignada"
+            end
+          else
+            fila<<"No asignado"
+            fila<<"No asignada"
+          end
+          if(b.created_at!=nil)
+            fila<<b.created_at.to_time.year
+          else
+            fila<<"No asignado"
+          end
+          if(b.tipo!=nil)
+            fila<<b.tipo.name
+          else
+            fila<<"No asignado"
+          end
+          if(b.zones!=nil)
+            fila<<b.zones.map{|z| z.name}
+          else
+            fila<<"No asignada"
+          end
+          if(b.monto!=nil)
+            mnt=b.monto.gsub('.','')
+            if(mnt=="")
+              fila<<"0"
+            else
+              fila<<mnt
+            end
+          else
+            fila<<"No asignado"
+          end
+          if(b.current_state!=nil)
+            cs=b.current_state
+            if(cs=="Finalizado" && b.archivado=="true")
+              fila<<"Archivado"
+            else
+              fila<<b.current_state
+            end
+          else
+            fila<<"No asignada"
+          end
+          if(b.state_change_dates!=nil)
+            comp=b.state_change_dates.compact
+            if(comp.size==0 && b.created_at!=nil)
+              value=(Date.today-Date.parse(b.created_at)).to_i
+            elsif(comp.size>0)
+              value=(Date.today-Date.parse(comp[comp.size-1])).to_i
+            else
+              value="No asignado"
+            end
+            fila<<value
+          elsif(b.created_at!=nil)
+            value=(Date.today-Date.parse(b.created_at)).to_i
+          else
+            value="No asignado"
+          end
+          if(b.organization!=nil)
+            fila<<b.organization.name
+          else
+            fila<<"No asignado"
+          end
 
-      list_ids = @board_lists.map {|bl| bl[:id]}
-      board_settings.starting_list = saved_list_or_default(board_settings.starting_list, list_ids, list_ids.first)
-      board_settings.ending_list = saved_list_or_default(board_settings.ending_list, list_ids, list_ids.last)
 
-      board_settings.save
+          #dias desde la ultima mod
+          if(b.created_at!=nil)
+            fila<<b.created_at
+          else
+            fila<<"No asignada"
+          end
+          if(b.state_change_dates[7]!=nil)
+            fila<<b.state_change_dates[7]
+          else
+            fila<<"No asignada"
+          end
+          if(b.archivado!=nil)
+            if(b.archivado=="true")
+              fila<<"Sí"
+            else
+              fila<<"No"
+            end
+          else
+            fila<<"No asignado"
+          end
+          if(b.created_by!=nil)
+            fila<<b.created_by
+          else
+            fila<<"No asignado"
+          end
+          if(b.contact!=nil)
+            fila<<b.contact
+          else
+            fila<<"No asignado"
+          end
 
-      @board_lists = @board_lists.to_json
-      @starting_list = board_settings.starting_list
-      @ending_list = board_settings.ending_list
-      @token = @user.member_token
-    rescue Trello::Error => e
-      unless @user.nil?
-        @user.member_token = nil
-        @user.trello_name = nil
-        @user.save
-      end
+        sheet.add_row fila.to_a
 
-      respond_to do |format|
-        format.html do
-          flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
         end
-
-        format.json { status 400 }
+      end
+      
+    end
+      
+    a=Time.now
+    p.serialize("tmp/archivo-#{a}.xls")
+    respond_to do |format|
+      format.xls do
+         File.read("tmp/archivo-#{a}.xls") 
+    
       end
     end
-
-    @board_id = board_id
-    @board=Board.find_by(board_id: board_id)
-    @municipio=@board.municipio
-    @title = "Gestión de Proyectos"
-    @last_activity = JSON.parse(client.get("/boards/#{board_id}/actions?limit=1"))[0]["date"].to_date
-    haml :board_details
   end
 
   def saved_list_or_default(saved_list, list_options, default_list)
