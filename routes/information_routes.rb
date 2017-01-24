@@ -9,7 +9,13 @@ class Ollert
 
   #Definition of the root. 
   get '/', :auth => :none do
-    
+    if !@user.nil? && !@user.member_token.nil?
+      if(@user.role=="concejal" || @user.role=="alcalde")
+        redirect "/dashboard?mun_id=#{@user.municipio.id}"
+      else
+        redirect '/boards'
+      end
+    end
     haml :simpla
   end
   #Sends to landing, /boards, /dashboard or takeawalk depending on connected, first_time and role
