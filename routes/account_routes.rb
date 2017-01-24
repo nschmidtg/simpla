@@ -3,8 +3,6 @@ require 'trello'
 require_relative '../utils/connecting/user_connector'
 
 class Ollert
-
-  #Logout
   get '/logout', :auth => :connected do
     session[:user] = nil
 
@@ -12,7 +10,6 @@ class Ollert
     redirect '/'
   end
 
-  #Connect, called from the view authorize.haml
   put '/trello/connect' do
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
