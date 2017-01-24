@@ -517,11 +517,14 @@ class Ollert
 
   #The form to create or update a borad
   get '/boards/new_board', :auth => :connected do
+    puts "1"
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    puts "2"
     begin
+      puts "3"
       @title="Gestión de Proyectos"
       if(@user.role=="secpla" || @user.role=="admin")
 
@@ -531,12 +534,14 @@ class Ollert
           config.member_token = @user.member_token
         end
         if params[:org_id]==nil
+          puts "orgid==nill"
           @org_id=Trello::Board.find(params[:last_board_id]).organization_id
           @municipio=Organization.find_by(org_id: @org_id).municipio
           if @org_id == nil
             @org_id=""
           end
         else
+          puts "orgid!=nill"
           @org_id=params[:org_id]
           @municipio=Organization.find_by(org_id: @org_id).municipio
           puts @municipio.id
@@ -544,18 +549,23 @@ class Ollert
         end
         @orgName=Organization.find_by(org_id: @org_id).name
         if(params[:edit]=="true")
+          puts "orgid!=nill2"
           @board=Board.find_by board_id: params[:last_board_id]
           @municipio=Municipio.find_by(id: params[:mun_id])
           if(@board.current_state==@municipio.states.all[9].name)
             index=@board.state_change_dates.compact.size
+            puts "orgid!=nil3"
             if(index>1)
               puts index
               puts "indiceeeee"
               @last_state=@municipio.states.all[(index-2)].name
+              puts "orgid!=nil4"
             else
               @last_state=""
+              puts "orgid!=nil5"
             end
           elsif(@board.current_state==@municipio.states.all[8].name)
+            puts "orgid!=nil6"
             @last_state=@municipio.states.all[8].name
           end       
         end
