@@ -517,11 +517,14 @@ class Ollert
 
   #The form to create or update a borad
   get '/boards/new_board', :auth => :connected do
+    puts "1"
     client = Trello::Client.new(
       :developer_public_key => ENV['PUBLIC_KEY'],
       :member_token => @user.member_token
     )
+    puts "2"
     begin
+      puts "3"
       @title="Gestión de Proyectos"
       if(@user.role=="secpla" || @user.role=="admin")
 
