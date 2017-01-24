@@ -1,0 +1,53 @@
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Starting the New Relic agent in "development" environment.
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/github/simpla)
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Environment: development
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Dispatcher: unicorn
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Application: Gestion Municipal (Development)
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Installing Net instrumentation
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Installing Sinatra instrumentation
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Installing Mongo instrumentation
+[2017-01-24 13:15:14 -0300 cpp-VirtualBox (12095)] INFO : Finished instrumentation
+[2017-01-24 13:15:15 -0300 cpp-VirtualBox (12095)] INFO : Doing deferred dependency-detection before Rack startup
+[2017-01-24 13:15:23 -0300 cpp-VirtualBox (12110)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 13:15:24 -0300 cpp-VirtualBox (12107)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 13:15:24 -0300 cpp-VirtualBox (12105)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Starting the New Relic agent in "development" environment.
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/github/simpla)
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Environment: development
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Dispatcher: unicorn
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Application: Gestion Municipal (Development)
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Installing Net instrumentation
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Installing Sinatra instrumentation
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Installing Mongo instrumentation
+[2017-01-24 13:21:31 -0300 cpp-VirtualBox (12432)] INFO : Finished instrumentation
+[2017-01-24 13:21:32 -0300 cpp-VirtualBox (12432)] INFO : Doing deferred dependency-detection before Rack startup
+[2017-01-24 13:21:40 -0300 cpp-VirtualBox (12459)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 13:21:41 -0300 cpp-VirtualBox (12461)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 13:21:41 -0300 cpp-VirtualBox (12465)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 13:22:19 -0300 cpp-VirtualBox (12461)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Starting the New Relic agent in "development" environment.
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : To prevent agent startup add a NEW_RELIC_AGENT_ENABLED=false environment variable or modify the "development" section of your newrelic.yml.
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Reading configuration from config/newrelic.yml (/home/cpp/github/simpla)
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Environment: development
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Dispatcher: unicorn
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Application: Gestion Municipal (Development)
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Deferring startup of agent reporting thread because unicorn may fork.
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Installing Net instrumentation
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Installing deferred Rack::Builder instrumentation
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Installing Rack::Builder middleware instrumentation
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Installing Sinatra instrumentation
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Installing Mongo instrumentation
+[2017-01-24 14:21:20 -0300 cpp-VirtualBox (13505)] INFO : Finished instrumentation
+[2017-01-24 14:21:21 -0300 cpp-VirtualBox (13505)] INFO : Doing deferred dependency-detection before Rack startup
+[2017-01-24 14:21:37 -0300 cpp-VirtualBox (13516)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 14:21:37 -0300 cpp-VirtualBox (13518)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 14:21:37 -0300 cpp-VirtualBox (13521)] INFO : Reporting to: https://rpm.newrelic.com/accounts/1416919/applications/25057039
+[2017-01-24 14:21:46 -0300 cpp-VirtualBox (13516)] WARN : Skipping RUM instrumentation. Unable to find <body> tag in first 50000 bytes of document.
