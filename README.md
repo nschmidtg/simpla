@@ -60,7 +60,7 @@ Environment variables:
   * Password to use while running cukes
 * `MEMBER_TOKEN`
   * required
-  * this value is used to run the integration tests. To generate this value after you have entered your `PUBLIC_KEY` run the following command and paste the result into your `.env` file where it asks you to: `rake test:setup`
+  * this value is used to run the integration tests. To generate this value go to 'https://trello.com/1/authorize?key=<PUBLIC_KEY>&scope=read%2Cwrite&name=SimplaIntegrationTests&expiration=never&response_type=tokenafter'
 * `DOMAIN_FORGOT`
   * required
   * The domain of the server for redirecting. For local environment use `localhost:4000/`.
