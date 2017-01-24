@@ -49,7 +49,7 @@ class Ollert < Sinatra::Base
         if @user.nil?
           session[:user] = nil
           flash[:warning] = "Su cuenta de Trello no coincide con las credenciales provistas."
-          redirect '/'
+          redirect '/home'
         end
       end
     end

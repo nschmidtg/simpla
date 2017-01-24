@@ -4,12 +4,16 @@ class Ollert
 
   not_found do
     flash[:error] = "The page requested could not be found."
-    redirect '/'
+    redirect '/home'
   end
 
   #Definition of the root. 
-  #Sends to landing, /boards, /dashboard or takeawalk depending on connected, first_time and role
   get '/', :auth => :none do
+    
+    haml :simpla
+  end
+  #Sends to landing, /boards, /dashboard or takeawalk depending on connected, first_time and role
+  get '/home', :auth => :none do
     if !@user.nil? && !@user.member_token.nil?
       if(@user.first_time=="true")
         redirect '/takeawalk'
@@ -42,11 +46,11 @@ class Ollert
         end
       else
         flash[:error] = "Contraseña no válida"
-        redirect '/'
+        redirect '/home'
       end
     else
       flash[:error] = "Correo no registrado"
-      redirect '/'
+      redirect '/home'
     end
   end
 
@@ -89,7 +93,7 @@ class Ollert
         body     "Estimado, para reestablecer su contraseña ingrese al siguiente link: #{url}"
       end
       flash[:success] = "Se ha enviado un correo a #{user.login_mail} con las instrucciones para reestablecer la contraseña."
-      redirect '/'
+      redirect '/home'
     else
       flash[:error] = "El correo electrónico indicado no se encuentra registrado."
       redirect '/forgot'
@@ -108,11 +112,11 @@ class Ollert
       end
       else
         flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
-        redirect '/'
+        redirect '/home'
       end
     else
       flash[:error] = "El usuario no existe."
-      redirect '/'
+      redirect '/home'
     end
   end
 
@@ -124,14 +128,14 @@ class Ollert
         user.login_pass=Digest::SHA256.base64digest(params[:pass1])
         user.save
         flash[:success] = "Contraseña cambiada exitosamente."
-        redirect '/'
+        redirect '/home'
       else
         flash[:error] = "Han transcurrido más de 5 minutos desde el intento de reestablecer contraseña. Vuelva a intentarlo."
         redirect '/forgot'
       end
     else
       flash[:error] = "El usuario no existe o las contraseñas no coinciden."
-      redirect '/'
+      redirect '/home'
     end
   end
 

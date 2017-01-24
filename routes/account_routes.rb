@@ -9,7 +9,7 @@ class Ollert
     session[:user] = nil
 
     flash[:success] = "Sesión cerrada exitosamente"
-    redirect '/'
+    redirect '/home'
   end
 
   #Connect, called from the view authorize.haml
@@ -31,7 +31,7 @@ class Ollert
       session[:user] = nil
       body result[:body]
       flash[:error] = "Cuenta de Trello no coincide con el email provisto"
-      redirect '/'
+      redirect '/home'
     end
   end
 

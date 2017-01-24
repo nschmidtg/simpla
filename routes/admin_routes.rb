@@ -2617,7 +2617,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
+          redirect '/home'
         end
 
         format.json { status 400 }

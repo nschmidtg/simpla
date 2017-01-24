@@ -91,10 +91,10 @@ class Ollert
       user.login_pass=Digest::SHA256.base64digest(params[:pass1])
       user.save
       flash[:success] = "Contraseña cambiada exitosamente."
-      redirect '/'
+      redirect '/home'
     else
       flash[:error] = "El usuario no existe o las contraseñas no coinciden."
-      redirect '/'
+      redirect '/home'
     end
   end
 
@@ -730,7 +730,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
+          redirect '/home'
         end
 
         format.json { status 400 }
@@ -782,7 +782,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
+          redirect '/home'
         end
 
         format.json { status 400 }
@@ -1135,7 +1135,7 @@ class Ollert
       respond_to do |format|
         format.html do
           flash[:error] = "Hubo un error en la conexión con Trello. Por favor pruebe de nuevo."
-          redirect '/'
+          redirect '/home'
         end
 
         format.json { status 400 }
