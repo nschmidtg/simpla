@@ -6,6 +6,7 @@
 * License: [GNU Affero GPL v3.0](LICENSE)
 
 
+
 Based on the source code of Ollert App:
 * Author: Larry Price <larry@larry-price.com>
 * Company: Software Engineering Professionals, Inc.
