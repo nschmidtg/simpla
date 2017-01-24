@@ -60,7 +60,7 @@ Environment variables:
   * Password to use while running cukes
 * `MEMBER_TOKEN`
   * required
-  * this value is used to run the integration tests. To generate this value go to 'https://trello.com/1/authorize?key=<PUBLIC_KEY>&scope=read%2Cwrite&name=SimplaIntegrationTests&expiration=never&response_type=tokenafter'
+  * this value is used to run the integration tests. To generate this value go to 'https://trello.com/1/authorize?key=[PUBLIC_KEY]&scope=read%2Cwrite&name=SimplaIntegrationTests&expiration=never&response_type=tokenafter'
 * `DOMAIN_FORGOT`
   * required
   * The domain of the server for redirecting. For local environment use `localhost:4000/`.
