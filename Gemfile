@@ -8,8 +8,9 @@ gem 'rake'
 gem 'unicorn'
 gem 'sinatra'
 gem 'sinatra-contrib'
-gem 'haml'
+gem 'haml', ">= 5.0.0"
 gem 'sass'
+gem "rack", ">= 1.6.12"
 gem 'rack-flash3'
 gem 'rack-ssl'
 gem 'rack-rewrite'
@@ -21,7 +22,12 @@ gem 'newrelic_rpm'
 gem 'mail'
 gem 'spreadsheet'
 gem 'zip-zip'
-gem 'rubyzip', :require => 'zip'
+gem "rubyzip", ">= 1.2.2", :require => 'zip'
+gem "ffi", ">= 1.9.24"
+gem "rest-client", ">= 1.8.0"
+gem "rack-protection", ">= 1.5.5"
+gem "nokogiri", ">= 1.10.4"
+
 
 gem 'axlsx'
 
